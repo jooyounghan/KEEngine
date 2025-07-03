@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEEngine", "KEEngine\KEEngine.vcxproj", "{A1CA749A-A633-48A6-815B-33CAF2A17277}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEReflectUI", "KEReflectUI\KEReflectUI.vcxproj", "{C6C54700-9AD8-4E21-947A-01E34F9486E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EngineCommon", "EngineCommon", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{EA61F021-5329-4FBB-A69F-CC2A35EDABE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EngineMain", "EngineMain", "{0AE26839-D631-4C69-98C1-7B32CC476A95}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KECommon", "KECommon\KECommon.vcxproj", "{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlackBoard", "BlackBoard\BlackBoard.vcxproj", "{BFDE1130-5021-4991-ADE4-477A2A04BF98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x64.ActiveCfg = Debug|x64
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x64.Build.0 = Debug|x64
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x86.ActiveCfg = Debug|Win32
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x86.Build.0 = Debug|Win32
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x64.ActiveCfg = Release|x64
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x64.Build.0 = Release|x64
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x86.ActiveCfg = Release|Win32
+		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x86.Build.0 = Release|Win32
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x64.ActiveCfg = Debug|x64
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x64.Build.0 = Debug|x64
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x86.ActiveCfg = Debug|Win32
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x86.Build.0 = Debug|Win32
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x64.ActiveCfg = Release|x64
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x64.Build.0 = Release|x64
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x86.ActiveCfg = Release|Win32
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x86.Build.0 = Release|Win32
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x64.ActiveCfg = Debug|x64
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x64.Build.0 = Debug|x64
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x86.ActiveCfg = Debug|Win32
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x86.Build.0 = Debug|Win32
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x64.ActiveCfg = Release|x64
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x64.Build.0 = Release|x64
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x86.ActiveCfg = Release|Win32
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x86.Build.0 = Release|Win32
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x64.ActiveCfg = Debug|x64
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x64.Build.0 = Debug|x64
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x86.ActiveCfg = Debug|Win32
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x86.Build.0 = Debug|Win32
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Release|x64.ActiveCfg = Release|x64
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Release|x64.Build.0 = Release|x64
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Release|x86.ActiveCfg = Release|Win32
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1CA749A-A633-48A6-815B-33CAF2A17277} = {0AE26839-D631-4C69-98C1-7B32CC476A95}
+		{C6C54700-9AD8-4E21-947A-01E34F9486E9} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{BFDE1130-5021-4991-ADE4-477A2A04BF98} = {EA61F021-5329-4FBB-A69F-CC2A35EDABE0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D279FE8-A9BD-4E4E-939E-510969322F7F}
+	EndGlobalSection
+EndGlobal
