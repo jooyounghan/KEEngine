@@ -17,7 +17,7 @@ namespace ke
     }
 
 	template <class T>
-    KE_INLINE NODISC void* KEMemory::aligendMalloc(const size_t count)
+    inline void* KEMemory::aligendMalloc(const size_t count)
     {
         if (count == 0)
         {
@@ -34,7 +34,13 @@ namespace ke
                 memoryAlign = KEMath::max(memoryAlign, _cachelineAlignSize);
             }
         }
+
         return _aligned_malloc(requestedBytes, memoryAlign);
+    }
+
+    inline void KEMemory::aligendFree(void* ptr)
+    {
+        return _aligned_free(ptr);
     }
 
 }

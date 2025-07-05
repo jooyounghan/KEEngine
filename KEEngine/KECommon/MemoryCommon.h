@@ -15,7 +15,10 @@ namespace ke
 		KE_INLINE NODISC static constexpr size_t getSizeOfN(const size_t count);
 
 		template <class T>
-		KE_INLINE NODISC static void* aligendMalloc(const size_t count);
+		NODISC static void* aligendMalloc(const size_t count);
+
+		NODISC static void aligendFree(void* aligned);
+
 	};
 }
 

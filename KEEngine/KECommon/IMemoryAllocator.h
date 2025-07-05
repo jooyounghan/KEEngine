@@ -7,7 +7,7 @@ namespace ke
 	{
 	public:
 		virtual ~IMemoryAllocator() = default;
-		virtual void* allocate(KE_IN const size_t count) = 0;
-		virtual void deallocate(KE_IN void* ptr, KE_IN const size_t count) = 0;
+		virtual void* allocate() = 0;
+		virtual void deallocate(KE_IN void* ptr) = 0;
 	};
 }

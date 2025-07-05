@@ -3,60 +3,70 @@
 
 namespace ke
 {
-    template<typename T, size_t PoolingCount>
-    PoolAllocatorImpl<T, PoolingCount, true>::PoolAllocatorImpl()
+    inline constexpr uintptr_t nullptrValue = reinterpret_cast<uintptr_t>((void*)nullptr);
+
+    inline static uintptr_t getBlockAddress(void* ptr)
     {
-        static_assert(false, "1");
+        return reinterpret_cast<uintptr_t>(ptr);
+    }
+
+    inline static uintptr_t getNextBlockAddress(void* ptr)
+    {
+        return *reinterpret_cast<uintptr_t*>(ptr);
+    }
+
+    inline static void writeBlockAddress(void* ptr, uintptr_t value)
+	{
+		if (ptr == nullptr)
+		{
+			return;
+		}
+		*reinterpret_cast<uintptr_t*>(ptr) = value;
+	}
+
+    template<typename T, size_t PoolingCount>
+    PoolAllocator<T, PoolingCount>::PoolAllocator()
+    {
+        static_assert(sizeof(T) >= sizeof(size_t), "T must be at least the size of a pointer.");
+        static_assert(PoolingCount > 0, "PoolingCount must be positive.");
+
+        _poolBlocks = reinterpret_cast<T*>(KEMemory::aligendMalloc<T>(PoolingCount));
+
+        for (size_t idx = 0; idx < PoolingCount - 1; ++idx)
+        {
+            writeBlockAddress(_poolBlocks + idx, getBlockAddress(_poolBlocks + (idx + 1)));
+        }
+        writeBlockAddress(_poolBlocks + PoolingCount - 1, getBlockAddress(nullptr));
+        _freeListHead = _poolBlocks;
     }
 
     template<typename T, size_t PoolingCount>
-    PoolAllocatorImpl<T, PoolingCount, true>::~PoolAllocatorImpl()
+    PoolAllocator<T, PoolingCount>::~PoolAllocator()
     {
+        free(_poolBlocks);
+        _poolBlocks = nullptr;
     }
 
     template<typename T, size_t PoolingCount>
-    PoolAllocatorImpl<T, PoolingCount, false>::PoolAllocatorImpl()
+    void* PoolAllocator<T, PoolingCount>::allocate()
     {
-        static_assert(false, "2");
+        void* pooledObject = nullptr;
+        if (_freeListHead != nullptr)
+        {
+            pooledObject = _freeListHead;
+            uintptr_t nextBlockAddress = getNextBlockAddress(_freeListHead);
+            _freeListHead = reinterpret_cast<T*>(nextBlockAddress == nullptrValue ? nullptrValue : nextBlockAddress);
+        }
+
+		return pooledObject;
     }
 
     template<typename T, size_t PoolingCount>
-    PoolAllocatorImpl<T, PoolingCount, false>::~PoolAllocatorImpl()
+    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN void* ptr)
     {
-    }
-
-    template<typename T, size_t PoolingCount>
-    void* PoolAllocatorImpl<T, PoolingCount, true>::allocateImpl(KE_IN const size_t count)
-    {
-        return nullptr;
-    }
-
-    template<typename T, size_t PoolingCount>
-    void PoolAllocatorImpl<T, PoolingCount, true>::deallocateImpl(KE_IN void* ptr, KE_IN const size_t count)
-    {
-    }
-
-    template<typename T, size_t PoolingCount>
-    void* PoolAllocatorImpl<T, PoolingCount, false>::allocateImpl(KE_IN const size_t count)
-    {
-        return nullptr;
-    }
-
-    template<typename T, size_t PoolingCount>
-    void PoolAllocatorImpl<T, PoolingCount, false>::deallocateImpl(KE_IN void* ptr, KE_IN const size_t count)
-    {
-    }
-
-    template<typename T, size_t PoolingCount>
-    void* PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
-    {
-		return _poolAllocatorImpl.allocateImpl(count);
-    }
-
-    template<typename T, size_t PoolingCount>
-    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN void* ptr, KE_IN const size_t count)
-    {
-        return _poolAllocatorImpl.deallocateImpl(ptr, count);
+        T* prevFreeListHead = _freeListHead;
+        _freeListHead = reinterpret_cast<T*>(ptr);
+        writeBlockAddress(_freeListHead, getBlockAddress(prevFreeListHead));
     }
 }
 

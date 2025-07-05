@@ -9,8 +9,14 @@ struct a
 
 int main()
 {
-	ke::PoolAllocator<int, 1> allocator;
+	ke::PoolAllocator<a, 5> allocator;
 
+	while (true)
+	{
+		void* allocated = allocator.allocate();
+		allocator.deallocate(allocated);
+	}
 
+	bool tset = true;
 
 }
