@@ -19,19 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitFlag.h" />
+    <ClInclude Include="Deque.h" />
     <ClInclude Include="IContainer.h" />
-    <ClInclude Include="IContainer.hpp" />
     <ClInclude Include="IMemoryAllocator.h" />
+    <ClInclude Include="ITreeContainer.h" />
     <ClInclude Include="MallocAllocator.h" />
     <ClInclude Include="MathCommon.h" />
     <ClInclude Include="MathCommon.hpp" />
     <ClInclude Include="MemoryCommon.h" />
     <ClInclude Include="MemoryCommon.hpp" />
     <ClInclude Include="PoolAllocator.h" />
+    <ClInclude Include="StaticList.h" />
     <ClInclude Include="TypeCommon.h" />
+    <ClInclude Include="TypeLimit.h" />
+    <ClInclude Include="TypeTraits.h" />
     <ClInclude Include="UtilityCommon.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BitFlag.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
     <ClCompile Include="PoolAllocator.hpp" />
   </ItemGroup>

@@ -1,9 +1,11 @@
+#pragma once
 #include "PoolAllocator.h"
 #include "MemoryCommon.h"
+#include <cstdint>
 
 namespace ke
 {
-    inline constexpr uintptr_t nullptrValue = reinterpret_cast<uintptr_t>((void*)nullptr);
+    CONSTEXPR_INLINE constexpr uintptr_t _nullptrValue = reinterpret_cast<uintptr_t>((void*)nullptr);
 
     inline static uintptr_t getBlockAddress(void* ptr)
     {
@@ -43,30 +45,46 @@ namespace ke
     template<typename T, size_t PoolingCount>
     PoolAllocator<T, PoolingCount>::~PoolAllocator()
     {
-        free(_poolBlocks);
-        _poolBlocks = nullptr;
+		if (_poolBlocks != nullptr)
+		{
+			KEMemory::aligendFree(_poolBlocks);
+			_poolBlocks = nullptr;
+		}
+		_freeListHead = nullptr;
     }
 
     template<typename T, size_t PoolingCount>
-    void* PoolAllocator<T, PoolingCount>::allocate()
+    void* PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
     {
-        void* pooledObject = nullptr;
-        if (_freeListHead != nullptr)
+        if (count == 0 || count > PoolingCount) return nullptr;
+
+        T* result = _freeListHead;
+		T* current = _freeListHead;
+        for (size_t idx = 0; idx < count; ++idx)
         {
-            pooledObject = _freeListHead;
-            uintptr_t nextBlockAddress = getNextBlockAddress(_freeListHead);
-            _freeListHead = reinterpret_cast<T*>(nextBlockAddress == nullptrValue ? nullptrValue : nextBlockAddress);
+			if (current == nullptr) return nullptr;
+
+            uintptr_t nextBlock = getNextBlockAddress(current);
+            current = getBlockAddress(current + 1) == nextBlock ? reinterpret_cast<T*>(nextBlock) : nullptr;
         }
 
-		return pooledObject;
+		_freeListHead = current;
+        return result;
     }
 
     template<typename T, size_t PoolingCount>
-    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN void* ptr)
+    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN void* ptr, KE_IN const size_t count)
     {
-        T* prevFreeListHead = _freeListHead;
-        _freeListHead = reinterpret_cast<T*>(ptr);
-        writeBlockAddress(_freeListHead, getBlockAddress(prevFreeListHead));
+        if (ptr == nullptr || count == 0) return;
+
+		T* block = reinterpret_cast<T*>(ptr);
+        for (size_t idx = 0; idx < count - 1; ++idx)
+        {
+			writeBlockAddress(block + idx, getBlockAddress(block + (idx + 1)));
+        }
+
+		writeBlockAddress(block + (count - 1), getBlockAddress(_freeListHead));
+        _freeListHead = block;
     }
 }
 

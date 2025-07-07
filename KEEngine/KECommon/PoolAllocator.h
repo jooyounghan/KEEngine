@@ -15,7 +15,9 @@ namespace ke
         T*  _freeListHead;
 
     public:
-        virtual void*   allocate() override;
-        virtual void    deallocate(KE_IN void* ptr) override;
+        virtual void*   allocate(KE_IN const size_t count)                      override;
+        virtual void    deallocate(KE_IN void* ptr, KE_IN const size_t count)   override;
     };
 }
+
+#include "PoolAllocator.hpp"

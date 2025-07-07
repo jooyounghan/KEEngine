@@ -5,13 +5,13 @@
 namespace ke
 {
     template <class T>
-    KE_INLINE NODISC constexpr size_t KEMemory::memoryAlignOf()
+    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::memoryAlignOf()
     { 
         return KEMath::max(alignof(T), __STDCPP_DEFAULT_NEW_ALIGNMENT__); 
     }
 
     template<class T>
-    KE_INLINE NODISC constexpr size_t KEMemory::getSizeOfN(const size_t count)
+    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::getSizeOfN(const size_t count)
     { 
         return sizeof(T) * count; 
     }

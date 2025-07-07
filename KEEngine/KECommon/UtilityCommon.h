@@ -6,7 +6,7 @@
 #if _HAS_CXX17
 #define KE_INLINE inline
 #else
-#define KE_INLINE
+#define CONSTEXPR_INLINE
 #endif
 
 #define KE_IN
