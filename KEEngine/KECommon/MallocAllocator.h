@@ -7,8 +7,8 @@ namespace ke
 	class MallocAllocator : public IMemoryAllocator
 	{
 	public:
-		virtual void*	allocate(KE_IN const size_t count)						override;
-		virtual void	deallocate(KE_IN void* ptr, KE_IN const size_t count)	override;
+		virtual MemoryEntry		allocate(KE_IN const size_t count)			override;
+		virtual void			deallocate(const MemoryEntry& memoryEntry)	override;
 	};
 }
 

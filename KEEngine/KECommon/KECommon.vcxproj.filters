@@ -57,9 +57,6 @@
     <ClInclude Include="IMemoryAllocator.h">
       <Filter>헤더 파일\MemoryAllocation</Filter>
     </ClInclude>
-    <ClInclude Include="IContainer.h">
-      <Filter>헤더 파일\Container</Filter>
-    </ClInclude>
     <ClInclude Include="MallocAllocator.h">
       <Filter>헤더 파일\MemoryAllocation\Extended</Filter>
     </ClInclude>
@@ -96,9 +93,6 @@
     <ClInclude Include="Vector.hpp">
       <Filter>헤더 파일\Container\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="ITreeContainer.h">
-      <Filter>헤더 파일\Container</Filter>
-    </ClInclude>
     <ClInclude Include="StaticList.h">
       <Filter>헤더 파일\Container\Extended</Filter>
     </ClInclude>
@@ -107,6 +101,15 @@
     </ClInclude>
     <ClInclude Include="BitFlag.h">
       <Filter>헤더 파일\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>헤더 파일\Container\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>헤더 파일\Container\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerTrait.h">
+      <Filter>헤더 파일\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

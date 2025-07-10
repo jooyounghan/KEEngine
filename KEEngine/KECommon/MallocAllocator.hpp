@@ -5,14 +5,14 @@
 namespace ke
 {	
 	template<typename T>
-	void* MallocAllocator<T>::allocate(KE_IN const size_t count)
+	MemoryEntry MallocAllocator<T>::allocate(KE_IN const size_t count)
 	{
-		return KEMemory::aligendMalloc<T>(count);
+		return MemoryEntry(KEMemory::aligendMalloc<T>(count), count);
 	}
 
 	template<typename T>
-	void MallocAllocator<T>::deallocate(KE_IN void* ptr, KE_IN const size_t count)
+	void MallocAllocator<T>::deallocate(KE_IN const MemoryEntry& memoryEntry)
 	{
-		return delete(ptr, KEMemory::getSizeOfN<T>(count));
+		return delete(memoryEntry._address, KEMemory::getSizeOfN<T>(memoryEntry._count));
 	}
 }

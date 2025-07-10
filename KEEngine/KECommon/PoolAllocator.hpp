@@ -54,27 +54,31 @@ namespace ke
     }
 
     template<typename T, size_t PoolingCount>
-    void* PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
+    MemoryEntry PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
     {
-        if (count == 0 || count > PoolingCount) return nullptr;
+        if (count == 0 || count > PoolingCount) return MemoryEntry(nullptr, 0);
 
         T* result = _freeListHead;
 		T* current = _freeListHead;
         for (size_t idx = 0; idx < count; ++idx)
         {
-			if (current == nullptr) return nullptr;
+			if (current == nullptr) return MemoryEntry(nullptr, 0);
 
             uintptr_t nextBlock = getNextBlockAddress(current);
             current = getBlockAddress(current + 1) == nextBlock ? reinterpret_cast<T*>(nextBlock) : nullptr;
         }
 
 		_freeListHead = current;
-        return result;
+
+        return MemoryEntry(result, count);
     }
 
     template<typename T, size_t PoolingCount>
-    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN void* ptr, KE_IN const size_t count)
+    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN const MemoryEntry& memoryEntry)
     {
+		void* ptr = memoryEntry._address;
+		size_t count = memoryEntry._count;
+
         if (ptr == nullptr || count == 0) return;
 
 		T* block = reinterpret_cast<T*>(ptr);
