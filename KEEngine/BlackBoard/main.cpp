@@ -2,15 +2,14 @@
 #include "../KECommon/PoolAllocator.h"
 #include "../KECommon/TypeTraits.h"
 
-struct a
-{
-	size_t a;
-	size_t b;
-
-};
+class A {};
+class B : public A {};
+class C {};
+class D : public C {};
 
 int main()
 {
-	ke::Vector<int> vec;
-	vec.pushBack(1);
+	printf("%d\n", ke::KETrait::IsBaseOf<C, A>::value);
+	printf("%d\n", ke::KETrait::IsBaseOf<C, B>::value);
+	printf("%d\n", ke::KETrait::IsBaseOf<C, D>::value);
 }
