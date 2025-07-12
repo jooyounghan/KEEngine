@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\Iterator">
       <UniqueIdentifier>{0fb4b95e-c135-4a44-b1c3-ff27bf1a710a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Common\Header\Traits">
+      <UniqueIdentifier>{e240c722-f964-4df3-b7d9-cf370ed82f5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IMemoryAllocator.h">
@@ -81,9 +84,6 @@
     <ClInclude Include="MemoryCommon.hpp">
       <Filter>헤더 파일\Common\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="TypeTraits.h">
-      <Filter>헤더 파일\Common\Header</Filter>
-    </ClInclude>
     <ClInclude Include="TypeLimit.h">
       <Filter>헤더 파일\Common\Header</Filter>
     </ClInclude>
@@ -108,8 +108,14 @@
     <ClInclude Include="Queue.h">
       <Filter>헤더 파일\Container\Extended</Filter>
     </ClInclude>
-    <ClInclude Include="ContainerTrait.h">
-      <Filter>헤더 파일\Container</Filter>
+    <ClInclude Include="TypeTraits.h">
+      <Filter>헤더 파일\Common\Header\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerTraits.h">
+      <Filter>헤더 파일\Common\Header\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="MethodTraits.h">
+      <Filter>헤더 파일\Common\Header\Traits</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

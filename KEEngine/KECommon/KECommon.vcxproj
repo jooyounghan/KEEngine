@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitFlag.h" />
-    <ClInclude Include="ContainerTrait.h" />
+    <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
     <ClInclude Include="IMemoryAllocator.h" />
     <ClInclude Include="MallocAllocator.h" />
@@ -28,6 +28,7 @@
     <ClInclude Include="MathCommon.hpp" />
     <ClInclude Include="MemoryCommon.h" />
     <ClInclude Include="MemoryCommon.hpp" />
+    <ClInclude Include="MethodTraits.h" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />

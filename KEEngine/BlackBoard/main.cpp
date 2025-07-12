@@ -12,4 +12,6 @@ int main()
 	printf("%d\n", ke::KETrait::IsBaseOf<C, A>::value);
 	printf("%d\n", ke::KETrait::IsBaseOf<C, B>::value);
 	printf("%d\n", ke::KETrait::IsBaseOf<C, D>::value);
+
+	ke::Vector<int> vec;
 }

@@ -11,3 +11,10 @@
 
 #define KE_IN
 #define KE_OUT
+
+#define DELETE_CONSTRUCTOR(ClassName)					\
+	ClassName() = delete;								\
+	ClassName(const ClassName&) = delete;				\
+	ClassName(ClassName&&) = delete;					\
+	ClassName& operator=(const ClassName&) = delete;	\
+	ClassName& operator=(ClassName&&) = delete;
