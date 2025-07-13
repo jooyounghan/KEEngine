@@ -1,5 +1,6 @@
 #pragma once
 #include "MallocAllocator.h"
+#include "iterator.h"
 
 namespace ke
 {
@@ -9,6 +10,11 @@ namespace ke
 	public:
 		Vector();
 		~Vector();
+
+	private:
+		Alloc			_allocator;
+		MemoryEntry		_memoryEntry;
+		size_t			_size;
 
 	public:
 		void pushBack(KE_IN const T& element);

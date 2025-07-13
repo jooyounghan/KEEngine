@@ -57,9 +57,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IMemoryAllocator.h">
-      <Filter>헤더 파일\MemoryAllocation</Filter>
-    </ClInclude>
     <ClInclude Include="MallocAllocator.h">
       <Filter>헤더 파일\MemoryAllocation\Extended</Filter>
     </ClInclude>
@@ -116,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="MethodTraits.h">
       <Filter>헤더 파일\Common\Header\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="AllocatorTraits.h">
+      <Filter>헤더 파일\Common\Header\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="Iterator.h">
+      <Filter>헤더 파일\Iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="Iterator.hpp">
+      <Filter>헤더 파일\Iterator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

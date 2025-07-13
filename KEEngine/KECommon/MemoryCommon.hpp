@@ -1,19 +1,27 @@
-#include "MemoryCommon.h"
 #include "MathCommon.h"
+
+#include <new>
 #include <cstdlib>
+#include <cstring>
 
 namespace ke
 {
     template <class T>
-    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::memoryAlignOf()
+    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::memoryAlignOf() noexcept
     { 
         return KEMath::max(alignof(T), __STDCPP_DEFAULT_NEW_ALIGNMENT__); 
     }
 
     template<class T>
-    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::getSizeOfN(const size_t count)
+    CONSTEXPR_INLINE NODISC constexpr size_t KEMemory::getSizeOfN(const size_t count) noexcept
     { 
         return sizeof(T) * count; 
+    }
+
+    inline NODISC size_t ke::KEMemory::CalculateNewSize(const size_t currentSize, const size_t newSize)
+    {
+        const size_t calculatedSize = currentSize + currentSize / 2;
+        return calculatedSize > newSize ? calculatedSize : newSize;
     }
 
 	template <class T>
@@ -43,4 +51,13 @@ namespace ke
         return _aligned_free(ptr);
     }
 
+    template<class T>
+    CONSTEXPR_INLINE NODISC constexpr T* KEMemory::AddressOf(KE_IN T& arg) noexcept
+    {
+        return reinterpret_cast<T*>(
+            &const_cast<char&>(
+                reinterpret_cast<const volatile char&>(arg)
+                )
+            );
+    }
 }

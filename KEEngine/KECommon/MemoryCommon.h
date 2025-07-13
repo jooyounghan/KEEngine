@@ -9,16 +9,21 @@ namespace ke
 	struct KEMemory
 	{
 		template <class T>
-		CONSTEXPR_INLINE NODISC static constexpr size_t memoryAlignOf();
+		CONSTEXPR_INLINE NODISC static constexpr size_t memoryAlignOf() noexcept;
 
 		template <class T>
-		CONSTEXPR_INLINE NODISC static constexpr size_t getSizeOfN(KE_IN const size_t count);
+		CONSTEXPR_INLINE NODISC static constexpr size_t getSizeOfN(KE_IN const size_t count) noexcept;
+
+
+		NODISC static size_t CalculateNewSize(const size_t currentSize, const size_t newSize);
 
 		template <class T>
 		NODISC static void* aligendMalloc(KE_IN const size_t count);
 
 		NODISC static void aligendFree(KE_IN void* aligned);
 
+		template<class T>
+		CONSTEXPR_INLINE NODISC static constexpr T* AddressOf(KE_IN T& arg) noexcept;
 	};
 }
 

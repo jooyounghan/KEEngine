@@ -1,10 +1,11 @@
 #pragma once
-#include "IMemoryAllocator.h"
+#include "TypeCommon.h"
+#include "AllocatorTraits.h"
 
 namespace ke
 {
     template<typename T, size_t PoolingCount>
-    class PoolAllocator : public IMemoryAllocator
+    class PoolAllocator
     {
     public:
         PoolAllocator();
@@ -15,8 +16,8 @@ namespace ke
         T*  _freeListHead;
 
     public:
-        virtual MemoryEntry     allocate(KE_IN const size_t count)                  override;
-        virtual void            deallocate(KE_IN const MemoryEntry& memoryEntry)    override;
+        MemoryEntry     allocate(KE_IN const size_t count);
+        void            deallocate(KE_IN MemoryEntry& memoryEntry);
     };
 }
 

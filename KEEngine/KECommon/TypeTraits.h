@@ -81,6 +81,11 @@ namespace ke
             DELETE_CONSTRUCTOR(IsUnsigned);
         };
 
+        template<typename T>
+        struct IsTriviallyCopyable : TraitCondition<__is_trivially_copyable(T), TrueTrait, FalseTrait>::Type
+        {
+        };
+
         namespace KETraitDetail
         {
             template<typename T>

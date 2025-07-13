@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllocatorTraits.h" />
     <ClInclude Include="BitFlag.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
-    <ClInclude Include="IMemoryAllocator.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="MallocAllocator.h" />
     <ClInclude Include="MathCommon.h" />
     <ClInclude Include="MathCommon.hpp" />

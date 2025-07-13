@@ -1,14 +1,19 @@
 #pragma once
-#include "IMemoryAllocator.h"
+#include "TypeCommon.h"
+#include "AllocatorTraits.h"
 
 namespace ke
 {
 	template<typename T>
-	class MallocAllocator : public IMemoryAllocator
+	class MallocAllocator
 	{
 	public:
-		virtual MemoryEntry		allocate(KE_IN const size_t count)			override;
-		virtual void			deallocate(const MemoryEntry& memoryEntry)	override;
+		MallocAllocator();
+
+	public:
+		MemoryEntry		allocate(KE_IN const size_t count);
+		void			deallocate(KE_IN MemoryEntry& memoryEntry);
 	};
 }
 
+#include "MallocAllocator.hpp"

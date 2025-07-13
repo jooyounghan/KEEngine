@@ -29,6 +29,8 @@ namespace ke
     template<typename T, size_t PoolingCount>
     PoolAllocator<T, PoolingCount>::PoolAllocator()
     {
+        static_assert(KETrait::AllocatorTrait<PoolAllocator<T, PoolingCount>>::value, "Allocator does not satisfy the required AllocatorTrait");
+
         static_assert(sizeof(T) >= sizeof(size_t), "T must be at least the size of a pointer.");
         static_assert(PoolingCount > 0, "PoolingCount must be positive.");
 
@@ -74,7 +76,7 @@ namespace ke
     }
 
     template<typename T, size_t PoolingCount>
-    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN const MemoryEntry& memoryEntry)
+    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN MemoryEntry& memoryEntry)
     {
 		void* ptr = memoryEntry._address;
 		size_t count = memoryEntry._count;
@@ -89,6 +91,9 @@ namespace ke
 
 		writeBlockAddress(block + (count - 1), getBlockAddress(_freeListHead));
         _freeListHead = block;
+
+		memoryEntry._address = nullptr;
+		memoryEntry._count = 0;
     }
 }
 
