@@ -79,7 +79,7 @@ namespace ke
     void PoolAllocator<T, PoolingCount>::deallocate(KE_IN MemoryEntry& memoryEntry)
     {
 		void* ptr = memoryEntry._address;
-		size_t count = memoryEntry._count;
+		size_t count = memoryEntry._capacity;
 
         if (ptr == nullptr || count == 0) return;
 
@@ -93,7 +93,7 @@ namespace ke
         _freeListHead = block;
 
 		memoryEntry._address = nullptr;
-		memoryEntry._count = 0;
+		memoryEntry._capacity = 0;
     }
 }
 

@@ -21,6 +21,6 @@ namespace ke
 	{
 		_aligned_free(memoryEntry._address);
 		memoryEntry._address = nullptr;
-		memoryEntry._count = 0;
+		memoryEntry._capacity = 0;
 	}
 }

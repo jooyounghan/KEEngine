@@ -1,28 +1,8 @@
-#include "../KECommon/Vector.h"
-#include "../KECommon/PoolAllocator.h"
-#include "../KECommon/TypeTraits.h"
-
-#include <cstdio>
-
-class A 
-{
-	size_t test;
-};
-class B : public A {};
-class C {};
-class D : public C {};
+#include "../KECommon/HashConvertor.h"
 
 int main()
 {
-	printf("%d\n", ke::KETrait::IsBaseOf<C, A>::value);
-	printf("%d\n", ke::KETrait::IsBaseOf<C, B>::value);
-	printf("%d\n", ke::KETrait::IsBaseOf<C, D>::value);
-
-
-	ke::Vector<int> vec;
-	for (int idx = 0; idx < 10; ++idx)
-	{
-		vec.pushBack(idx);
-	}
+	ke::uint64 t = ke::HashConvertor::convertToHash("Hello, World!").fold();
+	ke::uint64 t3 = ke::HashConvertor::convertToHash("Hello, Younghan!").fold();
 	bool test = true;
 }

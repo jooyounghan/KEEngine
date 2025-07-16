@@ -15,7 +15,8 @@ namespace ke
 		CONSTEXPR_INLINE NODISC static constexpr size_t getSizeOfN(KE_IN const size_t count) noexcept;
 
 
-		NODISC static size_t CalculateNewSize(const size_t currentSize, const size_t newSize);
+		NODISC static size_t CalculateExpandCapacity(const size_t usedCount, const size_t capacity);
+		NODISC static size_t CalculateShrinkCapacity(const size_t usedCount, const size_t capacity);
 
 		template <class T>
 		NODISC static void* aligendMalloc(KE_IN const size_t count);

@@ -33,7 +33,7 @@ namespace ke
 			SatisfyAll<
 			CHECK_METHOD_TRAIT(HasPushBackRValue, Container, void, const T&),
 			CHECK_METHOD_TRAIT(HasPushBackLValue, Container, void, T&&),
-			CHECK_METHOD_TRAIT(HasPopBack, Container, void, T*)
+			CHECK_METHOD_TRAIT(HasPopBack, Container, void)
 			>::value, TrueTrait, FalseTrait
 		>::Type
 		{

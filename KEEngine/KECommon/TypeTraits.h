@@ -4,18 +4,18 @@ namespace ke
 {
     namespace KETrait
     {
-
 #pragma region Base Conditions
         struct TrueTrait 
         {
-            DELETE_CONSTRUCTOR(TrueTrait);
             CONSTEXPR_INLINE static constexpr bool value = true; 
         };
         struct FalseTrait 
         {
-            DELETE_CONSTRUCTOR(FalseTrait);
             CONSTEXPR_INLINE static constexpr bool value = false; 
         };
+
+        template<typename T>
+        T&& DeclVal() noexcept;
 
         template<bool Cond, typename True, typename False>
         struct TraitCondition 

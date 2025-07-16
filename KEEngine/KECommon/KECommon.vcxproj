@@ -23,6 +23,11 @@
     <ClInclude Include="BitFlag.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
+    <ClInclude Include="DirtyFlaggedFunction.h" />
+    <ClInclude Include="DirtyFlaggedFunction.hpp" />
+    <ClInclude Include="Hash128.h" />
+    <ClInclude Include="HashConvertor.h" />
+    <ClInclude Include="HashConvertor.hpp" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="MallocAllocator.h" />
@@ -44,8 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitFlag.cpp" />
+    <ClCompile Include="Hash128.cpp" />
+    <ClCompile Include="HashConvertor.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
     <ClCompile Include="PoolAllocator.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\ke_vector.natvis">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Natvis>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -144,6 +156,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>

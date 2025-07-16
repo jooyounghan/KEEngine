@@ -46,3 +46,36 @@ struct TraitName : TraitCondition<KETraitDetail::TraitName##Impl<ClassType, Retu
 };
 
 #define CHECK_METHOD_TRAIT(TraitName, ClassType, ReturnType, ...) KETrait::TraitName<ClassType, ReturnType, __VA_ARGS__>::value
+
+namespace ke
+{
+    template<typename T, typename MethodType>
+    struct AutoMemberFunctionWrapper;
+
+    namespace KETrait
+    {
+        namespace KETraitDetail
+        {
+            template<typename Callable, typename...Args>
+            struct IsCallableImpl
+            {
+                DELETE_CONSTRUCTOR(IsCallableImpl);
+
+            private:
+                template<typename CallableType>
+                static auto test(int) -> decltype(DeclVal<CallableType>()(DeclVal<Args>()...), TrueTrait());
+                template<typename CallableType>
+                static FalseTrait test(...);
+
+            public:
+                static constexpr bool condition = decltype(test<Callable>(0))::value;
+            };
+        }
+
+        template<typename Callable, typename ...Args>
+        struct IsCallable : TraitCondition<KETraitDetail::IsCallableImpl<Callable, Args...>::condition, TrueTrait, FalseTrait>::Type
+        {
+            DELETE_CONSTRUCTOR(IsCallable);
+        };
+    }
+}

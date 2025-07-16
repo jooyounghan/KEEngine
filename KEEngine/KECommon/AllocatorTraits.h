@@ -6,11 +6,11 @@ namespace ke
 	struct MemoryEntry
 	{
 		explicit MemoryEntry(void* address = nullptr, size_t count = 0)
-			: _address(address), _count(count)
+			: _address(address), _capacity(count)
 		{
 		}
-		void* _address;
-		size_t	_count;
+		void*	_address;
+		size_t	_capacity;
 	};
 
 	namespace KETrait
