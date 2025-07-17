@@ -13,5 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\Reflection">
+      <UniqueIdentifier>{21440166-19e4-41ff-a688-c93f8c949263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Reflection\TemplateHpp">
+      <UniqueIdentifier>{8eab3e5e-3016-42f0-bd42-2b4fffa1b1f6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ReflectionObject.h">
+      <Filter>헤더 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionObject.hpp">
+      <Filter>헤더 파일\Reflection\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

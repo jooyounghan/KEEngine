@@ -23,6 +23,8 @@
     <ClInclude Include="BitFlag.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
+    <ClInclude Include="DirtyBitFlaggedFunction.h" />
+    <ClInclude Include="DirtyBitFlaggedFunction.hpp" />
     <ClInclude Include="DirtyFlaggedFunction.h" />
     <ClInclude Include="DirtyFlaggedFunction.hpp" />
     <ClInclude Include="Hash128.h" />
@@ -48,7 +50,7 @@
     <ClInclude Include="Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BitFlag.cpp" />
+    <ClCompile Include="BitFlag.hpp" />
     <ClCompile Include="Hash128.cpp" />
     <ClCompile Include="HashConvertor.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
