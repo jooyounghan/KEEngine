@@ -1,5 +1,6 @@
 #include "MathCommon.h"
 
+#include <new>
 #include <cstdlib>
 #include <cstring>
 #include "MemoryCommon.h"

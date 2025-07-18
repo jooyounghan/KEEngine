@@ -9,9 +9,10 @@ using namespace ke;
 class Test
 {
 	public:
-	void testFunction(int x)
+	int testFunction(int x)
 	{
 		printf("Test function called with value: %d\n", x);
+		return x;
 	}
 };
 
@@ -19,24 +20,8 @@ int main()
 {
 	BitFlag<32> flag;
 
-	flag.setFlag(0);
-	flag.setFlag(1);
-
-	DirtyFlaggedFunction<void, int> func([](int x) {
-		printf("Function called with value: %d\n", x);
-	});
-
-	func.execute(1);
-	func.setDirty();
-	func.execute(2);
-	func.execute(3);
-
-	Test testInstance;
-	
-	DirtyFlaggedFunction<void, int> memberFunc(BindMember(&testInstance, &Test::testFunction));
-	memberFunc.execute(10);
-	memberFunc.setDirty();
-	memberFunc.execute(20);
-	memberFunc.execute(30);
+	OptionalValue<int> optValue1(OptionalValue<int>(10));
+	OptionalValue<int> optValue2 = move(optValue1);
+	int index = 5;
 
 }

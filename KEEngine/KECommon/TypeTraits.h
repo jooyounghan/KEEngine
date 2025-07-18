@@ -87,6 +87,19 @@ namespace ke
         {
         };
 
+        template<typename T>
+        struct IsVoid : TraitCondition<false, TrueTrait, FalseTrait>::Type
+        {
+            DELETE_CONSTRUCTOR(IsVoid);
+        };
+
+        template<>
+        struct IsVoid<void> : TraitCondition<true, TrueTrait, FalseTrait>::Type
+        {
+            DELETE_CONSTRUCTOR(IsVoid);
+        };
+
+
         namespace KETraitDetail
         {
             template<typename T>

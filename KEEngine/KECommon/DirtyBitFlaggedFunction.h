@@ -4,16 +4,16 @@
 
 namespace ke
 {
-    template<uint8 BitIndex, typename ReturnType, typename... Args>
+    template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename... Args>
     class DirtyBitFlaggedFunction
     {
     public:
-        template<typename Callable, uint8 BitCount>
+        template<typename Callable>
         explicit DirtyBitFlaggedFunction(Callable&& callable, BitFlag<BitCount>& bitFlagRef);
         ~DirtyBitFlaggedFunction();
 
     public:
-        ReturnType execute(Args... args);
+        OptionalValue<ReturnType> execute(Args... args);
 
     private:
         IFunctionHolder<ReturnType, Args...>* _impl;

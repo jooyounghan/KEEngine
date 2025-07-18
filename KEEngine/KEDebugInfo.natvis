@@ -9,4 +9,10 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
+	<Type Name="ke::OptionalValue&lt;*&gt;">
+		<DisplayString>ke::OptionalValue ( hasValue={_hasValue} )</DisplayString>
+		<Expand>
+			<Item Name="Value" Condition="_hasValue">_valuePtr</Item>
+		</Expand>
+	</Type>
 </AutoVisualizer>

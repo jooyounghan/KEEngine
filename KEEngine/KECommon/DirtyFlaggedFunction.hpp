@@ -38,12 +38,26 @@ namespace ke
     }
 
     template<typename ReturnType, typename ...Args>
-    inline ReturnType DirtyFlaggedFunction<ReturnType, Args...>::execute(Args ...args)
+    inline OptionalValue<ReturnType> DirtyFlaggedFunction<ReturnType, Args...>::execute(Args ...args)
     {
-        if (_dirty)
+        if constexpr (KETrait::IsVoid<ReturnType>::value)
         {
-            _dirty = false;
-            return _impl->invoke(static_cast<Args&&>(args)...);
+            if (_dirty)
+            {
+                _dirty = false;
+                _impl->invoke(static_cast<Args&&>(args)...);
+                return OptionalValue<void>();
+            }
+            return OptionalValue<void>(nullptr);
+        }
+        else
+        {
+            if (_dirty)
+            {
+                _dirty = false;
+                return OptionalValue<ReturnType>(_impl->invoke(static_cast<Args&&>(args)...));
+            }
+            return OptionalValue<ReturnType>();
         }
     }
 }

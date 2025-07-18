@@ -1,5 +1,6 @@
 #pragma once
 #include "MethodTraits.h"
+#include "OptionalValue.h"
 
 namespace ke
 {
@@ -57,7 +58,7 @@ namespace ke
         ~DirtyFlaggedFunction();
 
     public:
-        ReturnType execute(Args... args);
+        OptionalValue<ReturnType> execute(Args... args);
         inline bool isDirty() const { return _dirty; }
         inline void setDirty() { _dirty = true; }
 

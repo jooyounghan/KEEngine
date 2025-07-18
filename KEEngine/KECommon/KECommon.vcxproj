@@ -38,6 +38,8 @@
     <ClInclude Include="MemoryCommon.h" />
     <ClInclude Include="MemoryCommon.hpp" />
     <ClInclude Include="MethodTraits.h" />
+    <ClInclude Include="OptionalValue.h" />
+    <ClInclude Include="OptionalValue.hpp" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
@@ -57,7 +59,7 @@
     <ClCompile Include="PoolAllocator.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="..\ke_vector.natvis">
+    <Natvis Include="..\KEDebugInfo.natvis">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </Natvis>
   </ItemGroup>
@@ -159,6 +161,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>
