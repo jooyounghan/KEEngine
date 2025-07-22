@@ -6,7 +6,7 @@ namespace ke
     template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename ...Args>
     template<typename Callable>
     inline DirtyBitFlaggedFunction<BitIndex, BitCount, ReturnType, Args...>::DirtyBitFlaggedFunction(Callable&& callable, BitFlag<BitCount>& bitFlagRef)
-		: _dirty(false), _bitFlagRef(bitFlagRef)
+		: _bitFlagRef(bitFlagRef)
     {
         static_assert(BitIndex < BitCount, "BitIndex out of bounds for BitFlag.");
         _impl = new FunctionHolder<Callable, ReturnType, Args...>(static_cast<Callable&&>(callable));
@@ -21,11 +21,12 @@ namespace ke
     template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename ...Args>
     inline OptionalValue<ReturnType> DirtyBitFlaggedFunction<BitIndex, BitCount, ReturnType, Args...>::execute(Args ...args)
     {
+		bool isDirty = _bitFlagRef.isFlagSet<BitIndex>();
         if constexpr (KETrait::IsVoid<ReturnType>::value)
         {
-            if (_bitFlagRef.isFlagSet<BitIndex>())
+            if (isDirty)
             {
-                _dirty = false;
+				_bitFlagRef.resetFlag<BitIndex>();
                 _impl->invoke(static_cast<Args&&>(args)...);
                 return OptionalValue<void>();
             }
@@ -33,9 +34,9 @@ namespace ke
         }
         else
         {
-            if (_bitFlagRef.isFlagSet<BitIndex>())
+            if (isDirty)
             {
-                _dirty = false;
+                _bitFlagRef.resetFlag<BitIndex>();
                 return OptionalValue<ReturnType>(_impl->invoke(static_cast<Args&&>(args)...));
             }
             return OptionalValue<ReturnType>();

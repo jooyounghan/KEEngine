@@ -5,22 +5,28 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Iterator">
+      <UniqueIdentifier>{0fb4b95e-c135-4a44-b1c3-ff27bf1a710a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Flag">
+      <UniqueIdentifier>{27c93784-4c20-4102-b470-19ece247a135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Hash">
+      <UniqueIdentifier>{774fce5c-c578-4223-a73c-14372eb3aea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\String">
+      <UniqueIdentifier>{a7b32229-e7c8-43c2-bca9-aeaa3ef2577e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
     <Filter Include="헤더 파일\MemoryAllocation">
       <UniqueIdentifier>{174ceef9-6fc2-4962-ad59-5b8158dd76bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Common">
-      <UniqueIdentifier>{655f3a6d-6638-4ad6-802d-6d9a55c20315}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Container">
-      <UniqueIdentifier>{c638fc3d-12e4-4eaa-b116-51adb675de9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\MemoryAllocation\Extended">
       <UniqueIdentifier>{8501156e-ec6e-4b37-b56b-a503a202b0c7}</UniqueIdentifier>
@@ -28,29 +34,26 @@
     <Filter Include="헤더 파일\MemoryAllocation\TemplateHpp">
       <UniqueIdentifier>{19bcd08c-af40-40d7-9898-37adb27ff825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Common">
+      <UniqueIdentifier>{655f3a6d-6638-4ad6-802d-6d9a55c20315}</UniqueIdentifier>
+    </Filter>
     <Filter Include="헤더 파일\Common\Header">
       <UniqueIdentifier>{e8e6d42a-a66f-4f18-82f4-45d3b36dc60f}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Common\TemplateHpp">
       <UniqueIdentifier>{8a0633a9-a943-4740-a2e2-1e0c1077f4ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Container">
+      <UniqueIdentifier>{c638fc3d-12e4-4eaa-b116-51adb675de9b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="헤더 파일\Container\TemplateHpp">
       <UniqueIdentifier>{386b70e9-bf95-4334-988a-c59f19b55409}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Container\Extended">
-      <UniqueIdentifier>{c32832fa-d35d-4a6c-b523-1a11a0842451}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Iterator">
       <UniqueIdentifier>{c8878f07-cac2-4414-93cb-4d37c64a3a67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Iterator">
-      <UniqueIdentifier>{0fb4b95e-c135-4a44-b1c3-ff27bf1a710a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Flag">
       <UniqueIdentifier>{db70050b-401e-4ae1-ad11-026f2bffa0df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Flag">
-      <UniqueIdentifier>{27c93784-4c20-4102-b470-19ece247a135}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Flag\TemplateHpp">
       <UniqueIdentifier>{fc60dd66-1397-402d-ad23-60b1e53c0951}</UniqueIdentifier>
@@ -58,14 +61,14 @@
     <Filter Include="헤더 파일\Hash">
       <UniqueIdentifier>{ed4a505f-9350-45cf-8566-5df851e454be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Hash">
-      <UniqueIdentifier>{774fce5c-c578-4223-a73c-14372eb3aea1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Hash\TemplateHpp">
       <UniqueIdentifier>{e078df61-1c93-4e7a-8b03-4304d03aba7e}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Traits">
       <UniqueIdentifier>{e240c722-f964-4df3-b7d9-cf370ed82f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\String">
+      <UniqueIdentifier>{ec0c366b-9646-4a2a-a569-8830dc0fc2e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,26 +99,11 @@
     <ClInclude Include="TypeLimit.h">
       <Filter>헤더 파일\Common\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>헤더 파일\Container\Extended</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.hpp">
       <Filter>헤더 파일\Container\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="StaticList.h">
-      <Filter>헤더 파일\Container\Extended</Filter>
-    </ClInclude>
-    <ClInclude Include="Deque.h">
-      <Filter>헤더 파일\Container\Extended</Filter>
-    </ClInclude>
     <ClInclude Include="BitFlag.h">
       <Filter>헤더 파일\Flag</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>헤더 파일\Container\Extended</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>헤더 파일\Container\Extended</Filter>
     </ClInclude>
     <ClInclude Include="TypeTraits.h">
       <Filter>헤더 파일\Traits</Filter>
@@ -162,6 +150,42 @@
     <ClInclude Include="OptionalValue.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
     </ClInclude>
+    <ClInclude Include="StaticString.h">
+      <Filter>헤더 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="ScopedString.h">
+      <Filter>헤더 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Deque.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticList.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.hpp">
+      <Filter>헤더 파일\Container\TemplateHpp</Filter>
+    </ClInclude>
+    <ClInclude Include="OverwriteRingBuffer.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="OverwriteRingBuffer.hpp">
+      <Filter>헤더 파일\Container\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PoolAllocator.hpp">
@@ -173,11 +197,17 @@
     <ClCompile Include="Hash128.cpp">
       <Filter>소스 파일\Hash</Filter>
     </ClCompile>
-    <ClCompile Include="HashConvertor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="BitFlag.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticString.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopedString.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="HashConvertor.cpp">
+      <Filter>소스 파일\Hash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

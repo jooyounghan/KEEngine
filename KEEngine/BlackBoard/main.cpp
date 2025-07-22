@@ -1,27 +1,51 @@
-#include "../KECommon/DirtyFlaggedFunction.h"
+#include "../KECommon/DirtyBitFlaggedFunction.h"
 #include "../KECommon/HashConvertor.h"
 #include "../KECommon/BitFlag.h"
+#include "../KECommon/StaticString.h"
+#include "../KECommon/Vector.h"
+#include "../KECommon/RingBuffer.h"
+#include "../KECommon/OverwriteRingBuffer.h"
 
 #include <cstdio>
+#include <chrono>
+#include <iostream>
+#include <vector>
 
+using namespace std;
 using namespace ke;
 
-class Test
+class LogTest
 {
-	public:
-	int testFunction(int x)
-	{
-		printf("Test function called with value: %d\n", x);
-		return x;
-	}
+public:
+	LogTest() { }
+	LogTest(const LogTest&) {  }
+	LogTest(LogTest&&) {  }
 };
 
 int main()
 {
-	BitFlag<32> flag;
+	vector<LogTest> stdVector;	
+	Vector<LogTest> manualVector;
+	RingBuffer<LogTest, 5> ringBuffer;
+	OverwriteRingBuffer<LogTest, 5> overwriteRingBuffer;
+	LogTest t = LogTest();
 
-	OptionalValue<int> optValue1(OptionalValue<int>(10));
-	OptionalValue<int> optValue2 = move(optValue1);
-	int index = 5;
+	auto start = std::chrono::high_resolution_clock::now();
+	
+	for (uint64 idx = 0; idx < 100000; ++idx)
+	{
+		manualVector.pushBack(t);
+	}
+	std::chrono::duration<double, std::milli> duration_ms1 = std::chrono::high_resolution_clock::now() - start;
+	std::cout << "Manual Vector " << duration_ms1.count() << " ms\n";
+
+	start = std::chrono::high_resolution_clock::now();
+
+	for (uint64 idx = 0; idx < 100000; ++idx)
+	{
+		stdVector.push_back(t);
+	}
+	std::chrono::duration<double, std::milli> duration_ms2 = std::chrono::high_resolution_clock::now() - start;
+	std::cout << "Std Vector " << duration_ms2.count() << " ms\n";
 
 }

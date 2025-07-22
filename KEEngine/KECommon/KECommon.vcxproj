@@ -40,10 +40,17 @@
     <ClInclude Include="MethodTraits.h" />
     <ClInclude Include="OptionalValue.h" />
     <ClInclude Include="OptionalValue.hpp" />
+    <ClInclude Include="OverwriteRingBuffer.h" />
+    <ClInclude Include="OverwriteRingBuffer.hpp" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="RingBuffer.hpp" />
+    <ClInclude Include="ScopedString.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticList.h" />
+    <ClInclude Include="StaticString.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="TypeLimit.h" />
     <ClInclude Include="TypeTraits.h" />
@@ -57,6 +64,8 @@
     <ClCompile Include="HashConvertor.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
     <ClCompile Include="PoolAllocator.hpp" />
+    <ClCompile Include="ScopedString.cpp" />
+    <ClCompile Include="StaticString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\KEDebugInfo.natvis">

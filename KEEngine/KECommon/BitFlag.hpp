@@ -1,6 +1,6 @@
 #pragma once
 #include "BitFlag.h"
-#include <cstdlib>
+#include "MemoryCommon.h"
 
 namespace ke
 {

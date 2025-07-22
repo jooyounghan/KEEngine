@@ -2,6 +2,8 @@
 #include "BitFlag.h"
 #include "DirtyFlaggedFunction.h"
 
+#define ENUM_TO_INDEX(bitIndex) static_cast<uint8>(bitIndex)
+
 namespace ke
 {
     template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename... Args>

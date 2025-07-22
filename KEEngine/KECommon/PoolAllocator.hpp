@@ -1,7 +1,6 @@
 #pragma once
 #include "PoolAllocator.h"
 #include "MemoryCommon.h"
-#include <cstdint>
 
 namespace ke
 {

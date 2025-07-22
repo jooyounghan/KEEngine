@@ -1,5 +1,10 @@
 #pragma once
 #include <cassert>
+#include <new>
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+#include <immintrin.h>
 
 #pragma region Utility Macros
 // =======================================================================================
@@ -21,12 +26,18 @@
 #define DEBUG_ASSERT(expression, msg) ((void)0)								
 #endif																		
 
-#define DELETE_CONSTRUCTOR(ClassName)					\
-	ClassName() = delete;								\
+#define NONCOPYABLE(ClassName)					\
 	ClassName(const ClassName&) = delete;				\
 	ClassName(ClassName&&) = delete;					\
 	ClassName& operator=(const ClassName&) = delete;	\
 	ClassName& operator=(ClassName&&) = delete;
+
+#define DELETE_CONSTRUCTOR(ClassName)					\
+	ClassName() = delete;								\
+	NONCOPYABLE(ClassName)
+
+#define GET_BUFFER_PTR_AT(PtrType, Buffer, Index) reinterpret_cast<PtrType*>(&Buffer[sizeof(PtrType) * Index])
+
 // =======================================================================================
 #pragma endregion
 

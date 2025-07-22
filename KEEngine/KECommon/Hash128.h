@@ -1,9 +1,13 @@
 #pragma once
 #include "TypeCommon.h"
+
 namespace ke
 {
+    class HashConvertor;
+
     class Hash128 
     {
+        friend class HashConvertor;
     public:
 		Hash128();
 		Hash128(uint64 low, uint64 high);

@@ -11,14 +11,14 @@ namespace ke
 	inline OptionalValue<T>::OptionalValue(const T& value)
 		: _hasValue(true)
 	{
-		new (reinterpret_cast<void*>(&_storage)) T(value);
+		new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(value);
 	}
 
 	template<typename T>
 	inline OptionalValue<T>::OptionalValue(T&& value)
 		: _hasValue(true)
 	{
-		new (reinterpret_cast<void*>(&_storage)) T(move(value));
+		new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(move(value));
 	}
 
 	template<typename T>
@@ -27,7 +27,7 @@ namespace ke
 	{
 		if (_hasValue)
 		{
-			new (reinterpret_cast<void*>(&_storage)) T(value.getValue());
+			new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(value.getValue());
 		}
 	}
 	
@@ -37,7 +37,7 @@ namespace ke
 	{
 		if (_hasValue)
 		{
-			new (reinterpret_cast<void*>(&_storage)) T(move(value.getValue()));
+			new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(move(value.getValue()));
 			value._hasValue = false;
 		}
 	}
@@ -48,14 +48,14 @@ namespace ke
 	template<typename T>
 	inline T* OptionalValue<T>::tryGetValue()
 	{
-		return _hasValue ? reinterpret_cast<T*>(&_storage) : nullptr;
+		return _hasValue ? GET_BUFFER_PTR_AT(T, _storage, 0) : nullptr;
 	}
 
 	template<typename T>
 	inline T& OptionalValue<T>::getValue()
 	{
 		DEBUG_ASSERT(_hasValue, "OptionalValue does not contain a value.");
-		return *reinterpret_cast<T*>(&_storage);
+		return *GET_BUFFER_PTR_AT(T, _storage, 0);
 	}
 
 	inline OptionalValue<void>::OptionalValue()

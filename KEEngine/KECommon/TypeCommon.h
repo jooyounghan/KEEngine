@@ -1,6 +1,6 @@
 #pragma once
 #include "UtilityCommon.h"
-#include <cstdint>
+
 namespace ke
 {
 	using uint8 = unsigned char;

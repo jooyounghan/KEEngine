@@ -1,10 +1,25 @@
 #pragma once
 #include "UtilityCommon.h"
 
+#define DEFINE_TYPE_DEFAULT_TRAIT(TraitName) \
+    template<typename T> \
+    struct TraitName : TraitCondition<false, TrueTrait, FalseTrait>::Type { \
+        DELETE_CONSTRUCTOR(TraitName); \
+    }; 
+
+#define DEFINE_TYPE_SPECIALIZATION_TRAIT(TraitName, TrueType) \
+    template<> \
+    struct TraitName<TrueType> : TraitCondition<true, TrueTrait, FalseTrait>::Type { \
+        DELETE_CONSTRUCTOR(TraitName); \
+    };
+
 namespace ke
 {
     namespace KETrait
     {
+        template<typename T>
+        T&& DeclVal() noexcept;
+
 #pragma region Base Conditions
         struct TrueTrait 
         {
@@ -14,9 +29,6 @@ namespace ke
         {
             CONSTEXPR_INLINE static constexpr bool value = false; 
         };
-
-        template<typename T>
-        T&& DeclVal() noexcept;
 
         template<bool Cond, typename True, typename False>
         struct TraitCondition 
@@ -85,20 +97,14 @@ namespace ke
         template<typename T>
         struct IsTriviallyCopyable : TraitCondition<__is_trivially_copyable(T), TrueTrait, FalseTrait>::Type
         {
-        };
+        }; 
 
-        template<typename T>
-        struct IsVoid : TraitCondition<false, TrueTrait, FalseTrait>::Type
-        {
-            DELETE_CONSTRUCTOR(IsVoid);
-        };
+        DEFINE_TYPE_DEFAULT_TRAIT(IsVoid);
+        DEFINE_TYPE_SPECIALIZATION_TRAIT(IsVoid, void);
 
-        template<>
-        struct IsVoid<void> : TraitCondition<true, TrueTrait, FalseTrait>::Type
-        {
-            DELETE_CONSTRUCTOR(IsVoid);
-        };
-
+        DEFINE_TYPE_DEFAULT_TRAIT(IsCharacter);
+        DEFINE_TYPE_SPECIALIZATION_TRAIT(IsCharacter, char);
+        DEFINE_TYPE_SPECIALIZATION_TRAIT(IsCharacter, wchar_t);
 
         namespace KETraitDetail
         {
