@@ -21,6 +21,7 @@ namespace ke
 		template<typename Allocator>
 		struct AllocatorTrait : TraitCondition<
 			SatisfyAll<
+				KETrait::IsClass<Allocator>::value,
 				CHECK_METHOD_TRAIT(HasAllocate, Allocator, MemoryEntry, const size_t),
 				CHECK_METHOD_TRAIT(HasDeallocate, Allocator, void, MemoryEntry&)
 			>::value, TrueTrait, FalseTrait>::Type

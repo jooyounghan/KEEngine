@@ -30,6 +30,8 @@
     <ClInclude Include="Hash128.h" />
     <ClInclude Include="HashConvertor.h" />
     <ClInclude Include="HashConvertor.hpp" />
+    <ClInclude Include="IndexedString.h" />
+    <ClInclude Include="IndexedString.hpp" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="MallocAllocator.h" />
@@ -47,9 +49,12 @@
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="RingBuffer.hpp" />
     <ClInclude Include="ScopedString.h" />
+    <ClInclude Include="ScopedString.hpp" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticList.h" />
     <ClInclude Include="StaticString.h" />
+    <ClInclude Include="StaticString.hpp" />
+    <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="TypeLimit.h" />
@@ -64,8 +69,6 @@
     <ClCompile Include="HashConvertor.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
     <ClCompile Include="PoolAllocator.hpp" />
-    <ClCompile Include="ScopedString.cpp" />
-    <ClCompile Include="StaticString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\KEDebugInfo.natvis">

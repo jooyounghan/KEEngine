@@ -33,4 +33,12 @@
 			<Item Name="Value" Condition="_hasValue">_valuePtr</Item>
 		</Expand>
 	</Type>
+	<Type Name="ke::StaticString&lt;*,*&gt;">
+		<DisplayString>{_stringValuePtr}</DisplayString>
+		<Expand>
+			<Item Name="Length">_length</Item>
+			<Item Name="Capacity">_memoryEntry._capacity</Item>
+		</Expand>
+	</Type>
+
 </AutoVisualizer>

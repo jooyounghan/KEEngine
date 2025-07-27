@@ -8,14 +8,22 @@
 
 #pragma region Utility Macros
 // =======================================================================================
-#define NODISC					[[nodiscard]]
-#define NODISC_MSG(warnMessage)	[[nodiscard(warnMessage)]]
-
 #if _HAS_CXX17
 #define CONSTEXPR_INLINE inline
+#define NODISC					[[nodiscard]]
+#define NODISC_MSG(warnMessage)	[[nodiscard(warnMessage)]]
+#else
+#define CONSTEXPR_INLINE
+#define NODISC
+#define NODISC_MSG(warnMessage)
+#endif
+
+#if _HAS_CXX20
+#define NO_UNIQUE_ADDRESS [[no_unique_address]]
 #else
 #define CONSTEXPR_INLINE
 #endif
+
 
 #define KE_IN
 #define KE_OUT

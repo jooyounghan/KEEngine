@@ -114,11 +114,14 @@ namespace ke
                 DELETE_CONSTRUCTOR(IsClassImpl);
 
             private:
-                static TrueTrait test(int T::*);
+                template <typename U>
+                static TrueTrait test(decltype(static_cast<int U::*>((nullptr))));
+                template <typename U>
                 static FalseTrait test(...);
 
             public:
-                static constexpr bool condition = decltype(test(nullptr))::value;
+                static constexpr bool condition = decltype(test<T>(nullptr))::value;
+                static_assert(condition, "Template type must be a class type.");
             };
         }
 

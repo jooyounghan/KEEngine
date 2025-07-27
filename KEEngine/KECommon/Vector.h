@@ -12,10 +12,10 @@ namespace ke
 		~Vector();
 
 	private:
-		Alloc			_allocator;
-		MemoryEntry		_memoryEntry;
-		size_t			_count;
-		size_t			_shrinkThreshold;
+		NO_UNIQUE_ADDRESS Alloc		_allocator;
+		MemoryEntry					_memoryEntry;
+		size_t						_count;
+		size_t						_shrinkThreshold;
 
 	private:
 		const T*		_data;
