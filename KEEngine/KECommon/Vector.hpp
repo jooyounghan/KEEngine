@@ -13,6 +13,16 @@ namespace ke
 	template<typename T, typename Alloc>
 	Vector<T, Alloc>::~Vector()
 	{
+		if constexpr (!KETrait::IsTriviallyCopyable<T>::value)
+		{
+			T* dataPtr = reinterpret_cast<T*>(_memoryEntry._address);
+			for (size_t idx = 0; idx < _count; ++idx)
+			{
+				dataPtr[idx].~T();
+			}
+		}
+
+		_allocator.deallocate(_memoryEntry);
 	}
 
 	template<typename T, typename Alloc>
@@ -79,6 +89,9 @@ namespace ke
 
 		_allocator.deallocate(_memoryEntry);
 		_memoryEntry = newMemoryEntry;
+
+#ifdef _DEBUG
 		_data = reinterpret_cast<T*>(newMemoryEntry._address);
+#endif
 	}
 }

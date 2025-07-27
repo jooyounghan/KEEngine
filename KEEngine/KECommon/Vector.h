@@ -17,8 +17,10 @@ namespace ke
 		size_t						_count;
 		size_t						_shrinkThreshold;
 
+#ifdef _DEBUG
 	private:
 		const T*		_data;
+#endif
 
 	public:
 		inline size_t size() const { return _count; }

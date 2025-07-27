@@ -38,7 +38,15 @@
 		<Expand>
 			<Item Name="Length">_length</Item>
 			<Item Name="Capacity">_memoryEntry._capacity</Item>
+			<Item Name="String">_stringValuePtr</Item>
 		</Expand>
 	</Type>
-
+	<Type Name="ke::BoundedString&lt;*,*&gt;">
+		<DisplayString>{_buffer}</DisplayString>
+		<Expand>
+			<Item Name="Length">_length</Item>
+			<Item Name="Capacity">_capacity</Item>
+			<Item Name="String">_buffer</Item>
+		</Expand>
+	</Type>
 </AutoVisualizer>

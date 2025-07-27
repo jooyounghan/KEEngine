@@ -45,7 +45,7 @@ namespace KETraitDetail                                                         
         static FalseTrait test(...);                                                                                                            \
                                                                                                                                                 \
     public:                                                                                                                                     \
-        static constexpr bool condition = decltype(test<ClasType>(nullptr))::value;                                                             \
+        static constexpr bool condition = decltype(test<ClassType>(nullptr))::value;                                                             \
         static_assert(condition, "The template class must have a defined " #MethodName " function with " #Qualifier " method.");                \
     };                                                                                                                                          \
 }                                                                                                                                               \

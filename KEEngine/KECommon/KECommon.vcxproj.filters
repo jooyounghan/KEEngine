@@ -117,10 +117,10 @@
     <ClInclude Include="OptionalValue.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="StaticString.h">
+    <ClInclude Include="OwnedString.h">
       <Filter>헤더 파일\String</Filter>
     </ClInclude>
-    <ClInclude Include="ScopedString.h">
+    <ClInclude Include="BoundedString.h">
       <Filter>헤더 파일\String</Filter>
     </ClInclude>
     <ClInclude Include="Deque.h">
@@ -174,10 +174,10 @@
     <ClInclude Include="PoolAllocator.h">
       <Filter>헤더 파일\MemoryAllocation</Filter>
     </ClInclude>
-    <ClInclude Include="StaticString.hpp">
+    <ClInclude Include="OwnedString.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="ScopedString.hpp">
+    <ClInclude Include="BoundedString.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="IndexedString.h">
@@ -187,6 +187,9 @@
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="StringHelper.h">
+      <Filter>헤더 파일\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
   </ItemGroup>

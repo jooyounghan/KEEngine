@@ -19,8 +19,11 @@ namespace ke
 	template<typename T>
 	void MallocAllocator<T>::deallocate(KE_IN MemoryEntry& memoryEntry)
 	{
-		_aligned_free(memoryEntry._address);
-		memoryEntry._address = nullptr;
-		memoryEntry._capacity = 0;
+		if (memoryEntry._address != nullptr)
+		{
+			_aligned_free(memoryEntry._address);
+			memoryEntry._address = nullptr;
+			memoryEntry._capacity = 0;
+		}
 	}
 }

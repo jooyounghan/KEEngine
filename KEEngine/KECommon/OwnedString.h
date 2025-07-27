@@ -6,14 +6,16 @@
 namespace ke
 {
 	template<typename CharType, typename Alloc = MallocAllocator<CharType>>
-	class StaticString
+	class OwnedString
 	{
 		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
 		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
 
 	public:
-		explicit StaticString(const CharType* str);
-		~StaticString();
+		OwnedString(const CharType* str);
+		OwnedString(const OwnedString& staticString);
+		OwnedString(OwnedString&& staticString);
+		~OwnedString();
 
 	public:
 		operator const CharType* () const = delete;
@@ -25,20 +27,28 @@ namespace ke
 		const CharType* c_str() const&;
 		const CharType* c_str() const&& = delete;
 
+	public:
+		void append(const CharType* const str);
+		void append(const OwnedString& staticString);
+
+	public:
+		size_t length() const { return _memoryEntry._capacity - 1; }
+		size_t capacity() const { return _memoryEntry._capacity; }
+
 	protected:
 		NO_UNIQUE_ADDRESS Alloc _allocator;
-		MemoryEntry _memoryEntry;
+		MemoryEntry				_memoryEntry;
 
 
 #ifdef _DEBUG
 	private:
-		size_t _length;
+		size_t			_length = 0;
 		const CharType* _stringValuePtr;
 #endif
 	};
 
-	using StaticStringA = StaticString<char>;
-	using StaticStringW = StaticString<wchar_t>;
+	using OwnedStringA = OwnedString<char>;
+	using OwnedStringW = OwnedString<wchar_t>;
 }
 
-#include "StaticString.hpp"
+#include "OwnedString.hpp"
