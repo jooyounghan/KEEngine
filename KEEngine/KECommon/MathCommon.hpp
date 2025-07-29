@@ -1,4 +1,6 @@
 #pragma once
+#include "MathCommon.h"
+#include "TypeTraits.h"
 
 namespace ke
 {
@@ -24,5 +26,14 @@ namespace ke
     NODISC constexpr const T& KEMath::min(const T& left, const T& right) noexcept
     {
         return left < right ? left : right;
+    }
+    template<typename T>
+    inline constexpr NODISC T ke::KEMath::GetNextPowerOf2(const T& value) noexcept
+    {
+		static_assert(KETrait::IsInteger<T>::value, "T must be an integer type.");
+        
+        T power = 1;
+        while (power < value) power <<= 1;
+        return power;
     }
 }

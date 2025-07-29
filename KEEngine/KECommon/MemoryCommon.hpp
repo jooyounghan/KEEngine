@@ -1,5 +1,5 @@
-#include "MathCommon.h"
 #include "MemoryCommon.h"
+#include "MathCommon.h"
 
 namespace ke
 {
@@ -15,21 +15,9 @@ namespace ke
         return sizeof(T) * count; 
     }
 
-    inline NODISC size_t ke::KEMemory::CalculateExpandCapacity(const size_t usedCount, const size_t capacity)
-    {
-        size_t newCapacity = usedCount + (usedCount >> 1) + (usedCount & 1);
-        newCapacity = newCapacity > capacity ? newCapacity : capacity;
-        return KEMath::max(static_cast<size_t>(1u), newCapacity);
-    }
-
-    inline NODISC size_t ke::KEMemory::CalculateShrinkCapacity(const size_t usedCount, const size_t capacity)
-    {
-        const size_t newCapacity = (capacity * 2) / 3;
-        return (usedCount < newCapacity) ? newCapacity : capacity;
-    }
 
 	template <class T>
-    inline void* KEMemory::aligendMalloc(const size_t count)
+    inline NODISC void* KEMemory::aligendMalloc(const size_t count)
     {
         if (count == 0)
         {
@@ -48,11 +36,6 @@ namespace ke
         }
 
         return _aligned_malloc(requestedBytes, memoryAlign);
-    }
-
-    inline void KEMemory::aligendFree(void* ptr)
-    {
-        return _aligned_free(ptr);
     }
 
     template<class T>

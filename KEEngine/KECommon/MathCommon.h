@@ -16,6 +16,9 @@ namespace ke
 
         template<typename T>
         NODISC static constexpr const T& min(const T& left, const T& right) noexcept;
+
+		template<typename T>
+        NODISC static constexpr T GetNextPowerOf2(const T& value) noexcept;
     };
 }
 

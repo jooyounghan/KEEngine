@@ -58,6 +58,9 @@
     <Filter Include="헤더 파일\String\TemplateHpp">
       <UniqueIdentifier>{2dec7ba6-2e58-452c-9c5b-d0f9c41091eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Common">
+      <UniqueIdentifier>{14abc615-cf92-4b5f-b6c3-6230c8377ca2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathCommon.hpp">
@@ -180,10 +183,10 @@
     <ClInclude Include="BoundedString.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="IndexedString.h">
+    <ClInclude Include="FlyweightString.h">
       <Filter>헤더 파일\String</Filter>
     </ClInclude>
-    <ClInclude Include="IndexedString.hpp">
+    <ClInclude Include="FlyweightString.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="StringHelper.h">
@@ -191,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="StringHelper.hpp">
       <Filter>헤더 파일\String\TemplateHpp</Filter>
+    </ClInclude>
+    <ClInclude Include="HashMap.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="HashMap.hpp">
+      <Filter>헤더 파일\Container\TemplateHpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="HashConvertor.cpp">
       <Filter>소스 파일\Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryCommon.cpp">
+      <Filter>소스 파일\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

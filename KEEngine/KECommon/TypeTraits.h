@@ -13,6 +13,9 @@
         DELETE_CONSTRUCTOR(TraitName); \
     };
 
+#define DEFINE_INTEGER_TYPE(T) \
+template<> struct IsInteger<T> : TrueTrait { DELETE_CONSTRUCTOR(IsInteger<T>); }
+
 namespace ke
 {
     namespace KETrait
@@ -88,6 +91,28 @@ namespace ke
 #pragma endregion
 
 #pragma region Type Traits
+#pragma region Integer Traits
+        template<typename T>
+        struct IsInteger : FalseTrait
+        {
+            DELETE_CONSTRUCTOR(IsInteger);
+
+        };
+        DEFINE_INTEGER_TYPE(char);
+		DEFINE_INTEGER_TYPE(signed char);
+		DEFINE_INTEGER_TYPE(unsigned char);
+		DEFINE_INTEGER_TYPE(short);
+		DEFINE_INTEGER_TYPE(unsigned short);
+		DEFINE_INTEGER_TYPE(int);
+		DEFINE_INTEGER_TYPE(unsigned int);
+		DEFINE_INTEGER_TYPE(long);
+		DEFINE_INTEGER_TYPE(unsigned long);
+		DEFINE_INTEGER_TYPE(long long);
+        DEFINE_INTEGER_TYPE(unsigned long long);
+#pragma endregion
+        
+
+
         template<typename T>
         struct IsUnsigned : TraitCondition<(T(0) < T(-1)), TrueTrait, FalseTrait>::Type
         {
