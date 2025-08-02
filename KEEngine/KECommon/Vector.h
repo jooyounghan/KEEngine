@@ -27,8 +27,8 @@ namespace ke
 #endif
 
 	public:
-		inline size_t size() const { return _count; }
-		inline size_t capacity() const { return _memoryEntry._capacity; }
+		inline size_t size() const;
+		inline size_t capacity() const;
 
 	public:
 		void pushBack(KE_IN const T& element);

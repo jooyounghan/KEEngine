@@ -3,11 +3,11 @@
 
 namespace ke
 {
-	inline size_t StringLengthHelper<char>::length(const char* str) { return strlen(str); }
-	inline size_t StringLengthHelper<wchar_t>::length(const wchar_t* str) { return wcslen(str); }
+	size_t StringLengthHelper<char>::length(const char* str) { return strlen(str); }
+	size_t StringLengthHelper<wchar_t>::length(const wchar_t* str) { return wcslen(str); }
 
 	template<typename CharType>
-	inline void StringManipulateHelper<CharType>::copy(CharType* dest, size_t destBufferSize, const CharType* src)
+	void StringManipulateHelper<CharType>::copy(CharType* dest, size_t destBufferSize, const CharType* src)
 	{
 		size_t len = StringLengthHelper<CharType>::length(src);
 		if (len >= destBufferSize)
@@ -18,7 +18,7 @@ namespace ke
 	}
 
 	template<typename CharType>
-	inline void StringManipulateHelper<CharType>::clear(CharType* dest, size_t destBufferSize)
+	void StringManipulateHelper<CharType>::clear(CharType* dest, size_t destBufferSize)
 	{
 		memset(dest, '\0', destBufferSize * sizeof(CharType));
 	}

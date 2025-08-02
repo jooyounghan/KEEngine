@@ -5,7 +5,7 @@
 namespace ke
 {
 	template<typename CharType, size_t CharCount>
-	inline BoundedString<CharType, CharCount>::BoundedString(const CharType* str)
+	BoundedString<CharType, CharCount>::BoundedString(const CharType* str)
 	{
 		_buffer = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<CharType>(CharCount));
 
@@ -20,7 +20,7 @@ namespace ke
 	}
 
 	template<typename CharType, size_t CharCount>
-	inline BoundedString<CharType, CharCount>::BoundedString(const BoundedString& boundedString)
+	BoundedString<CharType, CharCount>::BoundedString(const BoundedString& boundedString)
 	{
 		_buffer = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<CharType>(CharCount));
 		StringManipulateHelper<CharType>::copy(_buffer, CharCount, boundedString.c_str());
@@ -32,7 +32,7 @@ namespace ke
 	}
 
 	template<typename CharType, size_t CharCount>
-	inline BoundedString<CharType, CharCount>::BoundedString(BoundedString&& boundedString) noexcept
+	BoundedString<CharType, CharCount>::BoundedString(BoundedString&& boundedString) noexcept
 	{
 		_length = boundedString._length;
 		_buffer = boundedString._buffer;
@@ -44,7 +44,7 @@ namespace ke
 	}
 
 	template<typename CharType, size_t CharCount>
-	inline BoundedString<CharType, CharCount>::~BoundedString()
+	BoundedString<CharType, CharCount>::~BoundedString()
 	{
 		if (_buffer != nullptr)
 		{
@@ -54,13 +54,13 @@ namespace ke
 	}
 
 	template<typename CharType, size_t CharCount>
-	inline const CharType* BoundedString<CharType, CharCount>::c_str() const&
+	const CharType* BoundedString<CharType, CharCount>::c_str() const&
 	{
 		return _buffer;
 	}
 
 	template<typename CharType, size_t CharCount>
-	inline void BoundedString<CharType, CharCount>::append(const CharType* const str)
+	void BoundedString<CharType, CharCount>::append(const CharType* const str)
 	{
 		size_t strCapacity = StringLengthHelper<CharType>::length(str) + 1;
 		const size_t availableCapacity = CharCount - _length;
@@ -74,7 +74,7 @@ namespace ke
 
 	template<typename CharType, size_t CharCount>
 	template<typename Alloc>
-	inline void BoundedString<CharType, CharCount>::append(const OwnedString<CharType, Alloc>& ownedString)
+	void BoundedString<CharType, CharCount>::append(const OwnedString<CharType, Alloc>& ownedString)
 	{
 		const CharType* str = ownedString.c_str();
 		append(str);

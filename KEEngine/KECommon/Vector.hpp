@@ -16,6 +16,12 @@ namespace ke
 	}
 
 	template<typename T, typename Alloc>
+	inline size_t Vector<T, Alloc>::size() const { return _count; }
+
+	template<typename T, typename Alloc>
+	inline size_t Vector<T, Alloc>::capacity() const { return _memoryEntry._capacity; }
+
+	template<typename T, typename Alloc>
 	void Vector<T, Alloc>::pushBack(KE_IN const T& element)
 	{
 		pushBackImpl(element);
@@ -38,7 +44,7 @@ namespace ke
 
 	template<typename T, typename Alloc>
 	template<typename U>
-	inline void Vector<T, Alloc>::pushBackImpl(KE_IN U&& element)
+	void Vector<T, Alloc>::pushBackImpl(KE_IN U&& element)
 	{
 		if (_count >= _memoryEntry._capacity)
 		{
@@ -52,7 +58,7 @@ namespace ke
 
 	template<typename T, typename Alloc>
 	template<typename... Args>
-	inline void Vector<T, Alloc>::resize(size_t newSize, Args&&... args)
+	void Vector<T, Alloc>::resize(size_t newSize, Args&&... args)
 	{
 		if (newSize < _count)
 		{
@@ -72,7 +78,7 @@ namespace ke
 	}
 
 	template<typename T, typename Alloc>
-	inline void Vector<T, Alloc>::reserve(size_t newCapacity)
+	void Vector<T, Alloc>::reserve(size_t newCapacity)
 	{
 		if (newCapacity > _memoryEntry._capacity)
 		{
@@ -81,7 +87,7 @@ namespace ke
 	}
 
 	template<typename T, typename Alloc>
-	inline void Vector<T, Alloc>::reallocateCapcity(size_t newCapacity)
+	void Vector<T, Alloc>::reallocateCapcity(size_t newCapacity)
 	{
 		if (newCapacity == _memoryEntry._capacity) return;
 
@@ -120,7 +126,7 @@ namespace ke
 	}
 
 	template<typename T, typename Alloc>
-	inline void Vector<T, Alloc>::decreaseCount(size_t newCount)
+	void Vector<T, Alloc>::decreaseCount(size_t newCount)
 	{
 		if (newCount >= _count) return;
 

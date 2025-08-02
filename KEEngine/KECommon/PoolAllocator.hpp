@@ -4,19 +4,17 @@
 
 namespace ke
 {
-    CONSTEXPR_INLINE constexpr uintptr_t _nullptrValue = reinterpret_cast<uintptr_t>((void*)nullptr);
-
-    inline static uintptr_t getBlockAddress(void* ptr)
+    static uintptr_t getBlockAddress(void* ptr)
     {
         return reinterpret_cast<uintptr_t>(ptr);
     }
 
-    inline static uintptr_t getNextBlockAddress(void* ptr)
+    static uintptr_t getNextBlockAddress(void* ptr)
     {
         return *reinterpret_cast<uintptr_t*>(ptr);
     }
 
-    inline static void writeBlockAddress(void* ptr, uintptr_t value)
+    static void writeBlockAddress(void* ptr, uintptr_t value)
 	{
 		if (ptr == nullptr)
 		{

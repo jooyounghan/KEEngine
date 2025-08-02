@@ -11,7 +11,7 @@ namespace ke
         }
         else
         {
-            size_t shrinkThreshold = static_cast<size_t>(currentCapacity * 0.5f);
+            size_t shrinkThreshold = static_cast<size_t>(static_cast<float>(currentCapacity) * 0.5f);
             return (targetCount < shrinkThreshold) ? shrinkThreshold : currentCapacity;
         }
     }

@@ -5,13 +5,13 @@
 namespace ke
 {
 	template<typename T, size_t Size>
-	inline RingBuffer<T, Size>::RingBuffer() 
+	RingBuffer<T, Size>::RingBuffer() 
 		: _head(0), _tail(0), _count(0) 
 	{
 	}
 
 	template<typename T, size_t Size>
-	inline RingBuffer<T, Size>::~RingBuffer()
+	RingBuffer<T, Size>::~RingBuffer()
 	{
 		while (_count > 0)
 		{
@@ -23,7 +23,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool RingBuffer<T, Size>::pushBack(KE_IN const T& item)
+	bool RingBuffer<T, Size>::pushBack(KE_IN const T& item)
 	{
 		if (_count == Size) return false;
 
@@ -35,7 +35,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool RingBuffer<T, Size>::pushBack(KE_IN T&& item)
+	bool RingBuffer<T, Size>::pushBack(KE_IN T&& item)
 	{
 		if (_count == Size) return false;
 
@@ -47,7 +47,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool RingBuffer<T, Size>::popFront(KE_OUT T& item)
+	bool RingBuffer<T, Size>::popFront(KE_OUT T& item)
 	{
 		if (_count == 0) return false;
 

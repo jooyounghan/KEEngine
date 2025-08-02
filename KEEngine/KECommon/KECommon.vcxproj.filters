@@ -105,9 +105,6 @@
     <ClInclude Include="HashConvertor.hpp">
       <Filter>헤더 파일\Hash\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="Hash128.h">
-      <Filter>헤더 파일\Hash</Filter>
-    </ClInclude>
     <ClInclude Include="DirtyBitFlaggedFunction.h">
       <Filter>헤더 파일\Flag</Filter>
     </ClInclude>
@@ -201,6 +198,15 @@
     <ClInclude Include="HashMap.hpp">
       <Filter>헤더 파일\Container\TemplateHpp</Filter>
     </ClInclude>
+    <ClInclude Include="HashSet.h">
+      <Filter>헤더 파일\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="HashSet.hpp">
+      <Filter>헤더 파일\Container\TemplateHpp</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeLimit.hpp">
+      <Filter>헤더 파일\Common\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PoolAllocator.hpp">
@@ -209,14 +215,8 @@
     <ClCompile Include="MallocAllocator.hpp">
       <Filter>헤더 파일\MemoryAllocation\TemplateHpp</Filter>
     </ClCompile>
-    <ClCompile Include="Hash128.cpp">
-      <Filter>소스 파일\Hash</Filter>
-    </ClCompile>
     <ClCompile Include="BitFlag.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
-    </ClCompile>
-    <ClCompile Include="HashConvertor.cpp">
-      <Filter>소스 파일\Hash</Filter>
     </ClCompile>
     <ClCompile Include="MemoryCommon.cpp">
       <Filter>소스 파일\Common</Filter>

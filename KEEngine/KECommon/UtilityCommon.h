@@ -21,7 +21,6 @@
 #if _HAS_CXX20
 #define NO_UNIQUE_ADDRESS [[no_unique_address]]
 #else
-#define CONSTEXPR_INLINE
 #endif
 
 
@@ -31,10 +30,11 @@
 #ifdef _DEBUG																
 #define DEBUG_ASSERT(expression, msg) if (expression == false) assert(msg)	
 #else																		
-#define DEBUG_ASSERT(expression, msg) ((void)0)								
+#define DEBUG_ASSERT(expression, msg) ((void)0)
 #endif																		
 
-#define NONCOPYABLE(ClassName)					\
+
+#define NONCOPYABLE(ClassName)							\
 	ClassName(const ClassName&) = delete;				\
 	ClassName(ClassName&&) = delete;					\
 	ClassName& operator=(const ClassName&) = delete;	\

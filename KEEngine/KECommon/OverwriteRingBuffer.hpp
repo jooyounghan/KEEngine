@@ -4,13 +4,13 @@
 namespace ke
 {
 	template<typename T, size_t Size>
-	inline OverwriteRingBuffer<T, Size>::OverwriteRingBuffer()
+	OverwriteRingBuffer<T, Size>::OverwriteRingBuffer()
 		: _head(0), _tail(0), _count(0)
 	{
 	}
 
 	template<typename T, size_t Size>
-	inline OverwriteRingBuffer<T, Size>::~OverwriteRingBuffer()
+	OverwriteRingBuffer<T, Size>::~OverwriteRingBuffer()
 	{
 		while (_count > 0)
 		{
@@ -22,7 +22,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN const T& item)
+	bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN const T& item)
 	{
 		if (isFull())
 		{
@@ -39,7 +39,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN T&& item)
+	bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN T&& item)
 	{
 		if (isFull())
 		{
@@ -56,7 +56,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	inline bool OverwriteRingBuffer<T, Size>::popFront(KE_OUT T& item)
+	bool OverwriteRingBuffer<T, Size>::popFront(KE_OUT T& item)
 	{
 		if (_count == 0) return false;
 

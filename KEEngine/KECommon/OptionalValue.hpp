@@ -4,77 +4,96 @@
 
 namespace ke
 {
-	template<typename T>
-	inline OptionalValue<T>::OptionalValue() : _hasValue(false) {}
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(const Types & ...value) { setValue(value...); }
 
-	template<typename T>
-	inline OptionalValue<T>::OptionalValue(const T& value)
-		: _hasValue(true)
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(Types && ...value) { setValue(move<Types>(value)...); }
+
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(const OptionalValue& other)
+		: _hasValue(other._hasValue)
 	{
-		new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(value);
+		if (_hasValue)
+			copyFrom<0>(other);
 	}
 
-	template<typename T>
-	inline OptionalValue<T>::OptionalValue(T&& value)
-		: _hasValue(true)
-	{
-		new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(move(value));
-	}
-
-	template<typename T>
-	inline OptionalValue<T>::OptionalValue(const OptionalValue<T>& value)
-		: _hasValue(value._hasValue)
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(OptionalValue&& other)
+		: _hasValue(other._hasValue)
 	{
 		if (_hasValue)
 		{
-			new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(value.getValue());
+			other._hasValue = false;
+			moveFrom<0>(move(other));
 		}
+	}
+
+	template<typename ...Types>
+	void OptionalValue<Types...>::setValue(const Types & ...value)
+	{
+		construct<0, const Types&...>(value...);
+		_hasValue = true;
+	}
+
+	template<typename ...Types>
+	void OptionalValue<Types...>::setValue(Types && ...value)
+	{
+		construct<0, Types&&...>(move(value)...);
+		_hasValue = true;
+	}
+
+	template<typename ...Types>
+	bool OptionalValue<Types...>::hasValue() const { return _hasValue; }
+
+	template<typename ...Types>
+	template<size_t Index>
+	auto* OptionalValue<Types...>::tryGetValue()
+	{
+		if (!_hasValue) return static_cast<typename GetType<Index, Types...>::type*>(nullptr);
+
+		using T = typename GetType<Index, Types...>::type;
+		constexpr size_t offset = GetOffset<Index, Types...>::value;
+		return reinterpret_cast<T*>(_storage + offset);
 	}
 	
-	template<typename T>
-	inline OptionalValue<T>::OptionalValue(OptionalValue<T>&& value)
-		: _hasValue(move(value._hasValue))
+	template<typename ...Types>
+	template<size_t Index, typename T, typename ...Ts>
+	void OptionalValue<Types...>::construct(T&& first, Ts && ...rest)
 	{
-		if (_hasValue)
+		using Type = typename GetType<Index, Types...>::type;
+		constexpr size_t offset = GetOffset<Index, Types...>::value;
+		new (_storage + offset) Type(forward<Type>(first));
+
+		if constexpr (sizeof...(Ts) > 0)
+			construct<Index + 1, Ts...>(forward<Ts>(rest)...);
+	}
+
+	template<typename ...Types>
+	template<size_t Index>
+	void OptionalValue<Types...>::copyFrom(const OptionalValue& other)
+	{
+		if constexpr (Index < sizeof...(Types))
 		{
-			new (GET_BUFFER_PTR_AT(T, _storage, 0)) T(move(value.getValue()));
-			value._hasValue = false;
+			using Type = typename GetType<Index, Types...>::type;
+			constexpr size_t offset = GetOffset<Index, Types...>::value;
+			const Type* src = reinterpret_cast<const Type*>(other._storage + offset);
+			new (_storage + offset) Type(*src);
+			copyFrom<Index + 1>(other);
 		}
 	}
 
-	template<typename T>
-	inline bool OptionalValue<T>::hasValue() const { return _hasValue; }
-
-	template<typename T>
-	inline T* OptionalValue<T>::tryGetValue()
+	template<typename ...Types>
+	template<size_t Index>
+	void OptionalValue<Types...>::moveFrom(OptionalValue&& other)
 	{
-		return _hasValue ? GET_BUFFER_PTR_AT(T, _storage, 0) : nullptr;
-	}
-
-	template<typename T>
-	inline T& OptionalValue<T>::getValue()
-	{
-		DEBUG_ASSERT(_hasValue, "OptionalValue does not contain a value.");
-		return *GET_BUFFER_PTR_AT(T, _storage, 0);
-	}
-
-	inline OptionalValue<void>::OptionalValue()
-		: _hasValue(false)
-	{
-	}
-
-	inline OptionalValue<void>::OptionalValue(nullptr_t)
-		: _hasValue(false)
-	{
-	}
-
-	inline OptionalValue<void>::OptionalValue(const OptionalValue<void>& value)
-		: _hasValue(value._hasValue)
-	{
-	}
-
-	inline OptionalValue<void>::OptionalValue(OptionalValue<void>&& value)
-		: _hasValue(move(value._hasValue))
-	{
+		if constexpr (Index < sizeof...(Types))
+		{
+			using T = typename GetType<Index, Types...>::type;
+			constexpr size_t offset = GetOffset<Index, Types...>::value;
+			T* src = reinterpret_cast<T*>(other._storage + offset);
+			new (_storage + offset) T(move(*src));
+			moveFrom<Index + 1>(move(other));
+		}
 	}
 }

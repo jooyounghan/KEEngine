@@ -27,13 +27,14 @@
     <ClInclude Include="DirtyBitFlaggedFunction.hpp" />
     <ClInclude Include="DirtyFlaggedFunction.h" />
     <ClInclude Include="DirtyFlaggedFunction.hpp" />
-    <ClInclude Include="Hash128.h" />
     <ClInclude Include="HashConvertor.h" />
     <ClInclude Include="HashConvertor.hpp" />
     <ClInclude Include="FlyweightString.h" />
     <ClInclude Include="FlyweightString.hpp" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="HashMap.hpp" />
+    <ClInclude Include="HashSet.h" />
+    <ClInclude Include="HashSet.hpp" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="MallocAllocator.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="TypeLimit.h" />
+    <ClInclude Include="TypeLimit.hpp" />
     <ClInclude Include="TypeTraits.h" />
     <ClInclude Include="UtilityCommon.h" />
     <ClInclude Include="Vector.h" />
@@ -68,8 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitFlag.hpp" />
-    <ClCompile Include="Hash128.cpp" />
-    <ClCompile Include="HashConvertor.cpp" />
     <ClCompile Include="MallocAllocator.hpp" />
     <ClCompile Include="MemoryCommon.cpp" />
     <ClCompile Include="PoolAllocator.hpp" />
@@ -133,12 +133,17 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4514;5045</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -148,14 +153,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4514;5045</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -167,7 +177,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -178,6 +188,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <DisableSpecificWarnings>4514;5045</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -187,14 +198,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4514;5045</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -19,6 +19,9 @@ namespace ke
 
 		template<typename T>
         NODISC static constexpr T GetNextPowerOf2(const T& value) noexcept;
+
+        NODISC static constexpr bool isPrime(size_t n);
+        NODISC static constexpr size_t nextPrime(size_t n);
     };
 }
 

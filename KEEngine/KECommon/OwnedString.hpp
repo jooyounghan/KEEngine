@@ -6,7 +6,7 @@ namespace ke
 {
 
 	template<typename CharType, typename Alloc>
-	inline OwnedString<CharType, Alloc>::OwnedString(const CharType* str)
+	OwnedString<CharType, Alloc>::OwnedString(const CharType* str)
 	{
 		const size_t len = StringLengthHelper<CharType>::length(str);
 		_memoryEntry = _allocator.allocate(len + 1);
@@ -21,7 +21,7 @@ namespace ke
 	}
 
 	template<typename CharType, typename Alloc>
-	inline OwnedString<CharType, Alloc>::OwnedString(const OwnedString& staticString)
+	OwnedString<CharType, Alloc>::OwnedString(const OwnedString& staticString)
 	{
 		const CharType* str = staticString.c_str();
 		const size_t len = StringLengthHelper<CharType>::length(str);
@@ -37,7 +37,7 @@ namespace ke
 	}
 
 	template<typename CharType, typename Alloc>
-	inline OwnedString<CharType, Alloc>::OwnedString(OwnedString&& str)
+	OwnedString<CharType, Alloc>::OwnedString(OwnedString&& str)
 	{
 		_memoryEntry = std::move(str._memoryEntry);
 		str._memoryEntry._address = nullptr;
@@ -49,19 +49,19 @@ namespace ke
 	}
 
 	template<typename CharType, typename Alloc>
-	inline OwnedString<CharType, Alloc>::~OwnedString()
+	OwnedString<CharType, Alloc>::~OwnedString()
 	{
 		_allocator.deallocate(_memoryEntry);
 	}
 
 	template<typename CharType, typename Alloc>
-	inline const CharType* OwnedString<CharType, Alloc>::c_str() const&
+	const CharType* OwnedString<CharType, Alloc>::c_str() const&
 	{
 		return reinterpret_cast<const CharType*>(_memoryEntry._address);
 	}
 
 	template<typename CharType, typename Alloc>
-	inline void OwnedString<CharType, Alloc>::append(const CharType* const str)
+	void OwnedString<CharType, Alloc>::append(const CharType* const str)
 	{
 		const size_t len = StringLengthHelper<CharType>::length(str);
 		MemoryEntry newMemoryEntry = _allocator.allocate(_memoryEntry._capacity + len);
@@ -81,7 +81,7 @@ namespace ke
 	}
 
 	template<typename CharType, typename Alloc>
-	inline void OwnedString<CharType, Alloc>::append(const OwnedString& staticString)
+	void OwnedString<CharType, Alloc>::append(const OwnedString& staticString)
 	{
 		append(staticString.c_str());
 	}

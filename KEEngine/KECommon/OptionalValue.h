@@ -1,47 +1,69 @@
 #pragma once
-#include "TypeCommon.h"
+#include "MemoryCommon.h"
+#include "TypeTraits.h"
 
 namespace ke
 {
-	template<typename T>
+#pragma region OptionalValue
+	template<size_t Index, typename T, typename... Ts>
+	struct GetType {
+		using type = typename GetType<Index - 1, Ts...>::type;
+	};
+
+	template<typename T, typename... Ts>
+	struct GetType<0, T, Ts...> 
+	{
+		using type = T;
+	};
+
+	template<size_t Index, typename T, typename... Ts>
+	struct GetOffset 
+	{
+		static constexpr size_t value = sizeof(T) + GetOffset<Index - 1, Ts...>::value;
+	};
+
+	template<typename T, typename... Ts>
+	struct GetOffset<0, T, Ts...> 
+	{
+		static constexpr size_t value = 0;
+	};
+
+	template<typename... Types>
 	class OptionalValue
 	{
-	public:
-		OptionalValue();
-		OptionalValue(const T& value);
-		OptionalValue(T&& value);
-		OptionalValue(const OptionalValue<T>& value);
-		OptionalValue(OptionalValue<T>&& value);
+		static_assert(sizeof...(Types) > 0, "OptionalTuple must have at least one type");
 
 	public:
+		OptionalValue() = default;
+		OptionalValue(const Types&... value);
+		OptionalValue(Types&&... value);
+		OptionalValue(const OptionalValue& other);
+		OptionalValue(OptionalValue&& other);
+
+	public:
+		void setValue(const Types&... value);
+		void setValue(Types&&... value);
+
 		bool hasValue() const;
-		T* tryGetValue();
+		template<size_t Index>
+		auto* tryGetValue();
 
 	private:
-		T& getValue();
+		template<size_t Index, typename T, typename... Ts>
+		void construct(T&& first, Ts&&... rest);
 
-	private:
-		bool _hasValue = false;
-		alignas(T) uint8 _storage[sizeof(T)];
+		template<size_t Index>
+		void copyFrom(const OptionalValue& other);
 
-#ifdef _DEBUG
-	private:
-		const T* _valuePtr = reinterpret_cast<T*>(&_storage);
-#endif
-	};
-
-	template<>
-	class OptionalValue<void>
-	{
-	public:
-		OptionalValue();
-		OptionalValue(nullptr_t);
-		OptionalValue(const OptionalValue<void>& value);
-		OptionalValue(OptionalValue<void>&& value);
+		template<size_t Index>
+		void moveFrom(OptionalValue&& other);
 
 	private:
 		bool _hasValue = false;
+		alignas(KEMemory::memoryAlignOf<Types...>()) uint8 _storage[KEMemory::getSizeOfN<Types...>(1)];
 	};
+#pragma endregion
+
 }
 
 #include "OptionalValue.hpp"

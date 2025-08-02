@@ -10,9 +10,9 @@ namespace ke
 		BitFlag();
 
 	private:
-		CONSTEXPR_INLINE static constexpr uint8 getFlagBucket(const uint8 index) { return index / 8; }
-		CONSTEXPR_INLINE static constexpr uint8 getTrueFlag(const uint8 index) { return 1 << (index % 8); }
-		CONSTEXPR_INLINE static constexpr uint8 getFalseFlag(const uint8 index) { return ~(1 << (index % 8)); }
+		CONSTEXPR_INLINE static constexpr uint8 getFlagBucket(const uint8 index);
+		CONSTEXPR_INLINE static constexpr uint8 getTrueFlag(const uint8 index);
+		CONSTEXPR_INLINE static constexpr uint8 getFalseFlag(const uint8 index);
 
 	private:
 		uint8 _flag[BitCount / 8];

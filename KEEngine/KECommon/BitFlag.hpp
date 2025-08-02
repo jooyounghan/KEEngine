@@ -11,8 +11,17 @@ namespace ke
 	}
 
 	template<uint8 BitCount>
+	constexpr uint8 BitFlag<BitCount>::getFlagBucket(const uint8 index) { return index / 8; }
+
+	template<uint8 BitCount>
+	constexpr uint8 BitFlag<BitCount>::getTrueFlag(const uint8 index) { return 1 << (index % 8); }
+
+	template<uint8 BitCount>
+	constexpr uint8 BitFlag<BitCount>::getFalseFlag(const uint8 index) { return ~(1 << (index % 8)); }
+
+	template<uint8 BitCount>
 	template<uint8 index>
-	inline void BitFlag<BitCount>::setFlag()
+	void BitFlag<BitCount>::setFlag()
 	{
 		static_assert(index < BitCount, "Index out of bounds for BitFlag.");
 		_flag[getFlagBucket(index)] |= getTrueFlag(index);
@@ -29,7 +38,7 @@ namespace ke
 
 	template<uint8 BitCount>
 	template<uint8 index>
-	inline void BitFlag<BitCount>::resetFlag()
+	void BitFlag<BitCount>::resetFlag()
 	{
 		static_assert(index < BitCount, "Index out of bounds for BitFlag.");
 		_flag[getFlagBucket(index)] &= getFalseFlag(index);
@@ -46,7 +55,7 @@ namespace ke
 
 	template<uint8 BitCount>
 	template<uint8 index>
-	inline bool BitFlag<BitCount>::isFlagSet() const
+	bool BitFlag<BitCount>::isFlagSet() const
 	{
 		static_assert(index < BitCount, "Index out of bounds for BitFlag.");
 		return _flag[getFlagBucket(index)] & getTrueFlag(index);
