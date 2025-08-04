@@ -35,6 +35,7 @@
     <ClInclude Include="HashMap.hpp" />
     <ClInclude Include="HashSet.h" />
     <ClInclude Include="HashSet.hpp" />
+    <ClInclude Include="HashTraits.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="MallocAllocator.h" />

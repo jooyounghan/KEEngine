@@ -19,16 +19,18 @@ using namespace ke;
 
 int main()
 {
-	std::unordered_map<std::string, std::string> map;
-	map.insert({ "one", "one" });
-	map.insert({ "two", "two" });
-	map.insert({ "three", "three" });
+	HashMap<int, int, BinHoodBucketNode<int, 64, 0.8f, 0.5f>, HashConvertor<int>> test;
 
-	std::unordered_map<std::string, std::string, HashConvertor<std::string>> customMap;
-	customMap.insert({ "one", "one" });
-	customMap.insert({ "two", "two" });
-	customMap.insert({ "three", "three" });
-
-	HashMap<int, int, int> test1;
-	HashMap<int, int, BinHoodBucketNode<int, 64, 0.8f, 0.5f>> test2;
+	for (int i = 0; i < 100; i++)
+	{
+		test.insert(i, i);
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		test.insert(i, i);
+	}
+	size_t test1 = test.getCount();
+	while (true)
+	{
+	}
 }

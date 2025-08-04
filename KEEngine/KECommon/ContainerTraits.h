@@ -1,6 +1,5 @@
 #pragma once
 #include "MethodTraits.h"
-#include "OptionalValue.h"
 #include "Iterator.h"
 
 namespace ke
@@ -37,24 +36,6 @@ namespace ke
 			CHECK_METHOD_TRAIT(HasPushBackRValue, Container, void, const T&),
 			CHECK_METHOD_TRAIT(HasPushBackLValue, Container, void, T&&),
 			CHECK_METHOD_TRAIT(HasPopBack, Container, void)
-			>::value, TrueTrait, FalseTrait
-		>::Type
-		{
-		};
-#pragma endregion
-
-
-#pragma region HashBucket Traits
-		DEFINE_METHOD_TRAIT(HasInsertValueWithHash, insert);
-		DEFINE_METHOD_TRAIT(HasRemoveHash, remove);
-		DEFINE_METHOD_TRAIT_WITH_QUALIFIER(HashFindHash, find, const);
-
-		template<typename HashBucket, typename Value>
-		struct HashBucketTrait : TraitCondition<
-			SatisfyAll<
-			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Value&),
-			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t),
-			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, const OptionalValue<size_t, Value>&, size_t)
 			>::value, TrueTrait, FalseTrait
 		>::Type
 		{

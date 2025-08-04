@@ -100,6 +100,22 @@ namespace ke
             public:
                 static constexpr bool condition = decltype(test<Callable>(0))::value;
             };
+
+            template <typename Class, typename... Args>
+            struct IsContructibleImpl
+            {
+				DELETE_CONSTRUCTOR(IsContructibleImpl);
+
+            private:
+                template <typename ClassType>
+                static auto test(int) -> decltype(ClassType(DeclVal<Args>()...), TrueTrait());
+                template <typename ClassType>
+                static FalseTrait test(...);
+
+            public:
+                static constexpr bool condition = decltype(test<Class>(0))::value;
+            };
+
         }
 
         template<typename Callable, typename ...Args>
@@ -107,5 +123,12 @@ namespace ke
         {
             DELETE_CONSTRUCTOR(IsCallable);
         };
+
+        template <typename Class, typename... Args>
+        struct IsContructible : TraitCondition<KETraitDetail::IsContructibleImpl<Class, Args...>::condition, TrueTrait, FalseTrait>::Type
+        {
+			DELETE_CONSTRUCTOR(IsContructible);
+        };
+
     }
 }

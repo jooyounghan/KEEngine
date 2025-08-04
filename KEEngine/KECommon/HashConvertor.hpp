@@ -75,7 +75,6 @@ namespace ke
         }
 
         size_t result = static_cast<size_t>(acc1 ^ acc2);
-		printf("Hash: %zu\n", result); // Debug output
         return result;
     }
 

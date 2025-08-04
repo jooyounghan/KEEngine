@@ -39,22 +39,34 @@ namespace ke
 		OptionalValue(Types&&... value);
 		OptionalValue(const OptionalValue& other);
 		OptionalValue(OptionalValue&& other);
+		~OptionalValue();
+
+	public:
+		OptionalValue& operator=(const OptionalValue& other);
+		OptionalValue& operator=(OptionalValue&& other);
 
 	public:
 		void setValue(const Types&... value);
 		void setValue(Types&&... value);
-
 		bool hasValue() const;
+
+	public:
 		template<size_t Index>
 		auto* tryGetValue();
+		template<size_t Index>
+		void setValue(const GetType<Index, Types...>::type& value);
+		template<size_t Index>
+		void setValue(GetType<Index, Types...>::type&& value);
 
 	private:
+		template<size_t Index, typename T>
+		void construct(T&& value);
 		template<size_t Index, typename T, typename... Ts>
 		void construct(T&& first, Ts&&... rest);
-
+		template<size_t Index>
+		void destruct();
 		template<size_t Index>
 		void copyFrom(const OptionalValue& other);
-
 		template<size_t Index>
 		void moveFrom(OptionalValue&& other);
 
