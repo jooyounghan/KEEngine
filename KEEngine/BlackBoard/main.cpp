@@ -5,6 +5,7 @@
 #include "../KECommon/OptionalValue.h"
 #include "../KECommon/HashConvertor.h"
 #include "../KECommon/OwnedString.h"
+#include "../KECommon/HashMap.h"
 
 #include <cstdio>
 #include <chrono>
@@ -27,4 +28,7 @@ int main()
 	customMap.insert({ "one", "one" });
 	customMap.insert({ "two", "two" });
 	customMap.insert({ "three", "three" });
+
+	HashMap<int, int, int> test1;
+	HashMap<int, int, BinHoodBucketNode<int, 64, 0.8f, 0.5f>> test2;
 }

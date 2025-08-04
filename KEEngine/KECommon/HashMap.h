@@ -1,50 +1,55 @@
 #pragma once
 #include "TypeCommon.h"
+#include "ContainerTraits.h"
 #include "TypeLimit.h"
 #include "OptionalValue.h"
 
 namespace ke
 {
 	template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	class BucketNode
+	class BinHoodBucketNode
 	{
 	public:
-		explicit BucketNode(size_t from, size_t to, BucketNode* parent, bool isAllocateValues);
-		~BucketNode();
+		explicit BinHoodBucketNode(size_t from, size_t to, BinHoodBucketNode* parent, bool isAllocateValues);
+		~BinHoodBucketNode();
 
 	private:
-		size_t			_from;
-		size_t			_to;
-		BucketNode*		_parent = nullptr;
-		BucketNode*		_left = nullptr;
-		BucketNode*		_right = nullptr;
+		size_t					_from;
+		size_t					_to;
+		BinHoodBucketNode*		_parent = nullptr;
+		BinHoodBucketNode*		_left = nullptr;
+		BinHoodBucketNode*		_right = nullptr;
 
 	private:
 		size_t							_count = 0;
 		OptionalValue<size_t, Value>*	_values = nullptr;
 
-	public:
+	private:
+		/* RobinHood Based Insert Process*/
 		inline bool		isInRange(size_t hash) const;
 		inline bool		hasChildren() const;
 		inline float	getLoadFactor() const;
+		void			splitBucket();
 
 	public:
-		/* RobinHood Based Insert Process*/
-		void	SplitBucket();
-		void	InsertValue(size_t hash, const Value& value);
-
+		/* HashBucket Method Implement */
+		void								insert(size_t hash, const Value& value);
+		void								remove(size_t hash);
+		const OptionalValue<size_t, Value>& find(size_t hash) const;
 	};
 
-	template<typename Key, typename Value, size_t BucketSize = 64, float SeperateThreshold = 0.8f, float MergeThreshold = 0.6f>
+	template<typename Key, typename Value, typename HashBucket>
 	class HashMap
 	{
+		static_assert(KETrait::HashBucketTrait<HashBucket, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
+
 	private:
-		BucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>* _root = nullptr;
+		HashBucket* _bucket = nullptr;
 
 	public:
-		void Insert(const Key& key, const Value& value);
-		void Remove(const Key& key);
-		const OptionalValue<size_t, Value>& Find(const Key& key) const;
+		void								insert(const Key& key, const Value& value);
+		void								remove(const Key& key);
+		const OptionalValue<size_t, Value>& find(const Key& key) const;
 	};
 }
 
