@@ -17,8 +17,11 @@ namespace ke
         template<typename T>
         NODISC static constexpr const T& min(const T& left, const T& right) noexcept;
 
+        template<typename T>
+        NODISC static constexpr bool isPowerOf2(const T& value) noexcept;
+
 		template<typename T>
-        NODISC static constexpr T GetNextPowerOf2(const T& value) noexcept;
+        NODISC static constexpr T getNextPowerOf2(const T& value) noexcept;
 
         NODISC static constexpr bool isPrime(size_t n);
         NODISC static constexpr size_t nextPrime(size_t n);

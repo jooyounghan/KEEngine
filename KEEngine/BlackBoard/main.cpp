@@ -19,18 +19,29 @@ using namespace ke;
 
 int main()
 {
-	HashMap<int, int, BinHoodBucketNode<int, 64, 0.8f, 0.5f>, HashConvertor<int>> test;
-
-	for (int i = 0; i < 100; i++)
-	{
-		test.insert(i, i);
-	}
-	for (int i = 0; i < 100; i++)
-	{
-		test.insert(i, i);
-	}
-	size_t test1 = test.getCount();
 	while (true)
 	{
+		OptionalValue<int, uint8_t, size_t> test1;
+		test1.setValue(1, 2, 3);
+		OptionalValue<int, uint8_t, size_t> test2 = std::move(test1);
+
+		//OptionalValue<size_t, int, uint8>test = OptionalValue<size_t, int, uint8>(4, 5, 6);
 	}
+
+	//HashMap<int, int, BinHoodBucketNode<int, 64, 0.8f, 0.5f>, HashConvertor<int>> test;
+	//while (true)
+	//{
+	//	for (int i = 0; i < 100; i++)
+	//	{
+	//		test.insert(i, i);
+	//	}
+	//	size_t test1 = test.getCount();
+	//	for (int i = 0; i < 100; i++)
+	//	{
+	//		test.insert(i, i);
+	//	}
+
+	//	test1 = test.getCount();
+	//}
+
 }

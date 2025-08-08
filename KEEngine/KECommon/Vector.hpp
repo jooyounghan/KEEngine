@@ -99,7 +99,7 @@ namespace ke
 
 		if constexpr (KETrait::IsTriviallyCopyable<T>::value)
 		{
-			memcpy(newMemoryEntry._address, _memoryEntry._address, KEMemory::getSizeOfN<T>(copyCount));
+			memcpy(newMemoryEntry._address, _memoryEntry._address, KEMemory::getSizeOf<T>() * copyCount);
 		}
 		else
 		{

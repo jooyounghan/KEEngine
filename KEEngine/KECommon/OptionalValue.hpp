@@ -1,51 +1,29 @@
 #pragma once
 #include "OptionalValue.h"
-#include "MemoryCommon.h"
 
 namespace ke
 {
 	template<typename ...Types>
-	OptionalValue<Types...>::OptionalValue(const Types & ...value) { setValue(value...); }
+	OptionalValue<Types...>::OptionalValue() : _hasValue(false) { InitializeStorage(); }
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(const Types & ...value) : _hasValue(false) { InitializeStorage(); setValue(value...); }
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(Types && ...value)  : _hasValue(false) { InitializeStorage(); setValue(move(value)...); }
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(const OptionalValue& other) { InitializeStorage(); *this = other; }
+	template<typename ...Types>
+	OptionalValue<Types...>::OptionalValue(OptionalValue&& other) { *this = move(other); }
 
 	template<typename ...Types>
-	OptionalValue<Types...>::OptionalValue(Types && ...value) { setValue(move<Types>(value)...); }
-
-	template<typename ...Types>
-	OptionalValue<Types...>::OptionalValue(const OptionalValue& other)
-		: _hasValue(other._hasValue)
-	{
-		if (_hasValue)
-			copyFrom<0>(other);
-	}
-
-	template<typename ...Types>
-	OptionalValue<Types...>::OptionalValue(OptionalValue&& other)
-		: _hasValue(other._hasValue)
-	{
-		if (_hasValue)
-		{
-			other._hasValue = false;
-			moveFrom<0>(move(other));
-		}
-	}
-
-	template<typename ...Types>
-	OptionalValue<Types...>::~OptionalValue()
-	{
-		if (_hasValue)
-		{
-			_hasValue = false;
-			destruct<0>();
-		}
-	}
+	OptionalValue<Types...>::~OptionalValue() { dispose(); }
 
 	template<typename ...Types>
 	OptionalValue<Types...>& OptionalValue<Types...>::operator=(const OptionalValue& other)
-
 	{
 		if (this != &other)
 		{
-			this->~OptionalValue<Types...>();
+			this->release();
+
 			_hasValue = other._hasValue;
 			if (_hasValue) 
 			{
@@ -57,72 +35,84 @@ namespace ke
 
 	template<typename ...Types>
 	OptionalValue<Types...>& OptionalValue<Types...>::operator=(OptionalValue&& other)
-
 	{
 		if (this != &other)
 		{
-			this->~OptionalValue<Types...>();
-			_hasValue = other._hasValue;
-			if (_hasValue) 
-			{
-				moveFrom<0>(move(other));
-				other._hasValue = false;
-			}
+			moveFrom(move(other));
 		}
 		return *this;
-	}
-
-	template<typename ...Types>
-	void OptionalValue<Types...>::setValue(const Types & ...value)
-	{
-		construct<0>(value...);
-		_hasValue = true;
-	}
-
-	template<typename ...Types>
-	void OptionalValue<Types...>::setValue(Types && ...value)
-	{
-		construct<0>(move(value)...);
-		_hasValue = true;
 	}
 
 	template<typename ...Types>
 	bool OptionalValue<Types...>::hasValue() const { return _hasValue; }
 
 	template<typename ...Types>
+	void OptionalValue<Types...>::setValue(const Types & ...value)
+	{
+		release();
+		_hasValue = true;		
+		construct<0>(value...);
+	}
+
+	template<typename ...Types>
+	void OptionalValue<Types...>::setValue(Types && ...value)
+	{
+		release();
+		_hasValue = true;
+		construct<0>(move(value)...);
+	}
+
+
+	template<typename ...Types>
 	template<size_t Index>
 	auto* OptionalValue<Types...>::tryGetValue()
 	{
 		static_assert(Index < sizeof...(Types), "Index out of bounds for OptionalValue types");
-		if (!_hasValue) return static_cast<typename GetType<Index, Types...>::type*>(nullptr);
-
-		using T = typename GetType<Index, Types...>::type;
-		constexpr size_t offset = GetOffset<Index, Types...>::value;
-		return reinterpret_cast<T*>(_storage + offset);
+		if (!_hasValue) return static_cast<typename GetType<Index, Types...>::Type*>(nullptr);
+		
+		using CurrentType = typename GetType<Index, Types...>::Type;
+		constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+		return reinterpret_cast<CurrentType*>(_storage + offset);
 	}
 
 	template<typename ...Types>
-	template<size_t Index>
-	void OptionalValue<Types...>::setValue(const GetType<Index, Types...>::type& value)
+	void OptionalValue<Types...>::dispose()
 	{
-		using T = typename GetType<Index, Types...>::type;
-		construct<Index>(value);
+		if (_storage)
+		{
+			release();
+			KEMemory::aligendFree(_storage);
+			_storage = nullptr;
+		}
 	}
 
 	template<typename ...Types>
-	template<size_t Index>
-	void OptionalValue<Types...>::setValue(GetType<Index, Types...>::type&& value)
+	void OptionalValue<Types...>::release()
 	{
-		construct<Index>(move(value));
+		if (_hasValue) releaseUnsafe();
+	}
+
+	template<typename ...Types>
+	void OptionalValue<Types...>::releaseUnsafe()
+	{
+		_hasValue = false;
+		destruct<0>();
+	}
+
+	template<typename ...Types>
+	void OptionalValue<Types...>::InitializeStorage()
+	{
+		if (_storage) KEMemory::aligendFree(_storage);
+		_storage = reinterpret_cast<byte*>(KEMemory::aligendMalloc<Types...>(1));
 	}
 
 	template<typename ...Types>
 	template<size_t Index, typename T>
 	void OptionalValue<Types...>::construct(T&& value)
 	{
-		using Type = typename GetType<Index, Types...>::type;
-		constexpr size_t offset = GetOffset<Index, Types...>::value;
-		new (_storage + offset) Type(forward<T>(value));
+		using CurrentType = typename GetType<Index, Types...>::Type;
+		constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+		new (_storage + offset) CurrentType(forward<CurrentType>(value));
 	}
 
 	template<typename ...Types>
@@ -137,6 +127,13 @@ namespace ke
 	template<size_t Index>
 	void OptionalValue<Types...>::destruct()
 	{
+		if constexpr (Index < sizeof...(Types))
+		{
+			using CurrentType = typename GetType<Index, Types...>::Type;
+			constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+			reinterpret_cast<CurrentType*>(_storage + offset)->~CurrentType();
+			destruct<Index + 1>();
+		}
 	}
 
 	template<typename ...Types>
@@ -145,25 +142,25 @@ namespace ke
 	{
 		if constexpr (Index < sizeof...(Types))
 		{
-			using Type = typename GetType<Index, Types...>::type;
-			constexpr size_t offset = GetOffset<Index, Types...>::value;
-			const Type* src = reinterpret_cast<const Type*>(other._storage + offset);
-			new (_storage + offset) Type(*src);
+			using CurrentType = typename GetType<Index, Types...>::Type;
+			constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+			const CurrentType* src = reinterpret_cast<const CurrentType*>(other._storage + offset);
+			new (_storage + offset) CurrentType(*src);
 			copyFrom<Index + 1>(other);
 		}
 	}
 
 	template<typename ...Types>
-	template<size_t Index>
 	void OptionalValue<Types...>::moveFrom(OptionalValue&& other)
 	{
-		if constexpr (Index < sizeof...(Types))
+		dispose();
+		_hasValue = other._hasValue;
+		if(_hasValue)
 		{
-			using T = typename GetType<Index, Types...>::type;
-			constexpr size_t offset = GetOffset<Index, Types...>::value;
-			T* src = reinterpret_cast<T*>(other._storage + offset);
-			new (_storage + offset) T(move(*src));
-			moveFrom<Index + 1>(move(other));
+			_storage = other._storage;
+
+			other._hasValue = false;
+			other._storage = nullptr;
 		}
 	}
 }

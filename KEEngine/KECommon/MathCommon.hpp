@@ -29,7 +29,15 @@ namespace ke
     }
 
     template<typename T>
-    constexpr T ke::KEMath::GetNextPowerOf2(const T& value) noexcept
+    constexpr bool KEMath::isPowerOf2(const T& value) noexcept
+    {
+        static_assert(KETrait::IsInteger<T>::value, "T must be an integer type.");
+
+        return (value & (value - 1)) == 0;
+    }
+
+    template<typename T>
+    constexpr T ke::KEMath::getNextPowerOf2(const T& value) noexcept
     {
 		static_assert(KETrait::IsInteger<T>::value, "T must be an integer type.");
         
@@ -41,7 +49,8 @@ namespace ke
     constexpr bool KEMath::isPrime(size_t n)
     {
         if (n < 2) return false;
-        for (size_t i = 2; i * i <= n; ++i) {
+        for (size_t i = 2; i * i <= n; ++i) 
+        {
             if (n % i == 0) return false;
         }
         return true;

@@ -61,6 +61,12 @@
     <Filter Include="소스 파일\Common">
       <UniqueIdentifier>{14abc615-cf92-4b5f-b6c3-6230c8377ca2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Optional">
+      <UniqueIdentifier>{887bf12a-66d7-4673-a94f-a709ced70e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Optional\TemplateHpp">
+      <UniqueIdentifier>{0137bacb-a7e9-4493-9e48-529c1997ce78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathCommon.hpp">
@@ -109,12 +115,6 @@
       <Filter>헤더 파일\Flag</Filter>
     </ClInclude>
     <ClInclude Include="DirtyBitFlaggedFunction.hpp">
-      <Filter>헤더 파일\Flag\TemplateHpp</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionalValue.h">
-      <Filter>헤더 파일\Flag</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionalValue.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="OwnedString.h">
@@ -209,6 +209,12 @@
     </ClInclude>
     <ClInclude Include="HashTraits.h">
       <Filter>헤더 파일\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionalValue.h">
+      <Filter>헤더 파일\Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionalValue.hpp">
+      <Filter>헤더 파일\Optional\TemplateHpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

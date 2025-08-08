@@ -64,7 +64,7 @@ namespace ke
 	struct RemoveReference<T&&> { using Type = T; };
 
 	template<typename T>
-	typename RemoveReference<T>::Type&& move(T&& value) 
+	inline typename RemoveReference<T>::Type&& move(T&& value) 
 	{
 		return static_cast<typename RemoveReference<T>::Type&&>(value);
 	}
@@ -73,13 +73,13 @@ namespace ke
 	template<typename T> struct IsLvalueReference<T&> { static constexpr bool value = true; };
 
 	template<typename T>
-	constexpr T&& forward(typename RemoveReference<T>::Type& t) noexcept
+	inline constexpr T&& forward(typename RemoveReference<T>::Type& t) noexcept
 	{
 		return static_cast<T&&>(t);
 	}
 
 	template<typename T>
-	constexpr T&& forward(typename RemoveReference<T>::Type&& t) noexcept
+	inline constexpr T&& forward(typename RemoveReference<T>::Type&& t) noexcept
 	{
 		static_assert(!IsLvalueReference<T>::value, "bad forward of rvalue as lvalue");
 		return static_cast<T&&>(t);

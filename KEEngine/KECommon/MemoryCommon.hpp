@@ -16,51 +16,88 @@ namespace ke
     template <typename T>
     constexpr size_t KEMemory::memoryAlignOf() noexcept
     {
-        return KEMath::max(alignof(T), __STDCPP_DEFAULT_NEW_ALIGNMENT__);
+        return alignof(T);
     }
 
-    template <typename T1, typename T2, typename... Ts>
+    template <typename T1, typename T2, typename... Types>
     constexpr size_t KEMemory::memoryAlignOf() noexcept
     {
         constexpr size_t head = memoryAlignOf<T1>();
-        constexpr size_t tail = memoryAlignOf<T2, Ts...>();
+        constexpr size_t tail = memoryAlignOf<T2, Types...>();
         return KEMath::max(head, tail);
     }
 
+    constexpr size_t KEMemory::getAlignedUp(size_t value, size_t alignment) noexcept
+    {
+        if (alignment == 0) return value;
+
+        if (KEMath::isPowerOf2(alignment)) 
+        {
+            return (value + (alignment - 1)) & ~(alignment - 1);
+        }
+        else 
+        {
+            size_t r = value % alignment;
+            return r ? value + (alignment - r) : value;
+        }
+    }
+
+
+    template<size_t Index, typename ...Types>
+    constexpr size_t KEMemory::getOffset() noexcept
+    {
+        if constexpr (Index == 0) 
+        {
+            return 0;
+        }
+        else 
+        {
+			static_assert(Index < sizeof...(Types), "Index out of bounds for Types");
+
+            using CurrentType = typename GetType<Index, Types...>::Type;
+            using PrevType = typename GetType<Index - 1, Types...>::Type;
+
+            constexpr size_t prevSize = sizeof(PrevType);
+            constexpr size_t prevOffset = KEMemory::getOffset<Index - 1, Types...>();
+
+            constexpr size_t currentOffset = prevOffset + prevSize;
+            return getAlignedUp(currentOffset, alignof(CurrentType));
+        }
+    }
+
     template<typename T>
-    constexpr size_t KEMemory::getSizeOfN(const size_t count) noexcept
+    constexpr size_t KEMemory::getSizeOfImpl() noexcept
     {
-        return sizeof(T) * count;
+        return sizeof(T);
     }
 
-    template <typename T1, typename T2, typename... Ts>
-    constexpr size_t KEMemory::getSizeOfN(KE_IN const size_t count) noexcept
+    template<typename T1, typename T2, typename ...Types>
+    constexpr size_t KEMemory::getSizeOfImpl() noexcept
     {
-		return getSizeOfN<T1>(count) + getSizeOfN<T2, Ts...>(count);
+        return getAlignedUp(getSizeOfImpl<T2, Types...>(), alignof(T2)) + getSizeOfImpl<T1>();
     }
 
 
-	template <typename T>
-    void* KEMemory::aligendMalloc(const size_t count)
+    template <typename ...Types>
+    constexpr size_t KEMemory::getSizeOf() noexcept
     {
-        if (count == 0)
+		constexpr size_t maxAlignment = memoryAlignOf<Types...>();
+		return getAlignedUp(getSizeOfImpl<Types...>(), maxAlignment);
+    }
+
+    template <typename ...Types>
+    void* KEMemory::aligendMalloc(size_t count)
+    {
+        if (count == 0) return nullptr;
+
+        constexpr size_t maxAlignment = memoryAlignOf<Types...>();
+        size_t requestedBytes = count * getSizeOf<Types...>();
+
+        if constexpr (maxAlignment > __STDCPP_DEFAULT_NEW_ALIGNMENT__ && requestedBytes >= _kPageThresholdSize)
         {
-            return nullptr;
+            maxAlignment = KEMath::max(maxAlignment, _kCachelineAlignSize);
         }
 
-        constexpr size_t memoryAlign = memoryAlignOf<T>();
-        size_t requestedBytes = getSizeOfN<T>(count);
-
-        if constexpr (memoryAlign > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
-        {
-            if constexpr (requestedBytes >= _kPageThresholdSize)
-            {
-                memoryAlign = KEMath::max(memoryAlign, _kCachelineAlignSize);
-            }
-        }
-
-        return _aligned_malloc(requestedBytes, memoryAlign);
+        return _aligned_malloc(requestedBytes, maxAlignment);
     }
-
-
 }
