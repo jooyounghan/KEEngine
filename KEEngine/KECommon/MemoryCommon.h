@@ -24,11 +24,8 @@ namespace ke
 		template<typename T>
 		NODISC CONSTEXPR_INLINE static constexpr T* AddressOf(KE_IN T& arg) noexcept;
 
-		template <typename T>
-		NODISC CONSTEXPR_INLINE static constexpr size_t memoryAlignOf() noexcept;
-
-		template <typename T1, typename T2, typename... Types>
-		NODISC CONSTEXPR_INLINE static constexpr size_t memoryAlignOf() noexcept;
+		template <typename T1, typename... Types>
+		NODISC CONSTEXPR_INLINE static constexpr size_t alignOf() noexcept;
 
 		NODISC CONSTEXPR_INLINE static constexpr size_t getAlignedUp(size_t offset, size_t alignment) noexcept;
 
@@ -37,12 +34,15 @@ namespace ke
 
 	private:
 		template <typename T>
-		NODISC CONSTEXPR_INLINE static constexpr size_t getSizeOfImpl() noexcept;
+		NODISC CONSTEXPR_INLINE static constexpr size_t getPaddedSizeOfImpl() noexcept;
 		template <typename T1, typename T2, typename... Types>
-		NODISC CONSTEXPR_INLINE static constexpr size_t getSizeOfImpl() noexcept;
+		NODISC CONSTEXPR_INLINE static constexpr size_t getPaddedSizeOfImpl() noexcept;
 
 	public:
 		template <typename ...Types>
+		NODISC CONSTEXPR_INLINE static constexpr size_t getPaddedSizeOf() noexcept;
+
+		template <typename T, typename... Types>
 		NODISC CONSTEXPR_INLINE static constexpr size_t getSizeOf() noexcept;
 
 	public:

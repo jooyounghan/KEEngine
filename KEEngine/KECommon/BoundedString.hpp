@@ -23,6 +23,7 @@ namespace ke
 	BoundedString<CharType, CharCount>::BoundedString(const BoundedString& boundedString)
 	{
 		_buffer = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<CharType>(CharCount));
+
 		StringManipulateHelper<CharType>::copy(_buffer, CharCount, boundedString.c_str());
 		_length = boundedString._length;
 

@@ -6,8 +6,6 @@ namespace ke
 	template<typename CharType, size_t CharCount>
 	class BoundedString
 	{
-		static_assert(CharCount > 1, "CharCount must be greater than 1");
-		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
 
 	public:
 		BoundedString() = default;
@@ -37,8 +35,12 @@ namespace ke
 	private:
 		size_t		_capacity = 0;
 #endif
-	};
 
+		// Static Asserts
+		static_assert(CharCount > 1, "CharCount must be greater than 1");
+		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
+	};
+		
 	template<size_t CharCount>
 	using BoundedStringA = BoundedString<char, CharCount>;
 	template<size_t CharCount>

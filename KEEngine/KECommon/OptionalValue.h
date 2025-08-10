@@ -8,8 +8,6 @@ namespace ke
 	template<typename... Types>
 	class OptionalValue
 	{
-		static_assert(sizeof...(Types) > 0, "OptionalTuple must have at least one type");
-
 	public:
 		OptionalValue();
 		OptionalValue(const Types&... value);
@@ -53,7 +51,10 @@ namespace ke
 
 	protected:
 		bool _hasValue;
-		byte* _storage = nullptr;
+		alignas(KEMemory::alignOf<Types...>()) byte* _storage = nullptr;
+
+		// Static Asserts
+		static_assert(sizeof...(Types) > 0, "OptionalTuple must have at least one type");
 	};
 #pragma endregion
 

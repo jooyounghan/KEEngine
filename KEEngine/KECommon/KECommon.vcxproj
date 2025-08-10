@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="AllocatorTraits.h" />
     <ClInclude Include="BitFlag.h" />
+    <ClInclude Include="ColumnarVector.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
     <ClInclude Include="DirtyBitFlaggedFunction.h" />
@@ -55,9 +56,12 @@
     <ClInclude Include="BoundedString.h" />
     <ClInclude Include="BoundedString.hpp" />
     <ClInclude Include="Stack.h" />
-    <ClInclude Include="StaticList.h" />
+    <ClInclude Include="StaticArray.h" />
     <ClInclude Include="OwnedString.h" />
     <ClInclude Include="OwnedString.hpp" />
+    <ClInclude Include="StaticArray.hpp" />
+    <ClInclude Include="StaticColumnarArray.h" />
+    <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="Tree.h" />

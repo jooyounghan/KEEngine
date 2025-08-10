@@ -8,9 +8,6 @@ namespace ke
 	template<typename CharType, typename Alloc = MallocAllocator<CharType>>
 	class OwnedString
 	{
-		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
-		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
-
 	public:
 		OwnedString(const CharType* str);
 		OwnedString(const OwnedString& staticString);
@@ -45,6 +42,10 @@ namespace ke
 		size_t			_length = 0;
 		const CharType* _stringValuePtr;
 #endif
+
+		// Static Asserts
+		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
+		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
 	};
 
 	using OwnedStringA = OwnedString<char>;

@@ -1,7 +1,5 @@
 #pragma once
 #include "MallocAllocator.h"
-#include "iterator.h"
-
 #include "ContainerTraits.h"
 
 namespace ke
@@ -9,8 +7,6 @@ namespace ke
 	template<typename T, typename Alloc = MallocAllocator<T>>
 	class Vector
 	{
-		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
-
 	public:
 		Vector();
 		~Vector();
@@ -19,11 +15,10 @@ namespace ke
 		NO_UNIQUE_ADDRESS Alloc		_allocator;
 		MemoryEntry					_memoryEntry;
 		size_t						_count;
-		size_t						_shrinkThreshold;
 
 #ifdef _DEBUG
 	private:
-		const T*		_data;
+		const T*		_data = nullptr;
 #endif
 
 	public:
@@ -46,9 +41,17 @@ namespace ke
 		void resize(size_t newSize, Args&&... args);
 		void reserve(size_t newCapacity);
 
+	public:
+		inline T& operator[](size_t index) { return *(reinterpret_cast<T*>(&_memoryEntry._address[0]) + index); }
+		inline const T& operator[](size_t index) const { return *(reinterpret_cast<T*>(&_memoryEntry._address[0]) + index); }
+
 	private:
 		void reallocateCapcity(size_t newCapacity);
 		void decreaseCount(size_t newCount);
+
+		// Static Asserts
+		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
+		static_assert(KETrait::VectorTrait<Vector, T>::value, "Vector does not satisfy the required VectorTrait.");
 	};
 }
 
