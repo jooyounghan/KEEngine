@@ -44,22 +44,22 @@ namespace ke
     }
 
 
-    template<size_t Index, typename ...Types>
+    template<size_t ColumnIndex, typename ...Types>
     constexpr size_t KEMemory::getOffset() noexcept
     {
-        if constexpr (Index == 0) 
+        if constexpr (ColumnIndex == 0) 
         {
             return 0;
         }
         else 
         {
-			static_assert(Index < sizeof...(Types), "Index out of bounds for Types");
+			static_assert(ColumnIndex < sizeof...(Types), "Index out of bounds for Types");
 
-            using CurrentType = typename GetType<Index, Types...>::Type;
-            using PrevType = typename GetType<Index - 1, Types...>::Type;
+            using CurrentType = typename GetType<ColumnIndex, Types...>::Type;
+            using PrevType = typename GetType<ColumnIndex - 1, Types...>::Type;
 
             constexpr size_t prevSize = sizeof(PrevType);
-            constexpr size_t prevOffset = KEMemory::getOffset<Index - 1, Types...>();
+            constexpr size_t prevOffset = KEMemory::getOffset<ColumnIndex - 1, Types...>();
 
             constexpr size_t currentOffset = prevOffset + prevSize;
             return getAlignedUp(currentOffset, alignof(CurrentType));
@@ -99,8 +99,7 @@ namespace ke
         }
     }
         
-
-    template <typename ...Types>
+    template <bool InitializeNull, typename ...Types>
     void* KEMemory::aligendMalloc(size_t count)
     {
         if (count == 0) return nullptr;
@@ -113,6 +112,13 @@ namespace ke
             maxAlignment = KEMath::max(maxAlignment, _kCachelineAlignSize);
         }
 
-        return _aligned_malloc(requestedBytes, maxAlignment);
+		void* ptr = _aligned_malloc(requestedBytes, maxAlignment);
+
+        if constexpr(InitializeNull)
+        {
+            memset(ptr, 0, requestedBytes);
+		}
+        return ptr;
     }
+
 }

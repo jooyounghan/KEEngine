@@ -31,7 +31,7 @@ namespace ke
         static_assert(sizeof(T) >= sizeof(size_t), "T must be at least the size of a pointer.");
         static_assert(PoolingCount > 0, "PoolingCount must be positive.");
 
-        _poolBlocks = reinterpret_cast<T*>(KEMemory::aligendMalloc<T>(PoolingCount));
+        _poolBlocks = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(PoolingCount));
 
         for (size_t idx = 0; idx < PoolingCount - 1; ++idx)
         {
@@ -53,6 +53,7 @@ namespace ke
     }
 
     template<typename T, size_t PoolingCount>
+    template<bool InitializeNull>
     MemoryEntry PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
     {
         if (count == 0 || count > PoolingCount) return MemoryEntry(nullptr, 0);
@@ -68,6 +69,11 @@ namespace ke
         }
 
 		_freeListHead = current;
+
+        if constexpr (InitializeNull)
+        {
+            memset(result, 0, count * KEMemory::getSizeOf<T>());
+		}
 
         return MemoryEntry(result, count);
     }

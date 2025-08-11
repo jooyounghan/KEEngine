@@ -91,7 +91,7 @@ namespace ke
 	{
 		if (newCapacity == _memoryEntry._capacity) return;
 
-		MemoryEntry newMemoryEntry = _allocator.allocate(newCapacity);
+		MemoryEntry newMemoryEntry = _allocator.allocate<false>(newCapacity);
 		T* oldElements = reinterpret_cast<T*>(_memoryEntry._address);
 		T* newElements = reinterpret_cast<T*>(newMemoryEntry._address);
 

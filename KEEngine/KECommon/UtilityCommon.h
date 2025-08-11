@@ -44,7 +44,7 @@
 	ClassName() = delete;								\
 	NONCOPYABLE(ClassName)
 
-#define GET_BUFFER_PTR_AT(PtrType, Buffer, Index) reinterpret_cast<PtrType*>(&Buffer[sizeof(PtrType) * Index])
+#define GET_BUFFER_PTR_AT(PtrType, Buffer, ColumnIndex) reinterpret_cast<PtrType*>(&Buffer[sizeof(PtrType) * ColumnIndex])
 
 // =======================================================================================
 #pragma endregion

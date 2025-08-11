@@ -15,7 +15,7 @@ namespace ke
 
 	namespace KETrait
 	{
-		DEFINE_METHOD_TRAIT(HasAllocate, allocate);
+		DEFINE_TEMPLATE_BOOL_METHOD_TRAIT(HasAllocate, allocate);
 		DEFINE_METHOD_TRAIT(HasDeallocate, deallocate);
 
 		template<typename Allocator>

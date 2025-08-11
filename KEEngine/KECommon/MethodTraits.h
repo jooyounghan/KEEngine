@@ -73,7 +73,29 @@ namespace KETraitDetail                                                         
 }                                                                                                                                               \
 DEFINE_METHOD_TRAIT_IMPL(TraitName);
 
-
+#define DEFINE_TEMPLATE_BOOL_METHOD_TRAIT(TraitName, MethodName)                                                                \
+namespace KETraitDetail                                                                                                         \
+{                                                                                                                               \
+    template<typename ClassType, typename ReturnType, typename... Args>                                                         \
+    struct TraitName##Impl                                                                                                      \
+    {                                                                                                                           \
+        DELETE_CONSTRUCTOR(TraitName##Impl);                                                                                    \
+    private:                                                                                                                    \
+        template<typename U>                                                                                                    \
+        static TrueTrait test_true(decltype(static_cast<ReturnType(U::*)(Args...)>(&U::template MethodName<true>))*);           \
+        template<typename U> static FalseTrait test_true(...);                                                                  \
+                                                                                                                                \
+        template<typename U>                                                                                                    \
+        static TrueTrait test_false(decltype(static_cast<ReturnType(U::*)(Args...)>(&U::template MethodName<false>))*);         \
+        template<typename U> static FalseTrait test_false(...);                                                                 \
+    public:                                                                                                                     \
+        static constexpr bool condition =                                                                                       \
+            decltype(test_true<ClassType>(0))::value ||                                                                         \
+            decltype(test_false<ClassType>(0))::value;                                                                          \
+        static_assert(condition, "The template class must have template<bool> " #MethodName " with the required signature.");   \
+    };                                                                                                                          \
+}                                                                                                                               \
+DEFINE_METHOD_TRAIT_IMPL(TraitName)
 
 #define CHECK_METHOD_TRAIT(TraitName, ClassType, ReturnType, ...) KETrait::TraitName<ClassType, ReturnType, __VA_ARGS__>::value
 

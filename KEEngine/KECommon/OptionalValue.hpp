@@ -64,14 +64,14 @@ namespace ke
 
 
 	template<typename ...Types>
-	template<size_t Index>
+	template<size_t ColumnIndex>
 	auto* OptionalValue<Types...>::tryGetValue()
 	{
-		static_assert(Index < sizeof...(Types), "Index out of bounds for OptionalValue types");
-		if (!_hasValue) return static_cast<typename GetType<Index, Types...>::Type*>(nullptr);
+		static_assert(ColumnIndex < sizeof...(Types), "Index out of bounds for OptionalValue types");
+		if (!_hasValue) return static_cast<typename GetType<ColumnIndex, Types...>::Type*>(nullptr);
 		
-		using CurrentType = typename GetType<Index, Types...>::Type;
-		constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+		using CurrentType = typename GetType<ColumnIndex, Types...>::Type;
+		constexpr size_t offset = KEMemory::getOffset<ColumnIndex, Types...>();
 		return reinterpret_cast<CurrentType*>(_storage + offset);
 	}
 
@@ -103,50 +103,50 @@ namespace ke
 	void OptionalValue<Types...>::InitializeStorage()
 	{
 		if (_storage) KEMemory::aligendFree(_storage);
-		_storage = reinterpret_cast<byte*>(KEMemory::aligendMalloc<Types...>(1));
+		_storage = reinterpret_cast<byte*>(KEMemory::aligendMalloc<true, Types...>(1));
 	}
 
 	template<typename ...Types>
-	template<size_t Index, typename T>
+	template<size_t ColumnIndex, typename T>
 	void OptionalValue<Types...>::construct(T&& value)
 	{
-		using CurrentType = typename GetType<Index, Types...>::Type;
-		constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+		using CurrentType = typename GetType<ColumnIndex, Types...>::Type;
+		constexpr size_t offset = KEMemory::getOffset<ColumnIndex, Types...>();
 		new (_storage + offset) CurrentType(forward<CurrentType>(value));
 	}
 
 	template<typename ...Types>
-	template<size_t Index, typename T, typename... Ts>
+	template<size_t ColumnIndex, typename T, typename... Ts>
 	void OptionalValue<Types...>::construct(T&& first, Ts&&... rest)
 	{
-		construct<Index>(forward<T>(first));
-		construct<Index + 1>(forward<Ts>(rest)...);
+		construct<ColumnIndex>(forward<T>(first));
+		construct<ColumnIndex + 1>(forward<Ts>(rest)...);
 	}
 
 	template<typename ...Types>
-	template<size_t Index>
+	template<size_t ColumnIndex>
 	void OptionalValue<Types...>::destruct()
 	{
-		if constexpr (Index < sizeof...(Types))
+		if constexpr (ColumnIndex < sizeof...(Types))
 		{
-			using CurrentType = typename GetType<Index, Types...>::Type;
-			constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+			using CurrentType = typename GetType<ColumnIndex, Types...>::Type;
+			constexpr size_t offset = KEMemory::getOffset<ColumnIndex, Types...>();
 			reinterpret_cast<CurrentType*>(_storage + offset)->~CurrentType();
-			destruct<Index + 1>();
+			destruct<ColumnIndex + 1>();
 		}
 	}
 
 	template<typename ...Types>
-	template<size_t Index>
+	template<size_t ColumnIndex>
 	void OptionalValue<Types...>::copyFrom(const OptionalValue& other)
 	{
-		if constexpr (Index < sizeof...(Types))
+		if constexpr (ColumnIndex < sizeof...(Types))
 		{
-			using CurrentType = typename GetType<Index, Types...>::Type;
-			constexpr size_t offset = KEMemory::getOffset<Index, Types...>();
+			using CurrentType = typename GetType<ColumnIndex, Types...>::Type;
+			constexpr size_t offset = KEMemory::getOffset<ColumnIndex, Types...>();
 			const CurrentType* src = reinterpret_cast<const CurrentType*>(other._storage + offset);
 			new (_storage + offset) CurrentType(*src);
-			copyFrom<Index + 1>(other);
+			copyFrom<ColumnIndex + 1>(other);
 		}
 	}
 

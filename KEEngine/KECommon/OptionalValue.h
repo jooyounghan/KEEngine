@@ -23,7 +23,7 @@ namespace ke
 		OptionalValue& operator=(OptionalValue&& other);
 
 	public:
-		template<size_t Index>
+		template<size_t ColumnIndex>
 		auto* tryGetValue();
 
 	public:
@@ -38,13 +38,13 @@ namespace ke
 
 	private:
 		void InitializeStorage();
-		template<size_t Index, typename T>
+		template<size_t ColumnIndex, typename T>
 		void construct(T&& value);
-		template<size_t Index, typename T, typename... Ts>
+		template<size_t ColumnIndex, typename T, typename... Ts>
 		void construct(T&& first, Ts&&... rest);
-		template<size_t Index>
+		template<size_t ColumnIndex>
 		void destruct();
-		template<size_t Index>
+		template<size_t ColumnIndex>
 		void copyFrom(const OptionalValue& other);
 		void moveFrom(OptionalValue&& other);
 

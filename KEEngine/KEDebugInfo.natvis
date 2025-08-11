@@ -27,13 +27,38 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	<Type Inheritable="false" Name="ke::BinHoodBucketNode&lt;*, *, *, *&gt;::HashSlot">
-		<DisplayString Condition="_hasValue">ke::HashSlot</DisplayString>
-		<DisplayString Condition="!_hasValue">Empty</DisplayString>
+	<Type Name="ke::StaticArray&lt;*&gt;">
+		<DisplayString>StaticArray</DisplayString>
 		<Expand HideRawView="true">
-			<Item Name="Hash" Condition="_hasValue">_hashValue</Item>
-			<Item Name="Value" Condition="_hasValue">_value</Item>
-			<Item Name="SlotDistance" Condition="_hasValue">(uint8_t)*_slotDistance</Item>
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="ke::StaticColumnarArray&lt;*&gt;">
+		<DisplayString>StaticColumnarArray</DisplayString>
+		<Expand HideRawView="true">
+			<Item Name="Columns">_columns</Item>
+		</Expand>
+	</Type>
+	<Type Name="ke::StaticColumnarArray&lt;*&gt;::SoAColumns&lt;*&gt;">
+		<DisplayString>SoAColumns</DisplayString>
+		<Expand HideRawView="true">
+			<Item Name="Columns">_col</Item>
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="ke::StaticColumnarArray&lt;*&gt;::SoAColumn&lt;*&gt;">
+		<DisplayString>SoAColumn</DisplayString>
+		<Expand HideRawView="true">
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
 		</Expand>
 	</Type>
 	<Type Name="ke::BinHoodBucketNode&lt;*, *, *, *&gt;">

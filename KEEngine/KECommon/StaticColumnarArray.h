@@ -10,31 +10,41 @@ namespace ke
 		StaticColumnarArray();
 		template<typename... Args>
 		StaticColumnarArray(Args... args);
-		~StaticColumnarArray() {};
+		StaticColumnarArray(const StaticColumnarArray& other);
+		StaticColumnarArray(StaticColumnarArray&& other) noexcept;
+
+	public:
+		StaticColumnarArray& operator=(const StaticColumnarArray& other);
+		StaticColumnarArray& operator=(StaticColumnarArray&& other) noexcept;
+
+	public:
+		~StaticColumnarArray();
+
 
 #pragma region ColumnDefine
 	private:
 		template<typename T>
-		struct SoAColumn
+		struct Column
 		{
 			alignas(T) byte _storage[sizeof(T) * Count];
 
 #ifdef _DEBUG
 		private:
 			const T* _data = reinterpret_cast<T*>(&_storage[0]);
+			CONSTEXPR_INLINE static constexpr size_t _count = Count;
 #endif			
 		};
 
 		template<typename... Ts>
-		struct SoAColumns;
+		struct Columns;
 
 		template<>
-		struct SoAColumns<> {};
+		struct Columns<> {};
 
 		template<typename T, typename... Ts>
-		struct SoAColumns<T, Ts...> : SoAColumns<Ts...>
+		struct Columns<T, Ts...> : Columns<Ts...>
 		{
-			SoAColumn<T> _col;
+			Column<T> _col;
 		};
 
 	private:
@@ -44,11 +54,11 @@ namespace ke
 		template <size_t I, size_t J, typename T, typename... Ts>
 		struct GetBuf<I, J, T, Ts...>
 		{
-			static SoAColumn<typename GetType<I, Types...>::Type>& get(SoAColumns<T, Ts...>& s)
+			static Column<typename GetType<I, Types...>::Type>& get(Columns<T, Ts...>& s)
 			{
 				return GetBuf<I, J + 1, Ts...>::get(s);
 			}
-			static const SoAColumn<typename GetType<I, Types...>::Type>& get(const SoAColumns<T, Ts...>& s)
+			static const Column<typename GetType<I, Types...>::Type>& get(const Columns<T, Ts...>& s)
 			{
 				return GetBuf<I, J + 1, Ts...>::get(s);
 			}
@@ -57,34 +67,30 @@ namespace ke
 		template <size_t I, typename T, typename... Ts>
 		struct GetBuf<I, I, T, Ts...>
 		{
-			static SoAColumn<T>& get(SoAColumns<T, Ts...>& s) { return s._col; }
-			static const SoAColumn<T>& get(const SoAColumns<T, Ts...>& s) { return s._col; }
+			static Column<T>& get(Columns<T, Ts...>& s) { return s._col; }
+			static const Column<T>& get(const Columns<T, Ts...>& s) { return s._col; }
 		};
 #pragma endregion
 
 	private:
-		SoAColumns<Types...> _columns;
+		Columns<Types...> _columns;
 
 	public:
-		template<size_t Index>
-		typename GetType<Index, Types...>::Type& getColumn(size_t index)
-		{
-			static_assert(Index < sizeof...(Types), "Index out of bounds for StaticColumnarArray columns");
-			using CurrentType = typename GetType<Index, Types...>::Type;
+		template<size_t ColumnIndex>
+		using ColumnType = typename GetType<ColumnIndex, Types...>::Type;
 
-			SoAColumn<CurrentType>& column = GetBuf<Index, 0, Types...>::get(_columns);
-			return *(reinterpret_cast<CurrentType*>(&column._storage[0]) + index);
-		}
+	public:
+		template<size_t ColumnIndex>
+		Column<ColumnType<ColumnIndex>>& getColumn();
 
-		template<size_t Index>
-		const typename GetType<Index, Types...>::Type& getColumn(size_t index) const
-		{
-			static_assert(Index < sizeof...(Types), "Index out of bounds for StaticColumnarArray columns");
-			using CurrentType = typename GetType<Index, Types...>::Type;
+		template<size_t ColumnIndex>
+		const Column<ColumnType<ColumnIndex>>& getColumn() const;
 
-			const SoAColumn<CurrentType>& column = GetBuf<Index, 0, Types...>::get(_columns);
-			return *(reinterpret_cast<const CurrentType*>(&column._storage[0]) + index);
-		}
+		template<size_t ColumnIndex>
+		ColumnType<ColumnIndex>& getElement(size_t index);
+
+		template<size_t ColumnIndex>
+		const ColumnType<ColumnIndex>& getElement(size_t index) const;
 	};
 }
 #include "StaticColumnarArray.hpp"

@@ -11,9 +11,10 @@ namespace ke
 	}
 
 	template<typename T>
+	template<bool InitializeNull>
 	MemoryEntry MallocAllocator<T>::allocate(KE_IN const size_t count)
 	{
-		return MemoryEntry(KEMemory::aligendMalloc<T>(count), count);
+		return MemoryEntry(KEMemory::aligendMalloc<InitializeNull, T>(count), count);
 	}
 
 	template<typename T>

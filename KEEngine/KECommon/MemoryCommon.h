@@ -6,10 +6,10 @@ namespace ke
 	CONSTEXPR_INLINE constexpr size_t _kPageThresholdSize = 4096;
 	CONSTEXPR_INLINE constexpr size_t _kCachelineAlignSize = (sizeof(void*) == 8) ? 64 : 32;
 
-	template<size_t Index, typename T, typename... Types>
+	template<size_t ColumnIndex, typename T, typename... Types>
 	struct GetType 
 	{
-		using Type = typename GetType<Index - 1, Types...>::Type;
+		using Type = typename GetType<ColumnIndex - 1, Types...>::Type;
 	};
 
 	template<typename T, typename... Types>
@@ -29,7 +29,7 @@ namespace ke
 
 		NODISC CONSTEXPR_INLINE static constexpr size_t getAlignedUp(size_t offset, size_t alignment) noexcept;
 
-		template<size_t Index, typename... Types>
+		template<size_t ColumnIndex, typename... Types>
 		NODISC CONSTEXPR_INLINE static constexpr size_t getOffset() noexcept;
 
 	private:
@@ -46,7 +46,7 @@ namespace ke
 		NODISC CONSTEXPR_INLINE static constexpr size_t getSizeOf() noexcept;
 
 	public:
-		template <typename ...Types>
+		template <bool InitializeNull, typename ...Types>
 		NODISC static void* aligendMalloc(size_t count);
 
 		NODISC static void aligendFree(KE_IN void* aligned);

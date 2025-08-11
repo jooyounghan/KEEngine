@@ -21,20 +21,20 @@ using namespace ke;
 
 int main()
 {
-	StaticArray<100, int> staticArray;
+	StaticArray<10, int> staticArray;
 	staticArray[0] = 1;
 	std::cout << staticArray[0] << std::endl;
 	staticArray[0] = 2;
 	std::cout << staticArray[0] << std::endl;
 	StaticColumnarArray<100, int, float, double, char> columnarArray;
 
-	columnarArray.getColumn<0>(0) = 1;
-	columnarArray.getColumn<1>(0) = 2.1234f;
-	columnarArray.getColumn<2>(0) = 3.0;
+	columnarArray.getElement<0>(0) = 1;
+	columnarArray.getElement<1>(0) = 2.1234f;
+	columnarArray.getElement<2>(0) = 3.0;
 
-	std::cout << columnarArray.getColumn<0>(0) << std::endl;
-	std::cout << columnarArray.getColumn<1>(0) << std::endl;
-	std::cout << columnarArray.getColumn<2>(0) << std::endl;
+	std::cout << columnarArray.getElement<0>(0) << std::endl;
+	std::cout << columnarArray.getElement<1>(0) << std::endl;
+	std::cout << columnarArray.getElement<2>(0) << std::endl;
 
 	while (true)
 	{

@@ -9,17 +9,20 @@ namespace ke
 	{
 	public:
 		Vector();
+		Vector(const Vector&);
+		Vector(Vector&&) noexcept;
+
+	public:
+		Vector& operator=(const Vector&);
+		Vector& operator=(Vector&&) noexcept;
+
+	public:
 		~Vector();
 
 	private:
 		NO_UNIQUE_ADDRESS Alloc		_allocator;
 		MemoryEntry					_memoryEntry;
 		size_t						_count;
-
-#ifdef _DEBUG
-	private:
-		const T*		_data = nullptr;
-#endif
 
 	public:
 		inline size_t size() const;
@@ -48,6 +51,11 @@ namespace ke
 	private:
 		void reallocateCapcity(size_t newCapacity);
 		void decreaseCount(size_t newCount);
+
+#ifdef _DEBUG
+	private:
+		const T* _data = nullptr;
+#endif
 
 		// Static Asserts
 		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");

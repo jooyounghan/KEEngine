@@ -1,8 +1,8 @@
 #pragma once
 #include "TypeCommon.h"
-#include "HashTraits.h"
 #include "TypeLimit.h"
-#include "OptionalValue.h"
+#include "HashTraits.h"
+#include "StaticColumnarArray.h"
 
 namespace ke
 {
@@ -10,36 +10,9 @@ namespace ke
 //	template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
 //	class BinHoodBucketNode
 //	{
+//		using IsOccupied = bool;
 //		using HashValue = size_t;
 //		using SlotDistance = uint8;
-//
-//	public:
-//		class HashSlot : public OptionalValue <HashValue, Value, SlotDistance>
-//		{
-//			using Base = OptionalValue<HashValue, Value, SlotDistance>;
-//
-//		public:
-//			HashSlot() = default;
-//			HashSlot(HashValue hashValue, const Value& value, SlotDistance slotDistance);
-//
-//			HashSlot(const HashSlot& other);
-//			HashSlot(HashSlot&& other);
-//			~HashSlot();
-//
-//			HashSlot& operator=(const HashSlot& other);
-//			HashSlot& operator=(HashSlot&& other);
-//
-//	#ifdef _DEBUG
-//		private:
-//			HashValue*		_hashValue = nullptr;
-//			Value*			_value = nullptr;
-//			SlotDistance*	_slotDistance = nullptr;
-//
-//		private:
-//			void bindDebugProperty() noexcept;
-//
-//	#endif
-//		};
 //
 //	public:
 //		explicit BinHoodBucketNode();
@@ -55,7 +28,7 @@ namespace ke
 //
 //	private:
 //		size_t			_count = 0;
-//		HashSlot*		_values = nullptr;
+//		StaticColumnarArray<BucketSize, IsOccupied, HashValue, Value, SlotDistance> _values;
 //
 //	private:
 //		/* RobinHood Based Insert Process*/
