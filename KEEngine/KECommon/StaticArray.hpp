@@ -3,91 +3,67 @@
 
 namespace ke
 {
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>::StaticArray()
+	template<size_t Count, typename T>
+	StaticArray<Count, T>::StaticArray()
 	{
-		InitializeStorage();
+		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<true, T>(Count));
 	}
 
-	template<size_t Count, typename T, typename Alloc>
+	template<size_t Count, typename T>
 	template<typename ...Args>
-	StaticArray<Count, T, Alloc>::StaticArray(Args ...args)
+	StaticArray<Count, T>::StaticArray(Args ...args)
 	{
-		InitializeStorage();
-		T* firstElem = reinterpret_cast<T*>(_memoryEntry._address);
+		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(Count));
 		for (size_t idx = 0; idx < Count; ++idx)
 		{
-			new (firstElem + idx) T(args...);
+			new (&_data[idx]) T(args...);
 		}
 	}
 
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>::StaticArray(const StaticArray& other)
-	{
-		InitializeStorage();
-		T* firstElem = reinterpret_cast<T*>(_memoryEntry._address);
-		const T* otherFirstElem = reinterpret_cast<const T*>(other._memoryEntry._address);
-		for (size_t idx = 0; idx < Count; ++idx)
-		{
-			new (firstElem + idx) T(otherFirstElem[idx]);
-		}
-	}
+	template<size_t Count, typename T>
+	StaticArray<Count, T>::StaticArray(const StaticArray& other) { *this = other; }
 
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>::StaticArray(StaticArray&& other) noexcept
-	{
-		_memoryEntry = other._memoryEntry;
-		other._memoryEntry._address = nullptr;
-		other._memoryEntry._capacity = 0;
-	}
+	template<size_t Count, typename T>
+	StaticArray<Count, T>::StaticArray(StaticArray&& other) noexcept { *this = move(other); }
 
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>::~StaticArray()
+	template<size_t Count, typename T>
+	StaticArray<Count, T>::~StaticArray()
 	{
 		if constexpr (!KETrait::IsTriviallyCopyable<T>::value)
 		{
-			T* _firstElem = reinterpret_cast<T*>(_memoryEntry._address);
 			for(size_t idx = 0; idx < Count; ++idx)
 			{
-
-				T* elemPtr = _firstElem + idx;
+				T* elemPtr = _data[idx];
 				if (elemPtr == nullptr) continue;
 
 				elemPtr.~T();
 			}
 		}
-
-		_allocator.deallocate(_memoryEntry);
+		KEMemory::aligendFree(_data);
 	}
 
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>& StaticArray<Count, T, Alloc>::operator=(const StaticArray& other)
+	template<size_t Count, typename T>
+	StaticArray<Count, T>& StaticArray<Count, T>::operator=(const StaticArray& other)
 	{
 		if (this == &other) return *this;
+		this->~StaticArray();
 
-		_allocator.deallocate(_memoryEntry);
-		InitializeStorage();
-		T* firstElem = reinterpret_cast<T*>(_memoryEntry._address);
-		const T* otherFirstElem = reinterpret_cast<const T*>(other._memoryEntry._address);
+		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(Count));
 		for (size_t idx = 0; idx < Count; ++idx)
 		{
-			new (firstElem + idx) T(otherFirstElem[idx]);
+			new (&_data[idx]) T(other._data[idx]);
 		}
 		return *this;
 	}
 
-	template<size_t Count, typename T, typename Alloc>
-	StaticArray<Count, T, Alloc>& StaticArray<Count, T, Alloc>::operator=(StaticArray&& other) noexcept
+	template<size_t Count, typename T>
+	StaticArray<Count, T>& StaticArray<Count, T>::operator=(StaticArray&& other) noexcept
 	{
-	}
+		if (this == &other) return *this;
+		this->~StaticArray();
 
-	template<size_t Count, typename T, typename Alloc>
-	inline void StaticArray<Count, T, Alloc>::InitializeStorage() noexcept
-	{
-		_memoryEntry = _allocator.allocate<true>(Count);
-
-#ifdef _DEBUG
-		_data = reinterpret_cast<const T*>(_memoryEntry._address);
-#endif
+		this->_data = other._data;
+		other._data = nullptr;
+		return *this;
 	}
 }

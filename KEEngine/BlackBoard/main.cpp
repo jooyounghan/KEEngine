@@ -21,11 +21,23 @@ using namespace ke;
 
 int main()
 {
-	StaticArray<10, int> staticArray;
-	staticArray[0] = 1;
-	std::cout << staticArray[0] << std::endl;
-	staticArray[0] = 2;
-	std::cout << staticArray[0] << std::endl;
+	while (true)
+	{
+		StaticArray<10, int> staticArray;
+		staticArray[0] = 1;
+		std::cout << staticArray[0] << std::endl;
+		staticArray[0] = 2;
+		std::cout << staticArray[0] << std::endl;
+
+		StaticArray<10, int> staticArray2 = staticArray;
+		staticArray2[0] = 3;
+		std::cout << staticArray2[0] << std::endl;
+		staticArray2[0] = 4;
+		std::cout << staticArray2[0] << std::endl;
+
+		staticArray2 = ke::move(staticArray);
+	}
+
 	StaticColumnarArray<100, int, float, double, char> columnarArray;
 
 	columnarArray.getElement<0>(0) = 1;

@@ -35,7 +35,47 @@ namespace ke
 	}
 
 	template<size_t Count, typename ...Types>
-	StaticColumnarArray<Count, Types...>::~StaticColumnarArray() {}
+	StaticColumnarArray<Count, Types...>::~StaticColumnarArray() 
+	{
+	
+	}
+
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>::Column()
+	{
+	}
+	
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>::Column(const Column& column)
+	{
+	}
+	
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>::Column(Column&& column)
+	{
+	}
+
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>& StaticColumnarArray<Count, Types...>::Column<T>::operator=(const Column& column)
+	{
+
+	}
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>& StaticColumnarArray<Count, Types...>::Column<T>::operator=(Column&& column)
+	{
+
+	}
+
+	template<size_t Count, typename ...Types>
+	template<typename T>
+	StaticColumnarArray<Count, Types...>::Column<T>::~Column()
+	{
+	}
 
 	template<size_t Count, typename ...Types>
 	template<size_t ColumnIndex>

@@ -26,8 +26,13 @@ namespace ke
 		template<typename T>
 		struct Column
 		{
-			alignas(T) byte _storage[sizeof(T) * Count];
-
+			Column();
+			Column(const Column& column);
+			Column(Column&& column);
+			Column& operator=(const Column& column);
+			Column& operator=(Column&& column);
+			~Column();
+			byte* _storage = nullptr;
 #ifdef _DEBUG
 		private:
 			const T* _data = reinterpret_cast<T*>(&_storage[0]);
