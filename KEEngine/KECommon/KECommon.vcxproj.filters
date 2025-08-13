@@ -61,9 +61,6 @@
     <Filter Include="헤더 파일\Container\Linear">
       <UniqueIdentifier>{167f10b3-7ed6-4795-8c49-f86fe961de1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Container\Linear\TemplateHpp">
-      <UniqueIdentifier>{c68286c9-6f21-4d5b-8aee-5218292b0c5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Container\Hash">
       <UniqueIdentifier>{7b07dfc6-8571-4c90-9d50-bcc7a7016e7f}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,12 @@
     </Filter>
     <Filter Include="헤더 파일\Container\Optional\TemplateHpp">
       <UniqueIdentifier>{86db0836-b2cd-4494-93a3-599a5fc51796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Container\Linear\Extended">
+      <UniqueIdentifier>{24ad5f6c-60e5-43ae-861c-4e0c0ba84c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Container\Linear\Extended\TemplateHpp">
+      <UniqueIdentifier>{c68286c9-6f21-4d5b-8aee-5218292b0c5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -183,21 +186,6 @@
     <ClInclude Include="HashTraits.h">
       <Filter>헤더 파일\Traits</Filter>
     </ClInclude>
-    <ClInclude Include="ColumnarVector.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticColumnarArray.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticArray.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.hpp">
-      <Filter>헤더 파일\Container\Linear\TemplateHpp</Filter>
-    </ClInclude>
     <ClInclude Include="HashSet.h">
       <Filter>헤더 파일\Container\Hash</Filter>
     </ClInclude>
@@ -209,15 +197,6 @@
     </ClInclude>
     <ClInclude Include="RingBuffer.h">
       <Filter>헤더 파일\Container\RingBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
-    </ClInclude>
-    <ClInclude Include="Deque.h">
-      <Filter>헤더 파일\Container\Linear</Filter>
     </ClInclude>
     <ClInclude Include="HashMap.hpp">
       <Filter>헤더 파일\Container\Hash\TemplateHpp</Filter>
@@ -241,10 +220,40 @@
       <Filter>헤더 파일\Container\Optional\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="StaticArray.hpp">
-      <Filter>헤더 파일\Container\Linear\TemplateHpp</Filter>
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
     </ClInclude>
     <ClInclude Include="StaticColumnarArray.hpp">
-      <Filter>헤더 파일\Container\Linear\TemplateHpp</Filter>
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="ColumnarVector.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Deque.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticArray.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticColumnarArray.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>헤더 파일\Container\Linear\Extended</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearContainer.h">
+      <Filter>헤더 파일\Container\Linear</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearContainer.hpp">
+      <Filter>헤더 파일\Container\Linear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

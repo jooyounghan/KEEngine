@@ -39,6 +39,8 @@
     <ClInclude Include="HashTraits.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
+    <ClInclude Include="LinearContainer.h" />
+    <ClInclude Include="LinearContainer.hpp" />
     <ClInclude Include="MallocAllocator.h" />
     <ClInclude Include="MathCommon.h" />
     <ClInclude Include="MathCommon.hpp" />
