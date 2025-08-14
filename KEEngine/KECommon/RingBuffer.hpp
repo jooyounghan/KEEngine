@@ -23,7 +23,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	bool RingBuffer<T, Size>::pushBack(KE_IN const T& item)
+	bool RingBuffer<T, Size>::pushBack(const T& item)
 	{
 		if (_count == Size) return false;
 
@@ -35,7 +35,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	bool RingBuffer<T, Size>::pushBack(KE_IN T&& item)
+	bool RingBuffer<T, Size>::pushBack(T&& item)
 	{
 		if (_count == Size) return false;
 

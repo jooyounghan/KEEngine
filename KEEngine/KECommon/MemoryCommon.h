@@ -22,7 +22,7 @@ namespace ke
 	{
 	public:
 		template<typename T>
-		NODISC CONSTEXPR_INLINE static constexpr T* AddressOf(KE_IN T& arg) noexcept;
+		NODISC CONSTEXPR_INLINE static constexpr T* AddressOf(T& arg) noexcept;
 
 		template <typename T1, typename... Types>
 		NODISC CONSTEXPR_INLINE static constexpr size_t alignOf() noexcept;
@@ -49,10 +49,11 @@ namespace ke
 		template <bool InitializeNull, typename ...Types>
 		NODISC static void* aligendMalloc(size_t count);
 
-		NODISC static void aligendFree(KE_IN void* aligned);
+		template<typename ...Types>
+		NODISC static void aligendFree(void* aligned);
 
 		// TODO : 벡터 한정이므로 수정 필요
-		NODISC static size_t CalculateTargetCapacity(KE_IN const size_t targetCount, KE_IN const size_t currentCapacity);
+		NODISC static size_t CalculateTargetCapacity(const size_t targetCount, const size_t currentCapacity);
 	};
 }
 

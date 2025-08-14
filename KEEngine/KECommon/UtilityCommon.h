@@ -26,6 +26,7 @@
 
 #define KE_IN
 #define KE_OUT
+#define KE_INOUT
 
 #ifdef _DEBUG																
 #define DEBUG_ASSERT(expression, msg) if (expression == false) assert(msg)	

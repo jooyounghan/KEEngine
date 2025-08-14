@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="ke::Vector&lt;*,*&gt;">
-		<DisplayString>ke::Vector ( size={_count}, capacity={_memoryEntry._capacity} )</DisplayString>
+
+	<!-- Linear Container Based -->
+	<Type Inheritable="false" Name="ke::LinearContainer&lt;*, *&gt;">
+		<DisplayString>LinearContainer( size={_count} )</DisplayString>
+		<Expand HideRawView="true">
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="ke::Vector&lt;*&gt;">
+		<DisplayString>ke::Vector ( size={_count}, capacity={_capacity} )</DisplayString>
 		<Expand>
 			<ArrayItems>
 				<Size>_count</Size>
@@ -9,6 +20,12 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
+	
+	
+	
+	
+	
+	
 	<Type Name="ke::RingBuffer&lt;*,*&gt;">
 		<DisplayString>ke::RingBuffer ( size={_count} )</DisplayString>
 		<Expand>
@@ -24,40 +41,6 @@
 			<ArrayItems>
 				<Size>_count</Size>
 				<ValuePointer>_valuePtr</ValuePointer>
-			</ArrayItems>
-		</Expand>
-	</Type>
-	<Type Name="ke::StaticArray&lt;*&gt;">
-		<DisplayString>StaticArray</DisplayString>
-		<Expand HideRawView="true">
-			<ArrayItems>
-				<Size>_count</Size>
-				<ValuePointer>_data</ValuePointer>
-			</ArrayItems>
-		</Expand>
-	</Type>
-	<Type Name="ke::StaticColumnarArray&lt;*&gt;">
-		<DisplayString>StaticColumnarArray</DisplayString>
-		<Expand HideRawView="true">
-			<Item Name="Columns">_columns</Item>
-		</Expand>
-	</Type>
-	<Type Name="ke::StaticColumnarArray&lt;*&gt;::SoAColumns&lt;*&gt;">
-		<DisplayString>SoAColumns</DisplayString>
-		<Expand HideRawView="true">
-			<Item Name="Columns">_col</Item>
-			<ArrayItems>
-				<Size>_count</Size>
-				<ValuePointer>_data</ValuePointer>
-			</ArrayItems>
-		</Expand>
-	</Type>
-	<Type Name="ke::StaticColumnarArray&lt;*&gt;::SoAColumn&lt;*&gt;">
-		<DisplayString>SoAColumn</DisplayString>
-		<Expand HideRawView="true">
-			<ArrayItems>
-				<Size>_count</Size>
-				<ValuePointer>_data</ValuePointer>
 			</ArrayItems>
 		</Expand>
 	</Type>

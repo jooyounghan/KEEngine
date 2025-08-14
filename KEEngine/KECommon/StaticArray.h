@@ -4,34 +4,22 @@
 
 namespace ke
 {
-	template<size_t Count, typename T>
-	class StaticArray
+	template<typename T, size_t Count>
+	class StaticArray : public LinearContainer<T, Count>
 	{
 	public:
-		StaticArray();
+		StaticArray() = default;
 		template<typename... Args>
 		StaticArray(Args... args);
-		StaticArray(const StaticArray& other);
-		StaticArray(StaticArray&& other) noexcept;
+		StaticArray(const StaticArray& other) = default;
+		StaticArray(StaticArray&& other) noexcept = default;
 
 	public:
-		~StaticArray();
+		~StaticArray() = default;
 		
 	public:
-		StaticArray& operator=(const StaticArray& other);
-		StaticArray& operator=(StaticArray&& other) noexcept;
-
-	public:
-		inline T& operator[](size_t index) { return _data[index]; }
-		inline const T& operator[](size_t index) const { return _data[index]; }
-
-	private:
-		T* _data = nullptr;
-
-#ifdef _DEBUG
-	private:
-		CONSTEXPR_INLINE static constexpr size_t _count = Count;
-#endif
+		StaticArray& operator=(const StaticArray& other) = default;
+		StaticArray& operator=(StaticArray&& other) noexcept = default;
 	};
 }
 #include "StaticArray.hpp"

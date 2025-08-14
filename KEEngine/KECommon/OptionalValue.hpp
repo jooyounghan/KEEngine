@@ -81,7 +81,7 @@ namespace ke
 		if (_storage)
 		{
 			release();
-			KEMemory::aligendFree(_storage);
+			KEMemory::aligendFree<Types...>(_storage);
 			_storage = nullptr;
 		}
 	}
@@ -102,7 +102,7 @@ namespace ke
 	template<typename ...Types>
 	void OptionalValue<Types...>::InitializeStorage()
 	{
-		if (_storage) KEMemory::aligendFree(_storage);
+		if (_storage) KEMemory::aligendFree<Types...>(_storage);
 		_storage = reinterpret_cast<byte*>(KEMemory::aligendMalloc<true, Types...>(1));
 	}
 

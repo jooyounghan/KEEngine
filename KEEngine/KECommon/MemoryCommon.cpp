@@ -2,7 +2,7 @@
 
 namespace ke
 {
-    NODISC size_t KEMemory::CalculateTargetCapacity(KE_IN const size_t targetCount, KE_IN const size_t currentCapacity)
+    NODISC size_t KEMemory::CalculateTargetCapacity(const size_t targetCount, const size_t currentCapacity)
     {
         if (targetCount > currentCapacity)
         {
@@ -14,10 +14,5 @@ namespace ke
             size_t shrinkThreshold = static_cast<size_t>(static_cast<float>(currentCapacity) * 0.5f);
             return (targetCount < shrinkThreshold) ? shrinkThreshold : currentCapacity;
         }
-    }
-
-    NODISC void KEMemory::aligendFree(KE_IN void* ptr)
-    {
-        return _aligned_free(ptr);
     }
 }

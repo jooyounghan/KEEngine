@@ -2,7 +2,7 @@
 
 namespace ke
 {
-	template<size_t InitialCount, typename T>
+	template<typename T, size_t InitialCount = 0>
 	class LinearContainer
 	{
 	public:
@@ -19,7 +19,11 @@ namespace ke
 		T* _data = nullptr;
 		size_t _count = InitialCount;
 
+	protected:
+		void release();
+
 	public:
+		inline size_t size() const { return _count; }
 		inline T& operator[](size_t index) { return _data[index]; }
 		inline const T& operator[](size_t index) const { return _data[index]; }
 	};

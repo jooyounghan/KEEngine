@@ -4,22 +4,50 @@
 
 namespace ke
 {
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>::LinearContainer()
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>::LinearContainer()
 	{
 		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<true, T>(InitialCount));
 	}
 
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>::LinearContainer(const LinearContainer& other) { *this = other; }
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>::LinearContainer(const LinearContainer& other) { *this = other; }
 
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>::LinearContainer(LinearContainer&& other) noexcept { *this = move(other); }
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>::LinearContainer(LinearContainer&& other) noexcept { *this = move(other); }
 
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>::~LinearContainer()
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>::~LinearContainer() { release(); }
+
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>& LinearContainer<T, InitialCount>::operator=(const LinearContainer& other)
 	{
-		if constexpr (!KETrait::IsTriviallyCopyable<InitialCount, T>::value)
+		if (this == &other) return *this;
+		release();
+
+		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(other._count));
+		for (size_t idx = 0; idx < other._count; ++idx)
+		{
+			new (_data + idx) T(other._data[idx]);
+		}
+		return *this;
+	}
+
+	template<typename T, size_t InitialCount>
+	LinearContainer<T, InitialCount>& LinearContainer<T, InitialCount>::operator=(LinearContainer&& other) noexcept
+	{
+		if (this == &other) return *this;
+		release();
+
+		this->_data = other._data;
+		other._data = nullptr;
+		return *this;
+	}
+
+	template<typename T, size_t InitialCount>
+	void LinearContainer<T, InitialCount>::release()
+	{
+		if constexpr (!KETrait::IsTriviallyCopyable<T>::value)
 		{
 			for (size_t idx = 0; idx < _count; ++idx)
 			{
@@ -29,31 +57,7 @@ namespace ke
 				elemPtr.~T();
 			}
 		}
-		KEMemory::aligendFree(_data);
+		KEMemory::aligendFree<T>(_data);
 	}
 
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>& LinearContainer<InitialCount, T>::operator=(const LinearContainer& other)
-	{
-		if (this == &other) return *this;
-		this->~LinearContainer();
-
-		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(other._count));
-		for (size_t idx = 0; idx < other._count; ++idx)
-		{
-			new (&_data[idx]) T(other._data[idx]);
-		}
-		return *this;
-	}
-
-	template<size_t InitialCount, typename T>
-	LinearContainer<InitialCount, T>& LinearContainer<InitialCount, T>::operator=(LinearContainer&& other) noexcept
-	{
-		if (this == &other) return *this;
-		this->~LinearContainer();
-
-		this->_data = other._data;
-		other._data = nullptr;
-		return *this;
-	}
 } 

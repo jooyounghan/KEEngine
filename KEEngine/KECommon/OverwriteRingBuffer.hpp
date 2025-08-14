@@ -22,7 +22,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN const T& item)
+	bool OverwriteRingBuffer<T, Size>::pushBack(const T& item)
 	{
 		if (isFull())
 		{
@@ -39,7 +39,7 @@ namespace ke
 	}
 
 	template<typename T, size_t Size>
-	bool OverwriteRingBuffer<T, Size>::pushBack(KE_IN T&& item)
+	bool OverwriteRingBuffer<T, Size>::pushBack(T&& item)
 	{
 		if (isFull())
 		{

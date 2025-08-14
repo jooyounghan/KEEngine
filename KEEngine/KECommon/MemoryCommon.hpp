@@ -4,7 +4,7 @@
 namespace ke
 {
     template<typename T>
-    constexpr T* KEMemory::AddressOf(KE_IN T& arg) noexcept
+    constexpr T* KEMemory::AddressOf(T& arg) noexcept
     {
         return reinterpret_cast<T*>(
             &const_cast<char&>(
@@ -116,9 +116,17 @@ namespace ke
 
         if constexpr(InitializeNull)
         {
-            memset(ptr, 0, requestedBytes);
+            if (ptr != nullptr)
+            {
+                memset(ptr, 0, requestedBytes);
+            }
 		}
         return ptr;
     }
 
+    template<typename ...Types>
+    void KEMemory::aligendFree(void* ptr)
+    {
+        return _aligned_free(ptr);
+    }
 }

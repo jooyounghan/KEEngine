@@ -54,7 +54,7 @@ namespace ke
 
     template<typename T, size_t PoolingCount>
     template<bool InitializeNull>
-    MemoryEntry PoolAllocator<T, PoolingCount>::allocate(KE_IN const size_t count)
+    MemoryEntry PoolAllocator<T, PoolingCount>::allocate(const size_t count)
     {
         if (count == 0 || count > PoolingCount) return MemoryEntry(nullptr, 0);
 
@@ -79,7 +79,7 @@ namespace ke
     }
 
     template<typename T, size_t PoolingCount>
-    void PoolAllocator<T, PoolingCount>::deallocate(KE_IN MemoryEntry& memoryEntry)
+    void PoolAllocator<T, PoolingCount>::deallocate(MemoryEntry& memoryEntry)
     {
 		void* ptr = memoryEntry._address;
 		size_t count = memoryEntry._capacity;

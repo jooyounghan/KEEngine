@@ -11,8 +11,8 @@ namespace ke
 		~RingBuffer();
 
 	public:
-		bool pushBack(KE_IN const T& item);
-		bool pushBack(KE_IN T&& item);
+		bool pushBack(const T& item);
+		bool pushBack(T&& item);
 		bool popFront(KE_OUT T& item);
 
 	public:
