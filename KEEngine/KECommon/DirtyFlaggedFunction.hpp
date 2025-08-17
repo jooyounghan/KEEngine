@@ -34,7 +34,7 @@ namespace ke
     template<typename ReturnType, typename ...Args>
     DirtyFlaggedFunction<ReturnType, Args...>::~DirtyFlaggedFunction()
     {
-        delete _impl;
+		KEMemory::SafeRelease(_impl);
     }
 
     template<typename ReturnType, typename ...Args>

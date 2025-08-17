@@ -50,7 +50,10 @@ namespace ke
 		NODISC static void* aligendMalloc(size_t count);
 
 		template<typename ...Types>
-		NODISC static void aligendFree(void* aligned);
+		static void aligendFree(void* aligned);
+
+		template<typename T>
+		static void SafeRelease(T*& ptr) noexcept;
 
 		// TODO : 벡터 한정이므로 수정 필요
 		NODISC static size_t CalculateTargetCapacity(const size_t targetCount, const size_t currentCapacity);

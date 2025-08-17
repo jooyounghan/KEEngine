@@ -67,6 +67,11 @@ namespace ke
 	private:
 		Columns<Types...> _columns;
 
+	private:
+#ifdef _DEBUG
+		CONSTEXPR_INLINE static constexpr size_t ColumnCount = sizeof...(Types);
+#endif
+
 	public:
 		template<size_t ColumnIndex>
 		Column<ColumnType<ColumnIndex>>& getColumn();
@@ -79,6 +84,9 @@ namespace ke
 
 		template<size_t ColumnIndex>
 		const ColumnType<ColumnIndex>& getElement(size_t index) const;
+
+		template<size_t ColumnIndex = 0>
+		void swap(size_t idx1, size_t idx2);
 	};
 }
 #include "StaticColumnarArray.hpp"

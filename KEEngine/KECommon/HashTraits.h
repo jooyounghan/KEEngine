@@ -11,13 +11,13 @@ namespace ke
 		DEFINE_METHOD_TRAIT(HasRemoveHash, remove);
 		DEFINE_METHOD_TRAIT_WITH_QUALIFIER(HashFindHash, find, const);
 
-		template<typename HashBucket, typename Value>
+		template<typename HashBucket, typename Key, typename Value>
 		struct HashBucketTrait : TraitCondition<
 			SatisfyAll<
 			IsContructible<HashBucket>::value,
-			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Value&),
-			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t),
-			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, const OptionalValue<size_t, Value>&, size_t)
+			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Key&, const Value&),
+			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t, const Key&),
+			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, const Value*, size_t, const Key&)
 			>::value, TrueTrait, FalseTrait
 		>::Type
 		{

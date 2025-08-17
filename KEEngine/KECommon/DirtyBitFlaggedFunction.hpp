@@ -15,7 +15,7 @@ namespace ke
     template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename ...Args>
     DirtyBitFlaggedFunction<BitIndex, BitCount, ReturnType, Args...>::~DirtyBitFlaggedFunction()
     {
-        delete _impl;
+		KEMemory::SafeRelease(_impl);
     }
 
     template<uint8 BitIndex, uint8 BitCount, typename ReturnType, typename ...Args>

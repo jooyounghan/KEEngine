@@ -129,4 +129,14 @@ namespace ke
     {
         return _aligned_free(ptr);
     }
+    
+    template<typename T>
+    void KEMemory::SafeRelease(T*& ptr) noexcept
+    {
+        if (ptr != nullptr)
+        {
+            delete ptr;
+            ptr = nullptr;
+        }
+    }
 }

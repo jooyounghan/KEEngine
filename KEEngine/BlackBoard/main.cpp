@@ -24,23 +24,16 @@ int main()
 {
 	while (true)
 	{
-		StaticColumnarArray<100, int, float, double, char> columnarArray;
-
-		columnarArray.getElement<0>(0) = 1;
-		columnarArray.getElement<1>(0) = 2.1234f;
-		columnarArray.getElement<2>(0) = 3.0;
-
-		StaticColumnarArray<100, int, float, double, char> columnarArray2;
-		columnarArray2.getElement<0>(0) = 10;
-		columnarArray2.getElement<1>(0) = 20.1234f;
-		columnarArray2.getElement<2>(0) = 30.0;
-
-		StaticColumnarArray<100, int, float, double, char> columnarArray3 = columnarArray;
-		columnarArray3 = columnarArray2;
-		columnarArray2 = ke::move(columnarArray);
-		std::cout << columnarArray2.getElement<0>(0) << std::endl;
-		std::cout << columnarArray2.getElement<1>(0) << std::endl;
-		std::cout << columnarArray2.getElement<2>(0) << std::endl;
-
+		HashMap<int, int, BinHoodBucketNode<int, int, 64>, HashConvertor<int>> test;
+		for (int idx = 0; idx < 100; ++idx)
+		{
+			test.insert(idx, idx);
+		}
+		size_t count = test.getCount();
+		for (int idx = 0; idx < 100; ++idx)
+		{
+			test.remove(idx);
+		}
+		count = test.getCount();
 	}
 }

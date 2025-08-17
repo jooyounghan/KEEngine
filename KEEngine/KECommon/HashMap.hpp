@@ -4,238 +4,324 @@
 
 namespace ke
 {
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::BinHoodBucketNode()
-	//	: _from(0), _to(KELimit::getMax<size_t>()), _parent(nullptr), _values(StaticColumnarArray<BucketSize, bool, HashValue, Value, SlotDistance>())
-	//{
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode()
+		: _from(0), _to(KELimit::getMax<HashValue>())
+	{
+		_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
+	}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues)
-	//	: _from(from), _to(to), _parent(parent), _values(StaticColumnarArray<BucketSize, bool, HashValue, Value, SlotDistance>())
-	//{
-	//	if (isAllocateValues)
-	//		_values = new HashSlot[BucketSize];
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues)
+		: _from(from), _to(to), _parent(parent)
+	{
+		if (isAllocateValues)
+			_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
+	}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::~BinHoodBucketNode()
-	//{
-	//	if (_left != nullptr)
-	//	{
-	//		delete _left;
-	//		_left = nullptr;
-	//	}
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::~BinHoodBucketNode()
+	{
+		KEMemory::SafeRelease(_left);
+		KEMemory::SafeRelease(_right);
+		KEMemory::SafeRelease(_values);
+	}
+	
+	template<typename Key, typename Value, size_t BucketSize>
+	inline bool BinHoodBucketNode<Key, Value, BucketSize>::isInRange(HashValue hash) const
+	{
+		return _from <= hash && hash <= _to;
+	}
 
-	//	if (_right != nullptr)
-	//	{
-	//		delete _right;
-	//		_right = nullptr;
-	//	}
+	template<typename Key, typename Value, size_t BucketSize>
+	bool BinHoodBucketNode<Key, Value, BucketSize>::hasChildren() const
+	{
+		return _left != nullptr || _right != nullptr;
+	}
 
-	//	if (_values != nullptr)
-	//	{
-	//		delete _values;
-	//		_values = nullptr;
-	//	}
-	//}
-	//
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//inline bool BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::isInRange(HashValue hash) const
-	//{
-	//	return _from <= hash && hash <= _to;
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	float BinHoodBucketNode<Key, Value, BucketSize>::getLoadFactor() const
+	{
+		return static_cast<float>(_count) / static_cast<float>(BucketSize);
+	}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//bool BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::hasChildren() const
-	//{
-	//	return _left != nullptr || _right != nullptr;
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::splitBucket()
+	{
+		if (hasChildren()) return;
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//float BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::getLoadFactor() const
-	//{
-	//	return static_cast<float>(_count) / static_cast<float>(BucketSize);
-	//}
+		HashValue mid = (_from + _to) / 2;
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//void BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::splitBucket()
-	//{
-	//	if (hasChildren()) return;
+		// left node dosen't initialize slots but moved from parent
+		_left = new BinHoodBucketNode(_from, mid, this, false);
+		_left->_count = _count;
+		_count = 0;
+		_left->_values = _values;		
+		_values = nullptr;
 
-	//	HashValue mid = (_from + _to) / 2;
+		// right node initialize slots
+		_right = new BinHoodBucketNode(mid + 1, _to, this, true);
 
-	//	// left node dosen't initialize slots but moved from parent
-	//	_left = new BinHoodBucketNode(_from, mid, this, false);
-	//	_left->_count = _count;
-	//	_left->_values = _values;
-	//	
-	//	_count = 0;
-	//	_values = nullptr;
+		for (size_t i = 0; i < BucketSize; ++i)
+		{
+			if (_left->getIsOccupied(i))
+			{
+				bool isOccupied = _left->getIsOccupied(i);
+				HashValue hashValue = _left->getHashValue(i);
+				Key& key = *_left->getKeyPtr(i);
+				Value& value = *_left->getValuePtr(i);
+			
+				if (_right->isInRange(hashValue))
+				{
+					_right->insert(hashValue, key, value);
+					_left->remove(hashValue, key);
+				}
+			}
+		}
+	}
 
-	//	// right node initialize slots
-	//	_right = new BinHoodBucketNode(mid + 1, _to, this, true);
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::shiftBack(size_t currentIdx)
+	{
+		while (true) 
+		{
+			int nextIdx = (currentIdx + 1) % BucketSize;
 
-	//	for (size_t i = 0; i < BucketSize; ++i)
-	//	{
-	//		HashSlot& currentOptionalValue = _left->_values[i];
-	//		if (currentOptionalValue.hasValue())
-	//		{
-	//			const HashValue&	hashValue = *currentOptionalValue.tryGetValue<0>();
-	//			const Value&		value = *currentOptionalValue.tryGetValue<1>();
+			IsOccupied nextIsOccupied = getIsOccupied(nextIdx);
+			SlotDistance nextSlotDistance = getSlotDistance(nextIdx);
 
-	//			if (_right->isInRange(hashValue))
-	//			{
-	//				_right->insert(hashValue, value);
-	//				_left->remove(hashValue);
-	//			}
-	//		}
-	//	}
-	//}
+			if (!nextIsOccupied || nextSlotDistance == 0) break;
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//void BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::shiftBack(size_t emptyIdx)
-	//{
-	//	int nextIdx = (emptyIdx + 1) % BucketSize;
-	//	while (_values[nextIdx].hasValue() && 0 < *_values[nextIdx].tryGetValue<2>())
-	//	{
-	//		_values[emptyIdx] = _values[nextIdx];
-	//		_values[emptyIdx].setValue<2>(*_values[emptyIdx].tryGetValue<2>() - 1);
+			setHashSlot(currentIdx, nextIsOccupied, getHashValue(nextIdx), move(*getKeyPtr(nextIdx)), move(*getValuePtr(nextIdx)), nextSlotDistance - 1);
 
-	//		_values[nextIdx].~HashSlot();
-	//		emptyIdx = nextIdx;
-	//		nextIdx = (nextIdx + 1) % BucketSize;
-	//	}
-	//}
+			currentIdx = nextIdx;
+		}
+	}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//void BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::insert(HashValue hash, const Value& value)
-	//{
-	//	if (hasChildren())
-	//	{
-	//		if (_left->isInRange(hash))
-	//		{
-	//			_left->insert(hash, value);
-	//			return;
-	//		}
-	//		else
-	//		{
-	//			_right->insert(hash, value);
-	//			return;
-	//		}
-	//	}
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::insert(HashValue hash, const Key& key, const Value& value)
+	{
+		if (hasChildren())
+		{
+			if (_left->isInRange(hash))
+			{
+				_left->insert(hash, key, value);
+				return;
+			}
+			else
+			{
+				_right->insert(hash, key, value);
+				return;
+			}
+		}
 
-	//	size_t idx = hash % BucketSize;
-	//	HashSlot incoming(hash, value, 0);
+		size_t idx = hash % BucketSize;
 
-	//	while (true) 
-	//	{
-	//		if (!_values[idx].hasValue())
- //{
-	//			_values[idx] = incoming;
-	//			++_count;
-	//			break;
-	//		}
+		bool targetIsOccupied = true;
+		HashValue targetHash = hash;
+		Key targetKey = key;
+		Value targetValue = value;
+		SlotDistance targetSlotDistance = 0;
 
-	//		HashValue currentHash = *(_values[idx].tryGetValue<0>());
-	//		if (currentHash == hash)
-	//		{
-	//			_values[idx].setValue<1>(value);
-	//			break;
-	//		}
+		while (true) 
+		{
+			bool& isCurrentOccupied = getIsOccupied(idx);
+			if (isCurrentOccupied == false)
+			{
+				setHashSlot(idx, targetIsOccupied, targetHash, move(targetKey), move(targetValue), targetSlotDistance);
+				++_count;
+				break;
+			}
 
-	//		SlotDistance currentDistance = *(_values[idx].tryGetValue<2>());
-	//		SlotDistance incomingDistance = *(incoming.tryGetValue<2>());
-	//		if (currentDistance < incomingDistance)
-	//		{
-	//			HashSlot temp = move(_values[idx]);
-	//			_values[idx] = incoming;
-	//			incoming = move(temp);
-	//		}
+			Key& currentKey = *getKeyPtr(idx);
 
-	//		idx = (idx + 1) % BucketSize;
-	//		incoming.setValue<2>(currentDistance + 1);
-	//	}
+			if (currentKey == key)
+			{
+				setHashSlot(idx, move(value));
+				break;
+			}
 
-	//	if (getLoadFactor() > SeperateThreshold)
-	//	{
-	//		splitBucket();
-	//	}
-	//}
+			SlotDistance currentDistance = getSlotDistance(idx);
+			if (currentDistance < targetSlotDistance)
+			{
+				swapHashSlot(idx, targetIsOccupied, targetHash, targetKey, targetValue, targetSlotDistance);
+			}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//void BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::remove(HashValue hash)
-	//{
-	//	size_t idx = hash % BucketSize;
-	//	SlotDistance slotDistance = 0;
+			idx = (idx + 1) % BucketSize;
+			++targetSlotDistance;
+		}
 
-	//	while (_values[idx].hasValue())
-	//	{
-	//		if (*_values[idx].tryGetValue<0>() == hash)
-	//		{
-	//			_values[idx].~HashSlot();
-	//			shiftBack(idx);
-	//			--_count;
-	//			return;
-	//		}
+		if (getLoadFactor() > SeperateThreshold)
+		{
+			splitBucket();
+		}
+	}
 
-	//		if (*_values[idx].tryGetValue<2>() < slotDistance)
-	//			return;
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::remove(HashValue hash, const Key& key)
+	{
+		size_t idx = hash % BucketSize;
+		SlotDistance slotDistance = 0;
 
-	//		idx = (idx + 1) % BucketSize;
-	//		++slotDistance;
-	//	}
-	//}
+		while (true)
+		{
+			if (!getIsOccupied(idx))
+				return;
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//const OptionalValue<size_t, Value>& BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::find(HashValue hash) const
-	//{
-	//	// TODO: 여기에 return 문을 삽입합니다.
-	//}
+			Key& currentKey = *getKeyPtr(idx);
+			if (currentKey == key)
+			{
+				Value& currentValue = *getValuePtr(idx);
+				currentKey.~Key();
+				currentValue.~Value();
+				shiftBack(idx);
+				--_count;
+				return;
+			}
 
-	//template<typename Value, size_t BucketSize, float SeperateThreshold, float MergeThreshold>
-	//void BinHoodBucketNode<Value, BucketSize, SeperateThreshold, MergeThreshold>::getCount(size_t& sizeOut) const
-	//{
-	//	sizeOut += _count;
-	//	if (hasChildren())
-	//	{
-	//		_left->getCount(sizeOut);
-	//		_right->getCount(sizeOut);
-	//	}
-	//}
+			SlotDistance& currentSlotDistance = getSlotDistance(idx);
+			if (currentSlotDistance < slotDistance)
+				return;
 
-	//template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
-	//HashMap<Key, Value, HashBucket, HashConvertor>::~HashMap()
-	//{
-	//	if (_bucket)
-	//	{
-	//		delete _bucket;
-	//		_bucket = nullptr;
-	//	}
-	//}
+			idx = (idx + 1) % BucketSize;
+			++slotDistance;
+		}
+	}
 
-	//template<typename Key, typename Value, typename Bucket, typename HashConvertor>
-	//void HashMap<Key, Value, Bucket, HashConvertor>::insert(const Key& key, const Value& value)
-	//{
-	//	size_t hash = _hashConvertor(key);
-	//	_bucket->insert(hash, value);
-	//}
+#pragma region Helper
+	template<typename Key, typename Value, size_t BucketSize>
+	bool& BinHoodBucketNode<Key, Value, BucketSize>::getIsOccupied(size_t idx) const
+	{
+		return _values->getElement<0>(idx);
+	}
 
-	//template<typename Key, typename Value, typename Bucket, typename HashConvertor>
-	//void HashMap<Key, Value, Bucket, HashConvertor>::remove(const Key& key)
-	//{
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	inline BinHoodBucketNode<Key, Value, BucketSize>::HashValue& BinHoodBucketNode<Key, Value, BucketSize>::getHashValue(size_t idx) const
+	{
+		return _values->getElement<1>(idx);
+	}
 
-	//template<typename Key, typename Value, typename Bucket, typename HashConvertor>
-	//const OptionalValue<size_t, Value>& HashMap<Key, Value, Bucket, HashConvertor>::find(const Key& key) const
-	//{
-	//}
-	//
-	//template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
-	//size_t HashMap<Key, Value, HashBucket, HashConvertor>::getCount() const 
-	//{ 
-	//	size_t result = 0; 
-	//	_bucket->getCount(result); 
-	//	return result; 
-	//}
+	template<typename Key, typename Value, size_t BucketSize>
+	Key* BinHoodBucketNode<Key, Value, BucketSize>::getKeyPtr(size_t idx)
+	{
+		return &_values->getElement<2>(idx);
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	Value* BinHoodBucketNode<Key, Value, BucketSize>::getValuePtr(size_t idx)
+	{
+		return &_values->getElement<3>(idx);
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::SlotDistance& BinHoodBucketNode<Key, Value, BucketSize>::getSlotDistance(size_t idx) const
+	{
+		return _values->getColumn<4>()[idx];
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	inline void BinHoodBucketNode<Key, Value, BucketSize>::setHashSlot(size_t idx, const Value& value)
+	{
+		getIsOccupied(idx) = true;
+		new(getValuePtr(idx)) Value(value);
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	inline void BinHoodBucketNode<Key, Value, BucketSize>::setHashSlot(size_t idx, Value&& value)
+	{
+		getIsOccupied(idx) = true;
+		new(getValuePtr(idx)) Value(move(value));
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::setHashSlot(size_t idx, bool isOccupied, HashValue hashValue, const Key& key, const Value& value, SlotDistance distance)
+	{
+		getIsOccupied(idx) = isOccupied;
+		getHashValue(idx) = hashValue;
+		new(getKeyPtr(idx)) Key(key);
+		new(getValuePtr(idx)) Value(value);
+		getSlotDistance(idx) = distance;
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::setHashSlot(size_t idx, bool isOccupied, HashValue hashValue, Key&& key, Value&& value, SlotDistance distance)
+	{
+		getIsOccupied(idx) = isOccupied;
+		getHashValue(idx) = hashValue;
+		new(getKeyPtr(idx)) Key(move(key));
+		new(getValuePtr(idx)) Value(move(value));
+		getSlotDistance(idx) = distance;
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	inline void BinHoodBucketNode<Key, Value, BucketSize>::swapHashSlot(size_t idx, bool& isOccupied, HashValue& hashValue, Key& key, Value& value, SlotDistance& slotDistance)
+	{
+		bool tempIsOccupied = getIsOccupied(idx);
+		HashValue tempHash = getHashValue(idx);
+		Key tempKey = move(*getKeyPtr(idx));
+		Value tempValue = move(*getValuePtr(idx));
+		SlotDistance tempSlotDistance = getSlotDistance(idx);
+
+		setHashSlot(idx, isOccupied, hashValue, move(key), move(value), slotDistance);
+
+		isOccupied = tempIsOccupied;
+		hashValue = tempHash;
+		key = move(tempKey);
+		value = move(tempValue);
+		slotDistance = tempSlotDistance;
+	}
+#pragma endregion
+
+	template<typename Key, typename Value, size_t BucketSize>
+	const Value* BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key) const
+	{
+		return nullptr;
+		// TODO: 여기에 return 문을 삽입합니다.
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::getCount(size_t& sizeOut) const
+	{
+		sizeOut += _count;
+		if (hasChildren())
+		{
+			_left->getCount(sizeOut);
+			_right->getCount(sizeOut);
+		}
+	}
+
+	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
+	HashMap<Key, Value, HashBucket, HashConvertor>::~HashMap()
+	{
+		if (_bucket)
+		{
+			delete _bucket;
+			_bucket = nullptr;
+		}
+	}
+
+	template<typename Key, typename Value, typename Bucket, typename HashConvertor>
+	void HashMap<Key, Value, Bucket, HashConvertor>::insert(const Key& key, const Value& value)
+	{
+		size_t hash = _hashConvertor(key);
+		_bucket->insert(hash, key, value);
+	}
+
+	template<typename Key, typename Value, typename Bucket, typename HashConvertor>
+	void HashMap<Key, Value, Bucket, HashConvertor>::remove(const Key& key)
+	{
+	}
+
+	template<typename Key, typename Value, typename Bucket, typename HashConvertor>
+	const Value* HashMap<Key, Value, Bucket, HashConvertor>::find(const Key& key) const
+	{
+	}
+	
+	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
+	size_t HashMap<Key, Value, HashBucket, HashConvertor>::getCount() const 
+	{ 
+		size_t result = 0; 
+		_bucket->getCount(result); 
+		return result; 
+	}
 }

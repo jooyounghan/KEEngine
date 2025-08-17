@@ -44,19 +44,19 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	<Type Name="ke::BinHoodBucketNode&lt;*, *, *, *&gt;">
+	
+	<Type Name="ke::BinHoodBucketNode&lt;*, *, *&gt;">
 		<DisplayString>ke::BinHoodBucketNode ( range={_from}~{_to} )</DisplayString>
 		<Expand>
 			<Item Name="Parent" Condition="_count > 0">_parent</Item>
 			<Item Name="Left" Condition="_count == 0">_left</Item>
 			<Item Name="Right" Condition="_count == 0">_right</Item>
-			<Item Name="Count">_count</Item>
-			<ArrayItems Condition="_count > 0">
-				<Size>_bucketSize</Size>
-				<ValuePointer>_values</ValuePointer>
-			</ArrayItems>
+			<Item Name="Count" Condition="_count > 0">_count</Item>
+			<Item Name="Value" Condition="_count > 0">_values</Item>
 		</Expand>
 	</Type>
+	
+	
 	<Type Name="ke::StaticString&lt;*,*&gt;">
 		<DisplayString>{_stringValuePtr}</DisplayString>
 		<Expand>

@@ -60,4 +60,22 @@ namespace ke
 		KEMemory::aligendFree<T>(_data);
 	}
 
+	template<typename T, size_t InitialCount>
+	void LinearContainer<T, InitialCount>::swap(size_t idx1, size_t idx2)
+	{
+		if (idx1 != idx2)
+		{
+			T temp = move(_data[idx1]);
+			_data[idx1] = move(_data[idx2]);
+			_data[idx2] = move(temp);
+		}
+	}
+
+	template<typename T, size_t InitialCount>
+	inline void LinearContainer<T, InitialCount>::swap(size_t idx, T& target)
+	{
+		T temp = move(_data[idx]);
+		_data[idx] = target;
+		target = move(temp);
+	}
 } 

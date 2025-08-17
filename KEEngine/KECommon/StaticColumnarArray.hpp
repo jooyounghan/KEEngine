@@ -36,4 +36,15 @@ namespace ke
 		const Column<ColumnType<ColumnIndex>>& column = getColumn<ColumnIndex>();
 		return column._data[index];
 	}
+
+	template<size_t Count, typename ...Types>
+	template<size_t ColumnIndex>
+	void StaticColumnarArray<Count, Types...>::swap(size_t idx1, size_t idx2)
+	{
+		static_assert(ColumnIndex < sizeof...(Types), "Index out of bounds for StaticColumnarArray columns");
+		Column<ColumnType<ColumnIndex>>& column = getColumn<ColumnIndex>();
+		column.swap(idx1, idx2);
+
+		if constexpr (ColumnIndex < (sizeof...(Types) - 1)) swap<ColumnIndex + 1>(idx1, idx2);
+	}
 }
