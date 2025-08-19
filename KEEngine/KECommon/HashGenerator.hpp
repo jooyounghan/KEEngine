@@ -1,4 +1,4 @@
-#include "HashConvertor.h"
+#include "HashGenerator.h"
 #include <cstdio>
 
 namespace ke
@@ -33,13 +33,13 @@ namespace ke
     };
 
     template<typename T>
-    size_t HashConvertor<T>::operator()(const T& value) const
+    size_t HashGenerator<T>::operator()(const T& value) const
     {
         return convertToHash(value);
     }
 
     template<typename T>
-    size_t HashConvertor<T>::computeHash(const void* data, size_t len)
+    size_t HashGenerator<T>::computeHash(const void* data, size_t len)
     {
         const uint8_t* input = reinterpret_cast<const uint8_t*>(data);
 
@@ -79,19 +79,19 @@ namespace ke
     }
 
     template<typename T>
-    size_t HashConvertor<T>::convertToHash(const T& value)
+    size_t HashGenerator<T>::convertToHash(const T& value)
     {
         return computeHash(&value, sizeof(T));
     }
 
     template<typename T>
-    size_t HashConvertor<T>::convertToHash(const char* cstr)
+    size_t HashGenerator<T>::convertToHash(const char* cstr)
     {
         return computeHash(cstr, strlen(cstr));
     }
 
     template<typename T>
-    size_t HashConvertor<T>::convertToHash(const wchar_t* cstr)
+    size_t HashGenerator<T>::convertToHash(const wchar_t* cstr)
     {
         return computeHash(cstr, wcslen(cstr));
     }

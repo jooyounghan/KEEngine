@@ -28,8 +28,8 @@
     <ClInclude Include="DirtyBitFlaggedFunction.hpp" />
     <ClInclude Include="DirtyFlaggedFunction.h" />
     <ClInclude Include="DirtyFlaggedFunction.hpp" />
-    <ClInclude Include="HashConvertor.h" />
-    <ClInclude Include="HashConvertor.hpp" />
+    <ClInclude Include="HashGenerator.h" />
+    <ClInclude Include="HashGenerator.hpp" />
     <ClInclude Include="FlyweightString.h" />
     <ClInclude Include="FlyweightString.hpp" />
     <ClInclude Include="HashMap.h" />

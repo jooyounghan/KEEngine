@@ -123,10 +123,10 @@
     <ClInclude Include="DirtyFlaggedFunction.hpp">
       <Filter>헤더 파일\Flag\TemplateHpp</Filter>
     </ClInclude>
-    <ClInclude Include="HashConvertor.h">
+    <ClInclude Include="HashGenerator.h">
       <Filter>헤더 파일\Hash</Filter>
     </ClInclude>
-    <ClInclude Include="HashConvertor.hpp">
+    <ClInclude Include="HashGenerator.hpp">
       <Filter>헤더 파일\Hash\TemplateHpp</Filter>
     </ClInclude>
     <ClInclude Include="DirtyBitFlaggedFunction.h">

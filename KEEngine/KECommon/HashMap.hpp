@@ -1,6 +1,6 @@
 #pragma once
 #include "HashMap.h"
-#include "HashConvertor.h"
+#include "HashGenerator.h"
 
 namespace ke
 {
@@ -50,7 +50,7 @@ namespace ke
 	{
 		if (hasChildren()) return;
 
-		HashValue mid = (_from + _to) / 2;
+		HashValue mid = _from + (_to - _from) / 2;
 
 		// left node dosen't initialize slots but moved from parent
 		_left = new BinHoodBucketNode(_from, mid, this, false);
@@ -66,7 +66,6 @@ namespace ke
 		{
 			if (_left->getIsOccupied(i))
 			{
-				bool isOccupied = _left->getIsOccupied(i);
 				HashValue hashValue = _left->getHashValue(i);
 				Key& key = *_left->getKeyPtr(i);
 				Value& value = *_left->getValuePtr(i);
@@ -87,12 +86,13 @@ namespace ke
 		{
 			int nextIdx = (currentIdx + 1) % BucketSize;
 
-			IsOccupied nextIsOccupied = getIsOccupied(nextIdx);
-			SlotDistance nextSlotDistance = getSlotDistance(nextIdx);
+			IsOccupied& nextIsOccupied = getIsOccupied(nextIdx);
+			const SlotDistance& nextSlotDistance = getSlotDistance(nextIdx);
 
 			if (!nextIsOccupied || nextSlotDistance == 0) break;
 
 			setHashSlot(currentIdx, nextIsOccupied, getHashValue(nextIdx), move(*getKeyPtr(nextIdx)), move(*getValuePtr(nextIdx)), nextSlotDistance - 1);
+			nextIsOccupied = false;
 
 			currentIdx = nextIdx;
 		}
@@ -165,15 +165,19 @@ namespace ke
 
 		while (true)
 		{
-			if (!getIsOccupied(idx))
+			bool& isOccupied = getIsOccupied(idx);
+			if (!isOccupied)
 				return;
 
 			Key& currentKey = *getKeyPtr(idx);
 			if (currentKey == key)
 			{
 				Value& currentValue = *getValuePtr(idx);
+				
+				isOccupied = false;
 				currentKey.~Key();
 				currentValue.~Value();
+
 				shiftBack(idx);
 				--_count;
 				return;

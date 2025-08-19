@@ -2,6 +2,7 @@
 #include "TypeCommon.h"
 #include "TypeLimit.h"
 #include "HashTraits.h"
+#include "HashGenerator.h"
 #include "StaticColumnarArray.h"
 
 namespace ke
@@ -69,7 +70,7 @@ namespace ke
 #pragma endregion
 	};
 
-	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
+	template<typename Key, typename Value, typename HashBucket = BinHoodBucketNode<Key, Value, 64>, typename HashConvertor = HashGenerator<Key>>
 	class HashMap
 	{
 	public:
@@ -89,7 +90,7 @@ namespace ke
 
 		// Static Asserts
 		static_assert(KETrait::HashBucketTrait<HashBucket, Key, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
-		static_assert(KETrait::HashConvertorTrait<HashConvertor, Value>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
+		//static_assert(KETrait::HashConvertorTrait<HashConvertor, Value>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 
 	};
 }

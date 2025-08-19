@@ -7,7 +7,7 @@
 namespace ke
 {
     template<typename T>
-    class HashConvertor
+    class HashGenerator
     {
     public:
         size_t operator()(const T& value) const;
@@ -22,4 +22,4 @@ namespace ke
     };
 }
 
-#include "HashConvertor.hpp"
+#include "HashGenerator.hpp"

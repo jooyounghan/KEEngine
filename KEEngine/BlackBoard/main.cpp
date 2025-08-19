@@ -3,7 +3,7 @@
 #include "../KECommon/PoolAllocator.h"
 #include "../KECommon/Vector.h"
 #include "../KECommon/OptionalValue.h"
-#include "../KECommon/HashConvertor.h"
+#include "../KECommon/HashGenerator.h"
 #include "../KECommon/OwnedString.h"
 #include "../KECommon/HashMap.h"
 #include "../KECommon/StaticArray.h"
@@ -24,16 +24,32 @@ int main()
 {
 	while (true)
 	{
-		HashMap<int, int, BinHoodBucketNode<int, int, 64>, HashConvertor<int>> test;
-		for (int idx = 0; idx < 100; ++idx)
+
+		HashMap<int, int, BinHoodBucketNode<int, int, 128>, hash<int>> test;
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int idx = 0; idx < 10000; ++idx)
 		{
 			test.insert(idx, idx);
 		}
-		size_t count = test.getCount();
-		for (int idx = 0; idx < 100; ++idx)
+		auto end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed_seconds = end - start;
+		std::cout << "HashMap 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
+		
+		std::unordered_map<int, int> stdTest;
+		start = std::chrono::high_resolution_clock::now();
+		for (int idx = 0; idx < 10000; ++idx)
+		{
+			stdTest.insert({ idx, idx });
+		}
+		end = std::chrono::high_resolution_clock::now();
+		elapsed_seconds = end - start;
+		std::cout << "unordered_map 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
+
+
+
+		for (int idx = 0; idx < 1000000; ++idx)
 		{
 			test.remove(idx);
 		}
-		count = test.getCount();
 	}
 }

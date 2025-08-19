@@ -27,9 +27,9 @@ namespace ke
 #pragma region HashConvertor Traits
 		DEFINE_METHOD_TRAIT_WITH_QUALIFIER(HasHashing, operator(), const);
 
-		template<typename HashConvertor, typename Value>
+		template<typename HashConvertor, typename Key>
 		struct HashConvertorTrait : TraitCondition<
-			CHECK_METHOD_TRAIT(HasHashing, HashConvertor, size_t, const Value&)
+			CHECK_METHOD_TRAIT(HasHashing, HashConvertor, size_t, const Key&)
 			, TrueTrait, FalseTrait
 		>::Type
 		{
