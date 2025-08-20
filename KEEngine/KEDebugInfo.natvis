@@ -57,20 +57,18 @@
 	</Type>
 	
 	
-	<Type Name="ke::StaticString&lt;*,*&gt;">
-		<DisplayString>{_stringValuePtr}</DisplayString>
+	<Type Name="ke::OwnedString&lt;*&gt;">
 		<Expand>
-			<Item Name="Length">_length</Item>
-			<Item Name="Capacity">_memoryEntry._capacity</Item>
-			<Item Name="String">_stringValuePtr</Item>
+			<Item Name="Length">_count - 1</Item>
+			<Item Name="Capacity">_count</Item>
+			<Item Name="String">_data</Item>
 		</Expand>
 	</Type>
 	<Type Name="ke::BoundedString&lt;*,*&gt;">
-		<DisplayString>{_buffer}</DisplayString>
 		<Expand>
 			<Item Name="Length">_length</Item>
-			<Item Name="Capacity">_capacity</Item>
-			<Item Name="String">_buffer</Item>
+			<Item Name="Capacity">_count</Item>
+			<Item Name="String">_data</Item>
 		</Expand>
 	</Type>
 </AutoVisualizer>

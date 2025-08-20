@@ -4,15 +4,21 @@
 namespace ke
 {
 	template<typename CharType, size_t CharCount>
-	class BoundedString
+	class BoundedString : public LinearContainer<CharType, CharCount>
 	{
 
 	public:
 		BoundedString() = default;
 		BoundedString(const CharType* str);
-		BoundedString(const BoundedString& boundedString);
-		BoundedString(BoundedString&& boundedString) noexcept;
-		~BoundedString();
+		BoundedString(const BoundedString& other) = default;
+		BoundedString(BoundedString&& other) noexcept = default;
+
+	public:
+		~BoundedString() = default;
+
+	public:
+		BoundedString& operator=(const BoundedString& other) = default;
+		BoundedString& operator=(BoundedString&& other) noexcept = default;
 
 	public:
 		const CharType* c_str() const&;
@@ -21,20 +27,13 @@ namespace ke
 	public:
 		void append(const CharType* const str);
 		template<typename Alloc>
-		void append(const OwnedString<CharType, Alloc>& ownedString);
+		void append(const OwnedString<CharType>& ownedString);
 
 	public:
 		size_t length() const { return _length; }
-		constexpr size_t capacity() const { return CharCount; }
 
 	protected:
-		CharType*	_buffer = nullptr;
 		size_t		_length = 0;
-
-#ifdef _DEBUG
-	private:
-		size_t		_capacity = 0;
-#endif
 
 		// Static Asserts
 		static_assert(CharCount > 1, "CharCount must be greater than 1");

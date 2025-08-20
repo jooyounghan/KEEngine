@@ -29,8 +29,7 @@ namespace ke
 
 		template<typename HashConvertor, typename Key>
 		struct HashConvertorTrait : TraitCondition<
-			CHECK_METHOD_TRAIT(HasHashing, HashConvertor, size_t, const Key&)
-			, TrueTrait, FalseTrait
+			CHECK_METHOD_TRAIT(HasHashing, HashConvertor, size_t, const Key&), TrueTrait, FalseTrait
 		>::Type
 		{
 		};

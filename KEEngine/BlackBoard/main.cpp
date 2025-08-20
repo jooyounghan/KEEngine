@@ -24,10 +24,15 @@ int main()
 {
 	while (true)
 	{
+		OwnedString<char> ownedString;
+		ownedString.append(" This is a test.");
+		BoundedString<char, 50> boundedString;
+		boundedString.append(" This is a test.");
 
-		HashMap<int, int, BinHoodBucketNode<int, int, 128>, hash<int>> test;
+
+		CompactHashMap<int, int, hash<int>> test;
 		auto start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < 10000; ++idx)
+		for (int idx = 0; idx < 100000; ++idx)
 		{
 			test.insert(idx, idx);
 		}
@@ -37,14 +42,14 @@ int main()
 		
 		std::unordered_map<int, int> stdTest;
 		start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < 10000; ++idx)
+		for (int idx = 0; idx < 100000; ++idx)
 		{
 			stdTest.insert({ idx, idx });
 		}
 		end = std::chrono::high_resolution_clock::now();
 		elapsed_seconds = end - start;
 		std::cout << "unordered_map 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
-
+		std::cout << " ===============================" << std::endl;
 
 
 		for (int idx = 0; idx < 1000000; ++idx)

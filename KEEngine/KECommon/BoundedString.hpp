@@ -6,79 +6,39 @@ namespace ke
 {
 	template<typename CharType, size_t CharCount>
 	BoundedString<CharType, CharCount>::BoundedString(const CharType* str)
+		: LinearContainer<CharType, CharCount>()
 	{
-		_buffer = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<CharType>(CharCount));
+		constexpr size_t strCapacity = CharCount - 1;
 
-		size_t strCapacity = StringLengthHelper<CharType>::length(str) + 1;
-		strCapacity = (strCapacity >= CharCount) ? CharCount : strCapacity;
-		StringManipulateHelper<CharType>::copy(_buffer, CharCount, str);
-		_length = strCapacity - 1;
+		_length = StringLengthHelper<CharType>::length(str);
+		_length = (_length > strCapacity) ? strCapacity : _length;
 
-#ifdef _DEBUG
-		_capacity = CharCount;
-#endif
-	}
-
-	template<typename CharType, size_t CharCount>
-	BoundedString<CharType, CharCount>::BoundedString(const BoundedString& boundedString)
-	{
-		_buffer = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<CharType>(CharCount));
-
-		StringManipulateHelper<CharType>::copy(_buffer, CharCount, boundedString.c_str());
-		_length = boundedString._length;
-
-#ifdef _DEBUG
-		_capacity = CharCount;
-#endif
-	}
-
-	template<typename CharType, size_t CharCount>
-	BoundedString<CharType, CharCount>::BoundedString(BoundedString&& boundedString) noexcept
-	{
-		_length = boundedString._length;
-		_buffer = boundedString._buffer;
-		boundedString._buffer = nullptr;
-
-#ifdef _DEBUG
-		_capacity = CharCount;
-#endif
-	}
-
-	template<typename CharType, size_t CharCount>
-	BoundedString<CharType, CharCount>::~BoundedString()
-	{
-		if (_buffer != nullptr)
-		{
-			_aligned_free(_buffer);
-			_buffer = nullptr;
-		}
+		StringManipulateHelper<CharType>::copy(__super::_data, _length + 1, str);
 	}
 
 	template<typename CharType, size_t CharCount>
 	const CharType* BoundedString<CharType, CharCount>::c_str() const&
 	{
-		return _buffer;
+		return __super::_data;
 	}
 
 	template<typename CharType, size_t CharCount>
 	void BoundedString<CharType, CharCount>::append(const CharType* const str)
 	{
-		size_t strCapacity = StringLengthHelper<CharType>::length(str) + 1;
 		const size_t availableCapacity = CharCount - _length;
-		strCapacity = (strCapacity >= availableCapacity) ? availableCapacity : strCapacity;
 
-		if (strCapacity <= 1) return;
+		size_t appendLength = StringLengthHelper<CharType>::length(str);
+		appendLength = (appendLength > availableCapacity) ? availableCapacity : appendLength;
 
-		StringManipulateHelper<CharType>::copy(_buffer + _length, strCapacity, str);
-		_length += (strCapacity - 1);
+		StringManipulateHelper<CharType>::copy(__super::_data + _length, appendLength + 1, str);
+		_length += appendLength;
 	}
 
 	template<typename CharType, size_t CharCount>
 	template<typename Alloc>
-	void BoundedString<CharType, CharCount>::append(const OwnedString<CharType, Alloc>& ownedString)
+	void BoundedString<CharType, CharCount>::append(const OwnedString<CharType>& ownedString)
 	{
-		const CharType* str = ownedString.c_str();
-		append(str);
+		append(ownedString.c_str());
 	}
 
 }

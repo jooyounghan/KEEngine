@@ -53,6 +53,8 @@
     <ClInclude Include="OverwriteRingBuffer.hpp" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="RefCountPtr.h" />
+    <ClInclude Include="RefCountPtr.hpp" />
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="RingBuffer.hpp" />
     <ClInclude Include="BoundedString.h" />

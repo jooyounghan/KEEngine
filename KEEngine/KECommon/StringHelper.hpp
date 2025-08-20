@@ -9,6 +9,8 @@ namespace ke
 	template<typename CharType>
 	void StringManipulateHelper<CharType>::copy(CharType* dest, size_t destBufferSize, const CharType* src)
 	{
+		if (src == nullptr) return;
+
 		size_t len = StringLengthHelper<CharType>::length(src);
 		if (len >= destBufferSize)
 			len = destBufferSize - 1;

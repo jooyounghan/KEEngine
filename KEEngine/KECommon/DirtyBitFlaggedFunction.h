@@ -11,7 +11,7 @@ namespace ke
     {
     public:
         template<typename Callable>
-        explicit DirtyBitFlaggedFunction(Callable&& callable, BitFlag<BitCount>& bitFlagRef);
+        DirtyBitFlaggedFunction(Callable&& callable, BitFlag<BitCount>& bitFlagRef);
         ~DirtyBitFlaggedFunction();
 
     public:

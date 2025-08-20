@@ -1,18 +1,26 @@
 #pragma once
 #include "TypeTraits.h"
 #include "StringHelper.h"
-#include "MallocAllocator.h"
+#include "LinearContainer.h"
 
 namespace ke
 {
-	template<typename CharType, typename Alloc = MallocAllocator<CharType>>
-	class OwnedString
+	template<typename CharType>
+	class OwnedString : public LinearContainer<CharType, 0>
 	{
 	public:
+		OwnedString() = default;
 		OwnedString(const CharType* str);
-		OwnedString(const OwnedString& staticString);
-		OwnedString(OwnedString&& staticString);
-		~OwnedString();
+		OwnedString(const OwnedString& other) = default;
+		OwnedString(OwnedString&& other) noexcept = default;
+
+	public:
+		~OwnedString() = default;
+
+	public:
+		OwnedString& operator=(const OwnedString& other) = default;
+		OwnedString& operator=(OwnedString&& other) noexcept = default;
+
 
 	public:
 		operator const CharType* () const = delete;
@@ -29,22 +37,9 @@ namespace ke
 		void append(const OwnedString& staticString);
 
 	public:
-		size_t length() const { return _memoryEntry._capacity - 1; }
-		size_t capacity() const { return _memoryEntry._capacity; }
-
-	protected:
-		NO_UNIQUE_ADDRESS Alloc _allocator;
-		MemoryEntry				_memoryEntry;
-
-
-#ifdef _DEBUG
-	private:
-		size_t			_length = 0;
-		const CharType* _stringValuePtr;
-#endif
+		size_t length() const { return __super::_count - 1; }
 
 		// Static Asserts
-		static_assert(KETrait::AllocatorTrait<Alloc>::value, "Alloc does not satisfy the required AllocatorTrait.");
 		static_assert(KETrait::IsCharacter<CharType>::value, "CharType only accept char, wchar_t");
 	};
 

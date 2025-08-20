@@ -18,7 +18,7 @@ namespace ke
 
 	public:
 		BinHoodBucketNode();
-		explicit BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues);
+		BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues);
 		~BinHoodBucketNode();
 
 	private:
@@ -90,9 +90,12 @@ namespace ke
 
 		// Static Asserts
 		static_assert(KETrait::HashBucketTrait<HashBucket, Key, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
-		//static_assert(KETrait::HashConvertorTrait<HashConvertor, Value>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
+		static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 
 	};
+
+	template<typename Key, typename Value, typename HashConvertor>
+	using CompactHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 64>, HashConvertor>;
 }
 
 #include "HashMap.hpp"

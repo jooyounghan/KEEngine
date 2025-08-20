@@ -16,7 +16,7 @@ namespace ke
     class FunctionHolder : public IFunctionHolder<ReturnType, Args...>
     {
     public:
-        explicit FunctionHolder(Callable&& c);
+        FunctionHolder(Callable&& c);
 		~FunctionHolder() override = default;
 
     private:
@@ -54,7 +54,7 @@ namespace ke
     {
     public:
         template<typename Callable>
-        explicit DirtyFlaggedFunction(Callable&& callable);
+        DirtyFlaggedFunction(Callable&& callable);
         ~DirtyFlaggedFunction();
 
     public:

@@ -1,87 +1,49 @@
 #pragma once
 #include "OwnedString.h"
-#include "BoundedString.h"
 
 namespace ke
 {
-
-	template<typename CharType, typename Alloc>
-	OwnedString<CharType, Alloc>::OwnedString(const CharType* str)
+	template<typename CharType>
+	OwnedString<CharType>::OwnedString(const CharType* str)
 	{
-		const size_t len = StringLengthHelper<CharType>::length(str);
-		_memoryEntry = _allocator.allocate(len + 1);
-
-		CharType* destStr = reinterpret_cast<CharType*>(_memoryEntry._address);
-		StringManipulateHelper<CharType>::copy(destStr, _memoryEntry._capacity, str);
-
-#ifdef _DEBUG
-		_length = len;
-		_stringValuePtr = destStr;
-#endif
+		const size_t length = StringLengthHelper<CharType>::length(str);
+		__super::_count = length + 1;
+		__super::_data = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<false, CharType>(__super::_count));
+		StringManipulateHelper<CharType>::copy(__super::_data, __super::_count, str);
 	}
 
-	template<typename CharType, typename Alloc>
-	OwnedString<CharType, Alloc>::OwnedString(const OwnedString& staticString)
+	template<typename CharType>
+	const CharType* OwnedString<CharType>::c_str() const&
 	{
-		const CharType* str = staticString.c_str();
-		const size_t len = StringLengthHelper<CharType>::length(str);
-		_memoryEntry = _allocator.allocate(len + 1);
-
-		CharType* destStr = reinterpret_cast<CharType*>(_memoryEntry._address);
-		StringManipulateHelper<CharType>::copy(destStr, _memoryEntry._capacity, str);
-
-#ifdef _DEBUG
-		_length = len;
-		_stringValuePtr = destStr;
-#endif
+		return __super::_data;
 	}
 
-	template<typename CharType, typename Alloc>
-	OwnedString<CharType, Alloc>::OwnedString(OwnedString&& str)
+	template<typename CharType>
+	void OwnedString<CharType>::append(const CharType* const str)
 	{
-		_memoryEntry = std::move(str._memoryEntry);
-		str._memoryEntry._address = nullptr;
-		
-#ifdef _DEBUG
-		_length = str._length;
-		_stringValuePtr = str._stringValuePtr;
-#endif
+		const size_t length = StringLengthHelper<CharType>::length(str);
+
+		CharType* newData = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<false, CharType>(__super::_count + length));
+
+		if (__super::_count > 0)
+		{
+			StringManipulateHelper<CharType>::copy(newData, __super::_count, __super::_data);
+			StringManipulateHelper<CharType>::copy(newData + __super::_count - 1, length, str);
+			__super::_count += length;
+		}
+		else
+		{
+			StringManipulateHelper<CharType>::copy(newData, length + 1, str);
+			__super::_count = length + 1;
+		}
+
+		KEMemory::aligendFree(__super::_data);
+		__super::_data = newData;
+ 
 	}
 
-	template<typename CharType, typename Alloc>
-	OwnedString<CharType, Alloc>::~OwnedString()
-	{
-		_allocator.deallocate(_memoryEntry);
-	}
-
-	template<typename CharType, typename Alloc>
-	const CharType* OwnedString<CharType, Alloc>::c_str() const&
-	{
-		return reinterpret_cast<const CharType*>(_memoryEntry._address);
-	}
-
-	template<typename CharType, typename Alloc>
-	void OwnedString<CharType, Alloc>::append(const CharType* const str)
-	{
-		const size_t len = StringLengthHelper<CharType>::length(str);
-		MemoryEntry newMemoryEntry = _allocator.allocate(_memoryEntry._capacity + len);
-
-		const CharType* oldStr = reinterpret_cast<CharType*>(_memoryEntry._address);
-		CharType* destStr = reinterpret_cast<CharType*>(newMemoryEntry._address);
-		StringManipulateHelper<CharType>::copy(destStr, _memoryEntry._capacity, oldStr);
-		StringManipulateHelper<CharType>::copy(destStr + (_memoryEntry._capacity - 1), newMemoryEntry._capacity, str);
-
-		_allocator.deallocate(_memoryEntry);
-		_memoryEntry = newMemoryEntry;
-
-#ifdef _DEBUG
-		_length = _length + len;
-		_stringValuePtr = destStr;
-#endif
-	}
-
-	template<typename CharType, typename Alloc>
-	void OwnedString<CharType, Alloc>::append(const OwnedString& staticString)
+	template<typename CharType>
+	void OwnedString<CharType>::append(const OwnedString& staticString)
 	{
 		append(staticString.c_str());
 	}
