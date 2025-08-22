@@ -261,10 +261,16 @@
     <ClInclude Include="PoolAllocator.h">
       <Filter>헤더 파일\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="RefCountPtr.h">
+    <ClInclude Include="RefCountPointer.h">
       <Filter>헤더 파일\Proxy\SmartPointer</Filter>
     </ClInclude>
-    <ClInclude Include="RefCountPtr.hpp">
+    <ClInclude Include="RefCountPointer.hpp">
+      <Filter>헤더 파일\Proxy\SmartPointer\TemplateHpp</Filter>
+    </ClInclude>
+    <ClInclude Include="WeakPointer.h">
+      <Filter>헤더 파일\Proxy\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="WeakPointer.hpp">
       <Filter>헤더 파일\Proxy\SmartPointer\TemplateHpp</Filter>
     </ClInclude>
   </ItemGroup>

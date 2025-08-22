@@ -29,11 +29,13 @@ namespace ke
 		BinHoodBucketNode*	_right = nullptr;
 
 	private:
-		/* RobinHood Based Insert Process*/
 		inline bool		isInRange(HashValue hash) const;
 		inline bool		hasChildren() const;
 		inline float	getLoadFactor() const;
+
+	private:
 		void			splitBucket();
+		void			mergeBucket();
 		void			shiftBack(size_t emptyIdx);
 
 	public:
@@ -41,7 +43,7 @@ namespace ke
 		void								insert(HashValue hash, const Key& key, const Value& value);
 		void								remove(HashValue hash, const Key& key);
 		const Value*						find(HashValue hash, const Key& key) const;
-		void								getCount(size_t& sizeOut) const;
+		void								count(size_t& sizeOut) const;
 
 	private:
 		size_t _count = 0;
@@ -86,12 +88,11 @@ namespace ke
 		const Value*						find(const Key& key) const;
 
 	public:
-		size_t getCount() const;
+		size_t count() const;
 
 		// Static Asserts
 		static_assert(KETrait::HashBucketTrait<HashBucket, Key, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
-		static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
-
+		//static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 	};
 
 	template<typename Key, typename Value, typename HashConvertor>

@@ -1,6 +1,7 @@
 #pragma once
 #include "HashMap.h"
 #include "HashGenerator.h"
+#include "RingBuffer.h"
 
 namespace ke
 {
@@ -62,21 +63,39 @@ namespace ke
 		// right node initialize slots
 		_right = new BinHoodBucketNode(mid + 1, _to, this, true);
 
-		for (size_t i = 0; i < BucketSize; ++i)
+		struct EntryToMove 
 		{
-			if (_left->getIsOccupied(i))
+			HashValue hash;
+			Key key;
+			Value value;
+		};
+
+		RingBuffer<EntryToMove, BucketSize> splitEntries;
+		for (size_t i = BucketSize; i-- > 0; )
+		{
+			bool& isOccupied = _left->getIsOccupied(i);
+			HashValue hashValue = _left->getHashValue(i);
+			Key& key = *_left->getKeyPtr(i);
+			Value& value = *_left->getValuePtr(i);
+
+			if (isOccupied && _right->isInRange(hashValue))
 			{
-				HashValue hashValue = _left->getHashValue(i);
-				Key& key = *_left->getKeyPtr(i);
-				Value& value = *_left->getValuePtr(i);
-			
-				if (_right->isInRange(hashValue))
-				{
-					_right->insert(hashValue, key, value);
-					_left->remove(hashValue, key);
-				}
+				splitEntries.pushBack({hashValue, key, value});
 			}
 		}
+
+		EntryToMove splitEntry;
+		while (!splitEntries.isEmpty())
+		{
+			splitEntries.popFront(splitEntry);
+			_right->insert(splitEntry.hash, splitEntry.key, splitEntry.value);
+			_left->remove(splitEntry.hash, splitEntry.key);
+		}
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::mergeBucket()
+	{
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -87,12 +106,13 @@ namespace ke
 			int nextIdx = (currentIdx + 1) % BucketSize;
 
 			IsOccupied& nextIsOccupied = getIsOccupied(nextIdx);
-			const SlotDistance& nextSlotDistance = getSlotDistance(nextIdx);
+			SlotDistance& nextSlotDistance = getSlotDistance(nextIdx);
 
 			if (!nextIsOccupied || nextSlotDistance == 0) break;
 
-			setHashSlot(currentIdx, nextIsOccupied, getHashValue(nextIdx), move(*getKeyPtr(nextIdx)), move(*getValuePtr(nextIdx)), nextSlotDistance - 1);
+			setHashSlot(currentIdx, true, getHashValue(nextIdx), move(*getKeyPtr(nextIdx)), move(*getValuePtr(nextIdx)), nextSlotDistance - 1);
 			nextIsOccupied = false;
+			nextSlotDistance = 0;
 
 			currentIdx = nextIdx;
 		}
@@ -135,9 +155,9 @@ namespace ke
 
 			Key& currentKey = *getKeyPtr(idx);
 
-			if (currentKey == key)
+			if (currentKey == targetKey)
 			{
-				setHashSlot(idx, move(value));
+				setHashSlot(idx, move(targetValue));
 				break;
 			}
 
@@ -160,6 +180,20 @@ namespace ke
 	template<typename Key, typename Value, size_t BucketSize>
 	void BinHoodBucketNode<Key, Value, BucketSize>::remove(HashValue hash, const Key& key)
 	{
+		if (hasChildren())
+		{
+			if (_left->isInRange(hash))
+			{
+				_left->remove(hash, key);
+				return;
+			}
+			else
+			{
+				_right->remove(hash, key);
+				return;
+			}
+		}
+
 		size_t idx = hash % BucketSize;
 		SlotDistance slotDistance = 0;
 
@@ -189,6 +223,57 @@ namespace ke
 
 			idx = (idx + 1) % BucketSize;
 			++slotDistance;
+		}
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	const Value* BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key) const
+	{
+		if (hasChildren())
+		{
+			if (_left->isInRange(hash))
+			{
+				return _left->find(hash, key);
+			}
+			else
+			{
+				return _right->remove(hash, key);
+			}
+		}
+
+		size_t idx = hash % BucketSize;
+		SlotDistance slotDistance = 0;
+
+		while (true)
+		{
+			bool& isOccupied = getIsOccupied(idx);
+			if (!isOccupied)
+				break;
+
+			Key& currentKey = *getKeyPtr(idx);
+			if (currentKey == key)
+			{
+				return getValuePtr(idx);
+			}
+
+			SlotDistance& currentSlotDistance = getSlotDistance(idx);
+			if (currentSlotDistance < slotDistance)
+				break;
+
+			idx = (idx + 1) % BucketSize;
+			++slotDistance;
+		}
+		return nullptr;
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::count(size_t& sizeOut) const
+	{
+		sizeOut += _count;
+		if (hasChildren())
+		{
+			_left->count(sizeOut);
+			_right->count(sizeOut);
 		}
 	}
 
@@ -276,24 +361,6 @@ namespace ke
 	}
 #pragma endregion
 
-	template<typename Key, typename Value, size_t BucketSize>
-	const Value* BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key) const
-	{
-		return nullptr;
-		// TODO: 여기에 return 문을 삽입합니다.
-	}
-
-	template<typename Key, typename Value, size_t BucketSize>
-	void BinHoodBucketNode<Key, Value, BucketSize>::getCount(size_t& sizeOut) const
-	{
-		sizeOut += _count;
-		if (hasChildren())
-		{
-			_left->getCount(sizeOut);
-			_right->getCount(sizeOut);
-		}
-	}
-
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
 	HashMap<Key, Value, HashBucket, HashConvertor>::~HashMap()
 	{
@@ -314,18 +381,22 @@ namespace ke
 	template<typename Key, typename Value, typename Bucket, typename HashConvertor>
 	void HashMap<Key, Value, Bucket, HashConvertor>::remove(const Key& key)
 	{
+		size_t hash = _hashConvertor(key);
+		_bucket->remove(hash, key);
 	}
 
 	template<typename Key, typename Value, typename Bucket, typename HashConvertor>
 	const Value* HashMap<Key, Value, Bucket, HashConvertor>::find(const Key& key) const
 	{
+		size_t hash = _hashConvertor(key);
+		return _bucket->find(hash, key);
 	}
 	
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
-	size_t HashMap<Key, Value, HashBucket, HashConvertor>::getCount() const 
+	size_t HashMap<Key, Value, HashBucket, HashConvertor>::count() const
 	{ 
 		size_t result = 0; 
-		_bucket->getCount(result); 
+		_bucket->count(result); 
 		return result; 
 	}
 }

@@ -47,7 +47,7 @@
 	
 	<Type Name="ke::BinHoodBucketNode&lt;*, *, *&gt;">
 		<DisplayString>ke::BinHoodBucketNode ( range={_from}~{_to} )</DisplayString>
-		<Expand>
+		<Expand HideRawView="true">
 			<Item Name="Parent" Condition="_count > 0">_parent</Item>
 			<Item Name="Left" Condition="_count == 0">_left</Item>
 			<Item Name="Right" Condition="_count == 0">_right</Item>

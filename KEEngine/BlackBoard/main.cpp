@@ -24,37 +24,45 @@ int main()
 {
 	while (true)
 	{
-		OwnedString<char> ownedString;
-		ownedString.append(" This is a test.");
-		BoundedString<char, 50> boundedString;
-		boundedString.append(" This is a test.");
-
-
+		size_t count = 1000000;
 		CompactHashMap<int, int, hash<int>> test;
 		auto start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < 100000; ++idx)
+		for (int idx = 0; idx < count; ++idx)
 		{
 			test.insert(idx, idx);
 		}
 		auto end = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> elapsed_seconds = end - start;
-		std::cout << "HashMap 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
-		
+		std::cout << "HashMap Insert 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
+
+		start = std::chrono::high_resolution_clock::now();
+		for (int idx = 0; idx < count; ++idx)
+		{
+			test.remove(idx);
+		}
+		end = std::chrono::high_resolution_clock::now();
+		elapsed_seconds = end - start;
+		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
+
 		std::unordered_map<int, int> stdTest;
 		start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < 100000; ++idx)
+		for (int idx = 0; idx < count; ++idx)
 		{
 			stdTest.insert({ idx, idx });
 		}
 		end = std::chrono::high_resolution_clock::now();
 		elapsed_seconds = end - start;
-		std::cout << "unordered_map 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
-		std::cout << " ===============================" << std::endl;
-
-
-		for (int idx = 0; idx < 1000000; ++idx)
+		std::cout << "unordered_map Insert 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
+	
+		start = std::chrono::high_resolution_clock::now();
+		for (int idx = 0; idx < count; ++idx)
 		{
-			test.remove(idx);
+			stdTest.erase(idx);
 		}
+		end = std::chrono::high_resolution_clock::now();
+		elapsed_seconds = end - start;
+		std::cout << "unordered_map Remove 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
+
+		std::cout << " ===============================" << std::endl;
 	}
 }
