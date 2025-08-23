@@ -1,23 +1,22 @@
 #pragma once
 #include "HashMap.h"
 #include "HashGenerator.h"
-#include "RingBuffer.h"
 
 namespace ke
 {
 	template<typename Key, typename Value, size_t BucketSize>
 	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode()
-		: _from(0), _to(KELimit::getMax<HashValue>())
+		: _from(0), _to(KELimit::getMax<HashValue>()), _mid(KELimit::getMax<HashValue>() / 2)
 	{
 		_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
-	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues)
+	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent)
 		: _from(from), _to(to), _parent(parent)
 	{
-		if (isAllocateValues)
-			_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
+		_mid = _from + (_to - _from) / 2;
+		_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -27,17 +26,22 @@ namespace ke
 		KEMemory::SafeRelease(_right);
 		KEMemory::SafeRelease(_values);
 	}
-	
+
 	template<typename Key, typename Value, size_t BucketSize>
-	inline bool BinHoodBucketNode<Key, Value, BucketSize>::isInRange(HashValue hash) const
+	BinHoodBucketNode<Key, Value, BucketSize>* BinHoodBucketNode<Key, Value, BucketSize>::getLeafBucket(HashValue hashValue)
 	{
-		return _from <= hash && hash <= _to;
+		BinHoodBucketNode* leaf = this;
+		while (leaf->hasChildren())
+		{
+			leaf = (hashValue <= leaf->_mid) ? leaf->_left : leaf->_right;
+		}
+		return leaf;
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
 	bool BinHoodBucketNode<Key, Value, BucketSize>::hasChildren() const
 	{
-		return _left != nullptr || _right != nullptr;
+		return _left != nullptr;
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -51,46 +55,25 @@ namespace ke
 	{
 		if (hasChildren()) return;
 
-		HashValue mid = _from + (_to - _from) / 2;
+		_left = new BinHoodBucketNode(_from, _mid, this);
+		_right = new BinHoodBucketNode(_mid + 1, _to, this);
 
-		// left node dosen't initialize slots but moved from parent
-		_left = new BinHoodBucketNode(_from, mid, this, false);
-		_left->_count = _count;
-		_count = 0;
-		_left->_values = _values;		
-		_values = nullptr;
-
-		// right node initialize slots
-		_right = new BinHoodBucketNode(mid + 1, _to, this, true);
-
-		struct EntryToMove 
+		for (size_t idx = 0; idx < BucketSize; ++idx)
 		{
-			HashValue hash;
-			Key key;
-			Value value;
-		};
+			bool& isOccupied = getIsOccupied(idx);
+			HashValue hashValue = getHashValue(idx);
+			Key& key = *getKeyPtr(idx);
+			Value& value = *getValuePtr(idx);
 
-		RingBuffer<EntryToMove, BucketSize> splitEntries;
-		for (size_t i = BucketSize; i-- > 0; )
-		{
-			bool& isOccupied = _left->getIsOccupied(i);
-			HashValue hashValue = _left->getHashValue(i);
-			Key& key = *_left->getKeyPtr(i);
-			Value& value = *_left->getValuePtr(i);
+			if (!isOccupied) continue;
+			
+			BinHoodBucketNode* destNode = hashValue <= _mid ? _left : _right;
+			destNode->insert(hashValue, move(key), move(value));
 
-			if (isOccupied && _right->isInRange(hashValue))
-			{
-				splitEntries.pushBack({hashValue, key, value});
-			}
+			isOccupied = false;
+			_count--;
 		}
-
-		EntryToMove splitEntry;
-		while (!splitEntries.isEmpty())
-		{
-			splitEntries.popFront(splitEntry);
-			_right->insert(splitEntry.hash, splitEntry.key, splitEntry.value);
-			_left->remove(splitEntry.hash, splitEntry.key);
-		}
+		KEMemory::SafeRelease(_values);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -103,7 +86,7 @@ namespace ke
 	{
 		while (true) 
 		{
-			int nextIdx = (currentIdx + 1) % BucketSize;
+			int nextIdx = (currentIdx + 1) & (BucketSize - 1);
 
 			IsOccupied& nextIsOccupied = getIsOccupied(nextIdx);
 			SlotDistance& nextSlotDistance = getSlotDistance(nextIdx);
@@ -121,107 +104,83 @@ namespace ke
 	template<typename Key, typename Value, size_t BucketSize>
 	void BinHoodBucketNode<Key, Value, BucketSize>::insert(HashValue hash, const Key& key, const Value& value)
 	{
-		if (hasChildren())
-		{
-			if (_left->isInRange(hash))
-			{
-				_left->insert(hash, key, value);
-				return;
-			}
-			else
-			{
-				_right->insert(hash, key, value);
-				return;
-			}
-		}
+		BinHoodBucketNode* leafBucket = getLeafBucket(hash);
 
-		size_t idx = hash % BucketSize;
+		size_t idx = hash & (BucketSize - 1);
 
 		bool targetIsOccupied = true;
 		HashValue targetHash = hash;
-		Key targetKey = key;
-		Value targetValue = value;
+		Key targetKey = move(key);
+		Value targetValue = move(value);
 		SlotDistance targetSlotDistance = 0;
 
 		while (true) 
 		{
-			bool& isCurrentOccupied = getIsOccupied(idx);
+			bool& isCurrentOccupied = leafBucket->getIsOccupied(idx);
 			if (isCurrentOccupied == false)
 			{
-				setHashSlot(idx, targetIsOccupied, targetHash, move(targetKey), move(targetValue), targetSlotDistance);
-				++_count;
+				leafBucket->setHashSlot(idx, targetIsOccupied, targetHash, move(targetKey), move(targetValue), targetSlotDistance);
+				++leafBucket->_count;
 				break;
 			}
 
-			Key& currentKey = *getKeyPtr(idx);
+			Key& currentKey = *(leafBucket->getKeyPtr(idx));
 
 			if (currentKey == targetKey)
 			{
-				setHashSlot(idx, move(targetValue));
+				leafBucket->setHashSlot(idx, move(targetValue));
 				break;
 			}
 
-			SlotDistance currentDistance = getSlotDistance(idx);
+			SlotDistance currentDistance = leafBucket->getSlotDistance(idx);
 			if (currentDistance < targetSlotDistance)
 			{
-				swapHashSlot(idx, targetIsOccupied, targetHash, targetKey, targetValue, targetSlotDistance);
+				leafBucket->swapHashSlot(idx, targetIsOccupied, targetHash, targetKey, targetValue, targetSlotDistance);
 			}
 
-			idx = (idx + 1) % BucketSize;
+			idx = (idx + 1) & (BucketSize - 1);
 			++targetSlotDistance;
 		}
 
-		if (getLoadFactor() > SeperateThreshold)
+		if (leafBucket->getLoadFactor() > SeperateThreshold)
 		{
-			splitBucket();
+			leafBucket->splitBucket();
 		}
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
 	void BinHoodBucketNode<Key, Value, BucketSize>::remove(HashValue hash, const Key& key)
 	{
-		if (hasChildren())
-		{
-			if (_left->isInRange(hash))
-			{
-				_left->remove(hash, key);
-				return;
-			}
-			else
-			{
-				_right->remove(hash, key);
-				return;
-			}
-		}
+		BinHoodBucketNode* leafBucket = getLeafBucket(hash);
 
-		size_t idx = hash % BucketSize;
+		size_t idx = hash & (BucketSize - 1);
 		SlotDistance slotDistance = 0;
 
 		while (true)
 		{
-			bool& isOccupied = getIsOccupied(idx);
+			bool& isOccupied = leafBucket->getIsOccupied(idx);
 			if (!isOccupied)
 				return;
 
-			Key& currentKey = *getKeyPtr(idx);
+			Key& currentKey = *(leafBucket->getKeyPtr(idx));
 			if (currentKey == key)
 			{
-				Value& currentValue = *getValuePtr(idx);
+				Value& currentValue = *(leafBucket->getValuePtr(idx));
 				
 				isOccupied = false;
 				currentKey.~Key();
 				currentValue.~Value();
 
-				shiftBack(idx);
+				leafBucket->shiftBack(idx);
 				--_count;
 				return;
 			}
 
-			SlotDistance& currentSlotDistance = getSlotDistance(idx);
+			SlotDistance& currentSlotDistance = leafBucket->getSlotDistance(idx);
 			if (currentSlotDistance < slotDistance)
 				return;
 
-			idx = (idx + 1) % BucketSize;
+			idx = (idx + 1) & (BucketSize - 1);
 			++slotDistance;
 		}
 	}
@@ -229,38 +188,28 @@ namespace ke
 	template<typename Key, typename Value, size_t BucketSize>
 	const Value* BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key) const
 	{
-		if (hasChildren())
-		{
-			if (_left->isInRange(hash))
-			{
-				return _left->find(hash, key);
-			}
-			else
-			{
-				return _right->remove(hash, key);
-			}
-		}
+		BinHoodBucketNode* leafBucket = getLeafBucket(hash);
 
-		size_t idx = hash % BucketSize;
+		size_t idx = hash & (BucketSize - 1);
 		SlotDistance slotDistance = 0;
 
 		while (true)
 		{
-			bool& isOccupied = getIsOccupied(idx);
+			bool& isOccupied = leafBucket->getIsOccupied(idx);
 			if (!isOccupied)
 				break;
 
-			Key& currentKey = *getKeyPtr(idx);
+			Key& currentKey = *(leafBucket->getKeyPtr(idx));
 			if (currentKey == key)
 			{
-				return getValuePtr(idx);
+				return leafBucket->getValuePtr(idx);
 			}
 
-			SlotDistance& currentSlotDistance = getSlotDistance(idx);
+			SlotDistance& currentSlotDistance = leafBucket->getSlotDistance(idx);
 			if (currentSlotDistance < slotDistance)
 				break;
 
-			idx = (idx + 1) % BucketSize;
+			idx = (idx + 1) & (BucketSize - 1);
 			++slotDistance;
 		}
 		return nullptr;

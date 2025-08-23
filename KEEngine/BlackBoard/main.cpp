@@ -25,42 +25,47 @@ int main()
 	while (true)
 	{
 		size_t count = 1000000;
-		CompactHashMap<int, int, hash<int>> test;
-		auto start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < count; ++idx)
+		std::chrono::duration<double> elapsed_seconds;
 		{
-			test.insert(idx, idx);
-		}
-		auto end = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> elapsed_seconds = end - start;
-		std::cout << "HashMap Insert 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
+			auto start = std::chrono::high_resolution_clock::now();
+			CompactHashMap<int, int, hash<int>> test;
+			for (int idx = 0; idx < count; ++idx)
+			{
+				test.insert(idx, idx);
+			}
+			auto end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
+			std::cout << "HashMap Insert 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
 
-		start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < count; ++idx)
-		{
-			test.remove(idx);
+			start = std::chrono::high_resolution_clock::now();
+			for (int idx = 0; idx < count; ++idx)
+			{
+				test.remove(idx);
+			}
+			end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
 		}
-		end = std::chrono::high_resolution_clock::now();
-		elapsed_seconds = end - start;
-		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
+		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, "  << std::endl;
 
-		std::unordered_map<int, int> stdTest;
-		start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < count; ++idx)
 		{
-			stdTest.insert({ idx, idx });
-		}
-		end = std::chrono::high_resolution_clock::now();
-		elapsed_seconds = end - start;
-		std::cout << "unordered_map Insert 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
+			auto start = std::chrono::high_resolution_clock::now();
+			std::unordered_map<int, int> stdTest;
+			for (int idx = 0; idx < count; ++idx)
+			{
+				stdTest.insert({ idx, idx });
+			}
+			auto end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
+			std::cout << "unordered_map Insert 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
 	
-		start = std::chrono::high_resolution_clock::now();
-		for (int idx = 0; idx < count; ++idx)
-		{
-			stdTest.erase(idx);
+			start = std::chrono::high_resolution_clock::now();
+			for (int idx = 0; idx < count; ++idx)
+			{
+				stdTest.erase(idx);
+			}
+			end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
 		}
-		end = std::chrono::high_resolution_clock::now();
-		elapsed_seconds = end - start;
 		std::cout << "unordered_map Remove 걸린 시간: " << elapsed_seconds.count() << " 초" << std::endl;
 
 		std::cout << " ===============================" << std::endl;

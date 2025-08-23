@@ -1,6 +1,5 @@
 #pragma once
 #include "MethodTraits.h"
-#include "OptionalValue.h"
 
 namespace ke
 {

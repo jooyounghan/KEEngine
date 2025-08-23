@@ -18,18 +18,19 @@ namespace ke
 
 	public:
 		BinHoodBucketNode();
-		BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent, bool isAllocateValues);
+		BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent);
 		~BinHoodBucketNode();
 
 	private:
 		HashValue			_from;
+		HashValue			_mid;
 		HashValue			_to;
 		BinHoodBucketNode*	_parent = nullptr;
 		BinHoodBucketNode*	_left = nullptr;
 		BinHoodBucketNode*	_right = nullptr;
 
 	private:
-		inline bool		isInRange(HashValue hash) const;
+		BinHoodBucketNode* getLeafBucket(HashValue hashValue);
 		inline bool		hasChildren() const;
 		inline float	getLoadFactor() const;
 
@@ -68,6 +69,7 @@ namespace ke
 		size_t _bucketSize = BucketSize;
 #endif // _DEBUG
 
+		static_assert(KETrait::IsPowerOfTwo<size_t, BucketSize>::value, "BucketSize must be a power of two.");
 
 #pragma endregion
 	};
@@ -96,7 +98,7 @@ namespace ke
 	};
 
 	template<typename Key, typename Value, typename HashConvertor>
-	using CompactHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 64>, HashConvertor>;
+	using CompactHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 256>, HashConvertor>;
 }
 
 #include "HashMap.hpp"

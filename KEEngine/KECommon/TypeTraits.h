@@ -91,13 +91,14 @@ namespace ke
 #pragma endregion
 
 #pragma region Type Traits
+
 #pragma region Integer Traits
         template<typename T>
         struct IsInteger : FalseTrait
         {
             DELETE_CONSTRUCTOR(IsInteger);
-
         };
+
         DEFINE_INTEGER_TYPE(char);
 		DEFINE_INTEGER_TYPE(signed char);
 		DEFINE_INTEGER_TYPE(unsigned char);
@@ -110,13 +111,30 @@ namespace ke
 		DEFINE_INTEGER_TYPE(long long);
         DEFINE_INTEGER_TYPE(unsigned long long);
 #pragma endregion
-        
 
 
         template<typename T>
         struct IsUnsigned : TraitCondition<(T(0) < T(-1)), TrueTrait, FalseTrait>::Type
         {
             DELETE_CONSTRUCTOR(IsUnsigned);
+        };
+
+        namespace KETraitDetail
+        {
+            template<typename T, T N>
+            struct IsPowerOfTwoImpl
+            {
+                DELETE_CONSTRUCTOR(IsPowerOfTwoImpl);
+
+            public:
+                static constexpr bool condition = SatisfyAll<IsInteger<T>::value, IsUnsigned<T>::value, (N > 1), ((N & (N - 1)) == 0)>::value;
+            };
+        }
+
+        template<typename T, T N>
+        struct IsPowerOfTwo : TraitCondition<KETraitDetail::IsPowerOfTwoImpl<T, N>::condition, TrueTrait, FalseTrait>::Type
+        {
+            DELETE_CONSTRUCTOR(IsPowerOfTwo);
         };
 
         template<typename T>
