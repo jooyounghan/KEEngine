@@ -10,7 +10,6 @@ namespace ke
 	public:
 		DELETE_CONSTRUCTOR(FlyweightString);
 		FlyweightString(const CharType* str);
-
 	};
 
 	using FlyweightStringA = FlyweightString<char>;

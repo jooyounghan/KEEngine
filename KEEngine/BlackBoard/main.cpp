@@ -25,10 +25,12 @@ int main()
 	while (true)
 	{
 		size_t count = 1000000;
+		CompactHashMap<int, int, hash<int>> test;
+		std::unordered_map<int, int> stdTest;
 		std::chrono::duration<double> elapsed_seconds;
+
 		{
 			auto start = std::chrono::high_resolution_clock::now();
-			CompactHashMap<int, int, hash<int>> test;
 			for (int idx = 0; idx < count; ++idx)
 			{
 				test.insert(idx, idx);
@@ -45,11 +47,10 @@ int main()
 			end = std::chrono::high_resolution_clock::now();
 			elapsed_seconds = end - start;
 		}
-		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, "  << std::endl;
+		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
 
 		{
 			auto start = std::chrono::high_resolution_clock::now();
-			std::unordered_map<int, int> stdTest;
 			for (int idx = 0; idx < count; ++idx)
 			{
 				stdTest.insert({ idx, idx });

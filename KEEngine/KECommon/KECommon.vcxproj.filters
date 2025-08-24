@@ -273,6 +273,12 @@
     <ClInclude Include="WeakPointer.hpp">
       <Filter>헤더 파일\Proxy\SmartPointer\TemplateHpp</Filter>
     </ClInclude>
+    <ClInclude Include="BinHoodBucketNode.h">
+      <Filter>헤더 파일\Container\Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="BinHoodBucketNode.hpp">
+      <Filter>헤더 파일\Container\Hash\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PoolAllocator.hpp">

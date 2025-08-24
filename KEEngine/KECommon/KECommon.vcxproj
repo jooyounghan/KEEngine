@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllocatorTraits.h" />
+    <ClInclude Include="BinHoodBucketNode.h" />
+    <ClInclude Include="BinHoodBucketNode.hpp" />
     <ClInclude Include="BitFlag.h" />
     <ClInclude Include="ColumnarVector.h" />
     <ClInclude Include="ContainerTraits.h" />
