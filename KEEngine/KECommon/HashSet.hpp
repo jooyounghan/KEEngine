@@ -24,10 +24,12 @@ namespace ke
 	}
 
 	template<typename Key, typename HashBucket, typename HashConvertor>
-	bool HashSet<Key, HashBucket, HashConvertor>::find(const Key& key)
+	Key* HashSet<Key, HashBucket, HashConvertor>::find(const Key& key)
 	{
 		size_t hash = _hashConvertor(key);
-		return _bucket->find(hash, key) != nullptr;
+		Key* foundKey = nullptr;
+		_bucket->find(hash, key, foundKey, nullptr);
+		return foundKey;
 	}
 
 	template<typename Key, typename HashBucket, typename HashConvertor>

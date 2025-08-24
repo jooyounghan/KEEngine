@@ -185,7 +185,7 @@ namespace ke
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
-	Value* BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key)
+	bool BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key, Key* foundKey, Value* foundValue)
 	{
 		BinHoodBucketNode* leafBucket = getLeafBucket(hash);
 
@@ -201,6 +201,8 @@ namespace ke
 			Key& currentKey = *(leafBucket->getKeyPtr(idx));
 			if (currentKey == key)
 			{
+				foundKey = &currentKey;
+				foundValue = leafBucket->getValuePtr(idx);
 				return leafBucket->getValuePtr(idx);
 			}
 
@@ -211,7 +213,10 @@ namespace ke
 			idx = (idx + 1) & (BucketSize - 1);
 			++slotDistance;
 		}
-		return nullptr;
+
+		foundKey = nullptr;
+		foundValue = nullptr;
+		return false;
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>

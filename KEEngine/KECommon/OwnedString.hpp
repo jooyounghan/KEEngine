@@ -1,5 +1,6 @@
 #pragma once
 #include "OwnedString.h"
+#include "StringHelper.h"
 
 namespace ke
 {
@@ -10,6 +11,24 @@ namespace ke
 		__super::_count = length + 1;
 		__super::_data = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<false, CharType>(__super::_count));
 		StringManipulateHelper<CharType>::copy(__super::_data, __super::_count, str);
+	}
+
+	template<typename CharType>
+	bool OwnedString<CharType>::operator==(const OwnedString& other) const
+	{
+		if (__super::_count != other._count)
+			return false;
+
+
+		// TODO : Optimize with SIMD
+		size_t targetIndex = 0;
+		while (targetIndex != __super::_count)
+		{
+			if (__super::_data[targetIndex] != other._data[targetIndex]) return false;
+			++targetIndex;
+		}
+
+		return true;
 	}
 
 	template<typename CharType>

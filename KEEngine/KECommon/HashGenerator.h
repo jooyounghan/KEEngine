@@ -10,7 +10,7 @@ namespace ke
     class HashGenerator
     {
     public:
-        size_t operator()(const T& value) const;
+        NODISC static size_t operator()(const T& value);
 
     private:
         static size_t computeHash(const void* data, size_t len);

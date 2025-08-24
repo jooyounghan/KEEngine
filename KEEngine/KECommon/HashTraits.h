@@ -16,7 +16,7 @@ namespace ke
 			IsContructible<HashBucket>::value,
 			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Key&, const Value&),
 			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t, const Key&),
-			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, Value*, size_t, const Key&)
+			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, bool, size_t, const Key&, Key*, Value*)
 			>::value, TrueTrait, FalseTrait
 		>::Type
 		{
@@ -38,7 +38,7 @@ namespace ke
 #pragma endregion
 
 #pragma region HashConvertor Traits
-		DEFINE_METHOD_TRAIT_WITH_QUALIFIER(HasHashing, operator(), const);
+		DEFINE_STATIC_METHOD_TRAIT(HasHashing, operator());
 
 		template<typename HashConvertor, typename Key>
 		struct HashConvertorTrait : TraitCondition<

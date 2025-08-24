@@ -28,14 +28,14 @@ namespace ke
 	public:
 		void								insert(const Key& key);
 		void								remove(const Key& key);
-		bool								find(const Key& key);
+		Key*								find(const Key& key);
 
 	public:
 		size_t count() const;
 
 		// Static Asserts
 		static_assert(KETrait::HashMapBucketTrait<HashBucket, Key, BucketSetUnit>::value, "Bucket does not satisfy the required HashBucketTrait.");
-		//static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
+		static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 	};
 
 	template<typename Key, typename HashConvertor>

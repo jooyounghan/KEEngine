@@ -1,4 +1,5 @@
 #include "HashGenerator.h"
+#include "TypeTraits.h"
 #include <cstdio>
 
 namespace ke
@@ -33,7 +34,7 @@ namespace ke
     };
 
     template<typename T>
-    size_t HashGenerator<T>::operator()(const T& value) const
+    size_t HashGenerator<T>::operator()(const T& value)
     {
         return convertToHash(value);
     }
@@ -81,6 +82,7 @@ namespace ke
     template<typename T>
     size_t HashGenerator<T>::convertToHash(const T& value)
     {
+        static_assert(KETrait::IsInteger<T>::value, "HashGenerator does not support hashing for this template type. Please define it via template specialization.");
         return computeHash(&value, sizeof(T));
     }
 
@@ -93,7 +95,7 @@ namespace ke
     template<typename T>
     size_t HashGenerator<T>::convertToHash(const wchar_t* cstr)
     {
-        return computeHash(cstr, wcslen(cstr));
+        return computeHash(cstr, wcslen(cstr) * 2);
     }
 }
 

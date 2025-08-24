@@ -70,6 +70,8 @@
     <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="StringHelper.hpp" />
+    <ClInclude Include="StringView.h" />
+    <ClInclude Include="StringView.hpp" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="TypeLimit.h" />

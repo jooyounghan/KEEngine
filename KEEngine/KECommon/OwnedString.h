@@ -1,6 +1,5 @@
 #pragma once
 #include "TypeTraits.h"
-#include "StringHelper.h"
 #include "LinearContainer.h"
 
 namespace ke
@@ -21,6 +20,8 @@ namespace ke
 		OwnedString& operator=(const OwnedString& other) = default;
 		OwnedString& operator=(OwnedString&& other) noexcept = default;
 
+	public:
+		bool operator==(const OwnedString& other) const;
 
 	public:
 		operator const CharType* () const = delete;

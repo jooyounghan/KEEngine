@@ -279,6 +279,12 @@
     <ClInclude Include="BinHoodBucketNode.hpp">
       <Filter>헤더 파일\Container\Hash\TemplateHpp</Filter>
     </ClInclude>
+    <ClInclude Include="StringView.h">
+      <Filter>헤더 파일\Container\String</Filter>
+    </ClInclude>
+    <ClInclude Include="StringView.hpp">
+      <Filter>헤더 파일\Container\String\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PoolAllocator.hpp">
