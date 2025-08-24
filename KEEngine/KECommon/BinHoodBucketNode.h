@@ -34,16 +34,16 @@ namespace ke
 		inline float	getLoadFactor() const;
 
 	private:
-		void			splitBucket();
-		void			mergeBucket();
-		void			shiftBack(size_t emptyIdx);
+		void	splitBucket();
+		void	mergeBucket();
+		void	shiftBack(size_t emptyIdx);
 
 	public:
 		/* HashBucket Method Implement */
-		void								insert(HashValue hash, const Key& key, const Value& value);
-		void								remove(HashValue hash, const Key& key);
-		const Value* find(HashValue hash, const Key& key) const;
-		void								count(size_t& sizeOut) const;
+		void	insert(HashValue hash, const Key& key, const Value& value);
+		void	remove(HashValue hash, const Key& key);
+		Value*	find(HashValue hash, const Key& key);
+		void	count(size_t& sizeOut) const;
 
 	private:
 		size_t _count = 0;

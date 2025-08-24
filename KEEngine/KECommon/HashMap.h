@@ -4,7 +4,7 @@
 
 namespace ke
 {
-	template<typename Key, typename Value, typename HashBucket = BinHoodBucketNode<Key, Value, 64>, typename HashConvertor = HashGenerator<Key>>
+	template<typename Key, typename Value, typename HashBucket = BinHoodBucketNode<Key, Value, 256>, typename HashConvertor = HashGenerator<Key>>
 	class HashMap
 	{
 	public:
@@ -17,13 +17,13 @@ namespace ke
 	public:
 		void								insert(const Key& key, const Value& value);
 		void								remove(const Key& key);
-		const Value*						find(const Key& key) const;
+		Value*								find(const Key& key);
 
 	public:
 		size_t count() const;
 
 		// Static Asserts
-		static_assert(KETrait::HashBucketTrait<HashBucket, Key, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
+		static_assert(KETrait::HashMapBucketTrait<HashBucket, Key, Value>::value, "Bucket does not satisfy the required HashBucketTrait.");
 		//static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 	};
 

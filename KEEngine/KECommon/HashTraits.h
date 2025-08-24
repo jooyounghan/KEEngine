@@ -8,19 +8,33 @@ namespace ke
 #pragma region HashBucket Traits
 		DEFINE_METHOD_TRAIT(HasInsertValueWithHash, insert);
 		DEFINE_METHOD_TRAIT(HasRemoveHash, remove);
-		DEFINE_METHOD_TRAIT_WITH_QUALIFIER(HashFindHash, find, const);
+		DEFINE_METHOD_TRAIT(HashFindHash, find);
 
 		template<typename HashBucket, typename Key, typename Value>
-		struct HashBucketTrait : TraitCondition<
+		struct HashMapBucketTrait : TraitCondition<
 			SatisfyAll<
 			IsContructible<HashBucket>::value,
 			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Key&, const Value&),
 			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t, const Key&),
-			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, const Value*, size_t, const Key&)
+			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, Value*, size_t, const Key&)
 			>::value, TrueTrait, FalseTrait
 		>::Type
 		{
 		};
+
+		template<typename HashBucket, typename Key>
+		struct HashSetBucketTrait : TraitCondition<
+			SatisfyAll<
+			IsContructible<HashBucket>::value,
+			CHECK_METHOD_TRAIT(HasInsertValueWithHash, HashBucket, void, size_t, const Key&),
+			CHECK_METHOD_TRAIT(HasRemoveHash, HashBucket, void, size_t, const Key&),
+			CHECK_METHOD_TRAIT(HashFindHash, HashBucket, bool, size_t, const Key&)
+			>::value, TrueTrait, FalseTrait
+		>::Type
+		{
+		};
+
+
 #pragma endregion
 
 #pragma region HashConvertor Traits

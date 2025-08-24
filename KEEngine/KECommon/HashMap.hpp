@@ -7,11 +7,7 @@ namespace ke
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
 	HashMap<Key, Value, HashBucket, HashConvertor>::~HashMap()
 	{
-		if (_bucket)
-		{
-			delete _bucket;
-			_bucket = nullptr;
-		}
+		KEMemory::SafeRelease(_bucket);
 	}
 
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
@@ -29,7 +25,7 @@ namespace ke
 	}
 
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
-	const Value* HashMap<Key, Value, HashBucket, HashConvertor>::find(const Key& key) const
+	Value* HashMap<Key, Value, HashBucket, HashConvertor>::find(const Key& key)
 	{
 		size_t hash = _hashConvertor(key);
 		return _bucket->find(hash, key);

@@ -6,6 +6,7 @@
 #include "../KECommon/HashGenerator.h"
 #include "../KECommon/OwnedString.h"
 #include "../KECommon/HashMap.h"
+#include "../KECommon/HashSet.h"
 #include "../KECommon/StaticArray.h"
 #include "../KECommon/StaticColumnarArray.h"
 
@@ -26,7 +27,9 @@ int main()
 	{
 		size_t count = 1000000;
 		CompactHashMap<int, int, hash<int>> test;
+		CompactHashSet<int, hash<int>> testSet;
 		std::unordered_map<int, int> stdTest;
+
 		std::chrono::duration<double> elapsed_seconds;
 
 		{
@@ -48,6 +51,27 @@ int main()
 			elapsed_seconds = end - start;
 		}
 		std::cout << "HashMap Remove 걸린 시간: " << elapsed_seconds.count() << " 초, " << test.count() << std::endl;
+
+
+		{
+			auto start = std::chrono::high_resolution_clock::now();
+			for (int idx = 0; idx < count; ++idx)
+			{
+				testSet.insert(idx);
+			}
+			auto end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
+			std::cout << "HashSet Insert 걸린 시간: " << elapsed_seconds.count() << " 초, " << testSet.count() << std::endl;
+
+			start = std::chrono::high_resolution_clock::now();
+			for (int idx = 0; idx < count; ++idx)
+			{
+				testSet.remove(idx);
+			}
+			end = std::chrono::high_resolution_clock::now();
+			elapsed_seconds = end - start;
+		}
+		std::cout << "HashSet Remove 걸린 시간: " << elapsed_seconds.count() << " 초, " << testSet.count() << std::endl;
 
 		{
 			auto start = std::chrono::high_resolution_clock::now();

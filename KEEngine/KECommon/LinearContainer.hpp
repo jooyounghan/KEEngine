@@ -51,9 +51,7 @@ namespace ke
 		{
 			for (size_t idx = 0; idx < _count; ++idx)
 			{
-				T* elemPtr = _data[idx];
-				if (elemPtr == nullptr) continue;
-
+				T& elemPtr = _data[idx];
 				elemPtr.~T();
 			}
 		}
