@@ -27,5 +27,11 @@
     <ClInclude Include="ReflectionObject.hpp">
       <Filter>헤더 파일\Reflection\TemplateHpp</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectionProperty.h">
+      <Filter>헤더 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionProperty.hpp">
+      <Filter>헤더 파일\Reflection\TemplateHpp</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="ReflectionObject.h" />
     <ClInclude Include="ReflectionObject.hpp" />
+    <ClInclude Include="ReflectionProperty.h" />
+    <ClInclude Include="ReflectionProperty.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

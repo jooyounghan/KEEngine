@@ -34,6 +34,7 @@ class Test1
 
 class Test2
 {
+public:
 	FlyweightStringA str1 = "Test";
 };
 
@@ -51,6 +52,7 @@ int main()
 	{
 		Test2 test[10000];
 		bool a = true;
+		std::cout << test[5000].str1.c_str() << std::endl;
 	}
 
 	//while (true)

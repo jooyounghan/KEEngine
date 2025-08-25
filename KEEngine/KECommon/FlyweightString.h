@@ -3,7 +3,7 @@
 #include "StringHelper.h"
 
 #include "Vector.h"
-#include "HashSet.h"
+#include "HashMap.h"
 #include "StringView.h"
 
 namespace ke
@@ -17,10 +17,14 @@ namespace ke
 		FlyweightString(const OwnedString<CharType>& str);
 
 	private:
-		static CompactHashSet<StringView<CharType>, HashGenerator<StringView<CharType>>>& getStringEntrySet();
+		static CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& getStringEntryMap();
+		static Vector<OwnedString<CharType>>& getStringVector();
 
 	private:
-		const CharType* _data = nullptr;
+		size_t _entryIndex;
+
+	public:
+		const CharType* c_str() { return getStringVector()[_entryIndex].c_str(); }
 	};
 
 	using FlyweightStringA = FlyweightString<char>;

@@ -185,7 +185,7 @@ namespace ke
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
-	bool BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key, Key* foundKey, Value* foundValue)
+	bool BinHoodBucketNode<Key, Value, BucketSize>::find(HashValue hash, const Key& key, Key*& foundKey, Value*& foundValue)
 	{
 		BinHoodBucketNode* leafBucket = getLeafBucket(hash);
 

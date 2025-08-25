@@ -42,7 +42,7 @@ namespace ke
 		/* HashBucket Method Implement */
 		void	insert(HashValue hash, const Key& key, const Value& value);
 		void	remove(HashValue hash, const Key& key);
-		bool	find(HashValue hash, const Key& key, Key* foundKey, Value* foundValue);
+		bool	find(HashValue hash, const Key& key, Key*& foundKey, Value*& foundValue);
 		void	count(size_t& sizeOut) const;
 
 	private:

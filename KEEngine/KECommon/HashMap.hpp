@@ -28,8 +28,9 @@ namespace ke
 	Value* HashMap<Key, Value, HashBucket, HashConvertor>::find(const Key& key)
 	{
 		size_t hash = _hashConvertor(key);
+		Key* foundKey = nullptr;
 		Value* foundValue = nullptr;
-		_bucket->find(hash, key, nullptr, foundValue);
+		_bucket->find(hash, key, foundKey, foundValue);
 		return foundValue;
 	}
 	

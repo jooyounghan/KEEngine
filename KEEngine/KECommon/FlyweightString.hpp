@@ -6,26 +6,58 @@
 namespace ke
 {
 	template<typename CharType>
-	CompactHashSet<StringView<CharType>, HashGenerator<StringView<CharType>>>& FlyweightString<CharType>::getStringEntrySet()
+	CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& FlyweightString<CharType>::getStringEntryMap()
 	{
-		static CompactHashSet<StringView<CharType>, HashGenerator<StringView<CharType>>> instance;
+		static CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>> instance;
+		return instance;
+	}
+
+	template<typename CharType>
+	Vector<OwnedString<CharType>>& FlyweightString<CharType>::getStringVector()
+	{
+		static Vector<OwnedString<CharType>> instance;
 		return instance;
 	}
 
 	template<typename CharType>
 	FlyweightString<CharType>::FlyweightString(const CharType* str)
 	{
-		// 여기서 str는 버퍼가 될 수도 있고 정말 리터럴 일 수도 있음... 수정 필요
-		CompactHashSet<StringView<CharType>, HashGenerator<StringView<CharType>>>& stringEntrySet = getStringEntrySet();
-		
+		CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& stringEntryMap = getStringEntryMap();
+		Vector<OwnedString<CharType>>& stringVector = getStringVector();
+
 		StringView<CharType> stringView = StringView<CharType>(str);
-		StringView<CharType>* foundResult = stringEntrySet.find(stringView);
-
-		if (foundResult == nullptr)
+		size_t* foundVectorIndex = stringEntryMap.find(stringView);
+		if (foundVectorIndex == nullptr)
 		{
-			stringEntrySet.insert(stringView);
-		}
+			_entryIndex = stringVector.size();
+			stringVector.pushBack(OwnedString(str));
 
-		_data = str;
+			stringEntryMap.insert(stringView, _entryIndex);
+		}
+		else
+		{
+			_entryIndex = *foundVectorIndex;
+		}
+	}
+
+	template<typename CharType>
+	inline FlyweightString<CharType>::FlyweightString(const OwnedString<CharType>& str)
+	{
+		CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& stringEntryMap = getStringEntryMap();
+		Vector<OwnedString<CharType>>& stringVector = getStringVector();
+
+		StringView<CharType> stringView = StringView<CharType>(str.c_str());
+		size_t* foundVectorIndex = stringEntryMap.find(stringView);
+		if (foundVectorIndex == nullptr)
+		{
+			_entryIndex = stringVector.size();
+			stringVector.pushBack(str);
+
+			stringEntryMap.insert(stringView, _entryIndex);
+		}
+		else
+		{
+			_entryIndex = *foundVectorIndex;
+		}
 	}
 }
