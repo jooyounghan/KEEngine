@@ -28,7 +28,13 @@ namespace ke
 	};
 
 	template<typename Key, typename Value, typename HashConvertor>
-	using CompactHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 256>, HashConvertor>;
+	using CompactBinHoodHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 64>, HashConvertor>;
+	template<typename Key, typename Value, typename HashConvertor>
+	using StandardBinHoodHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 256>, HashConvertor>;
+	template<typename Key, typename Value, typename HashConvertor>
+	using LargeBinHoodHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, 1024>, HashConvertor>;
+	template<typename Key, typename Value, size_t BucketSize, typename HashConvertor>
+	using MaxBinHoodHashMap = HashMap<Key, Value, BinHoodBucketNode<Key, Value, KEMath::getNextPowerOf2(BucketSize)>, HashConvertor>;
 }
 
 #include "HashMap.hpp"

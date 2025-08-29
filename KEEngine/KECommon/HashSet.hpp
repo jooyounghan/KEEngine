@@ -28,7 +28,8 @@ namespace ke
 	{
 		size_t hash = _hashConvertor(key);
 		Key* foundKey = nullptr;
-		_bucket->find(hash, key, foundKey, nullptr);
+		BucketSetUnit* foundValue = nullptr;
+		_bucket->find(hash, key, foundKey, foundValue);
 		return foundKey;
 	}
 

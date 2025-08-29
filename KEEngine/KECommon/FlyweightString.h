@@ -17,7 +17,7 @@ namespace ke
 		FlyweightString(const OwnedString<CharType>& str);
 
 	private:
-		static CompactHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& getStringEntryMap();
+		static LargeBinHoodHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& getStringEntryMap();
 		static Vector<OwnedString<CharType>>& getStringVector();
 
 	private:

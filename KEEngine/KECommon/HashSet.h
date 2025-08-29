@@ -39,7 +39,13 @@ namespace ke
 	};
 
 	template<typename Key, typename HashConvertor>
-	using CompactHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 256>, HashConvertor>;
+	using CompactBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 64>, HashConvertor>;
+	template<typename Key, typename HashConvertor>
+	using StandardBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 256>, HashConvertor>;
+	template<typename Key, typename HashConvertor>
+	using LargeBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 1024>, HashConvertor>;
+	template<typename Key, size_t BucketSize, typename HashConvertor>
+	using MaxBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, KEMath::getNextPowerOf2(BucketSize)>, HashConvertor>;
 }
 
 #include "HashSet.hpp"
