@@ -3,19 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEEngine", "KEEngine\KEEngine.vcxproj", "{A1CA749A-A633-48A6-815B-33CAF2A17277}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEReflectUI", "KEReflectUI\KEReflectUI.vcxproj", "{C6C54700-9AD8-4E21-947A-01E34F9486E9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EngineCommon", "EngineCommon", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{EA61F021-5329-4FBB-A69F-CC2A35EDABE0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EngineMain", "EngineMain", "{0AE26839-D631-4C69-98C1-7B32CC476A95}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KECommon", "KECommon\KECommon.vcxproj", "{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlackBoard", "BlackBoard\BlackBoard.vcxproj", "{BFDE1130-5021-4991-ADE4-477A2A04BF98}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxitems", "{78E15CAD-07A6-47AA-92FD-F28EAEED6DE2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reflection", "Reflection\Reflection.vcxitems", "{22D029C3-7D19-4366-8361-099EC7DF936E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Natvis", "Natvis\Natvis.vcxitems", "{B75408FB-FFCE-42EF-8D11-00E416FF402C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,30 +23,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x64.ActiveCfg = Debug|x64
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x64.Build.0 = Debug|x64
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x86.ActiveCfg = Debug|Win32
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Debug|x86.Build.0 = Debug|Win32
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x64.ActiveCfg = Release|x64
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x64.Build.0 = Release|x64
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x86.ActiveCfg = Release|Win32
-		{A1CA749A-A633-48A6-815B-33CAF2A17277}.Release|x86.Build.0 = Release|Win32
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x64.ActiveCfg = Debug|x64
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x64.Build.0 = Debug|x64
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x86.ActiveCfg = Debug|Win32
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Debug|x86.Build.0 = Debug|Win32
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x64.ActiveCfg = Release|x64
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x64.Build.0 = Release|x64
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x86.ActiveCfg = Release|Win32
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9}.Release|x86.Build.0 = Release|Win32
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x64.ActiveCfg = Debug|x64
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x64.Build.0 = Debug|x64
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x86.ActiveCfg = Debug|Win32
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Debug|x86.Build.0 = Debug|Win32
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x64.ActiveCfg = Release|x64
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x64.Build.0 = Release|x64
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x86.ActiveCfg = Release|Win32
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E}.Release|x86.Build.0 = Release|Win32
 		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x64.ActiveCfg = Debug|x64
 		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x64.Build.0 = Debug|x64
 		{BFDE1130-5021-4991-ADE4-477A2A04BF98}.Debug|x86.ActiveCfg = Debug|Win32
@@ -62,12 +36,19 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A1CA749A-A633-48A6-815B-33CAF2A17277} = {0AE26839-D631-4C69-98C1-7B32CC476A95}
-		{C6C54700-9AD8-4E21-947A-01E34F9486E9} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
-		{03ED1E6E-179E-4B37-BDAA-1DEBAE5A6D1E} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
 		{BFDE1130-5021-4991-ADE4-477A2A04BF98} = {EA61F021-5329-4FBB-A69F-CC2A35EDABE0}
+		{78E15CAD-07A6-47AA-92FD-F28EAEED6DE2} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{22D029C3-7D19-4366-8361-099EC7DF936E} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{B75408FB-FFCE-42EF-8D11-00E416FF402C} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D279FE8-A9BD-4E4E-939E-510969322F7F}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Reflection\Reflection.vcxitems*{22d029c3-7d19-4366-8361-099ec7df936e}*SharedItemsImports = 9
+		Common\Common.vcxitems*{78e15cad-07a6-47aa-92fd-f28eaeed6de2}*SharedItemsImports = 9
+		Natvis\Natvis.vcxitems*{b75408fb-ffce-42ef-8d11-00e416ff402c}*SharedItemsImports = 9
+		Common\Common.vcxitems*{bfde1130-5021-4991-ade4-477a2a04bf98}*SharedItemsImports = 4
+		Reflection\Reflection.vcxitems*{bfde1130-5021-4991-ade4-477a2a04bf98}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

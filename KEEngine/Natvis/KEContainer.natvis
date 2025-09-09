@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-
-	<!-- Linear Container Based -->
 	<Type Inheritable="false" Name="ke::LinearContainer&lt;*, *&gt;">
 		<DisplayString>LinearContainer( size={_count} )</DisplayString>
 		<Expand HideRawView="true">
+			<ArrayItems>
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+	<Type Name="ke::StaticArray&lt;*,*&gt;">
+		<DisplayString>ke::StaticArray ( size={_count} )</DisplayString>
+		<Expand>
 			<ArrayItems>
 				<Size>_count</Size>
 				<ValuePointer>_data</ValuePointer>
@@ -20,12 +27,6 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	
-	
-	
-	
-	
-	
 	<Type Name="ke::RingBuffer&lt;*,*&gt;">
 		<DisplayString>ke::RingBuffer ( size={_count} )</DisplayString>
 		<Expand>
@@ -44,7 +45,9 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-	
+
+
+
 	<Type Name="ke::BinHoodBucketNode&lt;*, *, *&gt;">
 		<DisplayString>ke::BinHoodBucketNode ( range={_from}~{_to} )</DisplayString>
 		<Expand HideRawView="true">
@@ -55,8 +58,8 @@
 			<Item Name="Value" Condition="_count > 0">_values</Item>
 		</Expand>
 	</Type>
-	
-	
+
+
 	<Type Name="ke::OwnedString&lt;*&gt;">
 		<Expand>
 			<Item Name="Length">_count - 1</Item>

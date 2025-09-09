@@ -70,6 +70,7 @@ namespace ke
 	void Vector<T>::reallocateCapcity(size_t newCapacity)
 	{
 		if (newCapacity == _capacity) return;
+		_capacity = newCapacity;
 
 		T* newData = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(newCapacity));
 

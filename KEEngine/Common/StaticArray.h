@@ -8,7 +8,7 @@ namespace ke
 	class StaticArray : public LinearContainer<T, Count>
 	{
 	public:
-		StaticArray() = default;
+		StaticArray();
 		template<typename... Args>
 		StaticArray(Args... args);
 		StaticArray(const StaticArray& other) = default;

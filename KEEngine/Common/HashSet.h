@@ -8,9 +8,9 @@ namespace ke
 	{
 		BucketSetUnit() {}
 		BucketSetUnit(const BucketSetUnit&) {}
-		BucketSetUnit(BucketSetUnit&&) {}
+		BucketSetUnit(BucketSetUnit&&) noexcept {}
 		BucketSetUnit& operator=(const BucketSetUnit&) { return *this; }
-		BucketSetUnit& operator=(BucketSetUnit&&) { return *this; }
+		BucketSetUnit& operator=(BucketSetUnit&&) noexcept { return *this; }
 		~BucketSetUnit() {}
 	};
 

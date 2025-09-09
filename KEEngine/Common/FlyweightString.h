@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "HashMap.h"
 #include "StringView.h"
+#include "OwnedString.h"
 
 namespace ke
 {
