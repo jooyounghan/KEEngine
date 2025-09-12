@@ -45,5 +45,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.h">
       <Filter>Header\Reflect</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.hpp">
+      <Filter>Hpp\Reflect</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

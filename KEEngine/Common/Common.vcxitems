@@ -66,6 +66,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StaticArray.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StaticColumnarArray.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StaticColumnarArray.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertor.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringHelper.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringView.h" />

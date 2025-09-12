@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)XMLParseHelper.h" />

@@ -85,7 +85,7 @@ namespace ke
 	{
 		while (true)
 		{
-			int nextIdx = (currentIdx + 1) & (BucketSize - 1);
+			size_t nextIdx = (currentIdx + 1) & (BucketSize - 1);
 
 			IsOccupied& nextIsOccupied = getIsOccupied(nextIdx);
 			SlotDistance& nextSlotDistance = getSlotDistance(nextIdx);

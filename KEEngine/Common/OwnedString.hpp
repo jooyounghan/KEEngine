@@ -14,6 +14,14 @@ namespace ke
 	}
 
 	template<typename CharType>
+	inline OwnedString<CharType>::OwnedString(const CharType* const ptr, size_t length)
+	{
+		__super::_count = length + 1;
+		__super::_data = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<false, CharType>(__super::_count));
+		StringManipulateHelper<CharType>::copy(__super::_data, __super::_count, ptr);
+	}
+
+	template<typename CharType>
 	bool OwnedString<CharType>::operator==(const OwnedString& other) const
 	{
 		if (__super::_count != other._count)

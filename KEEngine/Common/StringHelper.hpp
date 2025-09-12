@@ -3,6 +3,12 @@
 
 namespace ke
 {
+	template<typename CharType>
+	inline size_t StringLengthHelper<CharType>::length(const CharType* str)
+	{
+		static_assert(false, "CharType only accept char, wchar_t");
+	}
+
 	size_t StringLengthHelper<char>::length(const char* str) { return strlen(str); }
 	size_t StringLengthHelper<wchar_t>::length(const wchar_t* str) { return wcslen(str); }
 

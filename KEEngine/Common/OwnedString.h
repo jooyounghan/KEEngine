@@ -12,6 +12,7 @@ namespace ke
 		OwnedString(const CharType* str);
 		OwnedString(const OwnedString& other) = default;
 		OwnedString(OwnedString&& other) noexcept = default;
+		OwnedString(const CharType* const ptr, size_t length);
 
 	public:
 		~OwnedString() = default;

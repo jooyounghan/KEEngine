@@ -8,7 +8,8 @@ namespace ke
 	{
 	public:
 		// This Function has to be specialized
-		static PropertyType ParseFromString(const char* src) = delete;
-		static OwnedStringA ParseToString(const PropertyType& property) = delete;
+		static PropertyType ParseFromString(const char* src);
+		static OwnedStringA ParseToString(const PropertyType& property);
 	};
 }
+#include "ReflectParser.hpp"

@@ -11,6 +11,9 @@ namespace ke
 
 	class IReflectProperty
 	{
+	public:
+		IReflectProperty(const char* str);
+
 	protected:
 		FlyweightStringA _propertyName;
 
@@ -19,13 +22,17 @@ namespace ke
 		virtual void setFromBinary(void const* src) = 0;
 
 	public:
-		virtual const char* getToString() const = 0;
+		virtual OwnedStringA getToString() const = 0;
 		virtual const void* getToBinary() const = 0;
 	};
 
 	template<typename PropertyType>
 	class ReflectProperty : public IReflectProperty
 	{
+	public:
+		DELETE_CONSTRUCTOR(ReflectProperty);
+		ReflectProperty(const char* str);
+
 	private:
 		PropertyType _property;
 
@@ -36,10 +43,10 @@ namespace ke
 		inline const PropertyType& getReflectProperty() const { return _property; }
 
 	public:
-		void setFromString(const char* src) override { _property = move(ReflectParser<PropertyType>::ParseFromString(src)); }
-		void setFromBinary(void const* src) override { memcpy(&_property, src, sizeof(PropertyType)); }
-		const char* getToString() const override { return ReflectParser<PropertyType>::ParseToString(_property); }
-		const void* getToBinary() const override { return static_cast<const void*>(&_property); }
+		void setFromString(const char* src) override;
+		void setFromBinary(void const* src) override;
+		OwnedStringA getToString() const override;
+		const void* getToBinary() const override;
 	};
 }
 

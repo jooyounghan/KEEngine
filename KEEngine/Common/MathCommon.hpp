@@ -29,6 +29,12 @@ namespace ke
     }
 
     template<typename T>
+    inline constexpr NODISC const T& KEMath::clamp(const T& input, const T& minLimit, const T& maxLimit) noexcept
+    {
+        return max(min(input, maxLimit), minLimit);
+    }
+
+    template<typename T>
     constexpr bool KEMath::isPowerOf2(const T& value) noexcept
     {
         static_assert(KETrait::IsInteger<T>::value, "T must be an integer type.");

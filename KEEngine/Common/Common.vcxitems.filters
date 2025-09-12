@@ -252,5 +252,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)WeakPointer.hpp">
       <Filter>Hpp\Proxy</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertor.h">
+      <Filter>Header\Container\String</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertor.hpp">
+      <Filter>Hpp\Container\String</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
