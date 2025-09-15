@@ -52,6 +52,18 @@
     <Filter Include="Hpp\Container\Linear">
       <UniqueIdentifier>{6f318d0e-f092-432e-996a-bccf2004395c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\Reflection">
+      <UniqueIdentifier>{6514230e-12aa-4dc1-bd7f-60743473e346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hpp\Reflection">
+      <UniqueIdentifier>{b2faba1f-f125-40eb-93ff-83aed161632e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Container\Buffer">
+      <UniqueIdentifier>{23f14f4d-606f-4a11-a1a6-dc2b40f989e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hpp\Container\Buffer">
+      <UniqueIdentifier>{58c20ff1-3de8-404c-a70f-3d089a7f16a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AllocatorTraits.h">
@@ -117,9 +129,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LinearContainer.h">
       <Filter>Header\Container</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)OverwriteRingBuffer.h">
-      <Filter>Header\Container\Linear</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)OwnedString.h">
       <Filter>Header\Container\String</Filter>
     </ClInclude>
@@ -146,9 +155,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringHelper.h">
       <Filter>Header\Container\String</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.h">
-      <Filter>Header\Container\Linear</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)PoolAllocator.h">
       <Filter>Header\Utility</Filter>
@@ -216,14 +222,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)OptionalValue.hpp">
       <Filter>Hpp\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)OverwriteRingBuffer.hpp">
-      <Filter>Hpp\Container\Linear</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)OwnedString.hpp">
       <Filter>Hpp\Container\String</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.hpp">
-      <Filter>Hpp\Container\Linear</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StaticArray.hpp">
       <Filter>Hpp\Container\Linear</Filter>
@@ -257,6 +257,45 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertor.hpp">
       <Filter>Hpp\Container\String</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectMetaData.h">
+      <Filter>Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.h">
+      <Filter>Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.h">
+      <Filter>Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.h">
+      <Filter>Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.hpp">
+      <Filter>Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.hpp">
+      <Filter>Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.hpp">
+      <Filter>Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OverwriteRingBuffer.h">
+      <Filter>Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.h">
+      <Filter>Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StaticBuffer.h">
+      <Filter>Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OverwriteRingBuffer.hpp">
+      <Filter>Hpp\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.hpp">
+      <Filter>Hpp\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StaticBuffer.hpp">
+      <Filter>Hpp\Container\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

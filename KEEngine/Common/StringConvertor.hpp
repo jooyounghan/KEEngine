@@ -28,7 +28,7 @@
 
 namespace ke
 {
-    StaticArray<char, 200> ke::StringConvertor::makeStringMap()
+    constexpr StaticArray<char, 200> ke::StringConvertor::makeStringMap()
     {
         StaticArray<char, 200> stringMap;
         for (uint32 i = 0; i < 100; ++i) {
@@ -38,7 +38,7 @@ namespace ke
         return stringMap;
     }
 
-    StaticArray<uint64, 19> StringConvertor::makePower10Map()
+    constexpr StaticArray<uint64, 19> StringConvertor::makePower10Map()
     {
 		StaticArray<uint64, 19> power10Map;
         power10Map[0] = 1;
@@ -49,26 +49,39 @@ namespace ke
         return power10Map;
     }
 
-    void StringConvertor::writeFixedDigitsRev(uint64 v, char*& p)
+    void StringConvertor::writeFixedDigitsRev(bool isNegative, uint64 v, char*& p)
     {
         static StaticArray<char, 200> stringMap = makeStringMap();
 
         if (v == 0)
         {
             *--p = '0';
-            return;
-		}
-
-        // Read Two Digits
-        while (v >= 10)
+        }
+        else
         {
-            uint32 digits = (v % 100);
-            v /= 100;
-            p -= 2;
-            memcpy(p, &stringMap[2 * digits], 2);
+            // Read Two Digits
+            while (v >= 100)
+            {
+                uint64 digits = (v % 100);
+                v /= 100;
+                p -= 2;
+                memcpy(p, &stringMap[2 * digits], 2);
+            }
+
+			// Divide from while() for reducing /= operations
+            if (v >= 10)
+            {
+                p -= 2;
+                std::memcpy(p, &stringMap[2 * v], 2);
+            }
+            else if (v != 0)
+            {
+                *--p = char('0' + v);
+            }
+            else;
         }
 
-        if (v != 0) *--p = char('0' + v);
+        if (isNegative) *--p = '-';
     }
 
     inline OwnedStringA StringConvertor::zToString(bool isNegative, uint64 v)
@@ -77,46 +90,42 @@ namespace ke
         char* end = buffer + sizeof(buffer);
         char* p = end;
 
-        writeFixedDigitsRev(v, p);
+        writeFixedDigitsRev(isNegative, v, p);
 
-        if (isNegative) *--p = '-';
         return OwnedStringA(p, end - p);
     }
 
     OwnedStringA StringConvertor::fToString(double v, size_t precision)
     {
-        static StaticArray<uint64, 19> power10Map = makePower10Map();
-
 		bool isNegative = signbit(v);
-        if (isnan(v)) return OwnedStringA(v < 0 ? "-nan" : "nan");
-		if (isinf(v)) return OwnedStringA(v < 0 ? "-inf" : "inf");
+        if (isnan(v)) return OwnedStringA(isNegative ? "-nan" : "nan");
+        if (isinf(v)) return OwnedStringA(isNegative ? "-inf" : "inf");
+
+        static StaticArray<uint64, 19> power10Map = makePower10Map();
 
 		precision = KEMath::clamp<size_t>(precision, 1, 18);
 
-
-        double intpart; 
-        double frac = modf(fabs(v), &intpart); 
-        uint64 ip = static_cast<uint64>(intpart);
+        double ip; 
+        double frac = modf(fabs(v), &ip);
+        uint64 intpart = static_cast<uint64>(ip);
 
         uint64_t pow10 = power10Map[precision];
-        uint64 fracDigits = static_cast<uint64>(frac * static_cast<double>(pow10) + 0.5);
+        uint64 fracAsZ = static_cast<uint64>(frac * static_cast<double>(pow10) + 0.5);
 
 		// Handle Rounding Overflow
-        if (fracDigits >= pow10)
+        if (fracAsZ >= pow10)
         {
-            fracDigits = 0;
-            ++ip;
+            fracAsZ = 0;
+            ++intpart;
 		}
 
         char buffer[64];
         char* end = buffer + sizeof(buffer);
         char* p = end;
 
-        writeFixedDigitsRev(fracDigits + pow10, p);
+        writeFixedDigitsRev(false, fracAsZ + pow10, p);
         *p = '.';
-
-        writeFixedDigitsRev(ip, p);
-        if (isNegative) *--p = '-';        
+        writeFixedDigitsRev(isNegative, intpart, p);
 
         return OwnedStringA(p, end - p);
     }

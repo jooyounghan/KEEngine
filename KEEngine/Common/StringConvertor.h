@@ -10,11 +10,11 @@ namespace ke
 		DELETE_CONSTRUCTOR(StringConvertor);
 
     private:
-        static StaticArray<char, 200> makeStringMap();
-		static StaticArray<uint64, 19> makePower10Map();
+        static constexpr StaticArray<char, 200> makeStringMap();
+		static constexpr StaticArray<uint64, 19> makePower10Map();
 
     private:
-		static void writeFixedDigitsRev(uint64 v, char*& p);
+		static void writeFixedDigitsRev(bool isNegative, uint64 v, char*& p);
 
     private:
         static OwnedStringA zToString(bool isNegative, uint64 v);

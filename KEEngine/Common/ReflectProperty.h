@@ -1,6 +1,6 @@
 #pragma once
-#include "ReflectParser.h"
 #include "FlyweightString.h"
+#include "ReflectParser.h"
 
 namespace ke
 {
@@ -8,6 +8,7 @@ namespace ke
 	ReflectProperty는 각 타입에 XML / Binary로의 Serialize, Deserialize를 지원한다
 	따라서 const char*에 대한 Setter와 void*에 대한 Setter가 기본적으로 존재한다
 	*/
+	
 
 	class IReflectProperty
 	{
@@ -46,7 +47,7 @@ namespace ke
 		void setFromString(const char* src) override;
 		void setFromBinary(void const* src) override;
 		OwnedStringA getToString() const override;
-		const void* getToBinary() const override;
+		void getToBinary(StaticBuffer<kPropertyBinaryBufferSize>& outBuffer) override;
 	};
 }
 
