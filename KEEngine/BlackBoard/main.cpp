@@ -10,9 +10,11 @@
 
 #include "StringConvertor.h"
 #include "StaticBuffer.h"
+#include "ReflectMetaData.h"
 
 int main()
 {
+
 	ke::StaticBuffer<1024> test;
 	
 	const char* test1 = "not fi fi fi fine not fi fi fine";

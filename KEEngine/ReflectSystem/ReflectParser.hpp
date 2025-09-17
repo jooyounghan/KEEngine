@@ -39,8 +39,6 @@ void ReflectParser<Type>::ParseToBinary(const Type& property, StaticBuffer<kProp
 	outBuffer.write(&property, sizeof(Type));																		\
 }
 
-
-
 namespace ke
 {
 	template<typename PropertyType>

@@ -59,13 +59,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RefCountPointer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RefCountPointer.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectMetaData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectObject.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectParser.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ReflectProperty.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RingBuffer.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Stack.h" />
