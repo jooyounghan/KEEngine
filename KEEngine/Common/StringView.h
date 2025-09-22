@@ -23,8 +23,8 @@ namespace ke
 		bool operator==(const StringView& other) const;
 
 	public:
-		const CharType* data() const { return _data; }
-		size_t length() const { return _length; }
+		inline const CharType* data() const { return _data; }
+		inline size_t length() const { return _length; }
 
 	private:
 		const CharType* _data = nullptr;

@@ -12,13 +12,19 @@
 #include "StaticBuffer.h"
 #include "ReflectMetaData.h"
 
+using namespace ke;
+
 int main()
 {
-
-	ke::StaticBuffer<1024> test;
-	
-	const char* test1 = "not fi fi fi fine not fi fi fine";
-
-	test.write(reinterpret_cast<const void* const>(test1), strlen(test1));
-	bool t = true;
+	ReflectMetaData meta;
+	while (true)
+	{
+		int32 int1;
+		int32 int2;
+		int32 int3;
+		int32 int4;
+		int32 int5;
+		ReflectParser2::parseFromString("1~2~3~4~5", int1, int2, int3, int4, int5);
+	}
+	bool test = true;
 }

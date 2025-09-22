@@ -19,33 +19,94 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ReflectMetaData.h" />
-    <ClInclude Include="ReflectObject.h" />
-    <ClInclude Include="ReflectObject.hpp" />
-    <ClInclude Include="ReflectParser.h" />
-    <ClInclude Include="ReflectParser.hpp" />
-    <ClInclude Include="ReflectProperty.h" />
-    <ClInclude Include="ReflectProperty.hpp" />
+    <ClInclude Include="AllocatorTraits.h" />
+    <ClInclude Include="BinHoodBucketNode.h" />
+    <ClInclude Include="BinHoodBucketNode.hpp" />
+    <ClInclude Include="BitFlag.h" />
+    <ClInclude Include="BitFlag.hpp" />
+    <ClInclude Include="BoundedString.h" />
+    <ClInclude Include="BoundedString.hpp" />
+    <ClInclude Include="ColumnarVector.h" />
+    <ClInclude Include="KEConstant.h" />
+    <ClInclude Include="ContainerTraits.h" />
+    <ClInclude Include="Deque.h" />
+    <ClInclude Include="DirtyBitFlaggedFunction.h" />
+    <ClInclude Include="DirtyBitFlaggedFunction.hpp" />
+    <ClInclude Include="DirtyFlaggedFunction.h" />
+    <ClInclude Include="DirtyFlaggedFunction.hpp" />
+    <ClInclude Include="FlyweightString.h" />
+    <ClInclude Include="FlyweightString.hpp" />
+    <ClInclude Include="HashGenerator.h" />
+    <ClInclude Include="HashGenerator.hpp" />
+    <ClInclude Include="HashMap.h" />
+    <ClInclude Include="HashMap.hpp" />
+    <ClInclude Include="HashSet.h" />
+    <ClInclude Include="HashSet.hpp" />
+    <ClInclude Include="HashTraits.h" />
+    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="Iterator.hpp" />
+    <ClInclude Include="LinearContainer.h" />
+    <ClInclude Include="LinearContainer.hpp" />
+    <ClInclude Include="MallocAllocator.h" />
+    <ClInclude Include="MallocAllocator.hpp" />
+    <ClInclude Include="MathCommon.h" />
+    <ClInclude Include="MathCommon.hpp" />
+    <ClInclude Include="MemoryCommon.h" />
+    <ClInclude Include="MemoryCommon.hpp" />
+    <ClInclude Include="MethodTraits.h" />
+    <ClInclude Include="OptionalValue.h" />
+    <ClInclude Include="OptionalValue.hpp" />
+    <ClInclude Include="OverwriteRingBuffer.h" />
+    <ClInclude Include="OverwriteRingBuffer.hpp" />
+    <ClInclude Include="OwnedString.h" />
+    <ClInclude Include="OwnedString.hpp" />
+    <ClInclude Include="PoolAllocator.h" />
+    <ClInclude Include="PoolAllocator.hpp" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="RefCountPointer.h" />
+    <ClInclude Include="RefCountPointer.hpp" />
+    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="RingBuffer.hpp" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="StaticArray.h" />
+    <ClInclude Include="StaticArray.hpp" />
+    <ClInclude Include="StaticBuffer.h" />
+    <ClInclude Include="StaticBuffer.hpp" />
+    <ClInclude Include="StaticColumnarArray.h" />
+    <ClInclude Include="StaticColumnarArray.hpp" />
+    <ClInclude Include="StringConvertor.h" />
+    <ClCompile Include="StringView.cpp" />
+    <ClCompile Include="StringConvertor.cpp" />
+    <ClInclude Include="StringConvertor.hpp" />
+    <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="StringHelper.hpp" />
+    <ClInclude Include="StringView.h" />
+    <ClInclude Include="StringView.hpp" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="TypeCommon.h" />
+    <ClInclude Include="TypeLimit.h" />
+    <ClInclude Include="TypeLimit.hpp" />
+    <ClInclude Include="TypeTraits.h" />
+    <ClInclude Include="UtilityCommon.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Vector.hpp" />
+    <ClInclude Include="WeakPointer.h" />
+    <ClInclude Include="WeakPointer.hpp" />
+    <ClInclude Include="XMLParseHelper.h" />
+    <ClInclude Include="XmlParser.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReflectMetaData.cpp" />
-    <ClCompile Include="ReflectParser.cpp" />
-    <ClCompile Include="ReflectProperty.cpp" />
+    <ClCompile Include="HashSet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{4a52157d-f763-487a-83ac-a829fda24605}</Project>
-    </ProjectReference>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5d845171-c351-48ba-a4c1-d7c2d06f2f63}</ProjectGuid>
-    <RootNamespace>ReflectSystem</RootNamespace>
+    <ProjectGuid>{4a52157d-f763-487a-83ac-a829fda24605}</ProjectGuid>
+    <RootNamespace>Common</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <PropertyGroup Label="PublicProjectContent">
-    <PublicIncludeDirectories>$(SolutionDir)ReflectSystem;%(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,7 +138,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" />
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -91,6 +153,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PublicIncludeDirectories>$(SolutionDir)Common;%(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PublicIncludeDirectories>$(SolutionDir)Common;%(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PublicIncludeDirectories>$(SolutionDir)Common;%(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PublicIncludeDirectories>$(SolutionDir)Common;%(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>EnableAllWarnings</WarningLevel>
@@ -107,10 +181,6 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,10 +200,6 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -151,10 +217,6 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -174,10 +236,6 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

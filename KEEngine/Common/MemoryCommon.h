@@ -56,7 +56,7 @@ namespace ke
 		static void SafeRelease(T*& ptr) noexcept;
 
 		// TODO : 벡터 한정이므로 수정 필요
-		NODISC static size_t CalculateTargetCapacity(const size_t targetCount, const size_t currentCapacity);
+		inline static size_t CalculateTargetCapacity(const size_t targetCount, const size_t currentCapacity);
 	};
 }
 

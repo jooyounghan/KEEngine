@@ -38,13 +38,13 @@ namespace ke
 		static_assert(KETrait::HashConvertorTrait<HashConvertor, Key>::value, "HashConvertor does not satisfy the required HashConvertorTrait.");
 	};
 
-	template<typename Key, typename HashConvertor>
+	template<typename Key, typename HashConvertor = HashGenerator<Key>>
 	using CompactBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 64>, HashConvertor>;
-	template<typename Key, typename HashConvertor>
+	template<typename Key, typename HashConvertor = HashGenerator<Key>>
 	using StandardBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 256>, HashConvertor>;
-	template<typename Key, typename HashConvertor>
+	template<typename Key, typename HashConvertor = HashGenerator<Key>>
 	using LargeBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, 1024>, HashConvertor>;
-	template<typename Key, size_t BucketSize, typename HashConvertor>
+	template<typename Key, size_t BucketSize, typename HashConvertor = HashGenerator<Key>>
 	using MaxBinHoodHashSet = HashSet<Key, BinHoodBucketNode<Key, BucketSetUnit, KEMath::getNextPowerOf2(BucketSize)>, HashConvertor>;
 }
 

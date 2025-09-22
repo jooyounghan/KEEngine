@@ -2,6 +2,7 @@
 #include "MathCommon.h"
 #include "OwnedString.h"
 #include "StaticArray.h"
+#include "StaticBuffer.h"
 
 namespace ke
 {
@@ -10,19 +11,25 @@ namespace ke
 		DELETE_CONSTRUCTOR(StringConvertor);
 
     private:
+		static constexpr size_t digitCount = 20;
+
+    private:
         static constexpr StaticArray<char, 200> makeStringMap();
-		static constexpr StaticArray<uint64, 19> makePower10Map();
+		static constexpr StaticArray<uint64, digitCount> makePower10Map();
 
     private:
-		static void writeFixedDigitsRev(bool isNegative, uint64 v, char*& p);
+        static size_t getDecimalLength(uint64 v);
 
     private:
-        static OwnedStringA zToString(bool isNegative, uint64 v);
-		static OwnedStringA fToString(double v, size_t precision);
+		static void writeFixedDigits(IStaticBuffer* staticBuffer, bool isNegative, uint64 v);
+
+    private:
+        static void zToStringBuffer(IStaticBuffer* staticBuffer, bool isNegative, uint64 v);
+		static void fToStringBuffer(IStaticBuffer* staticBuffer, double v, size_t precision);
 
     public:
-        template<typename T, typename ...Args>
-        static OwnedStringA convertToString(const T& v, Args... args);
+		template<typename T, typename ...Args>
+        static void convertToString(IStaticBuffer* staticBuffer, const T& v, Args... args);
     };
 }
 

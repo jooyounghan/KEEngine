@@ -29,7 +29,7 @@ namespace ke
     }
 
     template<typename T>
-    inline constexpr NODISC const T& KEMath::clamp(const T& input, const T& minLimit, const T& maxLimit) noexcept
+    inline constexpr const T& KEMath::clamp(const T& input, const T& minLimit, const T& maxLimit) noexcept
     {
         return max(min(input, maxLimit), minLimit);
     }

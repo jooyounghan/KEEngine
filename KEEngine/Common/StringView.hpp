@@ -1,6 +1,7 @@
 #pragma once
 #include "StringView.h"
 #include "StringHelper.h"
+#include "HashGenerator.h"
 
 namespace ke
 {
@@ -27,13 +28,5 @@ namespace ke
 		return true;
 	}
 
-	// Specialization HashGenerator for StringView<char>
-	template<typename T>
-	class HashGenerator;
-
-	template<>
-	size_t HashGenerator<StringView<char>>::convertToHash(const StringView<char>& value)
-	{
-		return convertToHash(value.data());
-	}
+	DECLARE_TEMPLATED_HASH_SPECIALIZATION(StringView, char);
 }

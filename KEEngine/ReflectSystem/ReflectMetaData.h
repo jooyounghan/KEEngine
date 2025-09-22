@@ -35,14 +35,14 @@ namespace ke
 
 	struct SPropertyMetaData
 	{
-		FlyweightStringA						_propertyName;
-		EPropertyType							_propertyType = EPropertyType::None;
-		StaticBuffer<kPropertyBinaryBufferSize> _defaultValueBuffer;
+		StaticBuffer<KEConstant::kPropertyBinaryBufferSize> _defaultValueBuffer;
+		EPropertyType										_propertyType = EPropertyType::None;
 	};
 
 	class ReflectMetaData
 	{
 	public:
+		CompactBinHoodHashMap<FlyweightStringA, SPropertyMetaData> _propertyMetaDataMap;
 		Vector<SPropertyMetaData> _propertyMetaDatas;
 
 	public:

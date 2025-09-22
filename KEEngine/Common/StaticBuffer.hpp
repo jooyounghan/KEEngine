@@ -11,4 +11,10 @@ namespace ke
 		memcpy(&_buffer[_count], input, count);
 		_count += count;
 	}
+
+	template<size_t Size>
+	void StaticBuffer<Size>::writeOne(uint8 input)
+	{
+		if (_count < Size) _buffer[_count++] = input;
+	}
 }

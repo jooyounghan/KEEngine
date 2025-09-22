@@ -9,8 +9,10 @@ namespace ke
 		static_assert(false, "CharType only accept char, wchar_t");
 	}
 
-	size_t StringLengthHelper<char>::length(const char* str) { return strlen(str); }
-	size_t StringLengthHelper<wchar_t>::length(const wchar_t* str) { return wcslen(str); }
+	template<>
+	inline size_t StringLengthHelper<char>::length(const char* str) { return strlen(str); }
+	template<>
+	inline size_t StringLengthHelper<wchar_t>::length(const wchar_t* str) { return wcslen(str); }
 
 	template<typename CharType>
 	void StringManipulateHelper<CharType>::copy(CharType* dest, size_t destBufferSize, const CharType* src)

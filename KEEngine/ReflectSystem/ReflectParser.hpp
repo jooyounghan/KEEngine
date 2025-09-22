@@ -2,42 +2,11 @@
 #include "ReflectParser.h"
 #include "StringConvertor.h"
 
-#define DEFINE_Z_PARSE_FROM_STRING(Type)					\
-template<>                                                  \
-Type ReflectParser<Type>::ParseFromString(const char* src)  \
-{															\
-	return 	static_cast<Type>(strtoull(src, nullptr, 0));	\
-}
-
-#define DEFINE_PARSE_TO_STRING(Type)									\
-template<>																\
-OwnedStringA ReflectParser<Type>::ParseToString(const Type& property)	\
-{																		\
-	return StringConvertor::convertToString<Type>(property);			\
-}
-
-#define DEFINE_PARSE_TO_STRING_F(Type)									\
-template<>																\
-OwnedStringA ReflectParser<Type>::ParseToString(const Type& property)	\
-{																		\
-	return StringConvertor::convertToString<Type>(property, 3);			\
-}
-
-#define DEFINE_PARSE_FROM_BINARY_POD(Type)					\
-template<>													\
-Type ReflectParser<Type>::ParseFromBinary(const void* src)	\
-{															\
-	Type result;											\
-	memcpy(&result, src, sizeof(Type));						\
-	return result;											\
-}
-
-#define DEFINE_PARSE_TO_BINARY_POD(Type)																			\
-template<>																											\
-void ReflectParser<Type>::ParseToBinary(const Type& property, StaticBuffer<kPropertyBinaryBufferSize>& outBuffer)	\
-{																													\
-	outBuffer.write(&property, sizeof(Type));																		\
-}
+#define DECLARE_REFLECT_PARSER(PropertyType)												\
+    template<> int32 ReflectParser<int32>::ParseFromString(const char* src);				\
+	template<> OwnedStringA ReflectParser<int32>::ParseToString(const int32& property);		\
+	template<> int32 ReflectParser<int32>::ParseFromBinary(const void* src);				\
+	template<> void ReflectParser<int32>::ParseToBinary(const int32& property, StaticBuffer<KEConstant::kPropertyBinaryBufferSize>& outBuffer);
 
 namespace ke
 {
@@ -60,79 +29,45 @@ namespace ke
 	}
 
 	template<typename PropertyType>
-	void ReflectParser<PropertyType>::ParseToBinary(const PropertyType& property, StaticBuffer<kPropertyBinaryBufferSize>& outBuffer)
+	void ReflectParser<PropertyType>::ParseToBinary(const PropertyType& property, StaticBuffer<KEConstant::kPropertyBinaryBufferSize>& outBuffer)
 	{
 		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser<T>::ParseToBinary)."); return;
 	}
 
-#pragma region ParseFromString Specializations
-	template<>
-	bool ReflectParser<bool>::ParseFromString(const char* src)
+	DECLARE_REFLECT_PARSER(bool);
+	DECLARE_REFLECT_PARSER(uint8);
+	DECLARE_REFLECT_PARSER(uint16);
+	DECLARE_REFLECT_PARSER(uint32);
+	DECLARE_REFLECT_PARSER(uint64);
+	DECLARE_REFLECT_PARSER(int8);
+	DECLARE_REFLECT_PARSER(int16);
+	DECLARE_REFLECT_PARSER(int32);
+	DECLARE_REFLECT_PARSER(int64);
+	DECLARE_REFLECT_PARSER(float);
+	DECLARE_REFLECT_PARSER(double);
+
+	template<typename PropertyType>
+	size_t ReflectParser2::parseFromString(const char* src, PropertyType& outPropertyTypes)
 	{
-		return strcmp(src, "true") == 0;
+		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::ParserFromString).");
+	}
+	template<typename PropertyType, typename ...PropertyTypes>
+	size_t ReflectParser2::parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
+	{
+		return parseFromString(src + parseFromString(src, outPropertyType) + 1, outPropertyTypes...);
+	}
+	template<typename PropertyType>
+	void ReflectParser2::ParseToString(StaticBuffer<KEConstant::kStringConvertorBufferSize>& outStringBuffer, const PropertyType& property)
+	{
+		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::ParseToString).");
+	}
+	template<typename PropertyType, typename ...PropertyTypes>
+	void ReflectParser2::ParseToString(StaticBuffer<KEConstant::kStringConvertorBufferSize>& outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
+	{
+		ParseToString(outStringBuffer, propertyType);
+		ParseToString(outStringBuffer, propertyTypes...);
 	}
 
-	DEFINE_Z_PARSE_FROM_STRING(uint8);
-	DEFINE_Z_PARSE_FROM_STRING(uint16);
-	DEFINE_Z_PARSE_FROM_STRING(uint32);
-	DEFINE_Z_PARSE_FROM_STRING(uint64);
-	DEFINE_Z_PARSE_FROM_STRING(int8);
-	DEFINE_Z_PARSE_FROM_STRING(int16);
-	DEFINE_Z_PARSE_FROM_STRING(int32);
-	DEFINE_Z_PARSE_FROM_STRING(int64);	
-
-	template<> 
-	float ReflectParser<float>::ParseFromString(const char* src) 
-	{
-		return strtof(src, nullptr);
-	};
-
-	template<> 
-	double ReflectParser<double>::ParseFromString(const char* src)
-	{
-		return strtod(src, nullptr);
-	}
-#pragma endregion
-
-#pragma region ParseToString Specializations
-	DEFINE_PARSE_TO_STRING(bool);
-	DEFINE_PARSE_TO_STRING(uint8);
-	DEFINE_PARSE_TO_STRING(uint16);
-	DEFINE_PARSE_TO_STRING(uint32);
-	DEFINE_PARSE_TO_STRING(uint64);
-	DEFINE_PARSE_TO_STRING(int8);
-	DEFINE_PARSE_TO_STRING(int16);
-	DEFINE_PARSE_TO_STRING(int32);
-	DEFINE_PARSE_TO_STRING(int64);
-	DEFINE_PARSE_TO_STRING_F(float);
-	DEFINE_PARSE_TO_STRING_F(double);
-#pragma endregion
-
-#pragma region ParseFromBinary Specializations
-	DEFINE_PARSE_FROM_BINARY_POD(bool);
-	DEFINE_PARSE_FROM_BINARY_POD(uint8);
-	DEFINE_PARSE_FROM_BINARY_POD(uint16);
-	DEFINE_PARSE_FROM_BINARY_POD(uint32);
-	DEFINE_PARSE_FROM_BINARY_POD(uint64);
-	DEFINE_PARSE_FROM_BINARY_POD(int8);
-	DEFINE_PARSE_FROM_BINARY_POD(int16);
-	DEFINE_PARSE_FROM_BINARY_POD(int32);
-	DEFINE_PARSE_FROM_BINARY_POD(int64);
-	DEFINE_PARSE_FROM_BINARY_POD(float);
-	DEFINE_PARSE_FROM_BINARY_POD(double);
-#pragma endregion
-
-#pragma region ParseToBinary Specializations
-	DEFINE_PARSE_TO_BINARY_POD(bool);
-	DEFINE_PARSE_TO_BINARY_POD(uint8);
-	DEFINE_PARSE_TO_BINARY_POD(uint16);
-	DEFINE_PARSE_TO_BINARY_POD(uint32);
-	DEFINE_PARSE_TO_BINARY_POD(uint64);
-	DEFINE_PARSE_TO_BINARY_POD(int8);
-	DEFINE_PARSE_TO_BINARY_POD(int16);
-	DEFINE_PARSE_TO_BINARY_POD(int32);
-	DEFINE_PARSE_TO_BINARY_POD(int64);
-	DEFINE_PARSE_TO_BINARY_POD(float);
-	DEFINE_PARSE_TO_BINARY_POD(double);
-#pragma endregion
+	template<> BufferOffset ReflectParser2::parseFromString(const char* src, int32& outPropertyTypes);
+	template<> void ReflectParser2::ParseToString(StaticBuffer<KEConstant::kStringConvertorBufferSize>& outStringBuffer, const int32& outPropertyTypes);
 }

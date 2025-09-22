@@ -2,6 +2,9 @@
 #include "TypeTraits.h"
 #include <cstdio>
 
+#define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...)                                   \
+template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
+
 namespace ke
 {
 #if SIZE_MAX == UINT64_MAX
@@ -83,19 +86,7 @@ namespace ke
     size_t HashGenerator<T>::convertToHash(const T& value)
     {
         static_assert(KETrait::IsInteger<T>::value, "HashGenerator does not support hashing for this template type. Please define it via template specialization.");
-        return computeHash(&value, sizeof(T));
-    }
-
-    template<typename T>
-    size_t HashGenerator<T>::convertToHash(const char* cstr)
-    {
-        return computeHash(cstr, strlen(cstr));
-    }
-
-    template<typename T>
-    size_t HashGenerator<T>::convertToHash(const wchar_t* cstr)
-    {
-        return computeHash(cstr, wcslen(cstr) * 2);
+        return 0;
     }
 }
 

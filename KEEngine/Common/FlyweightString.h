@@ -25,7 +25,7 @@ namespace ke
 		size_t _entryIndex;
 
 	public:
-		const CharType* c_str() { return getStringVector()[_entryIndex].c_str(); }
+		const CharType* c_str() const { return getStringVector()[_entryIndex].c_str(); }
 	};
 
 	using FlyweightStringA = FlyweightString<char>;
