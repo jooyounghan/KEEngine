@@ -13,4 +13,6 @@ namespace ke
 	using int16 = short;
 	using int32 = int;
 	using int64 = long long;
+
+	using KEBufferOffset = size_t;
 }

@@ -1,27 +1,27 @@
 #include "StringConvertor.h"
 
-#define DEFINE_UNSIGNED_Z_TO_OWNEDSTRING_CONVERTOR(Type)                \
-    template<>                                                          \
-    OwnedStringA ke::StringConvertor::convertToString(const Type& v)    \
-    {                                                                   \
-        return zToString(false, v);                                     \
+#define DEFINE_UNSIGNED_Z_CONVERTOR(Type)                                                           \
+    template<>                                                                                      \
+    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
+    {                                                                                               \
+        return zToStringBuffer(outStaticBuffer, false, v);                                          \
     }
 
-#define DEFINE_SIGNED_Z_TO_OWNEDSTRING_CONVERTOR(Type)                                  \
-    template<>                                                                          \
-    OwnedStringA ke::StringConvertor::convertToString(const Type& v)                    \
-    {                                                                                   \
-        bool isNegative = (v < 0);                                                      \
-        uint64_t u = isNegative ? static_cast<uint64_t>(-v) : static_cast<uint64_t>(v); \
-                                                                                        \
-        return zToString(isNegative, u);                                                \
+#define DEFINE_SIGNED_Z_CONVERTOR(Type)                                                             \
+    template<>                                                                                      \
+    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
+    {                                                                                               \
+        bool isNegative = (v < 0);                                                                  \
+        uint64_t u = isNegative ? static_cast<uint64_t>(-v) : static_cast<uint64_t>(v);             \
+                                                                                                    \
+        return zToStringBuffer(outStaticBuffer, isNegative, u);                                     \
     }
 
-#define DEFINE_F_TO_OWNEDSTRING_CONVERTOR(Type)                                 \
-    template<>                                                                  \
-    OwnedStringA StringConvertor::convertToString(const Type& v, int precision) \
-    {                                                                           \
-        return fToString(v, precision);                                         \
+#define DEFINE_F_CONVERTOR(Type)                                                                                \
+    template<>                                                                                                  \
+    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision)   \
+    {                                                                                                           \
+        return fToStringBuffer(outStaticBuffer, v, precision);                                                  \
     }
 
 
@@ -112,16 +112,16 @@ namespace ke
 
     }
 
-    void StringConvertor::zToStringBuffer(IStaticBuffer* staticBuffer, bool isNegative, uint64 v)
+    void StringConvertor::zToStringBuffer(IStaticBuffer* outStaticBuffer, bool isNegative, uint64 v)
     {
-        writeFixedDigits(staticBuffer, isNegative, v);
+        writeFixedDigits(outStaticBuffer, isNegative, v);
     }
 
-    void StringConvertor::fToStringBuffer(IStaticBuffer* staticBuffer, double v, size_t precision)
+    void StringConvertor::fToStringBuffer(IStaticBuffer* outStaticBuffer, double v, size_t precision)
     {
 		bool isNegative = signbit(v);
-        if (isnan(v)) return staticBuffer->write(isNegative ? "-nan" : "nan", isNegative ? 4 : 3);
-        if (isinf(v)) return staticBuffer->write(isNegative ? "-inf" : "inf", isNegative ? 4 : 3);
+        if (isnan(v)) return outStaticBuffer->write(isNegative ? "-nan" : "nan", isNegative ? 4 : 3);
+        if (isinf(v)) return outStaticBuffer->write(isNegative ? "-inf" : "inf", isNegative ? 4 : 3);
 
         constexpr StaticArray<uint64, digitCount> kPower10Map = makePower10Map();
 
@@ -140,29 +140,30 @@ namespace ke
             fracAsZ = 0;
             ++intpart;
 		}
-        writeFixedDigits(staticBuffer, isNegative, intpart);
-        staticBuffer->writeOne('.');
-        writeFixedDigits(staticBuffer, false, fracAsZ + pow10);
+        writeFixedDigits(outStaticBuffer, isNegative, intpart);
+        outStaticBuffer->writeOne('.');
+        writeFixedDigits(outStaticBuffer, false, fracAsZ + pow10);
     }
 
     template<>
-    OwnedStringA StringConvertor::convertToString(const bool& v)
+    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const bool& v)
     {
-		return v ? OwnedStringA("true") : OwnedStringA("false");
+        if (v) outStaticBuffer->write("true", 4);
+		else outStaticBuffer->write("false", 5);
     }
 
-    DEFINE_UNSIGNED_Z_TO_OWNEDSTRING_CONVERTOR(uint64);
-    DEFINE_UNSIGNED_Z_TO_OWNEDSTRING_CONVERTOR(uint32);
-    DEFINE_UNSIGNED_Z_TO_OWNEDSTRING_CONVERTOR(uint16);
-    DEFINE_UNSIGNED_Z_TO_OWNEDSTRING_CONVERTOR(uint8);
+    DEFINE_UNSIGNED_Z_CONVERTOR(uint64);
+    DEFINE_UNSIGNED_Z_CONVERTOR(uint32);
+    DEFINE_UNSIGNED_Z_CONVERTOR(uint16);
+    DEFINE_UNSIGNED_Z_CONVERTOR(uint8);
 
-    DEFINE_SIGNED_Z_TO_OWNEDSTRING_CONVERTOR(int64);
-    DEFINE_SIGNED_Z_TO_OWNEDSTRING_CONVERTOR(int32);
-    DEFINE_SIGNED_Z_TO_OWNEDSTRING_CONVERTOR(int16);
-    DEFINE_SIGNED_Z_TO_OWNEDSTRING_CONVERTOR(int8);
+    DEFINE_SIGNED_Z_CONVERTOR(int64);
+    DEFINE_SIGNED_Z_CONVERTOR(int32);
+    DEFINE_SIGNED_Z_CONVERTOR(int16);
+    DEFINE_SIGNED_Z_CONVERTOR(int8);
 
-	DEFINE_F_TO_OWNEDSTRING_CONVERTOR(double);
-	DEFINE_F_TO_OWNEDSTRING_CONVERTOR(float);
+	DEFINE_F_CONVERTOR(double);
+	DEFINE_F_CONVERTOR(float);
 
 
 }

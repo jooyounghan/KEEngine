@@ -24,7 +24,7 @@ int main()
 		int32 int3;
 		int32 int4;
 		int32 int5;
-		ReflectParser2::parseFromString("1~2~3~4~5", int1, int2, int3, int4, int5);
+		ReflectParser::parseFromString("1~2~3~4~5", int1, int2, int3, int4, int5);
 	}
 	bool test = true;
 }

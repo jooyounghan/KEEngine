@@ -1,18 +1,13 @@
 #pragma once
 #include "StringConvertor.h"
 
-#define DECLARE_Z_CONVERTOR(Type)                                                                                                           \
-    template<> OwnedStringA StringConvertor::convertToString(const Type& v);                                                                \
-    template<> void StringConvertor::convertToString(StaticBuffer<KEConstant::kStringConvertorBufferSize>& outStringBuffer, const Type& v);    
-
-#define DECLARE_F_CONVERTOR(Type)                                                                                                                           \
-    template<> OwnedStringA StringConvertor::convertToString(const Type& v, int precision);                                                                 \
-    template<> void StringConvertor::convertToString(StaticBuffer<KEConstant::kStringConvertorBufferSize>& outStringBuffer, const Type& v, int precision);
+#define DECLARE_Z_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v);    
+#define DECLARE_F_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision);
 
 namespace ke
 {
     template<typename T, typename ...Args>
-    void StringConvertor::convertToString(IStaticBuffer* staticBuffer, const T& v, Args ...args)
+    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const T& v, Args ...args)
     {
         static_assert(false, "This type is not supported as StringConvertor::convertToString.");
     }
