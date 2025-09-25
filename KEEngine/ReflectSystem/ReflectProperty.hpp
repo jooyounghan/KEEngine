@@ -21,25 +21,25 @@ namespace ke
 	template<typename PropertyType>
 	void ReflectProperty<PropertyType>::setFromString(const char* src) 
 	{ 
-		_property = move(ReflectParser<PropertyType>::ParseFromString(src)); 
+		ReflectParser::parseFromString(src, _property);
 	}
 
 	template<typename PropertyType>
 	void ReflectProperty<PropertyType>::setFromBinary(void const* src) 
 	{
-		_property = move(ReflectParser<PropertyType>::ParseFromBinary(src));
+		ReflectParser::parseFromBinary(src, _property);
 	}
 	
 	template<typename PropertyType>
-	OwnedStringA ReflectProperty<PropertyType>::getToString() const
+	void ReflectProperty<PropertyType>::getToString(IStaticBuffer* outBuffer) const
 	{ 
-		return ReflectParser<PropertyType>::ParseToString(_property);
+		ReflectParser::parseToString(outBuffer, _property);
 	}
 	
 	template<typename PropertyType>
-	void ReflectProperty<PropertyType>::getToBinary(StaticBuffer<KEConstant::kPropertyBinaryBufferSize>& outBuffer) const
+	void ReflectProperty<PropertyType>::getToBinary(IStaticBuffer* outBuffer) const
 	{ 
-		ReflectParser<PropertyType>::ParseToBinary(_property, outBuffer);
+		ReflectParser::parseToBinary(outBuffer, _property);
 	}
 
 	template<typename PropertyType>
@@ -61,24 +61,24 @@ namespace ke
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::setFromString(const char* src)
 	{
-		//_property = move(ReflectParser<PropertyType>::ParseFromString(src));
+		ReflectParser::parseFromBinary(src, _maxProperty, _minProperty);
 	}
 
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::setFromBinary(void const* src)
 	{
-		//_property = move(ReflectParser<PropertyType>::ParseFromBinary(src));
+		ReflectParser::parseFromBinary(src, _maxProperty, _minProperty);
 	}
 
 	template<typename PropertyType>
-	OwnedStringA RangedReflectProperty<PropertyType>::getToString() const
+	void RangedReflectProperty<PropertyType>::getToString(IStaticBuffer* outBuffer) const
 	{
-		return OwnedStringA(""); //ReflectParser<PropertyType>::ParseToString(_property);
+		ReflectParser::parseToString(outBuffer, _maxProperty, _minProperty);
 	}
 
 	template<typename PropertyType>
-	void RangedReflectProperty<PropertyType>::getToBinary(StaticBuffer<KEConstant::kPropertyBinaryBufferSize>& outBuffer) const
+	void RangedReflectProperty<PropertyType>::getToBinary(IStaticBuffer* outBuffer) const
 	{
-		//ReflectParser<PropertyType>::ParseToBinary(_property, outBuffer);
+		ReflectParser::parseToBinary(outBuffer, _maxProperty, _minProperty);
 	}
 }

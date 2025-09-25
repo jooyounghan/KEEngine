@@ -6,7 +6,7 @@ namespace ke
 	{
 		SPropertyMetaData meta;
 		meta._propertyType = type;
-		property->getToBinary(meta._defaultValueBuffer);
+		property->getToBinary(&meta._defaultValueBuffer);
 		_propertyMetaDatas.pushBack(move(meta));
 	}
 

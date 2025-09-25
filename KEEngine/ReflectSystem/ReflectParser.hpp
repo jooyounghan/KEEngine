@@ -28,6 +28,7 @@ namespace ke
 	void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
 	{
 		parseToString(outStringBuffer, propertyType);
+		outStringBuffer->writeOne(',');
 		parseToString(outStringBuffer, propertyTypes...);
 	}
 
@@ -40,7 +41,7 @@ namespace ke
 	template<typename PropertyType, typename ...PropertyTypes>
 	KEBufferOffset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
 	{
-		return parseFromBinary(src + parseFromBinary(src, outPropertyType), outPropertyTypes...);
+		return parseFromBinary(static_cast<const uint8*>(src) + parseFromBinary(src, outPropertyType), outPropertyTypes...);
 	}
 
 	template<typename PropertyType>

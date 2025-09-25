@@ -142,7 +142,7 @@ namespace ke
 		}
         writeFixedDigits(outStaticBuffer, isNegative, intpart);
         outStaticBuffer->writeOne('.');
-        writeFixedDigits(outStaticBuffer, false, fracAsZ + pow10);
+        writeFixedDigits(outStaticBuffer, false, fracAsZ);
     }
 
     template<>

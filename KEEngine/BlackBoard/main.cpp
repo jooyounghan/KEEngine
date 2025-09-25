@@ -16,15 +16,34 @@ using namespace ke;
 
 int main()
 {
-	ReflectMetaData meta;
-	while (true)
-	{
-		int32 int1;
-		int32 int2;
-		int32 int3;
-		int32 int4;
-		int32 int5;
-		ReflectParser::parseFromString("1~2~3~4~5", int1, int2, int3, int4, int5);
-	}
+	const char* i8str = "123~567";
+	const char* fstr = "0.9999~1.9999";
+
+	int i81 = 123;
+	float f1 = 0.9999f;
+	int i82 = 567;
+	float f2 = 1.9999f;
+
+
+	RangedReflectProperty<int8> i8range("Int8RangeProperty", 100, -100);
+	RangedReflectProperty<float> frange("FloatRangeProperty", 10.0f, -10.0f);
+
+	i8range.setFromString(i8str);
+	frange.setFromString(fstr);
+
+	//ReflectProperty<int8> i8test("Int8TestProperty", 0);
+	//ReflectProperty<float> ftest("FloatTestProperty", 0);
+
+	////i8test.setFromString(i8str);
+	////ftest.setFromString(fstr);
+
+	//i8test.setFromBinary(&i8);
+	//ftest.setFromBinary(&f);
+
+	//StaticBuffer<100> buffer;
+	//i8test.getToString(&buffer);
+	//buffer.writeOne('/');
+	//ftest.getToString(&buffer);
+
 	bool test = true;
 }
