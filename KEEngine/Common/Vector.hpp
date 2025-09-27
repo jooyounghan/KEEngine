@@ -4,6 +4,14 @@
 namespace ke
 {
 	template<typename T>
+	Vector<T>::Vector(std::initializer_list<T> init)
+	{
+		reserve(init.size());
+		for (const T& element : init)
+			pushBack(element);
+	}
+
+	template<typename T>
 	void Vector<T>::pushBack(const T& element)
 	{
 		pushBackImpl(element);

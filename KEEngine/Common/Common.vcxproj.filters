@@ -70,6 +70,9 @@
     <Filter Include="헤더 파일\Hpp\Container\Buffer">
       <UniqueIdentifier>{c0ce6517-4577-4c2a-9698-11255a6bfb03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Header\Macro">
+      <UniqueIdentifier>{38935e41-6e84-4e12-b630-0e7fb58bb700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="XMLParseHelper.h">
@@ -290,6 +293,12 @@
     </ClInclude>
     <ClInclude Include="KEConstant.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroUtilities.h">
+      <Filter>헤더 파일\Header\Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumMacro.h">
+      <Filter>헤더 파일\Header\Macro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

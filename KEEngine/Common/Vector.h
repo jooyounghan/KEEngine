@@ -1,6 +1,7 @@
 #pragma once
 #include "LinearContainer.h"
 #include "ContainerTraits.h"
+#include <initializer_list>
 
 namespace ke
 {
@@ -11,6 +12,7 @@ namespace ke
 		Vector() = default;
 		Vector(const Vector& other) = default;
 		Vector(Vector&& other) noexcept = default;
+		Vector(std::initializer_list<T> init);
 
 	public:
 		~Vector() = default;

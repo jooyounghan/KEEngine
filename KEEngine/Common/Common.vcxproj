@@ -27,6 +27,7 @@
     <ClInclude Include="BoundedString.h" />
     <ClInclude Include="BoundedString.hpp" />
     <ClInclude Include="ColumnarVector.h" />
+    <ClInclude Include="EnumMacro.h" />
     <ClInclude Include="KEConstant.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="LinearContainer.h" />
     <ClInclude Include="LinearContainer.hpp" />
+    <ClInclude Include="MacroUtilities.h" />
     <ClInclude Include="MallocAllocator.h" />
     <ClInclude Include="MallocAllocator.hpp" />
     <ClInclude Include="MathCommon.h" />
