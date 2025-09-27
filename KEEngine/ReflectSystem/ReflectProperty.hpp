@@ -61,24 +61,24 @@ namespace ke
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::setFromString(const char* src)
 	{
-		ReflectParser::parseFromBinary(src, _maxProperty, _minProperty);
+		ReflectParser::parseFromString(src, _minProperty, _maxProperty);
 	}
 
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::setFromBinary(void const* src)
 	{
-		ReflectParser::parseFromBinary(src, _maxProperty, _minProperty);
+		ReflectParser::parseFromBinary(src, _minProperty, _maxProperty);
 	}
 
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::getToString(IStaticBuffer* outBuffer) const
 	{
-		ReflectParser::parseToString(outBuffer, _maxProperty, _minProperty);
+		ReflectParser::parseToString(outBuffer, _minProperty, _maxProperty);
 	}
 
 	template<typename PropertyType>
 	void RangedReflectProperty<PropertyType>::getToBinary(IStaticBuffer* outBuffer) const
 	{
-		ReflectParser::parseToBinary(outBuffer, _maxProperty, _minProperty);
+		ReflectParser::parseToBinary(outBuffer, _minProperty, _maxProperty);
 	}
 }

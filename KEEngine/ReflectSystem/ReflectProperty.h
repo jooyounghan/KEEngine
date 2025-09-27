@@ -25,6 +25,9 @@ namespace ke
 		virtual void setFromBinary(void const* src) = 0;
 		virtual void getToString(IStaticBuffer* outBuffer) const = 0;
 		virtual void getToBinary(IStaticBuffer* outBuffer) const = 0;
+
+	public:
+		virtual void OnPropertyChanged() {};
 	};
 
 	template<typename PropertyType>
@@ -59,8 +62,8 @@ namespace ke
 		RangedReflectProperty(const char* str, PropertyType&& maxPropertyType, PropertyType&& minPropertyType);
 
 	private:
-		PropertyType _maxProperty;
 		PropertyType _minProperty;
+		PropertyType _maxProperty;
 
 	public:
 		inline void setMaxReflectProperty(const PropertyType& property) { _maxProperty = property; }

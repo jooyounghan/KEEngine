@@ -13,7 +13,7 @@ namespace ke
 	}
 
 	template<size_t Size>
-	void StaticBuffer<Size>::writeOne(uint8 input)
+	void StaticBuffer<Size>::writeOne(char input)
 	{
 		if (_count < Size) _buffer[_count++] = input;
 	}
