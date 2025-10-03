@@ -1,14 +1,16 @@
 #pragma once
 #include "HashMap.h"
 #include "ReflectProperty.h"
+#include "EnumMacro.h"
 
 #define DECLARE_REFLECT_PROPERTY(PropertyType, PropertyName) ;
 #define DEFINE_REFLECT_PROPERTY(PropertyType, PropertyName) ;
 
 namespace ke
 {
-	enum class EPropertyType : uint8
-	{
+	DECLARE_ENUM_DESCRIPTOR(
+		EPropertyType, 
+		uint8,
 		None = 0,
 		Boolean,
 		Int8,
@@ -23,14 +25,21 @@ namespace ke
 		Double,
 		String,
 		Count
-	};
-
-	enum class EPropertyFlag : uint8
-	{
+	);
+	
+	DECLARE_ENUM_DESCRIPTOR(
+		EPropertyFlag,
+		uint8,
 		None = 0,
-		ReadOnly = 1 << 0,
-		WriteOnly = 1 << 1,
-		ReadWrite = ReadOnly | WriteOnly
+		ReadOnly,
+		WriteOnly,
+		ReadWrite
+	)
+
+	template<typename Type>
+	struct PropertyTypeConvertor
+	{
+		EPropertyType GetType() const;
 	};
 
 	struct SPropertyMetaData
@@ -47,10 +56,11 @@ namespace ke
 
 	public:
 		void registerProperty(EPropertyType type, IReflectProperty* property);
-		const SPropertyMetaData* findProperty(const char* propertyName) const;
+		//const SPropertyMetaData* findProperty(const char* propertyName) const;
 	
 	public:
 		void setDefaultValue(IReflectProperty* property) const;
 	};
 }
 
+#include "ReflectMetaData.hpp"

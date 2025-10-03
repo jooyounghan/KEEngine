@@ -39,6 +39,9 @@
     <ClInclude Include="ReflectProperty.hpp">
       <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectMetaData.hpp">
+      <Filter>헤더 파일\Hpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectMetaData.cpp">

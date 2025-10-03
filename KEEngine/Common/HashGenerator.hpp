@@ -1,6 +1,6 @@
 #include "HashGenerator.h"
 #include "TypeTraits.h"
-#include <cstdio>
+#include "TemplateCommon.h"
 
 #define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...)                                   \
 template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
@@ -85,8 +85,7 @@ namespace ke
     template<typename T>
     size_t HashGenerator<T>::convertToHash(const T& value)
     {
-        static_assert(KETrait::IsInteger<T>::value, "HashGenerator does not support hashing for this template type. Please define it via template specialization.");
-        return 0;
+        STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(HashGenerator);
     }
 }
 

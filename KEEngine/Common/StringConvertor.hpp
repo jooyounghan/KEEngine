@@ -1,6 +1,7 @@
 #pragma once
 #include "StringConvertor.h"
 
+#include "TemplateCommon.h"
 #define DECLARE_Z_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v);    
 #define DECLARE_F_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision);
 
@@ -9,7 +10,7 @@ namespace ke
     template<typename T, typename ...Args>
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const T& v, Args ...args)
     {
-        static_assert(false, "This type is not supported as StringConvertor::convertToString.");
+        STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(StringConvertor);
     }
 
 	DECLARE_Z_CONVERTOR(bool);

@@ -77,6 +77,7 @@
     <ClInclude Include="StaticColumnarArray.h" />
     <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringConvertor.h" />
+    <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="StringConvertor.cpp" />
     <ClInclude Include="StringConvertor.hpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="StringView.h" />
     <ClInclude Include="StringView.hpp" />
+    <ClInclude Include="TemplateCommon.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="TypeLimit.h" />
@@ -99,9 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashSet.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

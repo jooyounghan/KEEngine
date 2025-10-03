@@ -25,7 +25,7 @@ namespace ke
 	}
 
 	template<typename Key, typename Value, typename HashBucket, typename HashConvertor>
-	Value* HashMap<Key, Value, HashBucket, HashConvertor>::find(const Key& key)
+	Value* HashMap<Key, Value, HashBucket, HashConvertor>::find(const Key& key) const
 	{
 		size_t hash = _hashConvertor(key);
 		Key* foundKey = nullptr;

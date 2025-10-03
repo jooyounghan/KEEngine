@@ -45,6 +45,17 @@
 	ClassName() = delete;								\
 	NONCOPYABLE(ClassName)
 
+#define DEFAULTABLE(ClassName)							\
+	ClassName(const ClassName&) = default;				\
+	ClassName(ClassName&&) = default;					\
+	ClassName& operator=(const ClassName&) = default;	\
+	ClassName& operator=(ClassName&&) = default;
+
+#define DEFAULT_CONSTRUCTOR(ClassName)					\
+	ClassName() = default;								\
+	DEFAULTABLE(ClassName)
+
+
 #define GET_BUFFER_PTR_AT(PtrType, Buffer, ColumnIndex) reinterpret_cast<PtrType*>(&Buffer[sizeof(PtrType) * ColumnIndex])
 
 // =======================================================================================

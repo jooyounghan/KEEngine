@@ -17,7 +17,7 @@ namespace ke
 	public:
 		void								insert(const Key& key, const Value& value);
 		void								remove(const Key& key);
-		Value*								find(const Key& key);
+		Value*								find(const Key& key) const;
 
 	public:
 		size_t count() const;

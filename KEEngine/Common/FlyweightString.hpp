@@ -1,7 +1,5 @@
 #pragma once
 #include "FlyweightString.h"
-#include "OwnedString.h"
-#include "HashSet.h"
 
 namespace ke
 {
@@ -17,6 +15,13 @@ namespace ke
 	{
 		static Vector<OwnedString<CharType>> instance;
 		return instance;
+	}
+
+	template<typename CharType>
+	const CharType* FlyweightString<CharType>::getFromEntryIndex(size_t entryIndex)
+	{
+		const Vector<OwnedString<CharType>>& stringVector = getStringVector();
+		return stringVector.size() > entryIndex ? stringVector[entryIndex].c_str() : nullptr;
 	}
 
 	template<typename CharType>
@@ -41,7 +46,7 @@ namespace ke
 	}
 
 	template<typename CharType>
-	inline FlyweightString<CharType>::FlyweightString(const OwnedString<CharType>& str)
+	FlyweightString<CharType>::FlyweightString(const OwnedString<CharType>& str)
 	{
 		LargeBinHoodHashMap<StringView<CharType>, size_t, HashGenerator<StringView<CharType>>>& stringEntryMap = getStringEntryMap();
 		Vector<OwnedString<CharType>>& stringVector = getStringVector();
@@ -60,4 +65,12 @@ namespace ke
 			_entryIndex = *foundVectorIndex;
 		}
 	}
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator==(const FlyweightString<CharType>& other) const
+	{
+		return _entryIndex == other._entryIndex;
+	}
+
+	DECLARE_TEMPLATED_HASH_SPECIALIZATION(FlyweightString, char);
 }

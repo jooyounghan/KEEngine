@@ -8,18 +8,12 @@ namespace ke
 	class OwnedString : public LinearContainer<CharType, 0>
 	{
 	public:
-		OwnedString() = default;
-		OwnedString(const CharType* str);
-		OwnedString(const OwnedString& other) = default;
-		OwnedString(OwnedString&& other) noexcept = default;
-		OwnedString(const CharType* const ptr, size_t length);
-
-	public:
+		DEFAULT_CONSTRUCTOR(OwnedString);
 		~OwnedString() = default;
 
 	public:
-		OwnedString& operator=(const OwnedString& other) = default;
-		OwnedString& operator=(OwnedString&& other) noexcept = default;
+		OwnedString(const CharType* str);
+		OwnedString(const CharType* const ptr, size_t length);
 
 	public:
 		bool operator==(const OwnedString& other) const;

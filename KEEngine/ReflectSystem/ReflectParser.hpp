@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectParser.h"
+#include "TemplateCommon.h"
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																	\
 template<> KEBufferOffset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes);			\
@@ -12,7 +13,7 @@ namespace ke
 	template<typename PropertyType>
 	KEBufferOffset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyTypes)
 	{
-		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::parserFromString).");
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 	template<typename PropertyType, typename ...PropertyTypes>
 	KEBufferOffset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
@@ -22,7 +23,7 @@ namespace ke
 	template<typename PropertyType>
 	void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const PropertyType& property)
 	{
-		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::parseToString).");
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 	template<typename PropertyType, typename ...PropertyTypes>
 	void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
@@ -35,7 +36,7 @@ namespace ke
 	template<typename PropertyType>
 	KEBufferOffset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyTypes)
 	{
-		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::parseFromBinary).");
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
 	template<typename PropertyType, typename ...PropertyTypes>
@@ -47,7 +48,7 @@ namespace ke
 	template<typename PropertyType>
 	void ReflectParser::parseToBinary(IStaticBuffer* outBuffer, const PropertyType& property)
 	{
-		static_assert(false, "This type is not supported as ReflectProperty(ReflectParser::parseToBinary).");
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
 	template<typename PropertyType, typename ...PropertyTypes>

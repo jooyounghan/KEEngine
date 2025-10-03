@@ -300,6 +300,9 @@
     <ClInclude Include="EnumMacro.h">
       <Filter>헤더 파일\Header\Macro</Filter>
     </ClInclude>
+    <ClInclude Include="TemplateCommon.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashSet.cpp">
@@ -311,8 +314,8 @@
     <ClCompile Include="StringView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
+    <ClCompile Include="FlyweightString.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

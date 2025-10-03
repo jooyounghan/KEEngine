@@ -18,7 +18,7 @@ namespace ke
 		FlyweightStringA _propertyName;
 
 	public:
-		inline const char* getPropertName() const { return _propertyName.c_str(); }
+		inline const FlyweightStringA& getPropertName() const { return _propertyName; }
 
 	public:
 		virtual void setFromString(const char* src) = 0;
@@ -35,6 +35,7 @@ namespace ke
 	{
 	public:
 		DELETE_CONSTRUCTOR(ReflectProperty);
+		ReflectProperty(const char* str);
 		ReflectProperty(const char* str, const PropertyType& propertyType);
 		ReflectProperty(const char* str, PropertyType&& propertyType);
 
