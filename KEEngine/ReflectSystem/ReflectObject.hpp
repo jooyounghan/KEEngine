@@ -2,36 +2,46 @@
 #include "ReflectObject.h"
 #include "TemplateCommon.h"
 
-#define BEGIN_REFLECT_PROPERTY(ObjectType)								\
-	template<>															\
-	ReflectMetaData ReflectObject<ObjectType>::InitializeMetaData() {	\
-		ReflectMetaData	reflectMetaData;								
+#define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)								\
+	ReflectMetaData ReflectObject<ObjectType>::_metaData; 						\
+	template<> void ReflectObject<ObjectType>::InitializeMetaData() {	
 
-#define END_REFLECT_PROPERTY(ObjectType)																				\
-		return reflectMetaData;																							\
-	}																													\
-	template<> ReflectMetaData ReflectObject<ObjectType>::_metaData = ReflectObject<ObjectType>::InitializeMetaData();	
+#define END_DEFINE_REFLECT_PROPERTY(ObjectType)	}
 
+#define DECLARE_REFLECT_OBJECT(ObjectType) template<> void ReflectObject<ObjectType>::InitializeMetaData();
 
-#define DECLARE_REFLECT_PROPERTY(Type, VariableName)										\
-private:																					\
-	ReflectProperty<Type>	_##VariableName = ReflectProperty<Type>(#VariableName);			\
-public:																						\
+#define DECLARE_REFLECT_PROPERTY(Type, VariableName)												\
+private:																							\
+	ReflectProperty<Type>	_##VariableName = ReflectProperty<Type>(#VariableName);					\
+public:																								\
 	inline static FlyweightStringA getName##VariableName = #VariableName;							\
 	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
 	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
-#define DEFINE_REFLECT_PROPERTY(Type, VariableName, DefaultValue, Description)							\
-	{																									\
-		ReflectProperty<Type> tempReflectProperty(#VariableName, DefaultValue);							\
-		reflectMetaData.registerProperty(PropertyTypeConvertor<Type>::GetType(), &tempReflectProperty);	\
+#define DEFINE_REFLECT_PROPERTY(ObjectType, Type, VariableName, DefaultValue, Description)										\
+	{																															\
+		ReflectProperty<Type> tempReflectProperty(#VariableName, DefaultValue);													\
+		ReflectObject<ObjectType>::_metaData.registerProperty(PropertyTypeConvertor<Type>::GetType(), &tempReflectProperty);	\
 	}
-	
 
 #define DEFINE_REFLECT_RANGE_PROPERTY()
 
 namespace ke
 {
+	template<typename ObjectType>
+	void ReflectObject<ObjectType>::ensureInitialized()
+	{
+		static const bool once = (InitializeMetaData(), true);
+		(void)once;
+	}
+
+	template<typename ObjectType>
+	const ReflectMetaData& ReflectObject<ObjectType>::getMetaData()
+	{
+		ensureInitialized();
+		return _metaData;
+	}
+
 	template<typename ObjectType>
 	ReflectObject<ObjectType>::ReflectObject(ObjectType* object)
 		: _object(object) 
@@ -40,7 +50,7 @@ namespace ke
 	}
 
 	template<typename ObjectType>
-	ReflectMetaData ReflectObject<ObjectType>::InitializeMetaData()
+	void ReflectObject<ObjectType>::InitializeMetaData()
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}

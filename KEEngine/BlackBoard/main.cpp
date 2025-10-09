@@ -20,17 +20,7 @@ using namespace ke;
 
 int main() 
 {
-	HashGenerator<int> hashGenerator;
-	BinHoodBucketNode<int, float, 16> node;
-	node.insert(hashGenerator(0), 0, 10.f);
-	node.insert(hashGenerator(1), 1, 20.f);
-
-
-
-
 	Test a = Test();
-	FlyweightStringA nameTestBool = Test::getNameTestBool;
-	const char* strTestBool = nameTestBool.c_str();
-	ReflectMetaData reflectMetaData = Test::getMetaData();
+	const ReflectMetaData& reflectMetaData = Test::getMetaData();
 	bool t = false;	
 }

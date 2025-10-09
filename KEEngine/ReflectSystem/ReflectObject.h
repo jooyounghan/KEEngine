@@ -11,15 +11,16 @@ namespace ke
 	public:
 		ReflectObject(ObjectType* object);
 
-	private:
+	protected:
 		ObjectType* _object;
 	
-	private:
-		static ReflectMetaData InitializeMetaData();
+	protected:
+		static void InitializeMetaData();
+		static void ensureInitialized();
 		static ReflectMetaData _metaData;
 
 	public:
-		static const ReflectMetaData& getMetaData() { return _metaData; }
+		static const ReflectMetaData& getMetaData();
 	};
 }
 

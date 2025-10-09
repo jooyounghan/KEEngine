@@ -3,6 +3,7 @@
 
 using namespace ke;
 
+
 class Test : public ReflectObject<Test>
 {
 public:
@@ -14,5 +15,6 @@ public:
 	DECLARE_REFLECT_PROPERTY(bool, TestBool);
 	DECLARE_REFLECT_PROPERTY(float, MinValue);
 	DECLARE_REFLECT_PROPERTY(float, MaxValue);
-
 };
+
+DECLARE_REFLECT_OBJECT(Test);

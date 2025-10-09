@@ -49,6 +49,10 @@ namespace ke
 	class ReflectMetaData
 	{
 	public:
+		ReflectMetaData() = default;								\
+		NONCOPYABLE(ReflectMetaData);
+
+	public:
 		CompactBinHoodHashMap<FlyweightStringA, SPropertyMetaData> _propertyMetaDataMap;
 
 	public:
