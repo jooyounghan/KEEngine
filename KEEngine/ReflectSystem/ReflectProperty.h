@@ -34,6 +34,9 @@ namespace ke
 	class ReflectProperty : public IReflectProperty
 	{
 	public:
+		using Type = PropertyType;
+
+	public:
 		DELETE_CONSTRUCTOR(ReflectProperty);
 		ReflectProperty(const char* str);
 		ReflectProperty(const char* str, const PropertyType& propertyType);

@@ -15,8 +15,11 @@ namespace ke
 		ObjectType* _object;
 	
 	private:
-		inline static ReflectMetaData InitializeMetaData();
-		inline static ReflectMetaData _metaData = InitializeMetaData();
+		static ReflectMetaData InitializeMetaData();
+		static ReflectMetaData _metaData;
+
+	public:
+		static const ReflectMetaData& getMetaData() { return _metaData; }
 	};
 }
 

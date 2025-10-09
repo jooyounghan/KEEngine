@@ -45,33 +45,4 @@
 			</ArrayItems>
 		</Expand>
 	</Type>
-
-
-
-	<Type Name="ke::BinHoodBucketNode&lt;*, *, *&gt;">
-		<DisplayString>ke::BinHoodBucketNode ( range={_from}~{_to} )</DisplayString>
-		<Expand HideRawView="true">
-			<Item Name="Parent" Condition="_count > 0">_parent</Item>
-			<Item Name="Left" Condition="_count == 0">_left</Item>
-			<Item Name="Right" Condition="_count == 0">_right</Item>
-			<Item Name="Count" Condition="_count > 0">_count</Item>
-			<Item Name="Value" Condition="_count > 0">_values</Item>
-		</Expand>
-	</Type>
-
-
-	<Type Name="ke::OwnedString&lt;*&gt;">
-		<Expand>
-			<Item Name="Length">_count - 1</Item>
-			<Item Name="Capacity">_count</Item>
-			<Item Name="String">_data</Item>
-		</Expand>
-	</Type>
-	<Type Name="ke::BoundedString&lt;*,*&gt;">
-		<Expand>
-			<Item Name="Length">_length</Item>
-			<Item Name="Capacity">_count</Item>
-			<Item Name="String">_data</Item>
-		</Expand>
-	</Type>
 </AutoVisualizer>

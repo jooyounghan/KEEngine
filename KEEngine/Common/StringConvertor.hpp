@@ -2,8 +2,8 @@
 #include "StringConvertor.h"
 
 #include "TemplateCommon.h"
-#define DECLARE_Z_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v);    
-#define DECLARE_F_CONVERTOR(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision);
+#define DECLARE_Z_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v);    
+#define DECLARE_F_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision);
 
 namespace ke
 {
@@ -13,17 +13,17 @@ namespace ke
         STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(StringConvertor);
     }
 
-	DECLARE_Z_CONVERTOR(bool);
+	DECLARE_Z_CONVERTOR_SPECIALIZATION(bool);
 
-    DECLARE_Z_CONVERTOR(uint64);
-    DECLARE_Z_CONVERTOR(uint32);
-    DECLARE_Z_CONVERTOR(uint16);
-    DECLARE_Z_CONVERTOR(uint8);
-    DECLARE_Z_CONVERTOR(int64);
-    DECLARE_Z_CONVERTOR(int32);
-    DECLARE_Z_CONVERTOR(int16);
-    DECLARE_Z_CONVERTOR(int8);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(uint64);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(uint32);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(uint16);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(uint8);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(int64);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(int32);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(int16);
+    DECLARE_Z_CONVERTOR_SPECIALIZATION(int8);
 
-    DECLARE_F_CONVERTOR(double);
-    DECLARE_F_CONVERTOR(float);
+    DECLARE_F_CONVERTOR_SPECIALIZATION(double);
+    DECLARE_F_CONVERTOR_SPECIALIZATION(float);
 }

@@ -3,18 +3,23 @@
 #include "TemplateCommon.h"
 
 #define BEGIN_REFLECT_PROPERTY(ObjectType)								\
+	template<>															\
 	ReflectMetaData ReflectObject<ObjectType>::InitializeMetaData() {	\
 		ReflectMetaData	reflectMetaData;								
 
-#define END_REFLECT_PROPERTY()										}	
+#define END_REFLECT_PROPERTY(ObjectType)																				\
+		return reflectMetaData;																							\
+	}																													\
+	template<> ReflectMetaData ReflectObject<ObjectType>::_metaData = ReflectObject<ObjectType>::InitializeMetaData();	
+
 
 #define DECLARE_REFLECT_PROPERTY(Type, VariableName)										\
 private:																					\
-	ReflectProperty<Type>	_##VariableName = ReflectProperty<Type>(VariableName)			\
+	ReflectProperty<Type>	_##VariableName = ReflectProperty<Type>(#VariableName);			\
 public:																						\
-	static FlyweightStringA getName##VariableName = #VariableName;							\
-	const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
-	void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
+	inline static FlyweightStringA getName##VariableName = #VariableName;							\
+	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
+	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
 #define DEFINE_REFLECT_PROPERTY(Type, VariableName, DefaultValue, Description)							\
 	{																									\
@@ -31,6 +36,7 @@ namespace ke
 	ReflectObject<ObjectType>::ReflectObject(ObjectType* object)
 		: _object(object) 
 	{
+
 	}
 
 	template<typename ObjectType>
@@ -38,5 +44,4 @@ namespace ke
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}
-
 }

@@ -7,7 +7,7 @@ namespace ke
 	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode()
 		: _from(0), _to(KELimit::getMax<HashValue>()), _mid(KELimit::getMax<HashValue>() / 2)
 	{
-		_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
+		allocateArrays();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -15,7 +15,7 @@ namespace ke
 		: _from(from), _to(to), _parent(parent)
 	{
 		_mid = _from + (_to - _from) / 2;
-		_values = new StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>();
+		allocateArrays();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -23,7 +23,7 @@ namespace ke
 	{
 		KEMemory::SafeRelease(_left);
 		KEMemory::SafeRelease(_right);
-		KEMemory::SafeRelease(_values);
+		deallocateArrays();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -72,7 +72,7 @@ namespace ke
 			isOccupied = false;
 			_count--;
 		}
-		KEMemory::SafeRelease(_values);
+		deallocateArrays();
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -232,33 +232,52 @@ namespace ke
 
 #pragma region Helper
 	template<typename Key, typename Value, size_t BucketSize>
-	bool& BinHoodBucketNode<Key, Value, BucketSize>::getIsOccupied(size_t idx) const
+	void BinHoodBucketNode<Key, Value, BucketSize>::allocateArrays()
 	{
-		return _values->getElement<0>(idx);
+		_isOccupieds = new StaticArray<IsOccupied, BucketSize>();
+		_hashValues = new StaticArray<HashValue, BucketSize>();
+		_keys = new StaticArray<Key, BucketSize>();
+		_values = new StaticArray<Value, BucketSize>();
+		_slotDistance = new StaticArray<SlotDistance, BucketSize>();
+	}
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::deallocateArrays()
+	{
+		KEMemory::SafeRelease(_isOccupieds);
+		KEMemory::SafeRelease(_hashValues);
+		KEMemory::SafeRelease(_keys);
+		KEMemory::SafeRelease(_values);
+		KEMemory::SafeRelease(_slotDistance);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
-	inline BinHoodBucketNode<Key, Value, BucketSize>::HashValue& BinHoodBucketNode<Key, Value, BucketSize>::getHashValue(size_t idx) const
+	bool& BinHoodBucketNode<Key, Value, BucketSize>::getIsOccupied(size_t idx) const
 	{
-		return _values->getElement<1>(idx);
+		return _isOccupieds->at(idx);
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::HashValue& BinHoodBucketNode<Key, Value, BucketSize>::getHashValue(size_t idx) const
+	{
+		return _hashValues->at(idx);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
 	Key* BinHoodBucketNode<Key, Value, BucketSize>::getKeyPtr(size_t idx)
 	{
-		return &_values->getElement<2>(idx);
+		return &_keys->at(idx);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
 	Value* BinHoodBucketNode<Key, Value, BucketSize>::getValuePtr(size_t idx)
 	{
-		return &_values->getElement<3>(idx);
+		return &_values->at(idx);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
 	BinHoodBucketNode<Key, Value, BucketSize>::SlotDistance& BinHoodBucketNode<Key, Value, BucketSize>::getSlotDistance(size_t idx) const
 	{
-		return _values->getColumn<4>()[idx];
+		return _slotDistance->at(idx);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>

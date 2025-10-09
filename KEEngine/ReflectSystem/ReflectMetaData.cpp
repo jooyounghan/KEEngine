@@ -1,12 +1,5 @@
 #include "ReflectMetaData.h"
 
-#define DEFINE_PROPERTY_TYPE_CONVERTOR(Type, PropertyType)		\
-template<>														\
-EPropertyType PropertyTypeConvertor<Type>::GetType() const		\
-{																\
-	return PropertyType;										\
-}
-
 namespace ke
 {
 	DEFINE_ENUM_DESCRIPTOR(
@@ -53,10 +46,11 @@ namespace ke
 		if (_propertyMetaDataMap.find(propertyName) == nullptr)
 		{
 			SPropertyMetaData metaData;
+			metaData._propertyName = propertyName;
 			metaData._propertyType = type;
 			property->getToBinary(&metaData._defaultValueBuffer);
 
-			_propertyMetaDataMap.insert(propertyName, metaData);			
+			_propertyMetaDataMap.insert(propertyName, metaData);	
 		}
 	}
 

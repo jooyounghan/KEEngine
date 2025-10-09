@@ -14,8 +14,7 @@ namespace ke
 	class FlyweightString
 	{
 	public:
-		FlyweightString() = delete;
-		DEFAULTABLE(FlyweightString);
+		DEFAULT_CONSTRUCTOR(FlyweightString);
 		FlyweightString(const CharType* str);
 		FlyweightString(const OwnedString<CharType>& str);
 
@@ -27,10 +26,10 @@ namespace ke
 		static const CharType* getFromEntryIndex(size_t entryIndex);
 
 	private:
-		size_t _entryIndex;
+		size_t _entryIndex = INVALID_INDEX_SIZE_T;
 
 	public:
-		const CharType* c_str() const { return getStringVector()[_entryIndex].c_str(); }
+		const CharType* c_str() const { return _entryIndex != INVALID_INDEX_SIZE_T ? getStringVector()[_entryIndex].c_str() : nullptr; }
 
 	public:
 		bool operator==(const FlyweightString<CharType>& other) const;

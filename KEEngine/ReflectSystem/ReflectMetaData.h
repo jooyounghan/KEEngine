@@ -3,9 +3,6 @@
 #include "ReflectProperty.h"
 #include "EnumMacro.h"
 
-#define DECLARE_REFLECT_PROPERTY(PropertyType, PropertyName) ;
-#define DEFINE_REFLECT_PROPERTY(PropertyType, PropertyName) ;
-
 namespace ke
 {
 	DECLARE_ENUM_DESCRIPTOR(
@@ -39,11 +36,12 @@ namespace ke
 	template<typename Type>
 	struct PropertyTypeConvertor
 	{
-		EPropertyType GetType() const;
+		static EPropertyType GetType();
 	};
 
 	struct SPropertyMetaData
 	{
+		FlyweightStringA									_propertyName;
 		StaticBuffer<KEConstant::kPropertyBinaryBufferSize> _defaultValueBuffer;
 		EPropertyType										_propertyType = EPropertyType::None;
 	};
@@ -52,7 +50,6 @@ namespace ke
 	{
 	public:
 		CompactBinHoodHashMap<FlyweightStringA, SPropertyMetaData> _propertyMetaDataMap;
-		Vector<SPropertyMetaData> _propertyMetaDatas;
 
 	public:
 		void registerProperty(EPropertyType type, IReflectProperty* property);

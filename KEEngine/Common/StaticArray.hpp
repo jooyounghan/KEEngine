@@ -25,5 +25,11 @@ namespace ke
 
 	template<typename T, size_t Count>
 	constexpr const T& StaticArray<T, Count>::operator[](size_t i) const { return _data[i]; }
+
+	template<typename T, size_t Count>
+	constexpr T& StaticArray<T, Count>::at(size_t i) { return _data[i]; }
+
+	template<typename T, size_t Count>
+	constexpr const T& StaticArray<T, Count>::at(size_t i) const { return _data[i]; }
 }
 

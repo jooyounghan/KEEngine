@@ -15,4 +15,9 @@ namespace ke
 	using int64 = long long;
 
 	using KEBufferOffset = size_t;
+
+
 }
+
+#define INVALID_INDEX(byteSize) (uint##byteSize)-1
+#define INVALID_INDEX_SIZE_T	INVALID_INDEX(64)

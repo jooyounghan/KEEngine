@@ -2,8 +2,9 @@
 #include "TypeTraits.h"
 #include "TemplateCommon.h"
 
-#define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...)                                   \
-template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
+#define DECLARE_RAW_VALUE_HASH_SPECIALIZATION(Raw) template<> size_t HashGenerator<Raw>::convertToHash(const Raw& value);
+
+#define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...) template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
 
 namespace ke
 {
@@ -87,5 +88,17 @@ namespace ke
     {
         STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(HashGenerator);
     }
+
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(bool);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint64);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint32);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint16);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint8);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int64);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int32);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int16);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int8);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(double);
+    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(float);
 }
 

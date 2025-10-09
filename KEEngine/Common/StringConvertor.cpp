@@ -1,13 +1,13 @@
 #include "StringConvertor.h"
 
-#define DEFINE_UNSIGNED_Z_CONVERTOR(Type)                                                           \
+#define DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                                           \
     template<>                                                                                      \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
         return zToStringBuffer(outStaticBuffer, false, v);                                          \
     }
 
-#define DEFINE_SIGNED_Z_CONVERTOR(Type)                                                             \
+#define DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                                             \
     template<>                                                                                      \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
@@ -17,7 +17,7 @@
         return zToStringBuffer(outStaticBuffer, isNegative, u);                                     \
     }
 
-#define DEFINE_F_CONVERTOR(Type)                                                                                \
+#define DEFINE_F_CONVERTOR_SPECIALIZATION(Type)                                                                                \
     template<>                                                                                                  \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision)   \
     {                                                                                                           \
@@ -152,18 +152,16 @@ namespace ke
 		else outStaticBuffer->write("false", 5);
     }
 
-    DEFINE_UNSIGNED_Z_CONVERTOR(uint64);
-    DEFINE_UNSIGNED_Z_CONVERTOR(uint32);
-    DEFINE_UNSIGNED_Z_CONVERTOR(uint16);
-    DEFINE_UNSIGNED_Z_CONVERTOR(uint8);
+    DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(uint64);
+    DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(uint32);
+    DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(uint16);
+    DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(uint8);
 
-    DEFINE_SIGNED_Z_CONVERTOR(int64);
-    DEFINE_SIGNED_Z_CONVERTOR(int32);
-    DEFINE_SIGNED_Z_CONVERTOR(int16);
-    DEFINE_SIGNED_Z_CONVERTOR(int8);
+    DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(int64);
+    DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(int32);
+    DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(int16);
+    DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(int8);
 
-	DEFINE_F_CONVERTOR(double);
-	DEFINE_F_CONVERTOR(float);
-
-
+	DEFINE_F_CONVERTOR_SPECIALIZATION(double);
+	DEFINE_F_CONVERTOR_SPECIALIZATION(float);
 }

@@ -24,9 +24,9 @@ namespace ke
 		HashValue			_from;
 		HashValue			_mid;
 		HashValue			_to;
-		BinHoodBucketNode* _parent = nullptr;
-		BinHoodBucketNode* _left = nullptr;
-		BinHoodBucketNode* _right = nullptr;
+		BinHoodBucketNode*	_parent = nullptr;
+		BinHoodBucketNode*	_left = nullptr;
+		BinHoodBucketNode*	_right = nullptr;
 
 	private:
 		BinHoodBucketNode* getLeafBucket(HashValue hashValue);
@@ -47,9 +47,17 @@ namespace ke
 
 	private:
 		size_t _count = 0;
-		StaticColumnarArray<BucketSize, IsOccupied, HashValue, Key, Value, SlotDistance>* _values = nullptr;
+		StaticArray<IsOccupied, BucketSize>* _isOccupieds = nullptr;
+		StaticArray<HashValue, BucketSize>* _hashValues = nullptr;
+		StaticArray<Key, BucketSize>* _keys = nullptr;
+		StaticArray<Value, BucketSize>* _values = nullptr;
+		StaticArray<SlotDistance, BucketSize>* _slotDistance = nullptr;
 
 #pragma region Helper
+	private:
+		void allocateArrays();
+		void deallocateArrays();
+
 	private:
 		inline bool& getIsOccupied(size_t idx) const;
 		inline HashValue& getHashValue(size_t idx) const;

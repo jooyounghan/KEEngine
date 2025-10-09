@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="ke::ReflectProperty&lt;*&gt;">
+		<DisplayString>{_propertyName.c_str()}({_property})</DisplayString>
+	</Type>
+	<Type Name="ke::SPropertyMetaData;">
+		<DisplayString>Type({_propertyType}) / DefaultValue() </DisplayString>
+	</Type>
+	<Type Name="ke::ReflectMetaData;">
+		<DisplayString>ke::ReflectMetaData</DisplayString>
+	</Type>
+	<Type Name="ke::ReflectObject&lt;*&gt;">
+		<DisplayString>ke::ReflectObject</DisplayString>
+		<Expand>
+			<Item Name="Object">_object</Item>
+			<Item Name="MetaData">_metaData</Item>
+		</Expand>
+	</Type>
+
+</AutoVisualizer>

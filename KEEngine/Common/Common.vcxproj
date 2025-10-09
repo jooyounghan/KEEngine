@@ -78,6 +78,7 @@
     <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringConvertor.h" />
     <ClCompile Include="FlyweightString.cpp" />
+    <ClCompile Include="HashGenerator.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="StringConvertor.cpp" />
     <ClInclude Include="StringConvertor.hpp" />

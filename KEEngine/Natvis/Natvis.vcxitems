@@ -16,5 +16,8 @@
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)KEContainer.natvis" />
     <Natvis Include="$(MSBuildThisFileDirectory)KEDebugInfo.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEHash.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEReflectSystem.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEString.natvis" />
   </ItemGroup>
 </Project>

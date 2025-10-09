@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="ke::OwnedString&lt;*&gt;">
+		<Expand>
+			<Item Name="Length">_count - 1</Item>
+			<Item Name="Capacity">_count</Item>
+			<Item Name="String">_data</Item>
+		</Expand>
+	</Type>
+	<Type Name="ke::BoundedString&lt;*,*&gt;">
+		<Expand>
+			<Item Name="Length">_length</Item>
+			<Item Name="Capacity">_count</Item>
+			<Item Name="String">_data</Item>
+		</Expand>
+	</Type>
+	<Type Name="ke::FlyweightString&lt;*&gt;">
+	<DisplayString>ke::FlyweightString ( {c_str()} )</DisplayString>
+		<Expand>
+			<Item Name="EntryIndex">_entryIndex</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

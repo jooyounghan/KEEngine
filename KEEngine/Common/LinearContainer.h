@@ -26,6 +26,9 @@ namespace ke
 		inline size_t size() const { return _count; }
 		inline T& operator[](size_t index) { return _data[index]; }
 		inline const T& operator[](size_t index) const { return _data[index]; }
+		inline const T* data() const { return _data; }
+
+	public:
 		inline void swap(size_t idx1, size_t idx2);
 		inline void swap(size_t idx, T& target);
 	};
