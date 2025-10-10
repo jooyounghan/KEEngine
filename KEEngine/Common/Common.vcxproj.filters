@@ -73,14 +73,17 @@
     <Filter Include="헤더 파일\Header\Macro">
       <UniqueIdentifier>{38935e41-6e84-4e12-b630-0e7fb58bb700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Container">
+      <UniqueIdentifier>{99b32ad8-0022-4402-a7d5-7d18bd67b014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Container\String">
+      <UniqueIdentifier>{25769fa3-726e-4fb5-a3c2-3837ce1e5acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Hash">
+      <UniqueIdentifier>{e7b243e9-02fe-4724-831a-7b42a10fb4a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XMLParseHelper.h">
-      <Filter>헤더 파일\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlParser.h">
-      <Filter>헤더 파일\Header</Filter>
-    </ClInclude>
     <ClInclude Include="AllocatorTraits.h">
       <Filter>헤더 파일\Header\Trait</Filter>
     </ClInclude>
@@ -305,20 +308,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HashSet.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="FlyweightString.cpp">
+      <Filter>소스 파일\Container\String</Filter>
+    </ClCompile>
+    <ClCompile Include="OwnedString.cpp">
+      <Filter>소스 파일\Container\String</Filter>
     </ClCompile>
     <ClCompile Include="StringConvertor.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Container\String</Filter>
     </ClCompile>
     <ClCompile Include="StringView.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyweightString.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Container\String</Filter>
     </ClCompile>
     <ClCompile Include="HashGenerator.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="HashSet.cpp">
+      <Filter>소스 파일\Hash</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

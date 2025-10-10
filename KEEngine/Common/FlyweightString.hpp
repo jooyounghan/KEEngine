@@ -71,6 +71,4 @@ namespace ke
 	{
 		return _entryIndex == other._entryIndex;
 	}
-
-	DECLARE_TEMPLATED_HASH_SPECIALIZATION(FlyweightString, char);
 }

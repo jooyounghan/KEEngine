@@ -79,6 +79,7 @@
     <ClInclude Include="StringConvertor.h" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="HashGenerator.cpp" />
+    <ClCompile Include="OwnedString.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="StringConvertor.cpp" />
     <ClInclude Include="StringConvertor.hpp" />
@@ -97,8 +98,6 @@
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="WeakPointer.h" />
     <ClInclude Include="WeakPointer.hpp" />
-    <ClInclude Include="XMLParseHelper.h" />
-    <ClInclude Include="XmlParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashSet.cpp" />

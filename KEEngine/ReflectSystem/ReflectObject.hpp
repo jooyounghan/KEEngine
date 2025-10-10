@@ -4,11 +4,12 @@
 
 #define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)								\
 	ReflectMetaData ReflectObject<ObjectType>::_metaData; 						\
-	template<> void ReflectObject<ObjectType>::InitializeMetaData() {	
+	template<> void ReflectObject<ObjectType>::initializeMetaData() {			\
+		ReflectMetaData& metaData = ReflectObject<ObjectType>::_metaData;
 
 #define END_DEFINE_REFLECT_PROPERTY(ObjectType)	}
 
-#define DECLARE_REFLECT_OBJECT(ObjectType) template<> void ReflectObject<ObjectType>::InitializeMetaData();
+#define DECLARE_REFLECT_OBJECT(ObjectType) template<> void ReflectObject<ObjectType>::initializeMetaData();
 
 #define DECLARE_REFLECT_PROPERTY(Type, VariableName)												\
 private:																							\
@@ -18,10 +19,10 @@ public:																								\
 	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
 	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
-#define DEFINE_REFLECT_PROPERTY(ObjectType, Type, VariableName, DefaultValue, Description)										\
+#define DEFINE_REFLECT_PROPERTY(Type, VariableName, DefaultValue, Description)										\
 	{																															\
 		ReflectProperty<Type> tempReflectProperty(#VariableName, DefaultValue);													\
-		ReflectObject<ObjectType>::_metaData.registerProperty(PropertyTypeConvertor<Type>::GetType(), &tempReflectProperty);	\
+		metaData.registerProperty(PropertyTypeConvertor<Type>::GetType(), &tempReflectProperty);	\
 	}
 
 #define DEFINE_REFLECT_RANGE_PROPERTY()
@@ -31,7 +32,7 @@ namespace ke
 	template<typename ObjectType>
 	void ReflectObject<ObjectType>::ensureInitialized()
 	{
-		static const bool once = (InitializeMetaData(), true);
+		static const bool once = (initializeMetaData(), true);
 		(void)once;
 	}
 
@@ -50,7 +51,7 @@ namespace ke
 	}
 
 	template<typename ObjectType>
-	void ReflectObject<ObjectType>::InitializeMetaData()
+	void ReflectObject<ObjectType>::initializeMetaData()
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}

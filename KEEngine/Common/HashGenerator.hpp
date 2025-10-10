@@ -2,10 +2,6 @@
 #include "TypeTraits.h"
 #include "TemplateCommon.h"
 
-#define DECLARE_RAW_VALUE_HASH_SPECIALIZATION(Raw) template<> size_t HashGenerator<Raw>::convertToHash(const Raw& value);
-
-#define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...) template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
-
 namespace ke
 {
 #if SIZE_MAX == UINT64_MAX

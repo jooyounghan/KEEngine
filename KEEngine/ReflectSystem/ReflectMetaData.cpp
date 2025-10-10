@@ -46,7 +46,6 @@ namespace ke
 		if (_propertyMetaDataMap.find(propertyName) == nullptr)
 		{
 			SPropertyMetaData metaData;
-			metaData._propertyName = propertyName;
 			metaData._propertyType = type;
 			property->getToBinary(&metaData._defaultValueBuffer);
 

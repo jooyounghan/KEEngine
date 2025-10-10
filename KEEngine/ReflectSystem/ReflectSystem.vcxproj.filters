@@ -16,20 +16,35 @@
     <Filter Include="헤더 파일\Hpp">
       <UniqueIdentifier>{26627212-c9bf-457e-90b5-1599dd07a874}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Reflection">
+      <UniqueIdentifier>{175296cd-f27e-48fc-a0eb-a80d8595bd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header">
+      <UniqueIdentifier>{4a02ad27-d8d2-45eb-b4d3-e0f8de816212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Reflection">
+      <UniqueIdentifier>{ee92c324-7d8e-4811-ab54-4fe0c0902a7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\File">
+      <UniqueIdentifier>{fea35613-d812-42ea-a1c0-c8c2f671e2d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\File\Binary">
+      <UniqueIdentifier>{43b9a3ac-2fc4-45fc-b652-4cc5907c8ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\File">
+      <UniqueIdentifier>{f5f6b0b1-e1d3-4cd5-8c3e-f89430910226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\File\XML">
+      <UniqueIdentifier>{4a699c25-277a-4416-a39d-5890b1838acc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\File\Binary">
+      <UniqueIdentifier>{eeef2224-31ca-4cf3-aa35-51511c6f9770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\File\XML">
+      <UniqueIdentifier>{81394a80-a8c2-4192-9c9e-4f48e0f7fdfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ReflectMetaData.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectParser.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProperty.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectObject.hpp">
       <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
@@ -42,16 +57,43 @@
     <ClInclude Include="ReflectMetaData.hpp">
       <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectMetaData.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObject.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectParser.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlManager.h">
+      <Filter>헤더 파일\Header\File\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>헤더 파일\Header\File</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>헤더 파일\Header\File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReflectMetaData.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="ReflectProperty.cpp">
+      <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="ReflectParser.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="ReflectProperty.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="ReflectMetaData.cpp">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>소스 파일\File</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>소스 파일\File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

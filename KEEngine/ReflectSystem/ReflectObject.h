@@ -15,12 +15,14 @@ namespace ke
 		ObjectType* _object;
 	
 	protected:
-		static void InitializeMetaData();
+		static void initializeMetaData();
 		static void ensureInitialized();
 		static ReflectMetaData _metaData;
 
 	public:
 		static const ReflectMetaData& getMetaData();
+
+	public:
 	};
 }
 

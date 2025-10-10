@@ -3,6 +3,8 @@
 
 // This hash function is inspired by xxHash, but implemented independently.
 // It does not use any code from the official xxHash project.
+#define DECLARE_RAW_VALUE_HASH_SPECIALIZATION(Raw) template<> size_t HashGenerator<Raw>::convertToHash(const Raw& value);
+#define DECLARE_TEMPLATED_HASH_SPECIALIZATION(Class, ...) template<> size_t HashGenerator<Class<__VA_ARGS__>>::convertToHash(const Class<__VA_ARGS__>& value);
 
 namespace ke
 {

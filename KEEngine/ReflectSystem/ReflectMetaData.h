@@ -41,7 +41,6 @@ namespace ke
 
 	struct SPropertyMetaData
 	{
-		FlyweightStringA									_propertyName;
 		StaticBuffer<KEConstant::kPropertyBinaryBufferSize> _defaultValueBuffer;
 		EPropertyType										_propertyType = EPropertyType::None;
 	};
@@ -49,7 +48,7 @@ namespace ke
 	class ReflectMetaData
 	{
 	public:
-		ReflectMetaData() = default;								\
+		ReflectMetaData() = default;
 		NONCOPYABLE(ReflectMetaData);
 
 	public:

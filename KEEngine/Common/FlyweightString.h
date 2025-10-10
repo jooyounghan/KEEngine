@@ -40,6 +40,8 @@ namespace ke
 
 	using FlyweightStringA = FlyweightString<char>;
 	using FlyweightStringW = FlyweightString<wchar_t>;
+
+	DECLARE_TEMPLATED_HASH_SPECIALIZATION(FlyweightString, char);
 }
 
 #include "FlyweightString.hpp"

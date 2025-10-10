@@ -1,6 +1,7 @@
 #pragma once
 #include "TypeTraits.h"
 #include "LinearContainer.h"
+#include "HashGenerator.h"
 
 namespace ke
 {
@@ -41,6 +42,8 @@ namespace ke
 
 	using OwnedStringA = OwnedString<char>;
 	using OwnedStringW = OwnedString<wchar_t>;
+
+	DECLARE_TEMPLATED_HASH_SPECIALIZATION(OwnedString, char);
 }
 
 #include "OwnedString.hpp"
