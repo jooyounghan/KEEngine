@@ -9,5 +9,8 @@ namespace ke
 
 	public:
 		static constexpr size_t kPropertyBinaryBufferSize = 128;
+
+	public:
+		static constexpr size_t kFileWriteBufferSize = 4096;
 	};
 }

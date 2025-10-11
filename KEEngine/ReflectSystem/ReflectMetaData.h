@@ -5,10 +5,10 @@
 
 namespace ke
 {
-	DECLARE_ENUM_DESCRIPTOR(
+	DECLARE_ENUM_CLASS(
 		EPropertyType, 
 		uint8,
-		None = 0,
+		None,
 		Boolean,
 		Int8,
 		Int16,
@@ -24,14 +24,14 @@ namespace ke
 		Count
 	);
 	
-	DECLARE_ENUM_DESCRIPTOR(
+	DECLARE_ENUM_CLASS(
 		EPropertyFlag,
 		uint8,
-		None = 0,
+		None,
 		ReadOnly,
 		WriteOnly,
 		ReadWrite
-	)
+	);
 
 	template<typename Type>
 	struct PropertyTypeConvertor

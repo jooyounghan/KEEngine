@@ -31,6 +31,20 @@ int main()
 	HashSet<OwnedStringA> testSet;
 	testSet.insert("test");
 
-	File file("./test.xml");
-	
+	ReadOnlyFile file("./test.xml");
+	file.reader().readAll();
+	file.reader().read(10, 10);
+
+	WriteOnlyFile writeFile("./test_output.txt");
+	writeFile.writer().write("Hello World!", 13);
+	writeFile.writer().write("This is a test file.", 21);
+
+	ReadWriteFile readWriteFile("./test_both.xml");
+	readWriteFile.writer().write("Hello World!", 13);
+	readWriteFile.writer().write("This is a test file.", 21);
+	readWriteFile.reader().readAll();
+	readWriteFile.writer().flush();
+	readWriteFile.reader().readAll();
+
+	bool test = true;
 }
