@@ -14,8 +14,8 @@ namespace ke
 		static AssertManager& getInstance();
 
 	public:
-		void handleAssertionFailureIfFalse(bool condition, const char* conditionStr, const char* message, const char* file, int line);
 		void handleAssertionFailure(const char* conditionStr, const char* message, const char* file, int line);
+		void handleAssertionFailureIfFalse(bool condition, const char* conditionStr, const char* message, const char* file, int line);
 	};
 }
 

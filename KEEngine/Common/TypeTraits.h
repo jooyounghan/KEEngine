@@ -196,5 +196,24 @@ namespace ke
             DELETE_CONSTRUCTOR(IsBaseOf);
         };
 #pragma endregion
+
+#pragma region Conditional
+		struct EmptyType {};
+
+		template<bool Cond, typename TrueType, typename FalseType>
+        struct Conditional
+        {
+            using type = FalseType;
+		};
+
+		template<typename TrueType, typename FalseType>
+        struct Conditional<true, TrueType, FalseType>
+        {
+            using type = TrueType;
+		};
+
+		template<bool Cond, typename TrueType, typename FalseType>
+		using ConditionalType = typename Conditional<Cond, TrueType, FalseType>::type;
+#pragma endregion
     };
 }
