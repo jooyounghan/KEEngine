@@ -7,6 +7,7 @@
 #include <string>
 #include <random>
 #include <limits>
+#include <unordered_map>
 
 #include "OwnedString.h"
 #include "StringConvertor.h"
@@ -19,12 +20,16 @@
 #include "HashSet.h"
 #include "File.h"
 
+using namespace std;
 using namespace ke;
 
 int main() 
 {
 	Test a = Test();
-	const ReflectMetaData& reflectMetaData = Test::getMetaData();
+	const ReflectMetaData<Test>& reflectMetaData = Test::getMetaData();
+
+	unordered_map<OwnedStringA, int> stdMap;
+	stdMap.emplace("Test", 123);
 
 	HashMap<OwnedStringA, int> testMap;
 	testMap.insert("test", 123);

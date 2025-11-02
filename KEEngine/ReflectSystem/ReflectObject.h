@@ -17,10 +17,10 @@ namespace ke
 	protected:
 		static void initializeMetaData();
 		static void ensureInitialized();
-		static ReflectMetaData _metaData;
+		static ReflectMetaData<ObjectType> _metaData;
 
 	public:
-		static const ReflectMetaData& getMetaData();
+		static const ReflectMetaData<ObjectType>& getMetaData();
 
 	public:
 	};

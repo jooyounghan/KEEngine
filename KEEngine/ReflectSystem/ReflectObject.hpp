@@ -3,9 +3,9 @@
 #include "TemplateCommon.h"
 
 #define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)								\
-	ReflectMetaData ReflectObject<ObjectType>::_metaData; 						\
+	ReflectMetaData<ObjectType> ReflectObject<ObjectType>::_metaData; 			\
 	template<> void ReflectObject<ObjectType>::initializeMetaData() {			\
-		ReflectMetaData& metaData = ReflectObject<ObjectType>::_metaData;
+		ReflectMetaData<ObjectType>& metaData = ReflectObject<ObjectType>::_metaData;
 
 #define END_DEFINE_REFLECT_PROPERTY(ObjectType)	}
 
@@ -19,10 +19,15 @@ public:																								\
 	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
 	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
-#define DEFINE_REFLECT_PROPERTY(Type, VariableName, DefaultValue, Description)										\
-	{																															\
-		ReflectProperty<Type> tempReflectProperty(#VariableName, DefaultValue);													\
-		metaData.registerProperty(PropertyTypeConvertor<Type>::GetType(), &tempReflectProperty);	\
+#define DEFINE_REFLECT_PROPERTY(ObjectType, Type, VariableName, DefaultValue, Description)											\
+	{																																\
+		PropertyMetaData<ObjectType> propertyMetaData = PropertyMetaData<ObjectType>::createPropertyMetaData<Type>(					\
+			PropertyTypeConvertor<Type>::GetType(),																					\
+			DefaultValue,																											\
+			&ObjectType::get##VariableName,																							\
+			&ObjectType::set##VariableName																							\
+		);																															\
+		metaData.registerProperty(#VariableName, propertyMetaData);																	\
 	}
 
 #define DEFINE_REFLECT_RANGE_PROPERTY()
@@ -37,7 +42,7 @@ namespace ke
 	}
 
 	template<typename ObjectType>
-	const ReflectMetaData& ReflectObject<ObjectType>::getMetaData()
+	const ReflectMetaData<ObjectType>& ReflectObject<ObjectType>::getMetaData()
 	{
 		ensureInitialized();
 		return _metaData;

@@ -1,84 +1,152 @@
 #pragma once
 #include "TypeCommon.h"
 #include "TypeLimit.h"
-#include "StaticColumnarArray.h"
+#include "Vector.h"
 #include "HashTraits.h"
 
 namespace ke
 {
-	template<typename Key, typename Value, size_t BucketSize>
-	class BinHoodBucketNode
+	using Depth = uint8;
+	using IsOccupied = bool;
+	using HashValue = size_t;
+	using SlotDistance = uint8;
+
+	CONSTEXPR_INLINE constexpr static float SeperateThreshold = 0.75f;
+	CONSTEXPR_INLINE constexpr static float MergeThreshold = 0.25f;
+
+	template <typename Key, typename Value = void>
+	struct HashBucketInsertEntry
 	{
-		using IsOccupied = bool;
-		using HashValue = size_t;
-		using SlotDistance = uint8;
-		CONSTEXPR_INLINE constexpr static float SeperateThreshold = 0.75f;
-		CONSTEXPR_INLINE constexpr static float MergeThreshold = 0.25f;
+		HashValue	_hashValue;
+		Key			_key;
+		Value		_value;
+	};
+
+	template <typename Key>
+	struct HashBucketInsertEntry<Key, void>
+	{
+		HashValue	_hashValue;
+		Key			_key;
+	};
+
+	template <typename Key, typename Value = void>
+	struct HashBucketFindResult
+	{
+		bool	_found;
+		Value*	_valuePtr;
+	};
+
+	template <typename Key>
+	struct HashBucketFindResult<Key, void>
+	{
+		bool	_found;
+	};
+
+	template<typename Key, typename Value, size_t BucketSize>
+	class IBinHoodBucketNode
+	{
+	public:
+		IBinHoodBucketNode(Depth depth);
+		virtual ~IBinHoodBucketNode();
+
+	protected:
+		virtual void splitBucket() = 0;
+		virtual void mergeBucket();
+		virtual void mergeBucketImpl(void* childNode, void* parentNode) = 0;
+
+	protected:
+		void shiftBack(size_t currentIdx);
+		virtual void moveHashSlot(size_t srcIdx, size_t destIdx) = 0;
 
 	public:
-		BinHoodBucketNode();
-		BinHoodBucketNode(HashValue from, HashValue to, BinHoodBucketNode* parent);
-		~BinHoodBucketNode();
-
-	private:
-		HashValue			_from;
-		HashValue			_mid;
-		HashValue			_to;
-		BinHoodBucketNode*	_parent = nullptr;
-		BinHoodBucketNode*	_left = nullptr;
-		BinHoodBucketNode*	_right = nullptr;
-
-	private:
-		BinHoodBucketNode* getLeafBucket(HashValue hashValue);
-		inline bool		hasChildren() const;
-		inline float	getLoadFactor() const;
-
-	private:
-		void	splitBucket();
-		void	mergeBucket();
-		void	shiftBack(size_t emptyIdx);
+		virtual void								insert(HashBucketInsertEntry<Key, Value>& entry) = 0;
+		virtual void								remove(HashValue hash, const Key& key) = 0;
+		virtual HashBucketFindResult<Key, Value>	find(HashValue hash, const Key& key) = 0;
 
 	public:
-		/* HashBucket Method Implement */
-		void	insert(HashValue hash, const Key& key, const Value& value);
-		void	remove(HashValue hash, const Key& key);
-		bool	find(HashValue hash, const Key& key, Key*& foundKey, Value*& foundValue);
-		void	count(size_t& sizeOut) const;
+		IBinHoodBucketNode*			getLeafNode(HashValue hashValue);
+		bool						hasChildren() const;
 
-	private:
-		size_t _count = 0;
-		StaticArray<IsOccupied, BucketSize>* _isOccupieds = nullptr;
-		StaticArray<HashValue, BucketSize>* _hashValues = nullptr;
-		StaticArray<Key, BucketSize>* _keys = nullptr;
-		StaticArray<Value, BucketSize>* _values = nullptr;
-		StaticArray<SlotDistance, BucketSize>* _slotDistance = nullptr;
 
-#pragma region Helper
-	private:
-		void allocateArrays();
-		void deallocateArrays();
+	protected:
+		IBinHoodBucketNode* _parent = nullptr;
+		IBinHoodBucketNode* _left = nullptr;
+		IBinHoodBucketNode* _right = nullptr;
 
-	private:
-		inline bool& getIsOccupied(size_t idx) const;
-		inline HashValue& getHashValue(size_t idx) const;
-		inline Key* getKeyPtr(size_t idx);
-		inline Value* getValuePtr(size_t idx);
-		inline SlotDistance& getSlotDistance(size_t idx) const;
+	protected:
+		Depth					_depth;
+		size_t					_count;
 
-	private:
-		inline void				setHashSlot(size_t idx, const Value& value);
-		inline void				setHashSlot(size_t idx, Value&& value);
-		inline void				setHashSlot(size_t idx, bool isOccupied, HashValue hashValue, const Key& key, const Value& value, SlotDistance distance);
-		inline void 			setHashSlot(size_t idx, bool isOccupied, HashValue hashValue, Key&& key, Value&& value, SlotDistance distance);
-		inline void				swapHashSlot(size_t idx, bool& isOccupied, HashValue& hashValue, Key& key, Value& value, SlotDistance& slotDistance);
+	protected:
+		Vector<IsOccupied>		_isOccupieds;
+		Vector<HashValue>		_hashValues;
+		Vector<SlotDistance>	_slotDistances;
 
+	protected:
+		Depth depth() const { return _depth; }
+		size_t count() const { return _count; }
+		bool isHashPointLeft(HashValue hash) const { return ((hash >> _depth) & 1) == 0; }
+
+	protected:
+		float getLoadFactor() const;
+
+	protected:
 #ifdef _DEBUG
 		size_t _bucketSize = BucketSize;
 #endif // _DEBUG
+	};
+
+	template<typename Key, size_t BucketSize>
+	class BinHoodKeyBucketNode : public IBinHoodBucketNode<Key, void>
+	{
+
+	public:
+		BinHoodKeyBucketNode();
+		BinHoodKeyBucketNode(Depth depth, BinHoodKeyBucketNode* parent);
+		~BinHoodKeyBucketNode() override;
+
+	protected:
+		virtual void splitBucket() override;
+		virtual void mergeBucketImpl(void* childNode, void* parentNode) override;
+
+	protected:
+		virtual void moveHashSlot(size_t srcIdx, size_t destIdx) override;
+
+	public:
+		/* HashBucket Method Implement */
+		virtual void						insert(HashBucketInsertEntry<Key>& entry) override;
+		virtual void						remove(HashValue hash, const Key& key) override;
+		virtual HashBucketFindResult<Key>	find(HashValue hash, const Key& key) override;
+	
+	protected:
+		Vector<Key>				_keys;
 
 		static_assert(KETrait::IsPowerOfTwo<size_t, BucketSize>::value, "BucketSize must be a power of two.");
+	};
 
-#pragma endregion
+	template<typename Key, typename Value, size_t BucketSize>
+	class BinHoodKeyValueBucketNode : public BinHoodKeyBucketNode<Key, BucketSize>
+	{
+	public:
+		BinHoodKeyValueBucketNode();
+		BinHoodKeyValueBucketNode(HashValue from, HashValue to, BinHoodKeyValueBucketNode* parent);
+		~BinHoodKeyValueBucketNode() override;
+
+	protected:
+		virtual void splitBucket() override;
+		virtual void mergeBucketImpl(void* childNode, void* parentNode) override;
+
+	protected:
+		virtual void moveHashSlot(size_t srcIdx, size_t destIdx) override;
+
+	protected:
+		Vector<Value>			_values;
+
+	public:
+		/* HashBucket Method Implement */
+		virtual void								insert(HashBucketInsertEntry<Key, Value>& entry) override;
+		virtual void								remove(HashValue hash, const Key& key) override;
+		virtual HashBucketFindResult<Key, Value>	find(HashValue hash, const Key& key) override;
 	};
 }
 #include "BinHoodBucketNode.hpp"

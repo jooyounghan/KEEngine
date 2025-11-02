@@ -34,22 +34,33 @@
 #define DEBUG_ASSERT(expression, msg) ((void)0)
 #endif																		
 
+#define DEFAULT_DELETE_COPYABLE(ClassName)				\
+	ClassName(const ClassName&) = delete;				\
+	ClassName& operator=(const ClassName&) = delete;	
+
+#define DEFAULT_DELETE_MOVEABLE(ClassName)				\
+	ClassName(ClassName&&) = delete;					\
+	ClassName& operator=(ClassName&&) = delete;
 
 #define NONCOPYABLE(ClassName)							\
-	ClassName(const ClassName&) = delete;				\
-	ClassName(ClassName&&) = delete;					\
-	ClassName& operator=(const ClassName&) = delete;	\
-	ClassName& operator=(ClassName&&) = delete;
+	DEFAULT_DELETE_COPYABLE(ClassName)					\
+	DEFAULT_DELETE_MOVEABLE(ClassName)
 
 #define DELETE_CONSTRUCTOR(ClassName)					\
 	ClassName() = delete;								\
 	NONCOPYABLE(ClassName)
 
-#define DEFAULTABLE(ClassName)							\
+#define DEFAULT_COPYABLE(ClassName)						\
 	ClassName(const ClassName&) = default;				\
+	ClassName& operator=(const ClassName&) = default;
+
+#define DEFAULT_MOVEABLE(ClassName)						\
 	ClassName(ClassName&&) = default;					\
-	ClassName& operator=(const ClassName&) = default;	\
 	ClassName& operator=(ClassName&&) = default;
+
+#define DEFAULTABLE(ClassName)							\
+	DEFAULT_COPYABLE(ClassName)							\
+	DEFAULT_MOVEABLE(ClassName)
 
 #define DEFAULT_CONSTRUCTOR(ClassName)					\
 	ClassName() = default;								\

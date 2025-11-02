@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllocatorTraits.h" />
+    <ClInclude Include="AssertManager.h" />
     <ClInclude Include="BinHoodBucketNode.h" />
     <ClInclude Include="BinHoodBucketNode.hpp" />
     <ClInclude Include="BitFlag.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="StaticColumnarArray.h" />
     <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringConvertor.h" />
+    <ClCompile Include="AssertManager.cpp" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="HashGenerator.cpp" />
     <ClCompile Include="OwnedString.cpp" />

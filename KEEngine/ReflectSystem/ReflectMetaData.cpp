@@ -38,33 +38,5 @@ namespace ke
 	DEFINE_PROPERTY_TYPE_CONVERTOR(uint32, EPropertyType::UInt32);
 	DEFINE_PROPERTY_TYPE_CONVERTOR(uint64, EPropertyType::UInt64);
 	DEFINE_PROPERTY_TYPE_CONVERTOR(float, EPropertyType::Float);
-	DEFINE_PROPERTY_TYPE_CONVERTOR(double, EPropertyType::Double);		
-
-	void ReflectMetaData::registerProperty(EPropertyType type, IReflectProperty* property)
-	{
-		const FlyweightStringA& propertyName = property->getPropertName();
-		if (_propertyMetaDataMap.find(propertyName) == nullptr)
-		{
-			SPropertyMetaData metaData;
-			metaData._propertyType = type;
-			property->getToBinary(&metaData._defaultValueBuffer);
-
-			_propertyMetaDataMap.insert(propertyName, metaData);	
-		}
-	}
-
-	//const SPropertyMetaData* ReflectMetaData::findProperty(const char* propertyName) const
-	//{
-	//	return nullptr;
-	//}
-
-	void ReflectMetaData::setDefaultValue(IReflectProperty* property) const
-	{
-		const FlyweightStringA& propertyName = property->getPropertName();
-		SPropertyMetaData* metaData = _propertyMetaDataMap.find(propertyName);
-		if (metaData != nullptr)
-		{
-			property->setFromBinary(metaData->_defaultValueBuffer.getBuffer());
-		}
-	}
+	DEFINE_PROPERTY_TYPE_CONVERTOR(double, EPropertyType::Double);
 }

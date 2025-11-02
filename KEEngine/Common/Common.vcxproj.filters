@@ -306,6 +306,9 @@
     <ClInclude Include="TemplateCommon.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="AssertManager.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlyweightString.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="HashSet.cpp">
       <Filter>소스 파일\Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="AssertManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
