@@ -53,7 +53,7 @@ namespace ke
         {
 			FILE* fp = _fileCore->getFilePointer();
             fseek(fp, 0, SEEK_END);
-            _size = ftell(fp);
+            _size = static_cast<size_t>(ftell(fp));
             fseek(fp, 0, SEEK_SET);
             _data = KEMemory::aligendMalloc<false, char>(_size + 1);
 

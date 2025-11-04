@@ -5,16 +5,30 @@
 namespace ke
 {
 	template<typename Key, typename Value, size_t BucketSize>
-	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode(Depth depth)
-		: _depth(depth), _count(0) 
+	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode()
+		: _parent(nullptr), _depth(0), _count(0)
 	{
 		_isOccupieds.resize(BucketSize, false);
-		_hashValues.resize(BucketSize, NULL);
+		_hashValues.resize(BucketSize, INVALID_HASH_VALUE);
 		_slotDistances.resize(BucketSize);
 		_keys.resize(BucketSize);
-		if (KETrait::IsVoid<Value>::value == false)
+		if constexpr (KETrait::IsVoid<Value>::value == false)
 		{
-			_values->resize(BucketSize);
+			_values.resize(BucketSize);
+		}
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	BinHoodBucketNode<Key, Value, BucketSize>::BinHoodBucketNode(Depth depth, BinHoodBucketNode* parent)
+		: _parent(parent), _depth(depth), _count(0)
+	{
+		_isOccupieds.resize(BucketSize, false);
+		_hashValues.resize(BucketSize, INVALID_HASH_VALUE);
+		_slotDistances.resize(BucketSize);
+		_keys.resize(BucketSize);
+		if constexpr (KETrait::IsVoid<Value>::value == false)
+		{
+			_values.resize(BucketSize);
 		}
 	}
 
@@ -35,9 +49,9 @@ namespace ke
 	template<typename Key, typename Value, size_t BucketSize>
 	HashBucketInsertEntry<Key, Value> BinHoodBucketNode<Key, Value, BucketSize>::createMovedInsertEntry(size_t idx)
 	{
-		if constexpr (KETrait::IsVoid<Value>::value == false)
+		if constexpr (KETrait::IsVoid<Value>::value)
 		{
-			HashBucketInsertEntry<Key, Value> insertEntry(_hashValues[idx], move(_keys[idx]));			
+			HashBucketInsertEntry<Key> insertEntry(_hashValues[idx], move(_keys[idx]));
 			return insertEntry;
 		}
 		else
@@ -63,8 +77,9 @@ namespace ke
 	{
 		KE_DEBUG_ASSERT(hasChildren() == false, "Bucket already has children, cannot split again.");
 
-		_left = new BinHoodBucketNode<Key, Value, BucketSize>(_depth + 1, this);
-		_right = new BinHoodBucketNode<Key, Value, BucketSize>(_depth + 1, this);
+		const Depth childDepth = static_cast<Depth>(_depth + 1);
+		_left = new BinHoodBucketNode<Key, Value, BucketSize>(childDepth, this);
+		_right = new BinHoodBucketNode<Key, Value, BucketSize>(childDepth, this);
 
 		// Rehash all entries into the new child buckets.
 		for (size_t idx = 0; idx < BucketSize; ++idx)
@@ -140,6 +155,17 @@ namespace ke
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::getTotalSubCount(size_t& outCount) const
+	{
+		outCount += _count;
+		if (hasChildren())
+		{
+			_left->getTotalSubCount(outCount);
+			_right->getTotalSubCount(outCount);
+		}
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
 	float BinHoodBucketNode<Key, Value, BucketSize>::getLoadFactor() const
 	{
 		static constexpr float kInvBucketSize = 1.0f / static_cast<float>(BucketSize);
@@ -204,7 +230,7 @@ namespace ke
 			++targetSlotDistance;
 		}
 
-		if (leafBucket->getLoadFactor() > SeperateThreshold)
+		if (leafBucket->getLoadFactor() > HASH_BUCKET_SEPERATE_THRESHOLD)
 		{
 			leafBucket->splitBucket();
 		}
@@ -254,16 +280,22 @@ namespace ke
 		size_t idx = hash & (BucketSize - 1);
 
 		HashBucketFindResult<Key, Value> result;
+		result._keyPtr = nullptr;
+		if constexpr (KETrait::IsVoid<Value>::value == false)
+		{
+			result._valuePtr = nullptr;
+		}
+
 		SlotDistance targetSlotDistance = 0;
 		while (true)
 		{
-			bool& isOccupied = leafBucket->_isOccupieds[idx];
+			const bool& isOccupied = leafBucket->_isOccupieds[idx];
 			if (!isOccupied) break;
 
 			Key& currentKey = leafBucket->_keys[idx];
 			if (currentKey == key)
 			{
-				result._found = true;
+				result._keyPtr = &currentKey;
 				if constexpr (KETrait::IsVoid<Value>::value == false)
 				{
 					Value& currentValue = leafBucket->_values[idx];
@@ -279,7 +311,6 @@ namespace ke
 			++targetSlotDistance;
 		}
 
-		result._found = false;
 		return result;
 	}
 #pragma endregion

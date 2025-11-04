@@ -13,6 +13,7 @@ namespace ke
 	{
 	public:
 		 IReflectProperty(const char* str);
+		 virtual ~IReflectProperty() = default;
 
 	protected:
 		FlyweightStringA _propertyName;
@@ -41,6 +42,7 @@ namespace ke
 		ReflectProperty(const char* str);
 		ReflectProperty(const char* str, const PropertyType& propertyType);
 		ReflectProperty(const char* str, PropertyType&& propertyType);
+		~ReflectProperty() = default;
 
 	private:
 		PropertyType _property;
@@ -64,6 +66,7 @@ namespace ke
 		DELETE_CONSTRUCTOR(RangedReflectProperty);
 		RangedReflectProperty(const char* str, const PropertyType& maxPropertyType, const PropertyType& minPropertyType);
 		RangedReflectProperty(const char* str, PropertyType&& maxPropertyType, PropertyType&& minPropertyType);
+		~RangedReflectProperty() = default;
 
 	private:
 		PropertyType _minProperty;

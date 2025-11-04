@@ -111,10 +111,7 @@
     <ClInclude Include="HashGenerator.h">
       <Filter>헤더 파일\Header\Hash</Filter>
     </ClInclude>
-    <ClInclude Include="HashMap.h">
-      <Filter>헤더 파일\Header\Hash</Filter>
-    </ClInclude>
-    <ClInclude Include="HashSet.h">
+    <ClInclude Include="HashContainer.h">
       <Filter>헤더 파일\Header\Hash</Filter>
     </ClInclude>
     <ClInclude Include="HashTraits.h">
@@ -210,10 +207,7 @@
     <ClInclude Include="HashGenerator.hpp">
       <Filter>헤더 파일\Hpp\Hash</Filter>
     </ClInclude>
-    <ClInclude Include="HashMap.hpp">
-      <Filter>헤더 파일\Hpp\Hash</Filter>
-    </ClInclude>
-    <ClInclude Include="HashSet.hpp">
+    <ClInclude Include="HashContainer.hpp">
       <Filter>헤더 파일\Hpp\Hash</Filter>
     </ClInclude>
     <ClInclude Include="BinHoodBucketNode.hpp">
@@ -325,12 +319,6 @@
     </ClCompile>
     <ClCompile Include="HashGenerator.cpp">
       <Filter>소스 파일\Hash</Filter>
-    </ClCompile>
-    <ClCompile Include="HashSet.cpp">
-      <Filter>소스 파일\Hash</Filter>
-    </ClCompile>
-    <ClCompile Include="AssertManager.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

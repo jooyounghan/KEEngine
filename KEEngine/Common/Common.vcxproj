@@ -40,10 +40,8 @@
     <ClInclude Include="FlyweightString.hpp" />
     <ClInclude Include="HashGenerator.h" />
     <ClInclude Include="HashGenerator.hpp" />
-    <ClInclude Include="HashMap.h" />
-    <ClInclude Include="HashMap.hpp" />
-    <ClInclude Include="HashSet.h" />
-    <ClInclude Include="HashSet.hpp" />
+    <ClInclude Include="HashContainer.h" />
+    <ClInclude Include="HashContainer.hpp" />
     <ClInclude Include="HashTraits.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Iterator.hpp" />
@@ -78,7 +76,6 @@
     <ClInclude Include="StaticColumnarArray.h" />
     <ClInclude Include="StaticColumnarArray.hpp" />
     <ClInclude Include="StringConvertor.h" />
-    <ClCompile Include="AssertManager.cpp" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="HashGenerator.cpp" />
     <ClCompile Include="OwnedString.cpp" />
@@ -100,9 +97,6 @@
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="WeakPointer.h" />
     <ClInclude Include="WeakPointer.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="HashSet.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -177,7 +171,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -196,7 +191,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -213,7 +209,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -232,7 +229,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>

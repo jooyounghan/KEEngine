@@ -16,8 +16,7 @@
 #include "EnumMacro.h"
 #include "StaticColumnarArray.h"
 #include "Test.h"
-#include "HashMap.h"
-#include "HashSet.h"
+#include "HashContainer.h"
 #include "File.h"
 
 using namespace std;
@@ -28,12 +27,9 @@ int main()
 	Test a = Test();
 	const ReflectMetaData<Test>& reflectMetaData = Test::getMetaData();
 
-	unordered_map<OwnedStringA, int> stdMap;
-	stdMap.emplace("Test", 123);
-
-	HashMap<OwnedStringA, int> testMap;
+	HashMap<OwnedStringA, int, 64> testMap;
 	testMap.insert("test", 123);
-	HashSet<OwnedStringA> testSet;
+	HashSet<OwnedStringA, 64> testSet;
 	testSet.insert("test");
 
 	ReadOnlyFile file("./test.xml");

@@ -31,7 +31,9 @@ namespace ke
 		Vector<OwnedString<CharType>>& stringVector = getStringVector();
 
 		StringView<CharType> stringView = StringView<CharType>(str);
-		size_t* foundVectorIndex = stringEntryMap.find(stringView);
+
+		HashBucketFindResult<StringView<CharType>, size_t> findResult = stringEntryMap.find(stringView);
+		size_t* foundVectorIndex = findResult._valuePtr;
 		if (foundVectorIndex == nullptr)
 		{
 			_entryIndex = stringVector.size();

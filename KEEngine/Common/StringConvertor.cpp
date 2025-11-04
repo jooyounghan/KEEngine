@@ -1,13 +1,13 @@
 #include "StringConvertor.h"
 
-#define DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                                           \
+#define DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                            \
     template<>                                                                                      \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
         return zToStringBuffer(outStaticBuffer, false, v);                                          \
     }
 
-#define DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                                             \
+#define DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                              \
     template<>                                                                                      \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
@@ -17,11 +17,11 @@
         return zToStringBuffer(outStaticBuffer, isNegative, u);                                     \
     }
 
-#define DEFINE_F_CONVERTOR_SPECIALIZATION(Type)                                                                                \
+#define DEFINE_F_CONVERTOR_SPECIALIZATION(Type)                                                                 \
     template<>                                                                                                  \
     void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision)   \
     {                                                                                                           \
-        return fToStringBuffer(outStaticBuffer, v, precision);                                                  \
+        return fToStringBuffer(outStaticBuffer, v, static_cast<size_t>(precision));                             \
     }
 
 
@@ -94,7 +94,7 @@ namespace ke
             {
                 uint64 pow = kPower10Map[decimalLength - 1];
                 uint64 leadingDigit = v / pow;
-                staticBuffer->writeOne('0' + leadingDigit);
+                staticBuffer->writeOne(static_cast<char>('0' + leadingDigit));
                 v -= pow * leadingDigit;
                 --decimalLength;
             }

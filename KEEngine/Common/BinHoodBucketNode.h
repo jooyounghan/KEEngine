@@ -11,9 +11,9 @@ namespace ke
 	using HashValue = size_t;
 	using SlotDistance = uint8;
 
-	CONSTEXPR_INLINE constexpr static float SeperateThreshold = 0.75f;
-	CONSTEXPR_INLINE constexpr static float MergeThreshold = 0.25f;
-
+	CONSTEXPR_INLINE constexpr static HashValue INVALID_HASH_VALUE = 0u;
+	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_SEPERATE_THRESHOLD = 0.75f;
+	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_MERGE_THRESHOLD = 0.25f;
 
 	template <typename Key, typename Value = void>
 	struct HashBucketInsertEntry
@@ -26,7 +26,7 @@ namespace ke
 	template <typename Key, typename Value = void>
 	struct HashBucketFindResult
 	{
-		bool																				_found;
+		Key*																				_keyPtr;
 		KETrait::ConditionalType<KETrait::IsVoid<Value>::value, KETrait::EmptyType, Value*>	_valuePtr;
 	};
 
@@ -34,12 +34,13 @@ namespace ke
 	class BinHoodBucketNode
 	{
 	public:
-		BinHoodBucketNode(Depth depth);
+		BinHoodBucketNode();
+		BinHoodBucketNode(Depth depth, BinHoodBucketNode* parent);
 		~BinHoodBucketNode();
 
 	public:
-		BinHoodBucketNode*	getLeafNode(HashValue hashValue);
-		bool				hasChildren() const;
+		BinHoodBucketNode*			getLeafNode(HashValue hashValue);
+		bool						hasChildren() const;
 
 	private:
 		HashBucketInsertEntry<Key, Value> createMovedInsertEntry(size_t idx);
@@ -63,10 +64,6 @@ namespace ke
 		BinHoodBucketNode* _right = nullptr;
 
 	protected:
-		Depth					_depth;
-		size_t					_count;
-
-	protected:
 		Vector<IsOccupied>																			_isOccupieds;
 		Vector<HashValue>																			_hashValues;
 		Vector<SlotDistance>																		_slotDistances;
@@ -74,9 +71,17 @@ namespace ke
 		KETrait::ConditionalType<KETrait::IsVoid<Value>::value, KETrait::EmptyType, Vector<Value>>	_values;
 
 	protected:
+		Depth					_depth;
+		size_t					_count;
+
+	protected:
 		Depth depth() const { return _depth; }
 		size_t count() const { return _count; }
+		size_t capacity() const { return BucketSize; }
 		bool isHashPointLeft(HashValue hash) const { return ((hash >> _depth) & 1) == 0; }
+
+	protected:
+		void getTotalSubCount(size_t& outCount) const;
 
 	protected:
 		float getLoadFactor() const;

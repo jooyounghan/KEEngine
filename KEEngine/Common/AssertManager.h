@@ -1,33 +1,18 @@
 #pragma once
 #include "UtilityCommon.h"
+#include <cstdio>
 
-namespace ke
-{
-	class AssertManager
-	{
-	private:
-		AssertManager() = default;
-		~AssertManager() = default;
-		NONCOPYABLE(AssertManager);
+#define HANDLE_ASSERTION_IF_FAILURE(condition, message)																				\
+	if (!(condition))																												\
+	{																																\
+		fprintf(stderr, "Assertion failed: (%s), message: %s, file: %s, line: %d\n", #condition, (message), __FILE__, __LINE__);	\
+		abort();																													\
+	}
 
-	public:
-		static AssertManager& getInstance();
-
-	public:
-		void handleAssertionFailure(const char* conditionStr, const char* message, const char* file, int line);
-		void handleAssertionFailureIfFalse(bool condition, const char* conditionStr, const char* message, const char* file, int line);
-	};
-}
-
+#define KE_ASSERT(condition, message) HANDLE_ASSERTION_IF_FAILURE(condition, message)
 
 #ifdef _DEBUG
-#define KE_DEBUG_ASSERT(condition, message)																	\
-	AssertManager& assertManager = ke::AssertManager::getInstance();										\
-	assertManager.handleAssertionFailureIfFalse((condition), #condition, (message), __FILE__, __LINE__);
+#define KE_DEBUG_ASSERT(condition, message)	KE_ASSERT(condition, message)
 #else
 #define KE_DEBUG_ASSERT(condition, message)	__noop
 #endif // _DEBUG
-
-#define KE_ASSERT(condition, message)																		\
-	AssertManager& assertManager = ke::AssertManager::getInstance();										\
-	assertManager.handleAssertionFailureIfFalse((condition), #condition, (message), __FILE__, __LINE__);

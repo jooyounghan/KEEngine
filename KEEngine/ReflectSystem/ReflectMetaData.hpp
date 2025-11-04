@@ -1,5 +1,6 @@
 #include "ReflectMetaData.h"
 #include "TemplateCommon.h"
+#include "AssertManager.h"
 
 #define DECLARE_PROPERTY_TYPE_CONVERTOR(Type)			\
 template<>												\
@@ -35,10 +36,13 @@ namespace ke
 	template<typename ObjectType>
 	void ReflectMetaData<ObjectType>::registerProperty(const FlyweightStringA& propertyName, PropertyMetaData<ObjectType> propertyMetaData)
 	{
-		if (_propertyMetaDataMap.find(propertyName) == nullptr)
+		HashBucketFindResult<FlyweightStringA, PropertyMetaData<ObjectType>> findResult = _propertyMetaDataMap.find(propertyName);
+		KE_DEBUG_ASSERT(findResult._keyPtr == nullptr, "Property already registered in ReflectMetaData.");
+		if (findResult._keyPtr == nullptr)
 		{
 			_propertyMetaDataMap.insert(propertyName, propertyMetaData);
 		}
+
 	}
 
 	//const SPropertyMetaData* ReflectMetaData::findProperty(const char* propertyName) const

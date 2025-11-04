@@ -106,8 +106,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -130,8 +131,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -152,8 +154,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -176,8 +179,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>Default</LanguageStandard_C>
+      <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -3,8 +3,7 @@
 #include "StringHelper.h"
 
 #include "Vector.h"
-#include "HashSet.h"
-#include "HashMap.h"
+#include "HashContainer.h"
 #include "StringView.h"
 #include "OwnedString.h"
 
