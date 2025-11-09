@@ -184,6 +184,7 @@ namespace ke
 			// If we found an empty slot, insert the new entry here.
 			if (leafBucket->_isOccupieds[idx] == false)
 			{
+				leafBucket->_isOccupieds[idx] = true;
 				leafBucket->_hashValues[idx] = move(entry._hashValue);
 				leafBucket->_keys[idx] = move(entry._key);
 				if constexpr (KETrait::IsVoid<Value>::value == false)

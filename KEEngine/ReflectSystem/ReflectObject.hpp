@@ -19,15 +19,15 @@ public:																								\
 	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
 	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
-#define DEFINE_REFLECT_PROPERTY(ObjectType, Type, VariableName, DefaultValue, Description)											\
-	{																																\
-		PropertyMetaData<ObjectType> propertyMetaData = PropertyMetaData<ObjectType>::createPropertyMetaData<Type>(					\
-			PropertyTypeConvertor<Type>::GetType(),																					\
-			DefaultValue,																											\
-			&ObjectType::get##VariableName,																							\
-			&ObjectType::set##VariableName																							\
-		);																															\
-		metaData.registerProperty(#VariableName, propertyMetaData);																	\
+#define DEFINE_REFLECT_PROPERTY(ObjectType, PropertyType, VariableName, PropertyFlag, DefaultValue, Description)	\
+	{																												\
+		metaData.registerProperty<PropertyType>(																	\
+			#VariableName,																							\
+			PropertyFlag,																							\
+			DefaultValue,																							\
+			&ObjectType::get##VariableName,																			\
+			&ObjectType::set##VariableName																			\
+		);																											\
 	}
 
 #define DEFINE_REFLECT_RANGE_PROPERTY()

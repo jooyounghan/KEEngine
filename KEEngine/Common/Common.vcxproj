@@ -64,8 +64,10 @@
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="PoolAllocator.hpp" />
     <ClInclude Include="Queue.h" />
-    <ClInclude Include="RefCountPointer.h" />
-    <ClInclude Include="RefCountPointer.hpp" />
+    <ClInclude Include="RefObject.hpp" />
+    <ClInclude Include="RefPtr.h" />
+    <ClInclude Include="RefPtr.hpp" />
+    <ClInclude Include="RefObject.h" />
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="RingBuffer.hpp" />
     <ClInclude Include="Stack.h" />

@@ -186,7 +186,7 @@
     <ClInclude Include="UtilityCommon.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="RefCountPointer.h">
+    <ClInclude Include="RefPtr.h">
       <Filter>헤더 파일\Header\Proxy</Filter>
     </ClInclude>
     <ClInclude Include="TypeTraits.h">
@@ -234,7 +234,7 @@
     <ClInclude Include="StringView.hpp">
       <Filter>헤더 파일\Hpp\Container\String</Filter>
     </ClInclude>
-    <ClInclude Include="RefCountPointer.hpp">
+    <ClInclude Include="RefPtr.hpp">
       <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
     <ClInclude Include="PoolAllocator.hpp">
@@ -302,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="AssertManager.h">
       <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RefObject.h">
+      <Filter>헤더 파일\Header\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="RefObject.hpp">
+      <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

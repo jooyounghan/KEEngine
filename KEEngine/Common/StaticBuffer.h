@@ -14,7 +14,7 @@ namespace ke
 	public:
 		virtual void		write(const void* const input, size_t count) = 0;
 		virtual void		writeOne(char input) = 0;
-		virtual const char* getBuffer() = 0;
+		virtual const char* getBuffer() const = 0;
 
 	public:
 		inline void			reset() { _count = 0; }
@@ -36,7 +36,7 @@ namespace ke
 		virtual void writeOne(char input) override;
 
 	public:
-		inline const char* getBuffer() override { return _buffer; }
+		inline const char* getBuffer() const override { return _buffer; }
 	};
 }
 

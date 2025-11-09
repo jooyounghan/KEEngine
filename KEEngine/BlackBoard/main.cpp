@@ -38,11 +38,11 @@ int main()
 
 	WriteOnlyFile writeFile("./test_output.txt");
 	writeFile.writer().write("Hello World!", 13);
-	writeFile.writer().write("This is a test file.", 21);
+	writeFile.writer().write("This is a test file for writeFile.", 21);
 
 	ReadWriteFile readWriteFile("./test_both.xml");
 	readWriteFile.writer().write("Hello World!", 13);
-	readWriteFile.writer().write("This is a test file.", 21);
+	readWriteFile.writer().write("This is a test file for BothFile.", 21);
 	readWriteFile.reader().readAll();
 	readWriteFile.writer().flush();
 	readWriteFile.reader().readAll();
