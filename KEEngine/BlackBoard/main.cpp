@@ -8,6 +8,7 @@
 #include <random>
 #include <limits>
 #include <unordered_map>
+#include <chrono>
 
 #include "OwnedString.h"
 #include "StringConvertor.h"
@@ -24,28 +25,34 @@ using namespace ke;
 
 int main() 
 {
-	Test a = Test();
-	const ReflectMetaData<Test>& reflectMetaData = Test::getMetaData();
+	constexpr int n = 10000000;
+	{
+		HashMap<double, int, 128> testMap;	
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < n; ++i)
+		{
+			testMap.insert(static_cast<double>(i), i);
+		}
+		auto end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed_seconds = end - start;
 
-	HashMap<OwnedStringA, int, 64> testMap;
-	testMap.insert("test", 123);
-	HashSet<OwnedStringA, 64> testSet;
-	testSet.insert("test");
-
-	ReadOnlyFile file("./test.xml");
-	file.reader().readAll();
-	file.reader().read(10, 10);
-
-	WriteOnlyFile writeFile("./test_output.txt");
-	writeFile.writer().write("Hello World!", 13);
-	writeFile.writer().write("This is a test file for writeFile.", 21);
-
-	ReadWriteFile readWriteFile("./test_both.xml");
-	readWriteFile.writer().write("Hello World!", 13);
-	readWriteFile.writer().write("This is a test file for BothFile.", 21);
-	readWriteFile.reader().readAll();
-	readWriteFile.writer().flush();
-	readWriteFile.reader().readAll();
-
+		std::cout << std::fixed << std::setprecision(3);
+		std::cout << "Elapsed time: " << elapsed_seconds.count() << " seconds" << std::endl;
+		bool test = true;
+	}
 	bool test = true;
+	{
+		unordered_map<double, int> stdMap;
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int i = 0; i < n; ++i)
+		{
+			stdMap.insert({ static_cast<double>(i), i });
+		}
+		auto end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double>  elapsed_seconds = end - start;
+		std::cout << "Elapsed time (std::unordered_map): " << elapsed_seconds.count() << " seconds" << std::endl;
+		bool test = true;
+	}
+
+	test = true;
 }

@@ -102,11 +102,15 @@ namespace ke
 	{
 		KE_DEBUG_ASSERT(hasChildren() == true, "Cannot merge a bucket that has no children.");
 
-		mergeBucketImpl(_left, this);
-		KEMemory::SafeRelease(_left);
+		BinHoodBucketNode* left = _left;
+		BinHoodBucketNode* right = _right;
+		_left = _right = nullptr;
 
-		mergeBucketImpl(_right, this);
-		KEMemory::SafeRelease(_right);
+		mergeBucketImpl(left, this);
+		KEMemory::SafeRelease(left);
+
+		mergeBucketImpl(right, this);
+		KEMemory::SafeRelease(right);
 	}
 
 	template<typename Key, typename Value, size_t BucketSize>
@@ -138,17 +142,17 @@ namespace ke
 			if (!nextIsOccupied || nextSlotDistance == 0) break;
 
 			// Move the next slot to the current slot.
-			_isOccupieds[nextIdx] = true;
-			_hashValues[nextIdx] = move(_hashValues[currentIdx]);
-			_keys[nextIdx] = move(_keys[currentIdx]);
+			_isOccupieds[currentIdx] = true;
+			_hashValues[currentIdx] = move(_hashValues[nextIdx]);
+			_keys[currentIdx] = move(_keys[nextIdx]);
 			if constexpr (KETrait::IsVoid<Value>::value == false)
 			{
-				_values[nextIdx] = move(_values[currentIdx]);
+				_values[currentIdx] = move(_values[nextIdx]);
 			}
-			_slotDistances[nextIdx] = _slotDistances[currentIdx] - 1;
+			_slotDistances[currentIdx] = _slotDistances[nextIdx] - 1;
 
-			_isOccupieds[currentIdx] = false;
-			_slotDistances[currentIdx] = 0;
+			_isOccupieds[nextIdx] = false;
+			_slotDistances[nextIdx] = 0;
 
 			currentIdx = nextIdx;
 		}
@@ -200,6 +204,10 @@ namespace ke
 			const Key& currentKey = leafBucket->_keys[idx];
 			if (currentKey == entry._key)
 			{
+				if constexpr (KETrait::IsVoid<Value>::value == false)
+				{
+					leafBucket->_values[idx] = move(entry._value);
+				}
 				break;
 			}
 
@@ -231,7 +239,7 @@ namespace ke
 			++targetSlotDistance;
 		}
 
-		if (leafBucket->getLoadFactor() > HASH_BUCKET_SEPERATE_THRESHOLD)
+		if (leafBucket->getLoadFactor() >= 0.999f)
 		{
 			leafBucket->splitBucket();
 		}
@@ -247,12 +255,13 @@ namespace ke
 		while (true)
 		{
 			bool& isOccupied = leafBucket->_isOccupieds[idx];
-			if (isOccupied == false) return;
+			if (isOccupied == false) break;
 
 			// If found, remove the entry and shift back the subsequent entries.
 			Key& currentKey = leafBucket->_keys[idx];
 			if (currentKey == key)
 			{
+				isOccupied = false;
 				currentKey.~Key();
 				if constexpr (KETrait::IsVoid<Value>::value == false)
 				{
@@ -262,15 +271,20 @@ namespace ke
 
 				leafBucket->shiftBack(idx);
 				--leafBucket->_count;
-				return;
+				break;
 			}
 
 			// If the current slot distance is less than the target slot distance, the key does not exist.
 			if (leafBucket->_slotDistances[idx] < targetSlotDistance)
-				return;
+				break;
 
 			idx = (idx + 1) & (BucketSize - 1);
 			++targetSlotDistance;
+		}
+
+		if (leafBucket->getLoadFactor() < HASH_BUCKET_MERGE_THRESHOLD)
+		{
+			leafBucket->mergeBucket();
 		}
 	}
 	

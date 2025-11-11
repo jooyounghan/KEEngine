@@ -12,7 +12,6 @@ namespace ke
 	using SlotDistance = uint8;
 
 	CONSTEXPR_INLINE constexpr static HashValue INVALID_HASH_VALUE = 0u;
-	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_SEPERATE_THRESHOLD = 0.75f;
 	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_MERGE_THRESHOLD = 0.25f;
 
 	template <typename Key, typename Value = void>
@@ -80,7 +79,7 @@ namespace ke
 		size_t capacity() const { return BucketSize; }
 		bool isHashPointLeft(HashValue hash) const { return ((hash >> _depth) & 1) == 0; }
 
-	protected:
+	public:
 		void getTotalSubCount(size_t& outCount) const;
 
 	protected:

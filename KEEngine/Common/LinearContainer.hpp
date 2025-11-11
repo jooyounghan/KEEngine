@@ -25,6 +25,7 @@ namespace ke
 		if (this == &other) return *this;
 		release();
 
+		_count = other._count;
 		_data = reinterpret_cast<T*>(KEMemory::aligendMalloc<false, T>(other._count));
 		for (size_t idx = 0; idx < other._count; ++idx)
 		{
@@ -39,6 +40,7 @@ namespace ke
 		if (this == &other) return *this;
 		release();
 
+		this->_count = other._count;
 		this->_data = other._data;
 		other._data = nullptr;
 		return *this;
