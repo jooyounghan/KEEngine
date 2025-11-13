@@ -72,7 +72,7 @@ namespace ke
 	}
 
 	template<typename T, size_t InitialCount>
-	inline void LinearContainer<T, InitialCount>::swap(size_t idx, T& target)
+	void LinearContainer<T, InitialCount>::swap(size_t idx, T& target)
 	{
 		T temp = move(_data[idx]);
 		_data[idx] = target;

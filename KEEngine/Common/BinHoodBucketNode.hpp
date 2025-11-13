@@ -239,7 +239,7 @@ namespace ke
 			++targetSlotDistance;
 		}
 
-		if (leafBucket->getLoadFactor() >= 0.999f)
+		if (leafBucket->getLoadFactor() >= HASH_BUCKET_SPLIT_THRESHOLD)
 		{
 			leafBucket->splitBucket();
 		}
@@ -327,6 +327,25 @@ namespace ke
 		}
 
 		return result;
+	}
+
+	template<typename Key, typename Value, size_t BucketSize>
+	void BinHoodBucketNode<Key, Value, BucketSize>::insertLocal(HashBucketInsertEntry<Key, Value>& entry)
+	{
+		size_t idx = entry._hashValue & (BucketSize - 1);
+		SlotDistance dist = 0;
+		while (_isOccupieds[idx]) {
+			++idx;
+			++dist;
+			if (idx >= BucketSize) idx = 0;
+		}
+		_isOccupieds[idx] = true;
+		_hashValues[idx] = entry._hashValue;
+		_keys[idx] = entry._key;
+		if constexpr (!KETrait::IsVoid<Value>::value)
+			_values[idx] = entry._value;
+		_slotDistances[idx] = dist;
+		++_count;
 	}
 #pragma endregion
 }

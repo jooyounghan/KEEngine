@@ -70,6 +70,7 @@
     <ClInclude Include="RefObject.h" />
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="RingBuffer.hpp" />
+    <ClInclude Include="ScopeTracer.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="StaticArray.hpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="HashGenerator.cpp" />
     <ClCompile Include="OwnedString.cpp" />
+    <ClCompile Include="ScopeTracer.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="StringConvertor.cpp" />
     <ClInclude Include="StringConvertor.hpp" />

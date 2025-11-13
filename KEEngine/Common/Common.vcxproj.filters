@@ -309,6 +309,9 @@
     <ClInclude Include="RefObject.hpp">
       <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
+    <ClInclude Include="ScopeTracer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlyweightString.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="HashGenerator.cpp">
       <Filter>소스 파일\Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopeTracer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

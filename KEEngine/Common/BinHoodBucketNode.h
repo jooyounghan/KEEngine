@@ -12,6 +12,7 @@ namespace ke
 	using SlotDistance = uint8;
 
 	CONSTEXPR_INLINE constexpr static HashValue INVALID_HASH_VALUE = 0u;
+	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_SPLIT_THRESHOLD = 0.80f;
 	CONSTEXPR_INLINE constexpr static float HASH_BUCKET_MERGE_THRESHOLD = 0.25f;
 
 	template <typename Key, typename Value = void>
@@ -56,6 +57,9 @@ namespace ke
 		void								insert(HashBucketInsertEntry<Key, Value>& entry);
 		void								remove(HashValue hash, const Key& key);
 		HashBucketFindResult<Key, Value>	find(HashValue hash, const Key& key);
+
+	private:
+		void								insertLocal(HashBucketInsertEntry<Key, Value>& entry);
 
 	protected:
 		BinHoodBucketNode* _parent = nullptr;

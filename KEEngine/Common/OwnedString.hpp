@@ -14,7 +14,7 @@ namespace ke
 	}
 
 	template<typename CharType>
-	inline OwnedString<CharType>::OwnedString(const CharType* const ptr, size_t length)
+	OwnedString<CharType>::OwnedString(const CharType* const ptr, size_t length)
 	{
 		__super::_count = length + 1;
 		__super::_data = reinterpret_cast<CharType*>(KEMemory::aligendMalloc<false, CharType>(__super::_count));

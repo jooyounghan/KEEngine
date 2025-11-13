@@ -23,12 +23,13 @@
 using namespace std;
 using namespace ke;
 
+
 int main() 
 {
-	constexpr int n = 10000000;
+	constexpr int n = 1000000;
 	{
-		HashMap<double, int, 128> testMap;	
 		auto start = std::chrono::high_resolution_clock::now();
+		HashMap<double, int, 128> testMap;
 		for (int i = 0; i < n; ++i)
 		{
 			testMap.insert(static_cast<double>(i), i);
@@ -42,8 +43,8 @@ int main()
 	}
 	bool test = true;
 	{
-		unordered_map<double, int> stdMap;
 		auto start = std::chrono::high_resolution_clock::now();
+		unordered_map<double, int, HashGenerator<double>> stdMap;
 		for (int i = 0; i < n; ++i)
 		{
 			stdMap.insert({ static_cast<double>(i), i });
@@ -53,6 +54,5 @@ int main()
 		std::cout << "Elapsed time (std::unordered_map): " << elapsed_seconds.count() << " seconds" << std::endl;
 		bool test = true;
 	}
-
 	test = true;
 }
