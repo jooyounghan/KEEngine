@@ -75,6 +75,13 @@ namespace ke
 	}
 
 	template<typename T>
+	void Vector<T>::clear()
+	{
+		decreaseCount(0);
+		reallocateCapcity(0);
+	}
+
+	template<typename T>
 	void Vector<T>::reallocateCapcity(size_t newCapacity)
 	{
 		if (newCapacity == _capacity) return;

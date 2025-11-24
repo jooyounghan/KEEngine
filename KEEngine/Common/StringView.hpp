@@ -12,6 +12,12 @@ namespace ke
 	}
 
 	template<typename CharType>
+	StringView<CharType>::StringView(const CharType* str, size_t length)
+		: _data(str), _length(length)
+	{
+	}
+
+	template<typename CharType>
 	bool StringView<CharType>::operator==(const StringView& other) const
 	{
 		if (_length != other._length)

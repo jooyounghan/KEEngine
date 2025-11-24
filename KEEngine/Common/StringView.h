@@ -9,6 +9,7 @@ namespace ke
 	public:
 		StringView() = default;
 		StringView(const CharType* str);
+		StringView(const CharType* str, size_t length);
 		StringView(const StringView& other) = default;
 		StringView(StringView&& other) noexcept = default;
 

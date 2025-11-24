@@ -16,8 +16,16 @@ namespace ke
 
 	using KEBufferOffset = size_t;
 
+	struct KELimit
+	{
+		template<typename T>
+		CONSTEXPR_INLINE static constexpr T getMax();
 
+		template<typename T>
+		CONSTEXPR_INLINE static constexpr T getMin();
+	};
 }
 
-#define INVALID_INDEX(byteSize) (uint##byteSize)-1
-#define INVALID_INDEX_SIZE_T	INVALID_INDEX(64)
+#define INVALID_INDEX(type) KELimit::getMax<type>()
+
+#include "TypeCommon.hpp"

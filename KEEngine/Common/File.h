@@ -4,6 +4,7 @@
 #include "KEConstant.h"
 #include "StaticBuffer.h"
 #include "TypeTraits.h"
+#include "AssertManager.h"
 
 namespace ke
 {
@@ -32,6 +33,8 @@ namespace ke
 		inline errno_t getOpenStatus() const { return _openStatus; }
 	};
 
+#define VALIDATE_FILE_CORE() if (_fileCore == nullptr) return
+
     class ReadTag {};
 
 	class BlockRead : public ReadTag 
@@ -47,19 +50,17 @@ namespace ke
 
 	protected:
 		FileCore*	_fileCore = nullptr;
-		void*		_data = nullptr;
-		size_t		_size = 0;
+		size_t		_fileOffset = 0;
 
 	public:
-		void readAll();
-		void read(size_t offset, size_t size);
-
-	protected:
-		void freeData();
+		void read(IStaticBuffer* buffer, size_t size);
 
 	public:
-		inline const void*	getReadData() const { return _data; }
-		inline size_t		getReadSize() const { return _size; }
+		void setOffset(size_t offset);
+		inline size_t getOffset() const { return _fileOffset; }
+
+	private:
+		void updateOffset(long ftellResult);
 	};
 
 	class WriteTag {};
@@ -70,6 +71,7 @@ namespace ke
 		explicit BlockWrite(FileCore&) {}
 	};
 
+	template<size_t BufferSize = KEConstant::kFileWriteBufferSize>
 	class AllowWrite : public WriteTag
 	{
 	public:
@@ -78,7 +80,7 @@ namespace ke
 
 	protected:
 		FileCore* _fileCore = nullptr;
-		StaticBuffer<KEConstant::kFileWriteBufferSize> _writeBuffer;
+		StaticBuffer<BufferSize> _writeBuffer;
 
 	public:
 		void write(const void* const input, size_t count);
@@ -113,6 +115,11 @@ namespace ke
 	};
 
 	using ReadOnlyFile = File<AllowRead, BlockWrite, EOpenMode::ReadOnly>;
-	using WriteOnlyFile = File<BlockRead, AllowWrite, EOpenMode::WriteOnly>;
-	using ReadWriteFile = File<AllowRead, AllowWrite, EOpenMode::ReadWrite>;
+	template<size_t BufferSize = KEConstant::kFileWriteBufferSize>
+	using WriteOnlyFile = File<BlockRead, AllowWrite<BufferSize>, EOpenMode::WriteOnly>;
+
+	template<size_t BufferSize = KEConstant::kFileWriteBufferSize>
+	using ReadWriteFile = File<AllowRead, AllowWrite<BufferSize>, EOpenMode::ReadWrite>;
 }
+
+#include "File.hpp"

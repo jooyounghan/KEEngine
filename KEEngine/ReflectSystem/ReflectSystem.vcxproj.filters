@@ -69,15 +69,6 @@
     <ClInclude Include="ReflectProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="XmlManager.h">
-      <Filter>헤더 파일\Header\File\XML</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.h">
-      <Filter>헤더 파일\Header\File</Filter>
-    </ClInclude>
-    <ClInclude Include="File.h">
-      <Filter>헤더 파일\Header\File</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectProperty.cpp">
@@ -88,12 +79,6 @@
     </ClCompile>
     <ClCompile Include="ReflectMetaData.cpp">
       <Filter>소스 파일\Reflection</Filter>
-    </ClCompile>
-    <ClCompile Include="FileManager.cpp">
-      <Filter>소스 파일\File</Filter>
-    </ClCompile>
-    <ClCompile Include="File.cpp">
-      <Filter>소스 파일\File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

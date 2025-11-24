@@ -40,6 +40,9 @@ namespace ke
 		void resize(size_t newSize, Args&&... args);
 		void reserve(size_t newCapacity);
 
+	public:
+		void clear();
+
 	private:
 		void reallocateCapcity(size_t newCapacity);
 		void decreaseCount(size_t newCount);

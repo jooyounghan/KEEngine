@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="XmlManager.cpp" />
     <ClInclude Include="AllocatorTraits.h" />
     <ClInclude Include="AssertManager.h" />
     <ClInclude Include="BinHoodBucketNode.h" />
@@ -29,6 +30,9 @@
     <ClInclude Include="BoundedString.hpp" />
     <ClInclude Include="ColumnarVector.h" />
     <ClInclude Include="EnumMacro.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="File.hpp" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="KEConstant.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />
@@ -71,6 +75,7 @@
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="RingBuffer.hpp" />
     <ClInclude Include="ScopeTracer.h" />
+    <ClInclude Include="SimdCommon.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="StaticArray.hpp" />
@@ -78,11 +83,15 @@
     <ClInclude Include="StaticBuffer.hpp" />
     <ClInclude Include="StaticColumnarArray.h" />
     <ClInclude Include="StaticColumnarArray.hpp" />
+    <ClInclude Include="StringCommon.h" />
     <ClInclude Include="StringConvertor.h" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="HashGenerator.cpp" />
     <ClCompile Include="OwnedString.cpp" />
     <ClCompile Include="ScopeTracer.cpp" />
+    <ClCompile Include="StringCommon.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="StringConvertor.cpp" />
     <ClInclude Include="StringConvertor.hpp" />
@@ -93,14 +102,14 @@
     <ClInclude Include="TemplateCommon.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TypeCommon.h" />
-    <ClInclude Include="TypeLimit.h" />
-    <ClInclude Include="TypeLimit.hpp" />
+    <ClInclude Include="TypeCommon.hpp" />
     <ClInclude Include="TypeTraits.h" />
     <ClInclude Include="UtilityCommon.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="WeakPointer.h" />
     <ClInclude Include="WeakPointer.hpp" />
+    <ClInclude Include="XmlManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -177,6 +186,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp23</LanguageStandard>
       <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -215,6 +225,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp23</LanguageStandard>
       <DisableSpecificWarnings>4514;5045;</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>

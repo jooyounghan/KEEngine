@@ -25,10 +25,10 @@ namespace ke
 		static const CharType* getFromEntryIndex(size_t entryIndex);
 
 	private:
-		size_t _entryIndex = INVALID_INDEX_SIZE_T;
+		size_t _entryIndex = INVALID_INDEX(size_t);
 
 	public:
-		const CharType* c_str() const { return _entryIndex != INVALID_INDEX_SIZE_T ? getStringVector()[_entryIndex].c_str() : nullptr; }
+		const CharType* c_str() const { return _entryIndex != INVALID_INDEX(size_t) ? getStringVector()[_entryIndex].c_str() : nullptr; }
 
 	public:
 		bool operator==(const FlyweightString<CharType>& other) const;

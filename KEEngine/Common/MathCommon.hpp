@@ -29,9 +29,15 @@ namespace ke
     }
 
     template<typename T>
-    inline constexpr const T& KEMath::clamp(const T& input, const T& minLimit, const T& maxLimit) noexcept
+    constexpr const T& KEMath::clamp(const T& input, const T& minLimit, const T& maxLimit) noexcept
     {
         return max(min(input, maxLimit), minLimit);
+    }
+
+    template<typename T>
+    constexpr const T& KEMath::saturate(const T& input) noexcept
+    {
+		return clamp(input, static_cast<T>(0), static_cast<T>(1));
     }
 
     template<typename T>

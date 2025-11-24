@@ -21,6 +21,9 @@ namespace ke
         NODISC static constexpr const T& clamp(const T& input, const T& min, const T& max) noexcept;
 
         template<typename T>
+        NODISC static constexpr const T& saturate(const T& input) noexcept;
+
+        template<typename T>
         NODISC static constexpr bool isPowerOf2(const T& value) noexcept;
 
 		template<typename T>
