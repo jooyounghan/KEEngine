@@ -3,14 +3,14 @@
 #include "SimdCommon.h"
 
 #if defined(__AVX512F__)
-#define SIMD_WHITESPACE_MASK(chunk) (                           \
+#define SIMD_WHITESPACE_MASK(chunk) CONVERT_TO_SIMD_MASK_TYPE(  \
         _mm512_cmpeq_epi8_mask(chunk, _mm512_set1_epi8(' '))  | \
         _mm512_cmpeq_epi8_mask(chunk, _mm512_set1_epi8('\t')) | \
         _mm512_cmpeq_epi8_mask(chunk, _mm512_set1_epi8('\n')) | \
         _mm512_cmpeq_epi8_mask(chunk, _mm512_set1_epi8('\r'))   \
     )
 #elif defined(__AVX2__)
-#define SIMD_WHITESPACE_MASK(chunk) (                                               \
+#define SIMD_WHITESPACE_MASK(chunk) CONVERT_TO_SIMD_MASK_TYPE(                      \
         (_mm256_movemask_epi8(_mm256_cmpeq_epi8(chunk, _mm256_set1_epi8(' '))))  |  \
         (_mm256_movemask_epi8(_mm256_cmpeq_epi8(chunk, _mm256_set1_epi8('\t')))) |  \
         (_mm256_movemask_epi8(_mm256_cmpeq_epi8(chunk, _mm256_set1_epi8('\n')))) |  \

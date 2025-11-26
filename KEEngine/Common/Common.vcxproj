@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DynamicBuffer.cpp" />
     <ClCompile Include="XmlManager.cpp" />
     <ClInclude Include="AllocatorTraits.h" />
     <ClInclude Include="AssertManager.h" />
@@ -29,10 +30,12 @@
     <ClInclude Include="BoundedString.h" />
     <ClInclude Include="BoundedString.hpp" />
     <ClInclude Include="ColumnarVector.h" />
+    <ClInclude Include="DynamicBuffer.h" />
     <ClInclude Include="EnumMacro.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="File.hpp" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="IBuffer.h" />
     <ClInclude Include="KEConstant.h" />
     <ClInclude Include="ContainerTraits.h" />
     <ClInclude Include="Deque.h" />

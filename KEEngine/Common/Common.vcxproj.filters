@@ -106,6 +106,9 @@
     <Filter Include="헤더 파일\Hpp\FileSystem">
       <UniqueIdentifier>{018c4733-e9a2-4640-8bdf-816429f63360}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Container\Buffer">
+      <UniqueIdentifier>{7faf882d-b8d3-4ed6-8889-7219ec848c92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllocatorTraits.h">
@@ -351,6 +354,12 @@
     <ClInclude Include="StringCommon.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="IBuffer.h">
+      <Filter>헤더 파일\Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicBuffer.h">
+      <Filter>헤더 파일\Header\Container\Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlyweightString.cpp">
@@ -382,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="XmlManager.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicBuffer.cpp">
+      <Filter>소스 파일\Container\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -24,8 +24,8 @@ namespace ke
 	public:
 		virtual void setFromString(const char* src) = 0;
 		virtual void setFromBinary(void const* src) = 0;
-		virtual void getToString(IStaticBuffer* outBuffer) const = 0;
-		virtual void getToBinary(IStaticBuffer* outBuffer) const = 0;
+		virtual void getToString(IBuffer* outBuffer) const = 0;
+		virtual void getToBinary(IBuffer* outBuffer) const = 0;
 
 	public:
 		virtual void OnPropertyChanged() {};
@@ -55,8 +55,8 @@ namespace ke
 	public:
 		void setFromString(const char* src) override;
 		void setFromBinary(void const* src) override;
-		void getToString(IStaticBuffer* outBuffer) const override;
-		void getToBinary(IStaticBuffer* outBuffer) const override;
+		void getToString(IBuffer* outBuffer) const override;
+		void getToBinary(IBuffer* outBuffer) const override;
 	};
 
 	template<typename PropertyType>
@@ -83,8 +83,8 @@ namespace ke
 	public:
 		void setFromString(const char* src) override;
 		void setFromBinary(void const* src) override;
-		void getToString(IStaticBuffer* outBuffer) const override;
-		void getToBinary(IStaticBuffer* outBuffer) const override;
+		void getToString(IBuffer* outBuffer) const override;
+		void getToBinary(IBuffer* outBuffer) const override;
 	};
 }
 

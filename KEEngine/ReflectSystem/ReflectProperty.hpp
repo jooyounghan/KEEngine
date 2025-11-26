@@ -37,13 +37,13 @@ namespace ke
 	}
 	
 	template<typename PropertyType>
-	void ReflectProperty<PropertyType>::getToString(IStaticBuffer* outBuffer) const
+	void ReflectProperty<PropertyType>::getToString(IBuffer* outBuffer) const
 	{ 
 		ReflectParser::parseToString(outBuffer, _property);
 	}
 	
 	template<typename PropertyType>
-	void ReflectProperty<PropertyType>::getToBinary(IStaticBuffer* outBuffer) const
+	void ReflectProperty<PropertyType>::getToBinary(IBuffer* outBuffer) const
 	{ 
 		ReflectParser::parseToBinary(outBuffer, _property);
 	}
@@ -77,13 +77,13 @@ namespace ke
 	}
 
 	template<typename PropertyType>
-	void RangedReflectProperty<PropertyType>::getToString(IStaticBuffer* outBuffer) const
+	void RangedReflectProperty<PropertyType>::getToString(IBuffer* outBuffer) const
 	{
 		ReflectParser::parseToString(outBuffer, _minProperty, _maxProperty);
 	}
 
 	template<typename PropertyType>
-	void RangedReflectProperty<PropertyType>::getToBinary(IStaticBuffer* outBuffer) const
+	void RangedReflectProperty<PropertyType>::getToBinary(IBuffer* outBuffer) const
 	{
 		ReflectParser::parseToBinary(outBuffer, _minProperty, _maxProperty);
 	}

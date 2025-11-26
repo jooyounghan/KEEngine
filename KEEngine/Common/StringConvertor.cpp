@@ -2,14 +2,14 @@
 
 #define DEFINE_UNSIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                            \
     template<>                                                                                      \
-    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
+    void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
         return zToStringBuffer(outStaticBuffer, false, v);                                          \
     }
 
 #define DEFINE_SIGNED_Z_CONVERTOR_SPECIALIZATION(Type)                                              \
     template<>                                                                                      \
-    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v)      \
+    void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v)      \
     {                                                                                               \
         bool isNegative = (v < 0);                                                                  \
         uint64_t u = isNegative ? static_cast<uint64_t>(-v) : static_cast<uint64_t>(v);             \
@@ -19,7 +19,7 @@
 
 #define DEFINE_F_CONVERTOR_SPECIALIZATION(Type)                                                                 \
     template<>                                                                                                  \
-    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision)   \
+    void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v, int precision)   \
     {                                                                                                           \
         return fToStringBuffer(outStaticBuffer, v, static_cast<size_t>(precision));                             \
     }
@@ -72,7 +72,7 @@ namespace ke
         return low;
     }
 
-    void StringConvertor::writeFixedDigits(IStaticBuffer* staticBuffer, bool isNegative, uint64 v)
+    void StringConvertor::writeFixedDigits(IBuffer* staticBuffer, bool isNegative, uint64 v)
     {
         constexpr StaticArray<char, 200> kStringMap = makeStringMap();
         constexpr StaticArray<uint64, digitCount> kPower10Map = makePower10Map();
@@ -112,12 +112,12 @@ namespace ke
 
     }
 
-    void StringConvertor::zToStringBuffer(IStaticBuffer* outStaticBuffer, bool isNegative, uint64 v)
+    void StringConvertor::zToStringBuffer(IBuffer* outStaticBuffer, bool isNegative, uint64 v)
     {
         writeFixedDigits(outStaticBuffer, isNegative, v);
     }
 
-    void StringConvertor::fToStringBuffer(IStaticBuffer* outStaticBuffer, double v, size_t precision)
+    void StringConvertor::fToStringBuffer(IBuffer* outStaticBuffer, double v, size_t precision)
     {
 		bool isNegative = signbit(v);
         if (isnan(v)) return outStaticBuffer->write(isNegative ? "-nan" : "nan", isNegative ? 4 : 3);
@@ -146,7 +146,7 @@ namespace ke
     }
 
     template<>
-    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const bool& v)
+    void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const bool& v)
     {
         if (v) outStaticBuffer->write("true", 4);
 		else outStaticBuffer->write("false", 5);

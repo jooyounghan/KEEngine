@@ -12,7 +12,7 @@ KEBufferOffset ReflectParser::parseFromString(const char* src, Type& outProperty
 
 #define DEFINE_PARSE_TO_STRING(Type, ...)														\
 template<>																						\
-void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const Type& property)			\
+void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& property)			\
 {																								\
 	return StringConvertor::convertToStringBuffer(outStringBuffer, property, ## __VA_ARGS__);	\
 }
@@ -28,7 +28,7 @@ KEBufferOffset ReflectParser::parseFromBinary(const void* src, Type& outProperty
 
 #define DEFINE_PARSE_TO_BINARY(Type)														\
 template<>																						\
-void ReflectParser::parseToBinary(IStaticBuffer* outStringBuffer, const Type& outPropertyTypes)	\
+void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type& outPropertyTypes)	\
 {																								\
 	outStringBuffer->write(&outPropertyTypes, sizeof(Type));									\
 }

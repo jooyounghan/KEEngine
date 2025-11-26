@@ -2,13 +2,13 @@
 #include "StringConvertor.h"
 
 #include "TemplateCommon.h"
-#define DECLARE_Z_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v);    
-#define DECLARE_F_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const Type& v, int precision);
+#define DECLARE_Z_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v);    
+#define DECLARE_F_CONVERTOR_SPECIALIZATION(Type) template<> void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v, int precision);
 
 namespace ke
 {
     template<typename T, typename ...Args>
-    void StringConvertor::convertToStringBuffer(IStaticBuffer* outStaticBuffer, const T& v, Args ...args)
+    void StringConvertor::convertToStringBuffer(IBuffer* outStaticBuffer, const T& v, Args ...args)
     {
         STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(StringConvertor);
     }

@@ -27,7 +27,7 @@ namespace ke
             return;
         }
 
-        if (count + _writeBuffer.getCount() > KEConstant::kFileWriteBufferSize)
+        if (count + _writeBuffer.getCursorPos() > KEConstant::kFileWriteBufferSize)
         {
             flush();
         }
@@ -41,9 +41,9 @@ namespace ke
         VALIDATE_FILE_CORE();
         FILE* fp = _fileCore->getFilePointer();
 
-        if (_writeBuffer.getCount() > 0 && fp != nullptr)
+        if (_writeBuffer.getCursorPos() > 0 && fp != nullptr)
         {
-            fwrite(_writeBuffer.getBuffer(), 1, _writeBuffer.getCount(), fp);
+            fwrite(_writeBuffer.getBuffer(), 1, _writeBuffer.getCursorPos(), fp);
             _writeBuffer.reset();
         }
     }

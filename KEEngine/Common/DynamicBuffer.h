@@ -1,23 +1,25 @@
 #pragma once
 #include "IBuffer.h"
+#include "Vector.h"
 
 namespace ke
 {
-	template<size_t Size>
-	class StaticBuffer : public IBuffer
+	class DynamicBuffer : public IBuffer
 	{
 	public:
-		StaticBuffer() = default;
-		~StaticBuffer() override = default;
+		DynamicBuffer() = default;
+		~DynamicBuffer() override = default;
 
-	public:
-		char _buffer[Size] = { NULL };
+	protected:
+		Vector<char> _buffer;
 
 	public:
 		virtual void write(const void* const input, size_t count) override;
 		virtual void writeOne(char input) override;
 		virtual const char* getBuffer() const override;
+
+	public:
+		void reserve(size_t newSize);
+		void resize(size_t newSize);
 	};
 }
-
-#include "StaticBuffer.hpp"

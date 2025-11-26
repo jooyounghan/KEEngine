@@ -7,14 +7,23 @@ namespace ke
 	template<size_t Size>
 	void StaticBuffer<Size>::write(const void* const input, size_t count)
 	{
-		count = KEMath::min(count, Size - _count);
-		memcpy(&_buffer[_count], input, count);
-		_count += count;
+		KE_DEBUG_ASSERT(Size - _cursorPos > 0, "StaticBuffer overflow: not enough space to write data.");
+
+		count = KEMath::min(count, Size - _cursorPos);
+		memcpy(&_buffer[_cursorPos], input, count);
+		_cursorPos += count;
 	}
 
 	template<size_t Size>
 	void StaticBuffer<Size>::writeOne(char input)
 	{
-		if (_count < Size) _buffer[_count++] = input;
+		KE_DEBUG_ASSERT(Size - _cursorPos > 0, "StaticBuffer overflow: not enough space to write data.");
+		if (_cursorPos < Size) _buffer[_cursorPos++] = input;
+	}
+
+	template<size_t Size>
+	const char* StaticBuffer<Size>::getBuffer() const 
+	{
+		return _buffer; 
 	}
 }

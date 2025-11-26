@@ -36,12 +36,12 @@ namespace ke
         return p;
     }
 
-    CONSTEXPR_INLINE bool KEString::isWhitespace(char c) noexcept
+    CONSTEXPR_INLINE constexpr bool KEString::isWhitespace(char c) noexcept
     {
         return c == ' ' || c == '\t' || c == '\r' || c == '\n';
     }
 
-    CONSTEXPR_INLINE bool KEString::isNameChar(char c) noexcept
+    CONSTEXPR_INLINE constexpr bool KEString::isNameChar(char c) noexcept
     {
         return (c >= 'A' && c <= 'Z')
             || (c >= 'a' && c <= 'z')

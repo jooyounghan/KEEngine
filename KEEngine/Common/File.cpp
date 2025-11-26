@@ -23,9 +23,21 @@ namespace ke
 #endif
     }
 
+    uint64 FileCore::getFileSize() const
+    {
+        if (_fp == nullptr) return 0;
+
+        uint64 cur = _ftelli64(_fp);
+        _fseeki64(_fp, 0, SEEK_END);
+        uint64 size = _ftelli64(_fp);
+        _fseeki64(_fp, cur, SEEK_SET);
+        return size;
+    }
+
     FileCore::FileCore(const char* path, EOpenMode openMode)
     {
         _openStatus = FileCore::openFile(path, GET_ENUM_STRING(EOpenMode, openMode), _fp);
+        if (_openStatus == 0) _fileSize = getFileSize();
     }
 
     FileCore::~FileCore()
@@ -43,7 +55,7 @@ namespace ke
 
     }
 
-    void AllowRead::read(IStaticBuffer* buffer, size_t size)
+    void AllowRead::read(IBuffer* buffer, size_t size)
     {
         VALIDATE_FILE_CORE();
 
@@ -60,6 +72,10 @@ namespace ke
                 updateOffset(ftell(fp));
             }
 	    }
+    }
+
+    void AllowRead::readAll(IBuffer* buffer, size_t size)
+    {
     }
 
     void AllowRead::setOffset(size_t offset)

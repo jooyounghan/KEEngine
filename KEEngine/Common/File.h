@@ -23,14 +23,17 @@ namespace ke
     protected:
 		FILE*		_fp = nullptr;
 		errno_t		_openStatus = 0;
+		uint64		_fileSize = 0;
 
-	public:
+	private:
 		errno_t openFile(const char* path, const char* mode, FILE*& fpOut);
+		uint64 getFileSize() const;
 
 	public:
 		inline bool isValid() const { return _fp != nullptr; }
 		inline FILE* getFilePointer() const { return _fp; }
 		inline errno_t getOpenStatus() const { return _openStatus; }
+		inline uint64 getSize() const { return _fileSize; }
 	};
 
 #define VALIDATE_FILE_CORE() if (_fileCore == nullptr) return
@@ -53,7 +56,8 @@ namespace ke
 		size_t		_fileOffset = 0;
 
 	public:
-		void read(IStaticBuffer* buffer, size_t size);
+		void read(IBuffer* buffer, size_t size);
+		void readAll(IBuffer* buffer, size_t size);
 
 	public:
 		void setOffset(size_t offset);
@@ -105,6 +109,7 @@ namespace ke
 		WritePolicy	_writePolicy;
 
 	public:
+		const FileCore& core() const{ return _fileCore; }
 		ReadPolicy& reader() { return _readPolicy; }
 		WritePolicy& writer() { return _writePolicy; }
 		const ReadPolicy& reader() const { return _readPolicy; }

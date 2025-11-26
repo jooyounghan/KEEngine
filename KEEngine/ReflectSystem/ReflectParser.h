@@ -14,9 +14,9 @@ namespace ke
 
 	public:
 		template<typename PropertyType>
-		static void parseToString(IStaticBuffer* outStringBuffer, const PropertyType& property);
+		static void parseToString(IBuffer* outStringBuffer, const PropertyType& property);
 		template<typename PropertyType, typename ...PropertyTypes>
-		static void parseToString(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes&... propertyTypes);
+		static void parseToString(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes&... propertyTypes);
 
 	public:
 		template<typename PropertyType>
@@ -26,9 +26,9 @@ namespace ke
 
 	public:
 		template<typename PropertyType>
-		static void parseToBinary(IStaticBuffer* outBuffer, const PropertyType& property);
+		static void parseToBinary(IBuffer* outBuffer, const PropertyType& property);
 		template<typename PropertyType, typename ...PropertyTypes>
-		static void parseToBinary(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes&... propertyTypes);
+		static void parseToBinary(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes&... propertyTypes);
 	};
 }
 #include "ReflectParser.hpp"

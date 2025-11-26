@@ -4,9 +4,9 @@
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																	\
 template<> KEBufferOffset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes);			\
-template<> void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const Type& outPropertyTypes);	\
+template<> void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& outPropertyTypes);	\
 template<> KEBufferOffset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes);			\
-template<> void ReflectParser::parseToBinary(IStaticBuffer* outStringBuffer, const Type& outPropertyTypes);	
+template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type& outPropertyTypes);	
 
 namespace ke
 {
@@ -21,12 +21,12 @@ namespace ke
 		return parseFromString(src + parseFromString(src, outPropertyType) + 1, outPropertyTypes...);
 	}
 	template<typename PropertyType>
-	void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const PropertyType& property)
+	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType& property)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToString(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
+	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
 	{
 		parseToString(outStringBuffer, propertyType);
 		outStringBuffer->writeOne(',');
@@ -46,13 +46,13 @@ namespace ke
 	}
 
 	template<typename PropertyType>
-	void ReflectParser::parseToBinary(IStaticBuffer* outBuffer, const PropertyType& property)
+	void ReflectParser::parseToBinary(IBuffer* outBuffer, const PropertyType& property)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
 	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToBinary(IStaticBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes & ...propertyTypes)
+	void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes & ...propertyTypes)
 	{
 		parseToBinary(outStringBuffer, propertyType);
 		parseToBinary(outStringBuffer, propertyTypes...);
