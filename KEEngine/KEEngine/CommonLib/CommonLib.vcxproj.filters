@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\Utility">
+      <UniqueIdentifier>{27ad7aab-d473-40cb-b291-a7f28318f2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\File">
+      <UniqueIdentifier>{4ba75dc7-f9fd-463f-b319-178cf5b28bc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header">
+      <UniqueIdentifier>{347c75ba-acfc-4cd8-ab5e-93e38a088be0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Utility">
+      <UniqueIdentifier>{f4174dc8-b6a3-471d-8681-7d8be80faa7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Container">
+      <UniqueIdentifier>{cd685160-9451-45df-bf4e-0642c19993e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Container\Buffer">
+      <UniqueIdentifier>{ebf8bf8a-ce9c-47c3-bdc6-7ef2fc776b0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\File">
+      <UniqueIdentifier>{bfa3d70e-14ff-40bb-ad5e-3fab1a86f734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Common">
+      <UniqueIdentifier>{ce2b0d7c-ebab-4892-87fa-5abefe3903e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp">
+      <UniqueIdentifier>{64449a45-7ace-4c25-8631-0b5b225b6e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Utility">
+      <UniqueIdentifier>{03565bc5-e129-43ad-9d24-d36be42824aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Container">
+      <UniqueIdentifier>{262806ad-ddc5-4ac2-8eb5-615b2463a16b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Container\Buffer">
+      <UniqueIdentifier>{745d2c1c-298d-4a78-b7fc-907494eba4ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\File">
+      <UniqueIdentifier>{43fd0c0e-bd5b-43d8-9015-26272d35336c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\String">
+      <UniqueIdentifier>{d73c1d41-a251-4faf-abd9-e497315beb8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\String">
+      <UniqueIdentifier>{d8c9e49c-23ca-4f7b-884d-2754555f6784}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SimdCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TraitCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="AssertCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumCommon.h">
+      <Filter>헤더 파일\Header\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>헤더 파일\Header\File</Filter>
+    </ClInclude>
+    <ClInclude Include="IBuffer.h">
+      <Filter>헤더 파일\Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticBuffer.h">
+      <Filter>헤더 파일\Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FileUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryUtil.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticBuffer.hpp">
+      <Filter>헤더 파일\Hpp\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyweightString.h">
+      <Filter>헤더 파일\Header\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Hash.h">
+      <Filter>헤더 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Hash.hpp">
+      <Filter>헤더 파일\Hpp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FileUtil.cpp">
+      <Filter>소스 파일\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>소스 파일\File</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyweightString.cpp">
+      <Filter>소스 파일\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Hash.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

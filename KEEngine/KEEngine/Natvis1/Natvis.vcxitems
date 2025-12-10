@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{b75408fb-ffce-42ef-8d11-00e416ff402c}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Natvis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)KEContainer.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEDebugInfo.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEHash.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEReflectSystem.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)KEString.natvis" />
+  </ItemGroup>
+</Project>
