@@ -112,7 +112,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>CommonLibPch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -152,10 +152,12 @@
     <ClInclude Include="MathUtil.hpp" />
     <ClInclude Include="MemoryUtil.h" />
     <ClInclude Include="MemoryUtil.hpp" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="CommonLibPch.h" />
     <ClInclude Include="SimdCommon.h" />
     <ClInclude Include="StaticBuffer.h" />
     <ClInclude Include="StaticBuffer.hpp" />
+    <ClInclude Include="StrUtil.h" />
+    <ClInclude Include="StrUtil.hpp" />
     <ClInclude Include="TraitCommon.h" />
     <ClInclude Include="TypeCommon.h" />
   </ItemGroup>
@@ -164,12 +166,13 @@
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="Hash.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="CommonLibPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StrUtil.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

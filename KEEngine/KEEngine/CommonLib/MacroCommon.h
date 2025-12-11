@@ -100,3 +100,31 @@
 #define STRIZE(x) #x
 
 #define INVALID_INDEX(T) static_cast<T>(-1)
+
+#define DELETE_COPYABLE(ClassName)						\
+	ClassName(const ClassName&) = delete;				\
+	ClassName& operator=(const ClassName&) = delete;	
+
+#define DELETE_MOVEABLE(ClassName)				\
+	ClassName(ClassName&&) = delete;			\
+	ClassName& operator=(ClassName&&) = delete;
+
+#define NONCOPYABLE(ClassName)	\
+	DELETE_COPYABLE(ClassName)	\
+	DELETE_MOVEABLE(ClassName)
+
+#define DELETE_CONSTRUCTOR(ClassName)	\
+	ClassName() = delete;				\
+	NONCOPYABLE(ClassName)
+
+#define DEFAULT_COPYABLE(ClassName)						\
+	ClassName(const ClassName&) = default;				\
+	ClassName& operator=(const ClassName&) = default;
+
+#define DEFAULT_MOVEABLE(ClassName)				\
+	ClassName(ClassName&&) = default;			\
+	ClassName& operator=(ClassName&&) = default;
+
+#define DEFAULTABLE(ClassName)	\
+	DEFAULT_COPYABLE(ClassName)	\
+	DEFAULT_MOVEABLE(ClassName)

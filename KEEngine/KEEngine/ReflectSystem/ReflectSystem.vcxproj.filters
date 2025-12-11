@@ -13,14 +13,35 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\Hpp">
+      <UniqueIdentifier>{3e489e81-0321-4101-848d-68d6de9dda3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header">
+      <UniqueIdentifier>{f27d2d0e-b1cc-4b83-b5b7-984c81946245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="ReflectSystemPch.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.hpp">
+      <Filter>헤더 파일\Hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.h">
+      <Filter>헤더 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectParser.h">
+      <Filter>헤더 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectParser.hpp">
+      <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="ReflectSystemPch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectParser.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

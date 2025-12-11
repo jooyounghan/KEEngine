@@ -1,6 +1,4 @@
 #pragma once
-#include "SimdCommon.h"
-#include "MacroCommon.h"
 
 #if defined(__AVX512F__)
 #define SIMD_WHITESPACE_MASK(chunk) CONVERT_TO_SIMD_MASK_TYPE(  \
@@ -30,5 +28,4 @@ namespace ke
         static CONSTEXPR_INLINE constexpr bool  isWhitespace(char c) noexcept;
         static CONSTEXPR_INLINE constexpr bool  isNameChar(char c) noexcept;
     };
-
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "CommonLibPch.h"
 #include <type_traits>
 
 #define CHECK_INTEGER_TYPE(T) static_assert(std::is_integral_v<T>, "T must be an integer type.");

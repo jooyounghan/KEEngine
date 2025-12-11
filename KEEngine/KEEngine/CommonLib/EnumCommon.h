@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "CommonLibPch.h"
 #include "MacroCommon.h"
 
 #define DECLARE_ENUM_CLASS(EnumName, EnumType, ...) enum class EnumName : EnumType { __VA_ARGS__ }

@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "CommonLibPch.h"
 #include "Hash.h"
 
 #define DEFINE_RAW_VALUE_HASH_SPECIALIZATION(Raw)	\

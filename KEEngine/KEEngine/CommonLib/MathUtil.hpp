@@ -1,5 +1,4 @@
 #pragma once
-#include "TraitCommon.h"
 #include "MathUtil.h"
 
 namespace ke

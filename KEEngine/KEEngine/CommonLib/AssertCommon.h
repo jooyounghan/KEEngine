@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "CommonLibPch.h"
 
 // Assertion ============================================================================
 #define HANDLE_ASSERTION_IF_FAILURE(condition, message)																					\

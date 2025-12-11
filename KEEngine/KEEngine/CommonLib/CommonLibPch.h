@@ -1,7 +1,4 @@
-﻿#ifndef PCH_H
-#define PCH_H
-
-// Standard Library Includes
+﻿// Standard Library Includes
 
 // I/O
 #include <cstdio>
@@ -11,6 +8,7 @@
 #include <string_view>
 
 // Containers
+#include <array>
 #include <vector>
 #include <unordered_map>
 #include <map>
@@ -25,5 +23,3 @@
 #include "AssertCommon.h"
 #include "SimdCommon.h"
 #include "TraitCommon.h"
-
-#endif //PCH_H

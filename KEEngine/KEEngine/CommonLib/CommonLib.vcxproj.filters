@@ -60,7 +60,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="CommonLibPch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SimdCommon.h">
@@ -117,9 +117,15 @@
     <ClInclude Include="Hash.hpp">
       <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
+    <ClInclude Include="StrUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="StrUtil.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="CommonLibPch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="FileUtil.cpp">
@@ -133,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="Hash.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StrUtil.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

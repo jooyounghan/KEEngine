@@ -1,6 +1,5 @@
 #pragma once
 #include "MemoryUtil.h"
-#include "MathUtil.h"
 
 namespace ke
 {
