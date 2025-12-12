@@ -19,6 +19,15 @@
     <Filter Include="헤더 파일\Header">
       <UniqueIdentifier>{f27d2d0e-b1cc-4b83-b5b7-984c81946245}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Hpp\MetaData">
+      <UniqueIdentifier>{afc1935d-36ff-41bb-b8a1-ee91061632cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\MetaData">
+      <UniqueIdentifier>{4289d668-2331-424b-ba4d-a3a17a8019cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MetaData">
+      <UniqueIdentifier>{b6b2b25f-9549-4065-8563-31ffa109b53a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReflectSystemPch.h">
@@ -36,6 +45,18 @@
     <ClInclude Include="ReflectParser.hpp">
       <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
+    <ClInclude Include="PropertyMetaData.h">
+      <Filter>헤더 파일\Header\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMetaData.hpp">
+      <Filter>헤더 파일\Hpp\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyMetaData.hpp">
+      <Filter>헤더 파일\Hpp\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMetaData.h">
+      <Filter>헤더 파일\Header\MetaData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">
@@ -43,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="ReflectParser.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyMetaData.cpp">
+      <Filter>소스 파일\MetaData</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

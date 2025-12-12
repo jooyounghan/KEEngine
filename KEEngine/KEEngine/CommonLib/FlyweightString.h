@@ -11,7 +11,7 @@ namespace ke
 		explicit FlyweightString(const std::basic_string<CharType>& str);
 
 	private:
-		static std::unordered_map<std::basic_string_view<CharType>, size_t, Hash<std::basic_string_view<CharType>>>& getStringEntryMap();
+		static std::unordered_map<std::basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& getStringEntryMap();
 		static std::vector<std::basic_string<CharType>>& getStringVector();
 		static const CharType* getFromEntryIndex(size_t entryIndex);
 

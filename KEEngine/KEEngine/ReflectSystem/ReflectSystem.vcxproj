@@ -145,6 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ObjectMetaData.h" />
+    <ClInclude Include="ObjectMetaData.hpp" />
+    <ClInclude Include="PropertyMetaData.h" />
+    <ClInclude Include="PropertyMetaData.hpp" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectProperty.h" />
     <ClInclude Include="ReflectParser.h" />
@@ -152,6 +156,7 @@
     <ClInclude Include="ReflectProperty.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PropertyMetaData.cpp" />
     <ClCompile Include="ReflectParser.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
