@@ -13,6 +13,9 @@
 #include <unordered_map>
 #include <map>
 
+// Smart Pointer
+#include <memory>
+
 // Utilities
 #include <type_traits>
 

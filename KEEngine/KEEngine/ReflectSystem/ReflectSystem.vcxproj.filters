@@ -57,6 +57,12 @@
     <ClInclude Include="ObjectMetaData.h">
       <Filter>헤더 파일\Header\MetaData</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectObject.hpp">
+      <Filter>헤더 파일\Hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObject.h">
+      <Filter>헤더 파일\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">

@@ -8,7 +8,7 @@ namespace ke
 	class IReflectProperty
 	{
 	public:
-		IReflectProperty(const char* str);
+		IReflectProperty(const char* str) : _propertyName(str) {}
 		virtual ~IReflectProperty() = default;
 
 	protected:

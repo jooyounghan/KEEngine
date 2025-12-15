@@ -6,9 +6,11 @@ namespace ke
 	template<typename CharType>
 	class FlyweightString
 	{
+		DELETE_DEFAULT_CONSTRUCTOR(FlyweightString);
+
 	public:
-		explicit FlyweightString(const CharType* str);
-		explicit FlyweightString(const std::basic_string<CharType>& str);
+		FlyweightString(const CharType* str);
+		FlyweightString(const std::basic_string<CharType>& str);
 
 	private:
 		static std::unordered_map<std::basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& getStringEntryMap();

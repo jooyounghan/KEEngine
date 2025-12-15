@@ -1,26 +1,28 @@
 #pragma once
 #include "ReflectSystemPch.h"
 #include "FlyweightString.h"
+#include "PropertyMetaData.h"
 
 namespace ke
 {
-	//template<typename ObjectType>
-	//class ObjectMetaData
-	//{
-	//public:
-	//	ObjectMetaData() = default;
-	//	NONCOPYABLE(ObjectMetaData);
+	template<typename ObjectType>
+	class ObjectMetaData
+	{
+	public:
+		ObjectMetaData() = default;
+		NONCOPYABLE(ObjectMetaData);
 
-	//public:
-	//	std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>	_propertyMetaDataIndexMap;
-	//	std::vector<IPropertyMetaData<ObjectType>*>								_propertyMetaDataList;
+	public:
+		std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>	_metaDataIndexMap;
+		std::vector<std::unique_ptr<IPropertyMetaData<ObjectType>>>				_metaDataList;
 
-	//public:
-	//	template<typename PropertyType, typename ...Args>
-	//	void registerProperty(const FlyweightStringA& propertyName, Args... args);
+	public:
+		template<typename PropertyType, typename ...Args>
+		void registerProperty(const FlyweightStringA& propertyName, Args... args);
 
-	//public:
-	//	void setDefaultValue(IReflectProperty* property) const;
-	//};
+	public:
+		IPropertyMetaData<ObjectType>*	getPropertyMetaData(const FlyweightStringA& propertyName);
+		void							setDefaultValue(IReflectProperty* property) const;
+	};
 }
-#include "ObjectMetaData.h"
+#include "ObjectMetaData.hpp"

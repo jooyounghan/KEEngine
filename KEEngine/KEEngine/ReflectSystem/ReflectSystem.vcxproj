@@ -149,6 +149,8 @@
     <ClInclude Include="ObjectMetaData.hpp" />
     <ClInclude Include="PropertyMetaData.h" />
     <ClInclude Include="PropertyMetaData.hpp" />
+    <ClInclude Include="ReflectObject.h" />
+    <ClInclude Include="ReflectObject.hpp" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectProperty.h" />
     <ClInclude Include="ReflectParser.h" />

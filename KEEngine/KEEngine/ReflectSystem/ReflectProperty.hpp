@@ -4,8 +4,6 @@
 
 namespace ke
 {
-	IReflectProperty::IReflectProperty(const char* str) : _propertyName(str) {}
-
 	template<typename PropertyType>
 	ReflectProperty<PropertyType>::ReflectProperty(const char* str)
 		: IReflectProperty(str)

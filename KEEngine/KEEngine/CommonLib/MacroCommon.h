@@ -101,20 +101,23 @@
 
 #define INVALID_INDEX(T) static_cast<T>(-1)
 
+#define DELETE_DEFAULT_CONSTRUCTOR(ClassName)	\
+	ClassName() = delete
+
 #define DELETE_COPYABLE(ClassName)						\
 	ClassName(const ClassName&) = delete;				\
-	ClassName& operator=(const ClassName&) = delete;	
+	ClassName& operator=(const ClassName&) = delete	
 
 #define DELETE_MOVEABLE(ClassName)				\
 	ClassName(ClassName&&) = delete;			\
-	ClassName& operator=(ClassName&&) = delete;
+	ClassName& operator=(ClassName&&) = delete
 
 #define NONCOPYABLE(ClassName)	\
-	DELETE_COPYABLE(ClassName)	\
+	DELETE_COPYABLE(ClassName);	\
 	DELETE_MOVEABLE(ClassName)
 
-#define DELETE_CONSTRUCTOR(ClassName)	\
-	ClassName() = delete;				\
+#define DELETE_CONSTRUCTOR(ClassName)		\
+	DELETE_DEFAULT_CONSTRUCTOR(ClassName);	\
 	NONCOPYABLE(ClassName)
 
 #define DEFAULT_COPYABLE(ClassName)						\
