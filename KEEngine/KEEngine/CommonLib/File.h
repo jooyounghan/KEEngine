@@ -1,6 +1,5 @@
 #pragma once
-
-#include "StaticBuffer.h"
+#include "IBuffer.h"
 
 namespace ke
 {

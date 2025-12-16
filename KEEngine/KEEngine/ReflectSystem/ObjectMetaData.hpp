@@ -19,7 +19,7 @@ namespace ke
 	}
 
 	template<typename ObjectType>
-	IPropertyMetaData<ObjectType>* ObjectMetaData<ObjectType>::getPropertyMetaData(const FlyweightStringA& propertyName)
+	IPropertyMetaData<ObjectType>* ObjectMetaData<ObjectType>::getPropertyMetaData(const FlyweightStringA& propertyName) const
 	{
 		IPropertyMetaData<ObjectType>* result = nullptr;
 		auto metaDataIndex = _metaDataIndexMap.find(propertyName);
@@ -29,7 +29,7 @@ namespace ke
 		}
 		else
 		{
-			std::unique_ptr<IPropertyMetaData<ObjectType>>& propertyMetaData = _metaDataList[metaDataIndex->second];
+			const std::unique_ptr<IPropertyMetaData<ObjectType>>& propertyMetaData = _metaDataList[metaDataIndex->second];
 			result = propertyMetaData.get();
 		}
 		return result;

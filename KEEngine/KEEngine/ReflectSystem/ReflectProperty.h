@@ -12,7 +12,12 @@ namespace ke
 		virtual ~IReflectProperty() = default;
 
 	protected:
-		FlyweightStringA _propertyName;
+		bool				_isDefaultProperty = false;
+		FlyweightStringA	_propertyName;
+
+	public:
+		inline bool getIsDefaultProperty() const { return _isDefaultProperty; }
+		inline bool setIsDefaultProperty(bool isDefaultProperty) { _isDefaultProperty = isDefaultProperty; }
 
 	public:
 		inline const FlyweightStringA& getPropertName() const { return _propertyName; }

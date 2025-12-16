@@ -21,7 +21,7 @@ namespace ke
 		void registerProperty(const FlyweightStringA& propertyName, Args... args);
 
 	public:
-		IPropertyMetaData<ObjectType>*	getPropertyMetaData(const FlyweightStringA& propertyName);
+		IPropertyMetaData<ObjectType>*	getPropertyMetaData(const FlyweightStringA& propertyName) const;
 		void							setDefaultValue(IReflectProperty* property) const;
 	};
 }
