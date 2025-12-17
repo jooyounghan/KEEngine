@@ -28,22 +28,22 @@
     <Filter Include="소스 파일\MetaData">
       <UniqueIdentifier>{b6b2b25f-9549-4065-8563-31ffa109b53a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Hpp\Reflection">
+      <UniqueIdentifier>{613ac26a-91fd-4df1-96ca-38ca4c372c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Reflection">
+      <UniqueIdentifier>{4db59037-ab7f-46bf-871a-47801851acaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Utility">
+      <UniqueIdentifier>{f6f30f81-cd9c-46df-83f1-2070a56e2483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Utility">
+      <UniqueIdentifier>{cd1c8377-30b0-42e0-b4fb-15f9752f34a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReflectSystemPch.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProperty.hpp">
-      <Filter>헤더 파일\Hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProperty.h">
-      <Filter>헤더 파일\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectParser.h">
-      <Filter>헤더 파일\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectParser.hpp">
-      <Filter>헤더 파일\Hpp</Filter>
     </ClInclude>
     <ClInclude Include="PropertyMetaData.h">
       <Filter>헤더 파일\Header\MetaData</Filter>
@@ -57,11 +57,29 @@
     <ClInclude Include="ObjectMetaData.h">
       <Filter>헤더 파일\Header\MetaData</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
     <ClInclude Include="ReflectObject.hpp">
-      <Filter>헤더 파일\Hpp</Filter>
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObject.h">
-      <Filter>헤더 파일\Header</Filter>
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectParser.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectParser.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectSerializer.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectSerializer.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

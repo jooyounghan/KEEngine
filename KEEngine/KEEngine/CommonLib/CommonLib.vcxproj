@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssertCommon.h" />
+    <ClInclude Include="DynamicBuffer.h" />
+    <ClInclude Include="DynamicBuffer.hpp" />
     <ClInclude Include="EnumCommon.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileUtil.h" />
@@ -160,6 +162,8 @@
     <ClInclude Include="StrUtil.hpp" />
     <ClInclude Include="TraitCommon.h" />
     <ClInclude Include="TypeCommon.h" />
+    <ClInclude Include="XMLReader.h" />
+    <ClInclude Include="XMLWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp" />
@@ -173,6 +177,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StrUtil.cpp" />
+    <ClCompile Include="XMLReader.cpp" />
+    <ClCompile Include="XMLWriter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,7 +23,10 @@ namespace ke
     public:
         static const char*                      findNext(const char* p, const char* end, char c) noexcept;
         static const char*                      findNameEnd(const char* p, const char* end) noexcept;
+        static const char*                      findSequence(const char* p, const char* end, const char* seq, size_t seqLen) noexcept;
         static void                             skipWhitespace(const char*& p, const char* end) noexcept;
+
+
     public:
         static CONSTEXPR_INLINE constexpr bool  isWhitespace(char c) noexcept;
         static CONSTEXPR_INLINE constexpr bool  isNameChar(char c) noexcept;

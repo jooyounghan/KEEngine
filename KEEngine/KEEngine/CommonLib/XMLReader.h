@@ -1,6 +1,5 @@
 #pragma once
-#include "File.h"
-#include "DynamicBuffer.h"
+#include "IBuffer.h"
 
 namespace ke
 {
@@ -42,40 +41,29 @@ namespace ke
         };
 
     public:
-        explicit XMLReader(const char* path, XMLReadHandler& h);
+        XMLReader(
+            IBuffer* xmlBuffer, 
+            size_t bufferSize, 
+            XMLReadHandler& h
+        );
         NONCOPYABLE(XMLReader);
 
     public:
-        void parse(const char* data, std::size_t size);
+        void parse();
 
     private:
         void parseElement(const char*& p, const char* end);
         void parseText(const char*& p, const char* end);
 
     private:
+		void handleStartTag(const char*& p, const char* end);
+		void handleEndTag(const char*& p, const char* end);
+
+    private:
         XMLReadHandler& _handler;
-        ReadOnlyFile    _file;
-        DynamicBuffer   _readBuffer;
+		IBuffer*        _targetBuffer;
+		size_t          _bufferSize;
+		bool            _isParsing = false;
     };
-
-    //class XMLWriter
-    //{
-    //public:
-    //    struct OnWriteElementArgs
-    //    {
-    //        std::string_view    _name;
-    //        const XmlAttribute* _attributes;
-    //        std::size_t         _attributeCount;
-    //    };
-
-    //    class XMLWriteHandler
-    //    {
-    //    public:
-    //        virtual ~XMLWriteHandler() = default;
-
-    //    public:
-    //        virtual void onWriteElement(const OnWriteElementArgs& e) = 0;
-    //    }
-    //};
 }
 

@@ -2,22 +2,22 @@
 #include "CommonLibPch.h"
 
 // Assertion ============================================================================
-#define HANDLE_ASSERTION_IF_FAILURE(condition, message)																					\
+#define HANDLE_IF_FAILURE(method, condition, message)																					\
 	if (!(condition))																													\
 	{																																	\
 		fprintf(stderr, "Assertion failed: (%s), message: %s, file: %s, line: %d\n", #condition, (message), __FILE__, (int)__LINE__);	\
-		abort();																														\
+		method;																														\
 	}
 
-#define HANDLE_ASSERTION_IF_FAILURE_FMT(condition, format, ...)																					\
+#define HANDLE_IF_FAILURE_FMT(method, condition, format, ...)																					\
 	if (!(condition))																															\
 	{																																			\
 		fprintf(stderr, "Assertion failed: (%s), message: " format ", file: %s, line: %d\n", #condition, __VA_ARGS__, __FILE__, (int)__LINE__);	\
-		abort();																																\
+		method;																																\
 	}
 
-#define KE_ASSERT(condition, message)			HANDLE_ASSERTION_IF_FAILURE(condition, message)
-#define KE_ASSERT_ARGS(condition, format, ...)	HANDLE_ASSERTION_IF_FAILURE_FMT(condition, format, __VA_ARGS__)
+#define KE_ASSERT(condition, message)			HANDLE_IF_FAILURE(abort(), condition, message)
+#define KE_ASSERT_ARGS(condition, format, ...)	HANDLE_IF_FAILURE_FMT(abort(), condition, format, __VA_ARGS__)
 
 #ifdef _DEBUG
 #define KE_DEBUG_ASSERT(condition, message)				KE_ASSERT(condition, message)
@@ -25,6 +25,17 @@
 #else
 #define KE_DEBUG_ASSERT(condition, message)				__noop
 #define KE_DEBUG_ASSERT_ARGS(condition, format, ...)	__noop
+#endif // _DEBUG
+
+#define KE_RETURN(condition, message)			HANDLE_IF_FAILURE(return, condition, message)
+#define KE_RETURN_ARGS(condition, format, ...)	HANDLE_IF_FAILURE(return, condition, format, __VA_ARGS__)
+
+#ifdef _DEBUG
+#define KE_DEBUG_RETURN(condition, message)				KE_RETURN(condition, message)
+#define KE_DEBUG_RETURN_ARGS(condition, format, ...)	KE_RETURN_ARGS(condition, format, __VA_ARGS__)
+#else
+#define KE_DEBUG_RETURN(condition, message)			__noop
+#define KE_DEBUG_RETURN_ARGS(condition, format, ...)	__noop
 #endif // _DEBUG
 
 
