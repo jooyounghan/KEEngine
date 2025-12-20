@@ -2,9 +2,9 @@
 #include "ReflectObject.h"
 
 #define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)								\
-	ke::ObjectMetaData<ObjectType> ke::ReflectObject<ObjectType>::_metaData; 	\
+	ke::ReflectObject<ObjectType> ke::ReflectObject<ObjectType>::_metaData; 	\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData() {		\
-		ke::ObjectMetaData<ObjectType>& metaData = ke::ReflectObject<ObjectType>::_metaData;
+		ke::ReflectMetaData<ObjectType>& reflectMetaData = ke::ReflectMetaData<ObjectType>::_reflectMetaData;
 
 #define END_DEFINE_REFLECT_PROPERTY(ObjectType)	}
 
@@ -16,15 +16,14 @@ public:																								\
 	inline const Type& get##VariableName() const { return _##VariableName.getReflectProperty(); }	\
 	inline void set##VariableName(const Type& v) { _##VariableName.setReflectProperty(v); }										
 
-#define DEFINE_REFLECT_PROPERTY(ObjectType, PropertyType, VariableName, PropertyFlag, DefaultValue, Description)	\
-	{																												\
-		metaData.registerProperty<PropertyType>(																	\
-			#VariableName,																							\
-			PropertyFlag,																							\
-			DefaultValue,																							\
-			&ObjectType::get##VariableName,																			\
-			&ObjectType::set##VariableName																			\
-		);																											\
+#define DEFINE_REFLECT_PROPERTY(ObjectType, PropertyType, VariableName, DefaultValue, Description)	\
+	{																								\
+		reflectMetaData.registerReflectionDescirptor<PropertyType>(									\
+			#VariableName,																			\
+			DefaultValue,																			\
+			&ObjectType::get##VariableName,															\
+			&ObjectType::set##VariableName															\
+		);																							\
 	}
 
 #define DECLARE_REFLECT_OBJECT(ObjectType) template<> void ke::ReflectObject<ObjectType>::initializeMetaData()
@@ -47,15 +46,15 @@ namespace ke
 	}
 
 	template<typename ObjectType>
-	const ObjectMetaData<ObjectType>& ReflectObject<ObjectType>::getMetaData()
+	const ReflectMetaData<ObjectType>& ReflectObject<ObjectType>::getReflectMetaData()
 	{
 		ensureInitialized();
-		return _metaData;
+		return _reflectMetaData;
 	}
 
 	template<typename ObjectType>
-	ReflectObject<ObjectType>::ReflectObject(ObjectType* object)
-		: _object(object)
+	ReflectObject<ObjectType>::ReflectObject(const char* objectName, ObjectType* object)
+		: IReflection(objectName), _object(object)
 	{
 
 	}

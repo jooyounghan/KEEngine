@@ -163,7 +163,6 @@
     <ClInclude Include="TraitCommon.h" />
     <ClInclude Include="TypeCommon.h" />
     <ClInclude Include="XMLReader.h" />
-    <ClInclude Include="XMLWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp" />
@@ -178,7 +177,6 @@
     </ClCompile>
     <ClCompile Include="StrUtil.cpp" />
     <ClCompile Include="XMLReader.cpp" />
-    <ClCompile Include="XMLWriter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

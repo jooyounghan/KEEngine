@@ -4,11 +4,11 @@
 int main()
 {
 	{
-		ke::TestObject testObject;
+		//ke::TestObject testObject;
 
-		ke::ReflectProperty<ke::int32> healthProperty = ke::ReflectProperty<ke::int32>(testObject.getNameHealth.c_str());
-		testObject.getMetaData().setDefaultValue(&healthProperty);
-		bool t = true;
+		//ke::ReflectProperty<ke::int32> healthProperty = ke::ReflectProperty<ke::int32>(testObject.getNameHealth.c_str());
+		//testObject.getObjectMetaData().setDefaultValue(&healthProperty);
+		//bool t = true;
 	}
 
 	return 0;

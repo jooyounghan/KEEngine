@@ -45,30 +45,6 @@
     <ClInclude Include="ReflectSystemPch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="PropertyMetaData.h">
-      <Filter>헤더 파일\Header\MetaData</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMetaData.hpp">
-      <Filter>헤더 파일\Hpp\MetaData</Filter>
-    </ClInclude>
-    <ClInclude Include="PropertyMetaData.hpp">
-      <Filter>헤더 파일\Hpp\MetaData</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectMetaData.h">
-      <Filter>헤더 파일\Header\MetaData</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProperty.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectObject.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectObject.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectParser.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
@@ -81,6 +57,33 @@
     <ClInclude Include="ReflectSerializer.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="IReflection.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObject.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectMetaData.h">
+      <Filter>헤더 파일\Header\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectMetaData.hpp">
+      <Filter>헤더 파일\Hpp\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionDescriptor.h">
+      <Filter>헤더 파일\Header\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionDescriptor.hpp">
+      <Filter>헤더 파일\Hpp\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObject.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">
@@ -88,9 +91,6 @@
     </ClCompile>
     <ClCompile Include="ReflectParser.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PropertyMetaData.cpp">
-      <Filter>소스 파일\MetaData</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

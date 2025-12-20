@@ -12,5 +12,7 @@ namespace ke
 		void SerializeToXML(IBuffer* outBuffer, const ReflectObject<ObjectType>& obj);
 		void DeserializeFromXML(const IBuffer* const outBuffer, ReflectObject<ObjectType>& obj);
 
+		void SerializeToBinary(IBuffer* outBuffer, const ReflectObject<ObjectType>& obj);
+		void DeserializeFromBinary(const IBuffer* const outBuffer, ReflectObject<ObjectType>& obj);
 	};
 }
