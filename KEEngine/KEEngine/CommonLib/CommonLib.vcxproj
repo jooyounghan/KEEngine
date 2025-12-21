@@ -140,8 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssertCommon.h" />
+    <ClInclude Include="BufferImplement.h" />
     <ClInclude Include="DynamicBuffer.h" />
-    <ClInclude Include="DynamicBuffer.hpp" />
     <ClInclude Include="EnumCommon.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileUtil.h" />
@@ -165,6 +165,7 @@
     <ClInclude Include="XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DynamicBuffer.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="FlyweightString.cpp" />

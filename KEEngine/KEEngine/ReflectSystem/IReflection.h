@@ -13,10 +13,10 @@ namespace ke
 		const FlyweightStringA& getName() const { return _name; }
 
 	public:	
-		virtual void serializeToString(IBuffer* outStringBuffer) const = 0;
-		virtual void serializeToBinary(IBuffer* outBuffer) const = 0;
-		virtual void deserializeFromString(const char* src) = 0;
-		virtual void deserializeFromBinary(const void* src) = 0;
+		virtual Offset setFromString(const char* src) = 0;
+		virtual Offset setFromBinary(const char* src) = 0;
+		virtual void getToString(IBuffer* outBuffer) const = 0;
+		virtual void getToBinary(IBuffer* outBuffer) const = 0;
 
 	private:
 		FlyweightStringA _name;

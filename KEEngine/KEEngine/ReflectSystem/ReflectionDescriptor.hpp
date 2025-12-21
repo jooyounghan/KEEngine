@@ -1,37 +1,41 @@
 #pragma once
 #include "ReflectionDescriptor.h"
+#include "ReflectParser.h"
 
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
-	ReflectDescriptor<ObjectType, PropertyType>::ReflectDescriptor(Getter getter, Setter setter)
-		: _getter(getter), _setter(setter)
+	ReflectDescriptor<ObjectType, PropertyType>::ReflectDescriptor(const PropertyType& defaultValue, Getter getter)
+		: _getter(getter)
 	{
+		if constexpr (std::is_base_of_v<IReflection, PropertyType>)
+		{
+			// 수정 필요
+			_defaultValueBuffer.set(sizeof(PropertyType));
+		}
+		else
+		{
+			_defaultValueBuffer.set(sizeof(PropertyType));
+			ReflectParser::parseToBinary(&_defaultValueBuffer, defaultValue);
+		}
+
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectDescriptor<ObjectType, PropertyType>::applyDefaultValue(IReflection* reflection)
 	{
-		reflection->deserializeFromBinary(_defaultValueBuffer.getBufferPointer());
+		reflection->setFromBinary(_defaultValueBuffer.getBuffer());
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	const void* ReflectDescriptor<ObjectType, PropertyType>::getDefaultValue() const 
 	{ 
-		return _defaultValueBuffer.getBufferPointer(); 
+		return _defaultValueBuffer.getConstBuffer();
 	}
 
 	template<typename ObjectType, typename PropertyType>
-	const void* ReflectDescriptor<ObjectType, PropertyType>::getFromObject(ObjectType* reflectObject) const
+	IReflection* ReflectDescriptor<ObjectType, PropertyType>::getFromObject(ObjectType* reflectObject)
 	{
-		const PropertyType& ref = (reflectObject->*(_getter))();
-		return static_cast<const void*>(&ref);
-	}
-
-	template<typename ObjectType, typename PropertyType>
-	void ReflectDescriptor<ObjectType, PropertyType>::setFromObject(ObjectType* reflectObject, const void* value)
-	{
-		const PropertyType* propertyPtr = static_cast<const PropertyType*>(value);
-		(reflectObject->*(_setter))(*propertyPtr);
+		return (reflectObject->*(_getter))();
 	}
 }

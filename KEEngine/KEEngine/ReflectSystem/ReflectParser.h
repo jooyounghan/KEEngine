@@ -1,18 +1,15 @@
 #pragma once
+#include "IBuffer.h"
 
 namespace ke
 {
-	class IBuffer;
-
-	using BufferOffset = size_t;
-
 	class ReflectParser
 	{
 	public:
 		template<typename PropertyType>
-		static BufferOffset parseFromString(const char* src, PropertyType& outPropertyTypes);
+		static Offset parseFromString(const char* src, PropertyType& outPropertyTypes);
 		template<typename PropertyType, typename ...PropertyTypes>
-		static BufferOffset parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes&... outPropertyTypes);
+		static Offset parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes&... outPropertyTypes);
 
 	public:
 		template<typename PropertyType>
@@ -22,9 +19,9 @@ namespace ke
 
 	public:
 		template<typename PropertyType>
-		static BufferOffset parseFromBinary(const void* src, PropertyType& outPropertyTypes);
+		static Offset parseFromBinary(const void* src, PropertyType& outPropertyTypes);
 		template<typename PropertyType, typename ...PropertyTypes>
-		static BufferOffset parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes&... outPropertyTypes);
+		static Offset parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes&... outPropertyTypes);
 
 	public:
 		template<typename PropertyType>

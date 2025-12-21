@@ -46,4 +46,13 @@ namespace ke
 			reflectionDescriptor->applyDefaultValue(property);
 		}
 	}
+	template<typename ObjectType>
+	void ReflectMetaData<ObjectType>::setDefaultValues(ObjectType* object) const
+	{
+		for (std::unique_ptr<IReflectionDecriptor<ObjectType>> const& descriptor : _reflectionDescriptorList)
+		{
+			IReflection* property = descriptor->getFromObject(object);
+			descriptor->applyDefaultValue(property);
+		}
+	}
 }

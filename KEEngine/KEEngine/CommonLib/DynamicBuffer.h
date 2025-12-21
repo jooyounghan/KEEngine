@@ -11,6 +11,8 @@ namespace ke
 
 	public:
 		char* _buffer = nullptr;
+		size_t _capacity = 0;
+
 
 	public:
 		virtual void		write(const void* const input, size_t count) override;

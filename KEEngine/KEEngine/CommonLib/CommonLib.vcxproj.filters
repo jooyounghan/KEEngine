@@ -58,6 +58,12 @@
     <Filter Include="소스 파일\String">
       <UniqueIdentifier>{d8c9e49c-23ca-4f7b-884d-2754555f6784}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Container">
+      <UniqueIdentifier>{d2dcd12b-4046-49dc-b092-885b18b25931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Container\Buffer">
+      <UniqueIdentifier>{f54799cf-3c39-4358-9317-e969fbfab5a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonLibPch.h">
@@ -126,10 +132,10 @@
     <ClInclude Include="XMLReader.h">
       <Filter>헤더 파일\Header\File</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicBuffer.hpp">
-      <Filter>헤더 파일\Hpp\Container\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicBuffer.h">
+      <Filter>헤더 파일\Header\Container\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferImplement.h">
       <Filter>헤더 파일\Header\Container\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="XMLReader.cpp">
       <Filter>소스 파일\File</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicBuffer.cpp">
+      <Filter>소스 파일\Container\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

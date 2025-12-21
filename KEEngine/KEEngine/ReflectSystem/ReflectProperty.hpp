@@ -1,30 +1,58 @@
 #pragma once
-#include "ReflectSystemPch.h"
 #include "ReflectProperty.h"
 
 namespace ke
 {
 	template<typename PropertyType>
-	void ReflectProperty<PropertyType>::setFromString(const char* src)
+	Offset ReflectProperty<PropertyType>::setFromString(const char* src)
 	{
-		ReflectParser::parseFromString(src, _property);
+		if constexpr (std::is_base_of_v<IReflection, PropertyType>)
+		{
+			return _property.setFromString(src);
+		}
+		else
+		{
+			return ReflectParser::parseFromString(src, _property);
+		}
 	}
 
 	template<typename PropertyType>
-	void ReflectProperty<PropertyType>::setFromBinary(void const* src)
+	Offset ReflectProperty<PropertyType>::setFromBinary(const char* src)
 	{
-		ReflectParser::parseFromBinary(src, _property);
+		if constexpr (std::is_base_of_v<IReflection, PropertyType>)
+		{
+			return _property.setFromBinary(src);
+		}
+		else
+		{
+			return ReflectParser::parseFromBinary(src, _property);
+		}
+
 	}
 
 	template<typename PropertyType>
 	void ReflectProperty<PropertyType>::getToString(IBuffer* outBuffer) const
 	{
-		ReflectParser::parseToString(outBuffer, _property);
+		if constexpr (std::is_base_of_v<IReflection, PropertyType>)
+		{
+			_property.getToString(outBuffer);
+		}
+		else
+		{
+			ReflectParser::parseToString(outBuffer, _property);
+		}
 	}
 
 	template<typename PropertyType>
 	void ReflectProperty<PropertyType>::getToBinary(IBuffer* outBuffer) const
 	{
-		ReflectParser::parseToBinary(outBuffer, _property);
+		if constexpr (std::is_base_of_v<IReflection, PropertyType>)
+		{
+			_property.getToBinary(outBuffer);
+		}
+		else
+		{
+			ReflectParser::parseToBinary(outBuffer, _property);
+		}
 	}
 }

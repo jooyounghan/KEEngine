@@ -12,4 +12,6 @@ namespace ke
 	using int16 = short;
 	using int32 = int;
 	using int64 = long long;
+
+	using Offset = size_t;
 }

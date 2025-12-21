@@ -1,5 +1,4 @@
 #pragma once
-#include "ReflectProperty.h"
 #include "ReflectMetaData.h"
 
 namespace ke
@@ -20,6 +19,15 @@ namespace ke
 
 	protected:
 		ObjectType* _object;
+
+	public:
+		void initialize();
+
+	public:
+		Offset setFromString(const char* src) override;
+		Offset setFromBinary(const char* src) override;
+		void getToString(IBuffer* outBuffer) const override;
+		void getToBinary(IBuffer* outBuffer) const override;
 	};
 }
 #include "ReflectObject.hpp"

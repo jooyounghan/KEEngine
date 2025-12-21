@@ -8,34 +8,32 @@ namespace ke
 	class IReflectionDecriptor
 	{
 	public:
-		virtual const void* getFromObject(ObjectType* reflectObject) const = 0;
-		virtual void		setFromObject(ObjectType* reflectObject, const void* value) = 0;
+		virtual IReflection*	getFromObject(ObjectType* reflectObject) = 0;
+		virtual void			applyDefaultValue(IReflection* reflection) = 0;
+		virtual const void*		getDefaultValue() const = 0;
 	};
 
 	template<typename ObjectType, typename PropertyType>
 	class ReflectDescriptor : public IReflectionDecriptor<ObjectType>
 	{
-		using Getter = const PropertyType& (ObjectType::*)() const;
-		using Setter = void (ObjectType::*)(const PropertyType&);
+		using Getter = IReflection* (ObjectType::*)();
 
 	public:
-		ReflectDescriptor(Getter getter, Setter setter);
+		ReflectDescriptor(const PropertyType& defaultValue, Getter getter);
 		virtual ~ReflectDescriptor() = default;
 
 	public:
-		void		applyDefaultValue(IReflection* reflection);
-		const void* getDefaultValue() const;
+		virtual void			applyDefaultValue(IReflection* reflection) override;
+		virtual const void*		getDefaultValue() const override;
 
 	public:
-		const void* getFromObject(ObjectType* reflectObject) const;
-		void		setFromObject(ObjectType* reflectObject, const void* value);
+		IReflection*	getFromObject(ObjectType* reflectObject);
 
 	protected:
 		DynamicBuffer _defaultValueBuffer;
 
 	protected:
 		Getter _getter;
-		Setter _setter;
 	};
 };
 #include "ReflectionDescriptor.hpp"

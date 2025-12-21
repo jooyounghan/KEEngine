@@ -1,5 +1,7 @@
 #pragma once
+#include "ReflectSystemPch.h"
 #include "IReflection.h"
+#include "ReflectParser.h"
 
 namespace ke
 {
@@ -27,11 +29,12 @@ namespace ke
 	public:
 		inline void setReflectProperty(const PropertyType& property) { _property = property; }
 		inline void setReflectProperty(PropertyType&& property) { _property = move(property); }
+		inline PropertyType& getRefReflectProperty() { return _property; }
 		inline const PropertyType& getReflectProperty() const { return _property; }
 
 	public:
-		void setFromString(const char* src) override;
-		void setFromBinary(void const* src) override;
+		Offset setFromString(const char* src) override;
+		Offset setFromBinary(const char* src) override;
 		void getToString(IBuffer* outBuffer) const override;
 		void getToBinary(IBuffer* outBuffer) const override;
 

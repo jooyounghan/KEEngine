@@ -1,22 +1,21 @@
 #pragma once
 #include "ReflectParser.h"
-#include "IBuffer.h"
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																\
-template<> BufferOffset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes);		\
+template<> Offset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes);		\
 template<> void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& outPropertyTypes);	\
-template<> BufferOffset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes);		\
+template<> Offset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes);		\
 template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type& outPropertyTypes);	
 
 namespace ke
 {
 	template<typename PropertyType>
-	BufferOffset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyTypes)
+	Offset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyTypes)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 	template<typename PropertyType, typename ...PropertyTypes>
-	BufferOffset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
+	Offset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
 	{
 		return parseFromString(src + parseFromString(src, outPropertyType) + 1, outPropertyTypes...);
 	}
@@ -34,13 +33,13 @@ namespace ke
 	}
 
 	template<typename PropertyType>
-	BufferOffset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyTypes)
+	Offset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyTypes)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
 	template<typename PropertyType, typename ...PropertyTypes>
-	BufferOffset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
+	Offset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
 	{
 		return parseFromBinary(static_cast<const uint8*>(src) + parseFromBinary(src, outPropertyType), outPropertyTypes...);
 	}

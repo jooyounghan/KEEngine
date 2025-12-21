@@ -4,7 +4,7 @@
 
 #define DEFINE_PARSE_FROM_STRING(Type, StringParser, ...)										\
 template<>																						\
-BufferOffset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes)			\
+Offset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes)			\
 {																								\
     char* endPtr = nullptr;																		\
     outPropertyTypes = static_cast<Type>(StringParser(src, &endPtr, ## __VA_ARGS__));			\
@@ -20,9 +20,9 @@ void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& property
 
 #define DEFINE_PARSE_FROM_BINARY(Type)												\
 template<>																				\
-BufferOffset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes)	\
+Offset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes)	\
 {																						\
-	BufferOffset offset = sizeof(Type);												\
+	Offset offset = sizeof(Type);												\
 	memcpy(&outPropertyTypes, src, offset);												\
 	return offset;																		\
 }
@@ -38,7 +38,7 @@ namespace ke
 {
 #pragma region parseFromString Specializations
 	template<>
-	BufferOffset ReflectParser::parseFromString(const char* src, bool& outPropertyTypes)
+	Offset ReflectParser::parseFromString(const char* src, bool& outPropertyTypes)
 	{
 		outPropertyTypes = strcmp(src, "true") == 0;
 		return outPropertyTypes ? 4 : 5;
