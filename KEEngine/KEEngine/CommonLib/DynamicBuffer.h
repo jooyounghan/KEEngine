@@ -7,7 +7,7 @@ namespace ke
 	{
 	public:
 		DynamicBuffer() = default;
-		~DynamicBuffer() override = default;
+		~DynamicBuffer() override;
 
 	public:
 		char* _buffer = nullptr;
@@ -23,7 +23,6 @@ namespace ke
 
 	public:
 		void set(size_t size);
-		void reset();
-		void clear();
+		void release();
 	};
 }

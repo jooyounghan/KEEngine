@@ -24,7 +24,7 @@ namespace ke
         {
             constexpr size_t head = alignOf<T1>();
             constexpr size_t tail = alignOf<Types...>();
-            return KEMath::max(head, tail);
+            return MathUtil::max(head, tail);
         }
     }
 
@@ -111,7 +111,7 @@ namespace ke
     }
 
     template <bool InitializeNull, typename ...Types>
-    void* MemoryUtil::aligendMalloc(size_t count)
+    void* MemoryUtil::alignedMalloc(size_t count)
     {
         if (count == 0) return nullptr;
 
@@ -120,7 +120,7 @@ namespace ke
 
         if constexpr (maxAlignment > __STDCPP_DEFAULT_NEW_ALIGNMENT__ && requestedBytes >= _kPageThresholdSize)
         {
-            maxAlignment = KEMath::max(maxAlignment, _kCachelineAlignSize);
+            maxAlignment = MathUtil::max(maxAlignment, _kCachelineAlignSize);
         }
 
         void* ptr = _aligned_malloc(requestedBytes, maxAlignment);
@@ -136,7 +136,7 @@ namespace ke
     }
 
     template<typename ...Types>
-    void MemoryUtil::aligendFree(void* ptr)
+    void MemoryUtil::alignedFree(void* ptr)
     {
         return _aligned_free(ptr);
     }

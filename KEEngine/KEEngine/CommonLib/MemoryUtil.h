@@ -35,10 +35,10 @@ namespace ke
 
 	public:
 		template <bool InitializeNull, typename ...Types>
-		NODISC static void* aligendMalloc(size_t count);
+		NODISC static void* alignedMalloc(size_t count);
 
 		template<typename ...Types>
-		static void aligendFree(void* aligned);
+		static void alignedFree(void* aligned);
 
 		template<typename T>
 		static void SafeRelease(T*& ptr) noexcept;
