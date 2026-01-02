@@ -4,14 +4,26 @@
 
 namespace ke
 {
-	REFLECT_OBJECT_CLASS(TestObject)
+	REFLECT_OBJECT_CLASS(MoveStatus)
 	{
 	public:
-		TestObject() : REFLECT_OBJECT_CONSTRUCTOR(TestObject) {}
+		MoveStatus() : REFLECT_OBJECT_CONSTRUCTOR() {}
 
-	BEGIN_DECLARE_REFLECT_PROPERTY(TestObject)
-		DECLARE_REFLECT_PROPERTY(int32, Health);
-		DECLARE_REFLECT_PROPERTY(float, Speed);
+	BEGIN_DECLARE_REFLECT_PROPERTY(MoveStatus)
+		DECLARE_REFLECT_PROPERTY(int32, _speed);
+		DECLARE_REFLECT_PROPERTY(float, _slowRatio);
 	END_DECLARE_REFLECT_PROPERTY();
 	};
+
+	REFLECT_OBJECT_CLASS(CharacterStatus)
+	{
+	public:
+		CharacterStatus() : REFLECT_OBJECT_CONSTRUCTOR() {}
+
+		BEGIN_DECLARE_REFLECT_PROPERTY(CharacterStatus)
+			DECLARE_REFLECT_PROPERTY(MoveStatus, _moveStatus);
+			DECLARE_REFLECT_PROPERTY(float, _progress);
+		END_DECLARE_REFLECT_PROPERTY();
+	};
+	
 }

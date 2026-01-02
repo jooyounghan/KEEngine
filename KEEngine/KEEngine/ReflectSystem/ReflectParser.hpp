@@ -2,56 +2,95 @@
 #include "ReflectParser.h"
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																\
-template<> Offset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes);		\
-template<> void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& outPropertyTypes);	\
-template<> Offset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes);		\
-template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type& outPropertyTypes);	
+template<> size_t ReflectParser::getPropertyBufferSize(const Type* outPropertyTypes);					\
+template<> Offset ReflectParser::parseFromString(const char* src, Type* outPropertyTypes);				\
+template<> void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type* outPropertyTypes);	\
+template<> Offset ReflectParser::parseFromBinary(const void* src, Type* outPropertyTypes);				\
+template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type* outPropertyTypes);	
 
 namespace ke
 {
 	template<typename PropertyType>
-	Offset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyTypes)
+	size_t ReflectParser::getPropertyBufferSize(const PropertyType* outPropertyTypes) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
+
+	template<typename PropertyType>
+	size_t ReflectParser::getPropertyBufferSize(const PropertyType* outPropertyTypes) REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+		return size_t();
+	}
+
+	template<typename PropertyType>
+	Offset ReflectParser::parseFromString(const char* src, PropertyType* outPropertyTypes) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
+	}
+
+	template<typename PropertyType>
+	Offset ReflectParser::parseFromString(const char* src, PropertyType* outPropertyTypes) REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+		return Offset();
+	}
+
 	template<typename PropertyType, typename ...PropertyTypes>
-	Offset ReflectParser::parseFromString(const char* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
+	Offset ReflectParser::parseFromString(const char* src, PropertyType* outPropertyType, PropertyTypes* ...outPropertyTypes)
 	{
 		return parseFromString(src + parseFromString(src, outPropertyType) + 1, outPropertyTypes...);
 	}
+
 	template<typename PropertyType>
-	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType& property)
+	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType* property) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
+
+	template<typename PropertyType>
+	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType* property) REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+	}
+
 	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes& ...propertyTypes)
+	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType* propertyType, const PropertyTypes* ...propertyTypes)
 	{
 		parseToString(outStringBuffer, propertyType);
 		outStringBuffer->writeOne(',');
 		parseToString(outStringBuffer, propertyTypes...);
 	}
 
+
 	template<typename PropertyType>
-	Offset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyTypes)
+	Offset ReflectParser::parseFromBinary(const void* src, PropertyType* outPropertyTypes) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
+	
+	template<typename PropertyType>
+	Offset ReflectParser::parseFromBinary(const void* src, PropertyType* outPropertyTypes) REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+		return Offset();
+	}
 
 	template<typename PropertyType, typename ...PropertyTypes>
-	Offset ReflectParser::parseFromBinary(const void* src, PropertyType& outPropertyType, PropertyTypes & ...outPropertyTypes)
+	Offset ReflectParser::parseFromBinary(const void* src, PropertyType* outPropertyType, PropertyTypes* ...outPropertyTypes)
 	{
 		return parseFromBinary(static_cast<const uint8*>(src) + parseFromBinary(src, outPropertyType), outPropertyTypes...);
 	}
 
 	template<typename PropertyType>
-	void ReflectParser::parseToBinary(IBuffer* outBuffer, const PropertyType& property)
+	void ReflectParser::parseToBinary(IBuffer* outBuffer, const PropertyType* property) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
+	template<typename PropertyType>
+	void ReflectParser::parseToBinary(IBuffer* outBuffer, const PropertyType* property) REQUIRES_REFLECT_OBJECT(PropertyType)
+	{
+	}
+
 	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const PropertyType& propertyType, const PropertyTypes & ...propertyTypes)
+	void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const PropertyType* propertyType, const PropertyTypes* ...propertyTypes)
 	{
 		parseToBinary(outStringBuffer, propertyType);
 		parseToBinary(outStringBuffer, propertyTypes...);
@@ -71,3 +110,55 @@ namespace ke
 	DECLARE_PARSE_SPECIALIZATION(double);
 #pragma endregion
 }
+
+//template<typename ObjectType>
+//Offset ReflectObject<ObjectType>::setFromString(const char* src)
+//{
+//	Offset totalOffset = 0;
+//	const std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>& reflectionDescriptorList = getReflectMetaData().getReflectPropertyList();
+//	for (const std::unique_ptr<IReflectionDecriptor<ObjectType>>& descriptor : reflectionDescriptorList)
+//	{
+//		IReflection* property = descriptor->getFromObject(_object);
+//		Offset offset = property->setFromString(src);
+//		totalOffset += offset;
+//		src += offset;
+//	}
+//	return totalOffset;
+//}
+//
+//template<typename ObjectType>
+//Offset ReflectObject<ObjectType>::setFromBinary(const char* src)
+//{
+//	Offset totalOffset = 0;
+//	const std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>& reflectionDescriptorList = getReflectMetaData().getReflectPropertyList();
+//	for (const std::unique_ptr<IReflectionDecriptor<ObjectType>>& descriptor : reflectionDescriptorList)
+//	{
+//		IReflection* property = descriptor->getFromObject(_object);
+//		Offset offset = property->setFromString(src);
+//		totalOffset += offset;
+//		src += offset;
+//	}
+//	return totalOffset;
+//}
+//
+//template<typename ObjectType>
+//void ReflectObject<ObjectType>::getToString(IBuffer* outBuffer) const
+//{
+//	const std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>& reflectionDescriptorList = getReflectMetaData().getReflectPropertyList();
+//	for (const std::unique_ptr<IReflectionDecriptor<ObjectType>>& descriptor : reflectionDescriptorList)
+//	{
+//		IReflection* property = descriptor->getFromObject(_object);
+//		property->getToString(outBuffer);
+//	}
+//}
+//
+//template<typename ObjectType>
+//void ReflectObject<ObjectType>::getToBinary(IBuffer* outBuffer) const
+//{
+//	const std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>& reflectionDescriptorList = getReflectMetaData().getReflectPropertyList();
+//	for (const std::unique_ptr<IReflectionDecriptor<ObjectType>>& descriptor : reflectionDescriptorList)
+//	{
+//		IReflection* property = descriptor->getFromObject(_object);
+//		property->getToBinary(outBuffer);
+//	}
+//}

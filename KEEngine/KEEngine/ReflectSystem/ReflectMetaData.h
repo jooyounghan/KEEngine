@@ -1,5 +1,5 @@
 #pragma once
-#include "ReflectionDescriptor.h"
+#include "PropertyMetaData.h"
 
 namespace ke
 {
@@ -11,20 +11,20 @@ namespace ke
 		NONCOPYABLE(ReflectMetaData);
 
 	public:
-		std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>	_reflectionDescriptorIndexMap;
-		std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>			_reflectionDescriptorList;
+		std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>	_propertyMetaDataIndexMap;
+		std::vector<std::unique_ptr<IPropertyMetaData<ObjectType>>>				_propertyMetaDataList;
 
 	public:
 		template<typename PropertyType, typename ...Args>
-		void registerReflectionDescirptor(const FlyweightStringA& propertyName, Args... args);
+		void registerPropertyMetaData(const FlyweightStringA& propertyName, Args... args);
 
 	public:
-		const std::vector<std::unique_ptr<IReflectionDecriptor<ObjectType>>>& getReflectionDescriptorList() const { return _reflectionDescriptorList; };
+		const std::vector<std::unique_ptr<IPropertyMetaData<ObjectType>>>& getPropertyMetaDataList() const { return _propertyMetaDataList; };
 
 	public:
-		IReflectionDecriptor<ObjectType>*	getReflectionDescriptor(const FlyweightStringA& propertyName) const;
-		void								setDefaultValue(IReflection* property) const;
-		void								setDefaultValues(ObjectType* object) const;
+		IPropertyMetaData<ObjectType>*	getPropertyMetaData(const FlyweightStringA& propertyName) const;
+		void							setDefaultValue(IReflectProperty* property) const;
+		void							setDefaultValues(ObjectType* object) const;
 	};
 }
 #include "ReflectMetaData.hpp"

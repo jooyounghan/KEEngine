@@ -145,9 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IReflection.h" />
-    <ClInclude Include="ReflectionDescriptor.h" />
-    <ClInclude Include="ReflectionDescriptor.hpp" />
+    <ClInclude Include="PropertyMetaData.h" />
+    <ClInclude Include="PropertyMetaData.hpp" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />

@@ -4,9 +4,7 @@
 int main()
 {
 	{
-		ke::TestObject testObject;
-
-		ke::ReflectProperty<ke::int32> healthProperty = ke::ReflectProperty<ke::int32>(testObject.getNameHealth.c_str());
+		ke::CharacterStatus characterStatus;
 		bool t = true;
 	}
 

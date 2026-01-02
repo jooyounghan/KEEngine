@@ -4,10 +4,10 @@
 namespace ke
 {
 	template<typename ObjectType>
-	class ReflectObject : public IReflection
+	class ReflectObject
 	{
 	public:
-		ReflectObject(const char* objectName, ObjectType* object);
+		ReflectObject(ObjectType* object);
 
 	protected:
 		static void initializeMetaData();
@@ -22,12 +22,6 @@ namespace ke
 
 	public:
 		void initialize();
-
-	public:
-		Offset setFromString(const char* src) override;
-		Offset setFromBinary(const char* src) override;
-		void getToString(IBuffer* outBuffer) const override;
-		void getToBinary(IBuffer* outBuffer) const override;
 	};
 }
 #include "ReflectObject.hpp"

@@ -102,8 +102,8 @@ namespace ke
 		const ReadPolicy&	reader() const { return _readPolicy; }
 		const WritePolicy&	writer() const { return _writePolicy; }
 
-		CHECK_IS_BASE_OF(ReadTag, ReadPolicy);
-		CHECK_IS_BASE_OF(WriteTag, WritePolicy);
+		STATIC_ASSERT_IS_BASE_OF(ReadTag, ReadPolicy);
+		STATIC_ASSERT_IS_BASE_OF(WriteTag, WritePolicy);
 	};
 
 	using ReadOnlyFile = File<AllowRead, BlockWrite, EOpenMode::ReadOnly>;

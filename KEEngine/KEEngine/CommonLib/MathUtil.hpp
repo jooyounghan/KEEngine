@@ -42,14 +42,14 @@ namespace ke
     template<typename T>
     constexpr bool MathUtil::isPowerOf2(const T& value) noexcept
     {
-        CHECK_INTEGER_TYPE(T);
+        STATIC_ASSERT_INTEGER_TYPE(T);
         return (value & (value - 1)) == 0;
     }
 
     template<typename T>
     constexpr T ke::MathUtil::getNextPowerOf2(const T& value) noexcept
     {
-        CHECK_INTEGER_TYPE(T);
+        STATIC_ASSERT_INTEGER_TYPE(T);
         T power = 1;
         while (power < value) power <<= 1;
         return power;

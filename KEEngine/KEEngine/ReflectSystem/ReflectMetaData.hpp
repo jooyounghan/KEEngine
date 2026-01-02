@@ -4,55 +4,55 @@ namespace ke
 {
 	template<typename ObjectType>
 	template<typename PropertyType, typename ...Args>
-	void ReflectMetaData<ObjectType>::registerReflectionDescirptor(const FlyweightStringA& propertyName, Args... args)
+	void ReflectMetaData<ObjectType>::registerPropertyMetaData(const FlyweightStringA& propertyName, Args... args)
 	{
-		if (_reflectionDescriptorIndexMap.find(propertyName) != _reflectionDescriptorIndexMap.end())
+		if (_propertyMetaDataIndexMap.find(propertyName) != _propertyMetaDataIndexMap.end())
 		{
 			KE_DEBUG_ASSERT(false, "ReflectionDescriptor already registered in ReflectMetaData.");
 		}
 		else
 		{
-			uint32 propertyIndex = static_cast<uint32>(_reflectionDescriptorList.size());
-			_reflectionDescriptorIndexMap.emplace(propertyName, propertyIndex);
-			_reflectionDescriptorList.push_back(std::make_unique<ReflectDescriptor<ObjectType, PropertyType>>(args...));
+			uint32 propertyIndex = static_cast<uint32>(_propertyMetaDataList.size());
+			_propertyMetaDataIndexMap.emplace(propertyName, propertyIndex);
+			_propertyMetaDataList.push_back(std::make_unique<PropertyMetaData<ObjectType, PropertyType>>(args...));
 		}
 	}
 
 	template<typename ObjectType>
-	IReflectionDecriptor<ObjectType>* ReflectMetaData<ObjectType>::getReflectionDescriptor(const FlyweightStringA& propertyName) const
+	IPropertyMetaData<ObjectType>* ReflectMetaData<ObjectType>::getPropertyMetaData(const FlyweightStringA& propertyName) const
 	{
-		IReflectionDecriptor<ObjectType>* result = nullptr;
-		auto reflectionDescriptorIndex = _reflectionDescriptorIndexMap.find(propertyName);
-		if (reflectionDescriptorIndex == _reflectionDescriptorIndexMap.end())
+		IPropertyMetaData<ObjectType>* result = nullptr;
+		auto reflectionDescriptorIndex = _propertyMetaDataIndexMap.find(propertyName);
+		if (reflectionDescriptorIndex == _propertyMetaDataIndexMap.end())
 		{
 			KE_DEBUG_ASSERT(false, "ReflectionDescriptor is not registered in ReflectMetaData.");
 		}
 		else
 		{
-			const std::unique_ptr<IReflectionDecriptor<ObjectType>>& reflectionDescriptor = _reflectionDescriptorList[reflectionDescriptorIndex->second];
+			const std::unique_ptr<IPropertyMetaData<ObjectType>>& reflectionDescriptor = _propertyMetaDataList[reflectionDescriptorIndex->second];
 			result = reflectionDescriptor.get();
 		}
 		return result;
 	}
 
 	template<typename ObjectType>
-	void ReflectMetaData<ObjectType>::setDefaultValue(IReflection* property) const
+	void ReflectMetaData<ObjectType>::setDefaultValue(IReflectProperty* property) const
 	{
 		const FlyweightStringA& propertyName = property->getName();
 
-		IReflectionDecriptor<ObjectType>* reflectionDescriptor = getReflectionDescriptor(propertyName);
-		if (reflectionDescriptor != nullptr)
+		IPropertyMetaData<ObjectType>* propertyMetaData = getPropertyMetaData(propertyName);
+		if (propertyMetaData != nullptr)
 		{
-			reflectionDescriptor->applyDefaultValue(property);
+			propertyMetaData->applyDefaultValue(property);
 		}
 	}
 	template<typename ObjectType>
 	void ReflectMetaData<ObjectType>::setDefaultValues(ObjectType* object) const
 	{
-		for (std::unique_ptr<IReflectionDecriptor<ObjectType>> const& descriptor : _reflectionDescriptorList)
+		for (std::unique_ptr<IPropertyMetaData<ObjectType>> const& propertyMetaData : _propertyMetaDataList)
 		{
-			IReflection* property = descriptor->getFromObject(object);
-			descriptor->applyDefaultValue(property);
+			IReflectProperty* property = propertyMetaData->getFromObject(object);
+			propertyMetaData->applyDefaultValue(property);
 		}
 	}
 }

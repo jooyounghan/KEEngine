@@ -1,46 +1,68 @@
 #include "ReflectSystemPch.h"
 #include "ReflectParser.h"
+#include "ReflectObject.h"
 #include "StrUtil.h"
+
+#define DEFINE_GET_PROPERTY_BUFFER_SIZE(Type)													\
+template<>																						\
+size_t ReflectParser::getPropertyBufferSize(const Type* outPropertyTypes)						\
+{																								\
+    return sizeof(Type);																		\
+}
 
 #define DEFINE_PARSE_FROM_STRING(Type, StringParser, ...)										\
 template<>																						\
-Offset ReflectParser::parseFromString(const char* src, Type& outPropertyTypes)			\
+Offset ReflectParser::parseFromString(const char* src, Type* outPropertyTypes)					\
 {																								\
     char* endPtr = nullptr;																		\
-    outPropertyTypes = static_cast<Type>(StringParser(src, &endPtr, ## __VA_ARGS__));			\
+    *outPropertyTypes = static_cast<Type>(StringParser(src, &endPtr, ## __VA_ARGS__));			\
     return static_cast<size_t>(endPtr - src);													\
 }
 
 #define DEFINE_PARSE_TO_STRING(Type, ...)														\
 template<>																						\
-void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type& property)			\
+void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type* property)				\
 {																								\
-	return StrUtil::convertToStringBuffer(outStringBuffer, property, ## __VA_ARGS__);	\
+	return StrUtil::convertToStringBuffer(outStringBuffer, *property, ## __VA_ARGS__);			\
 }
 
-#define DEFINE_PARSE_FROM_BINARY(Type)												\
+#define DEFINE_PARSE_FROM_BINARY(Type)													\
 template<>																				\
-Offset ReflectParser::parseFromBinary(const void* src, Type& outPropertyTypes)	\
+Offset ReflectParser::parseFromBinary(const void* src, Type* outPropertyTypes)			\
 {																						\
-	Offset offset = sizeof(Type);												\
+	Offset offset = sizeof(Type);														\
 	memcpy(&outPropertyTypes, src, offset);												\
 	return offset;																		\
 }
 
-#define DEFINE_PARSE_TO_BINARY(Type)														\
+#define DEFINE_PARSE_TO_BINARY(Type)															\
 template<>																						\
-void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type& outPropertyTypes)	\
+void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type* outPropertyTypes)		\
 {																								\
 	outStringBuffer->write(&outPropertyTypes, sizeof(Type));									\
 }
 
 namespace ke
 {
+#pragma region getPropertyBufferSize Specializations
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(bool);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint8);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint16);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint32);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint64);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(int8);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(int16);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(int32);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(int64);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(float);
+	DEFINE_GET_PROPERTY_BUFFER_SIZE(double);
+#pragma endregion
+
 #pragma region parseFromString Specializations
 	template<>
-	Offset ReflectParser::parseFromString(const char* src, bool& outPropertyTypes)
+	Offset ReflectParser::parseFromString(const char* src, bool* outPropertyTypes)
 	{
-		outPropertyTypes = strcmp(src, "true") == 0;
+		*outPropertyTypes = strcmp(src, "true") == 0;
 		return outPropertyTypes ? 4 : 5;
 	}
 

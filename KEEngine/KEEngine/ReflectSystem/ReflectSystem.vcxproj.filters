@@ -57,9 +57,6 @@
     <ClInclude Include="ReflectSerializer.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="IReflection.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
@@ -75,10 +72,10 @@
     <ClInclude Include="ReflectMetaData.hpp">
       <Filter>헤더 파일\Hpp\MetaData</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectionDescriptor.h">
+    <ClInclude Include="PropertyMetaData.h">
       <Filter>헤더 파일\Header\MetaData</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectionDescriptor.hpp">
+    <ClInclude Include="PropertyMetaData.hpp">
       <Filter>헤더 파일\Hpp\MetaData</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObject.hpp">

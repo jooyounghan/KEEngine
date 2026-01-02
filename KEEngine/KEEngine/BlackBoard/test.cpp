@@ -2,8 +2,13 @@
 
 namespace ke
 {
-	BEGIN_DEFINE_REFLECT_PROPERTY(TestObject)
-		DEFINE_REFLECT_PROPERTY(TestObject, int32, Health, 100, "Health of the object");
-		DEFINE_REFLECT_PROPERTY(TestObject, float, Speed, 10.0f, "Speed of the object");
-	END_DEFINE_REFLECT_PROPERTY(TestObject)
+	BEGIN_DEFINE_REFLECT_PROPERTY(MoveStatus)
+		DEFINE_REFLECT_PROPERTY(MoveStatus, int32, _speed, 100, "Speed of the object");
+		DEFINE_REFLECT_PROPERTY(MoveStatus, float, _slowRatio, 10.0f, "SlowRatio of the object");
+	END_DEFINE_REFLECT_PROPERTY(MoveStatus)
+
+	BEGIN_DEFINE_REFLECT_PROPERTY(CharacterStatus)
+		DEFINE_REFLECT_PROPERTY(CharacterStatus, MoveStatus, _moveStatus, MoveStatus(), "Move Status");
+		DEFINE_REFLECT_PROPERTY(CharacterStatus, float, _progress, 0.0f, "Progress");
+	END_DEFINE_REFLECT_PROPERTY(CharacterStatus)
 }
