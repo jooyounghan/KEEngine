@@ -8,6 +8,7 @@ namespace ke
 	{
 	public:
 		ReflectObject(ObjectType* object);
+		NONCOPYABLE(ReflectObject);
 
 	protected:
 		static void initializeMetaData();
@@ -18,6 +19,17 @@ namespace ke
 		static const ReflectMetaData<ObjectType>& getReflectMetaData();
 
 	protected:
+		void initializeProperties();
+		template<typename PropertyType, typename ...Args>
+		void registerProperty(FlyweightStringA propertyName, Args... args);;
+
+	public:
+		using ReflectPropertyIndexMap = std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>;
+		using ReflectPropertyList = std::vector<std::unique_ptr<IReflectProperty>>;
+
+	protected:
+		ReflectPropertyIndexMap	_reflectPropertyIndexMap;
+		ReflectPropertyList		_reflectPropertyList;
 		ObjectType* _object;
 
 	public:

@@ -9,11 +9,13 @@ namespace ke
 	class IReflectProperty
 	{
 	public:
-		IReflectProperty(const char* name) : _name(name) {}
+		IReflectProperty(const FlyweightStringA& name) : _name(name) {}
 		virtual ~IReflectProperty() = default;
 
 	public:
 		const FlyweightStringA& getName() const { return _name; }
+		inline bool getIsDefaultProperty() const { return _isDefaultProperty; }
+		inline void setIsDefaultProperty(bool isDefaultProperty) { _isDefaultProperty = isDefaultProperty; }
 
 	public:
 		virtual Offset setFromString(const char* src) = 0;
@@ -22,19 +24,20 @@ namespace ke
 		virtual void getToBinary(IBuffer* outBuffer) const = 0;
 
 	private:
-		FlyweightStringA _name;
+		bool				_isDefaultProperty = false;
+		FlyweightStringA	_name;
 	};
 
 	template<typename PropertyType>
 	class ReflectProperty : public IReflectProperty
 	{
-	public:
-		ReflectProperty(const char* propertyName, PropertyType* property);
-		~ReflectProperty() override = default;
+		template<typename Object, typename Property>
+		friend class PropertyMetaData;
 
 	public:
-		inline bool getIsDefaultProperty() const { return _isDefaultProperty; }
-		inline bool setIsDefaultProperty(bool isDefaultProperty) { _isDefaultProperty = isDefaultProperty; }
+		ReflectProperty(const FlyweightStringA& propertyName, PropertyType* property);
+		~ReflectProperty() override = default;
+
 
 	public:
 		Offset setFromString(const char* src) override;
@@ -43,7 +46,6 @@ namespace ke
 		void getToBinary(IBuffer* outBuffer) const override;
 
 	private:
-		bool			_isDefaultProperty = false; 
 		PropertyType*	_property;
 	};
 }

@@ -6,6 +6,7 @@ namespace ke
 	template<typename ObjectType>
 	class ReflectObject;
 
+#define IS_BASE_OF_REFLECT_OBJECT(PropertyType) IS_BASE_OF(ReflectObject<PropertyType>, PropertyType)
 #define REQUIRES_REFLECT_OBJECT(PropertyType) requires (IS_BASE_OF(ReflectObject<PropertyType>, PropertyType))
 #define NOT_REQUIRES_REFLECT_OBJECT(PropertyType) requires (!IS_BASE_OF(ReflectObject<PropertyType>, PropertyType))
 
@@ -13,9 +14,7 @@ namespace ke
 	{
 	public:
 		template<typename PropertyType>
-		static size_t getPropertyBufferSize(const PropertyType* outPropertyTypes) NOT_REQUIRES_REFLECT_OBJECT(PropertyType);
-		template<typename PropertyType>
-		static size_t getPropertyBufferSize(const PropertyType* outPropertyTypes) REQUIRES_REFLECT_OBJECT(PropertyType);
+		static size_t getPropertyBufferSize(const PropertyType* outPropertyTypes);
 
 	public:
 		template<typename PropertyType>

@@ -4,8 +4,8 @@
 namespace ke
 {
 	template<typename PropertyType>
-	ReflectProperty<PropertyType>::ReflectProperty(const char* propertyName, PropertyType* property)
-		: IReflectProperty(propertyName), _property(property)
+	ReflectProperty<PropertyType>::ReflectProperty(const FlyweightStringA& name, PropertyType* property)
+		: IReflectProperty(name), _property(property)
 	{
 	}
 

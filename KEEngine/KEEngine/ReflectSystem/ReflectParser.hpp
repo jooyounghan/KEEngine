@@ -11,15 +11,9 @@ template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Typ
 namespace ke
 {
 	template<typename PropertyType>
-	size_t ReflectParser::getPropertyBufferSize(const PropertyType* outPropertyTypes) NOT_REQUIRES_REFLECT_OBJECT(PropertyType)
+	size_t ReflectParser::getPropertyBufferSize(const PropertyType* outPropertyTypes)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
-	}
-
-	template<typename PropertyType>
-	size_t ReflectParser::getPropertyBufferSize(const PropertyType* outPropertyTypes) REQUIRES_REFLECT_OBJECT(PropertyType)
-	{
-		return size_t();
 	}
 
 	template<typename PropertyType>
