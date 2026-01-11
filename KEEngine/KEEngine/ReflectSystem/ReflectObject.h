@@ -12,10 +12,11 @@ namespace ke
 
 	protected:
 		static void initializeMetaData();
+		static void bindMetaData();
 		static void ensureInitialized();
 
 	public:
-		static const ReflectMetaData& getObjectMetaData();
+		static const ReflectMetaData* getObjectMetaData();
 		static const FlyweightStringA& getObjectName() { return _objectName; };
 
 	protected:
@@ -23,7 +24,7 @@ namespace ke
 		static FlyweightStringA _objectName;
 
 	public:
-		const ReflectMetaData& getMetaData() const override;
+		const ReflectMetaData* getMetaData() const override;
 		const FlyweightStringA& getName() const override { return _objectName; };
 	};
 }

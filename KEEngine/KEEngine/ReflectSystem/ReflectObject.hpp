@@ -1,5 +1,5 @@
 
-#pragma region Reflect Property Macros
+#pragma region ReflectProperty Macros
 // Declare Reflect Property Macros
 #define BEGIN_DECLARE_REFLECT_PROPERTY() 
 
@@ -40,7 +40,11 @@ public:																			\
 #define END_DEFINE_REFLECT_PROPERTY()	};
 #pragma endregion
 
-#pragma region Reflect Object Macros
+#pragma region Bind ReflectProperty Macros
+
+#pragma endregion
+
+#pragma region ReflectObject Macros
 #define REFLECT_OBJECT_CLASS(ObjectType)								\
 	class ObjectType;													\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();\
@@ -55,26 +59,33 @@ namespace ke
 	}
 	
 	template<typename ObjectType>
-	void ke::ReflectObject<ObjectType>::initializeMetaData()
+	void ReflectObject<ObjectType>::initializeMetaData()
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}
 	
 	template<typename ObjectType>
-	void ReflectObject<ObjectType>::ensureInitialized()
+	void ReflectObject<ObjectType>::bindMetaData()
 	{
-		KE_MAYBE_UNUSED static const bool once = (initializeMetaData(), true);
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}
 
 	template<typename ObjectType>
-	const ReflectMetaData& ReflectObject<ObjectType>::getObjectMetaData()
+	void ReflectObject<ObjectType>::ensureInitialized()
+	{
+		KE_MAYBE_UNUSED static const bool isInitialized = (initializeMetaData(), true);
+		KE_MAYBE_UNUSED static const bool isBinded = (bindMetaData(), true);
+	}
+
+	template<typename ObjectType>
+	const ReflectMetaData* ReflectObject<ObjectType>::getObjectMetaData()
 	{
 		ensureInitialized();
-		return _reflectMetaData;
+		return &_reflectMetaData;
 	}
 	
 	template<typename ObjectType>
-	const ReflectMetaData& ReflectObject<ObjectType>::getMetaData() const
+	const ReflectMetaData* ReflectObject<ObjectType>::getMetaData() const
 	{
 		return getObjectMetaData();
 	}

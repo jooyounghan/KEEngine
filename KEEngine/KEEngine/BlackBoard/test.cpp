@@ -7,6 +7,8 @@ namespace ke
 		DEFINE_REFLECT_PROPERTY(MoveStatus, int32, _speed)
 		DEFINE_REFLECT_PROPERTY(MoveStatus, float, _slowRatio)
 	END_DEFINE_REFLECT_PROPERTY()
+
+	BEGIN_BIND_PROPERTY()
 //
 //	BEGIN_BIND_REFLECT_META_DATA(CharacterStatus)
 //		BIND_REFLECT_META_DATA(MoveStatus, _moveStatus, MoveStatus(), "Move Status");

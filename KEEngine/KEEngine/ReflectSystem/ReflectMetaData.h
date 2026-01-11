@@ -26,12 +26,15 @@ namespace ke
 			, Setter<ObjectType, PropertyType> setter
 		)
 		{
-			std::unique_ptr<IReflectProperty> propertyPtr = std::make_unique <ReflectProperty<ObjectType, PropertyType>>(
-				name
-				, getter
-				, constGetter
-				, setter
-			);
+			std::unique_ptr<IReflectProperty> propertyPtr;
+			if (IS_BASE_OF(IReflectObject, PropertyType))
+			{
+				propertyPtr = std::make_unique<ReflectObjectProperty<ObjectType, PropertyType>>(name, getter, constGetter, setter);
+			}
+			else
+			{
+				propertyPtr = std::make_unique<ReflectPODProperty<ObjectType, PropertyType>>(name, getter, constGetter, setter);
+			}
 			IReflectProperty* property = propertyPtr.get();
 			_properties.emplace_back(std::move(propertyPtr));
 			_orderedPropertyMap.emplace(name, property);
