@@ -1,6 +1,3 @@
-#pragma once
-#include "MathUtil.h"
-
 namespace ke
 {
     template<typename T, typename Pred>

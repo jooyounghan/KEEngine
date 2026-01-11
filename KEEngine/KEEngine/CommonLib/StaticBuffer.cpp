@@ -1,4 +1,4 @@
-#pragma once
+#include "CommonLibPch.h"
 #include "BufferImplement.h"
 #include "StaticBuffer.h"
 
@@ -29,7 +29,7 @@ namespace ke
 	}
 
 	template<size_t Size>
-	size_t StaticBuffer<Size>::getAvailableSize() const 
+	size_t StaticBuffer<Size>::getAvailableSize() const
 	{
 		return GETAVAILABLESIZE_IMPLEMENT(Size);
 	}

@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonLibPch.h"
+#include "MathUtil.h"
 
 namespace ke
 {

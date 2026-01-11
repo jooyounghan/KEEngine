@@ -1,5 +1,6 @@
 #include "CommonLibPch.h"
 #include "FlyweightString.h"
+#include <string_view>
 
 using namespace std;
 
@@ -64,6 +65,42 @@ namespace ke
 	{
 		return _entryIndex == other._entryIndex;
 	}
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator!=(const FlyweightString<CharType>& other) const
+	{
+		return _entryIndex != other._entryIndex;
+	}
+
+#define COMPARE_STRINGS(OP)																	\
+		std::basic_string_view<CharType> thisStr(getFromEntryIndex(_entryIndex));			\
+		std::basic_string_view<CharType> otherStr = getFromEntryIndex(other._entryIndex);	\
+		return thisStr OP otherStr;
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator<(const FlyweightString<CharType>& other) const
+	{
+		COMPARE_STRINGS(<);
+	}
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator<=(const FlyweightString<CharType>& other) const
+	{
+		COMPARE_STRINGS(<=);
+	}
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator>(const FlyweightString<CharType>& other) const
+	{
+		COMPARE_STRINGS(>);
+	}
+
+	template<typename CharType>
+	bool FlyweightString<CharType>::operator>=(const FlyweightString<CharType>& other) const
+	{
+		COMPARE_STRINGS(>=);
+	}
+#undef COMPARE_STRINGS
 
 	template<>
 	size_t Hash<FlyweightStringA>::convertToHash(const FlyweightStringA& value)

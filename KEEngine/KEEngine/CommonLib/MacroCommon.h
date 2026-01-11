@@ -2,12 +2,24 @@
 
 #if _HAS_CXX17
 #define CONSTEXPR_INLINE inline
+#else
+#define CONSTEXPR_INLINE
+
+#endif
+
+#if defined(__has_cpp_attribute)
+#if __has_cpp_attribute(maybe_unused)
+#define KE_MAYBE_UNUSED [[maybe_unused]]
+#else
+#define KE_MAYBE_UNUSED
+#endif
+#if __has_cpp_attribute(nodiscard)
 #define NODISC					[[nodiscard]]
 #define NODISC_MSG(warnMessage)	[[nodiscard(warnMessage)]]
 #else
-#define CONSTEXPR_INLINE
 #define NODISC
 #define NODISC_MSG(warnMessage)
+#endif
 #endif
 
 #define KE_COMMA()      ,

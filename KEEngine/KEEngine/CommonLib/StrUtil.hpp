@@ -1,5 +1,3 @@
-#pragma once
-#include "StrUtil.h"
 
 #define DECLARE_Z_CONVERTOR_SPECIALIZATION(Type) template<> void StrUtil::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v);    
 #define DECLARE_F_CONVERTOR_SPECIALIZATION(Type) template<> void StrUtil::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v, int precision);

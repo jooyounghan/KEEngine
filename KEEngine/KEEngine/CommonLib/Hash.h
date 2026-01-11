@@ -1,5 +1,4 @@
 #pragma once
-#include "CommonLibPch.h"
 
 // This hash function is inspired by xxHash, but implemented independently.
 // It does not use any code from the official xxHash project.

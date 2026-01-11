@@ -1,39 +1,30 @@
 #pragma once
+#include "IReflectObject.h"
 #include "ReflectMetaData.h"
 
 namespace ke
 {
 	template<typename ObjectType>
-	class ReflectObject
+	class ReflectObject : public IReflectObject
 	{
 	public:
-		ReflectObject(ObjectType* object);
-		NONCOPYABLE(ReflectObject);
+		ReflectObject();
 
 	protected:
 		static void initializeMetaData();
 		static void ensureInitialized();
-		static ReflectMetaData<ObjectType> _reflectMetaData;
 
 	public:
-		static const ReflectMetaData<ObjectType>& getReflectMetaData();
+		static const ReflectMetaData& getObjectMetaData();
+		static const FlyweightStringA& getObjectName() { return _objectName; };
 
 	protected:
-		void initializeProperties();
-		template<typename PropertyType, typename ...Args>
-		void registerProperty(FlyweightStringA propertyName, Args... args);;
+		static ReflectMetaData _reflectMetaData;
+		static FlyweightStringA _objectName;
 
 	public:
-		using ReflectPropertyIndexMap = std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>;
-		using ReflectPropertyList = std::vector<std::unique_ptr<IReflectProperty>>;
-
-	protected:
-		ReflectPropertyIndexMap	_reflectPropertyIndexMap;
-		ReflectPropertyList		_reflectPropertyList;
-		ObjectType* _object;
-
-	public:
-		void initialize();
+		const ReflectMetaData& getMetaData() const override;
+		const FlyweightStringA& getName() const override { return _objectName; };
 	};
 }
 #include "ReflectObject.hpp"

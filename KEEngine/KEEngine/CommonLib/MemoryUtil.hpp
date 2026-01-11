@@ -1,6 +1,3 @@
-#pragma once
-#include "MemoryUtil.h"
-
 namespace ke
 {
     template<typename T>

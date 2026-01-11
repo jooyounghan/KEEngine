@@ -1,32 +1,47 @@
 #pragma once
-#include "PropertyMetaData.h"
+#include "ReflectProperty.h"
+#include <vector>
+#include <map>
 
 namespace ke
 {
-	template<typename ObjectType>
 	class ReflectMetaData
 	{
-		template<typename Object>
-		friend class ReflectObject;
+	public:
+		ReflectMetaData(const FlyweightStringA& ownerObjectName);
+		~ReflectMetaData() = default;
+
+	private:
+		std::vector<std::unique_ptr<IReflectProperty>> _properties;
+
+	private:
+		std::map<FlyweightStringA, IReflectProperty*> _orderedPropertyMap;
 
 	public:
-		ReflectMetaData() = default;
-		NONCOPYABLE(ReflectMetaData);
+		template<typename ObjectType, typename PropertyType>
+		void addProperty(
+			const FlyweightStringA& name
+			, Getter<ObjectType, PropertyType> getter
+			, ConstGetter<ObjectType, PropertyType> constGetter
+			, Setter<ObjectType, PropertyType> setter
+		)
+		{
+			std::unique_ptr<IReflectProperty> propertyPtr = std::make_unique <ReflectProperty<ObjectType, PropertyType>>(
+				name
+				, getter
+				, constGetter
+				, setter
+			);
+			IReflectProperty* property = propertyPtr.get();
+			_properties.emplace_back(std::move(propertyPtr));
+			_orderedPropertyMap.emplace(name, property);
+		}
 
 	public:
-		using PropertyMetaDataIndexMap = std::unordered_map<FlyweightStringA, uint32, HASH(FlyweightStringA)>;
-		using PropertyMetaDataList = std::vector<std::unique_ptr<IPropertyMetaData<ObjectType>>>;
+		IReflectProperty* getPropertyByName(const FlyweightStringA& name) const;
+		inline const FlyweightStringA& getOwnerObjectName() const { return _ownerObjectName; }
 
-	protected:
-		PropertyMetaDataIndexMap	_propertyMetaDataIndexMap;
-		PropertyMetaDataList		_propertyMetaDataList;
-
-	public:
-		template<typename PropertyType, typename ...Args>
-		void registerPropertyMetaData(const FlyweightStringA& propertyName, Args... args);
-
-	public:
-		const PropertyMetaDataList& getPropertyMetaDataList() const { return _propertyMetaDataList; };
+	private:
+		FlyweightStringA _ownerObjectName;
 	};
 }
-#include "ReflectMetaData.hpp"

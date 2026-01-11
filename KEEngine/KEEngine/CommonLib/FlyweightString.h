@@ -29,6 +29,11 @@ namespace ke
 
 	public:
 		bool operator==(const FlyweightString<CharType>& other) const;
+		bool operator!=(const FlyweightString<CharType>& other) const;
+		bool operator<(const FlyweightString<CharType>& other) const;
+		bool operator<=(const FlyweightString<CharType>& other) const;
+		bool operator>(const FlyweightString<CharType>& other) const;
+		bool operator>=(const FlyweightString<CharType>& other) const;
 	};
 
 	using FlyweightStringA = FlyweightString<char>;

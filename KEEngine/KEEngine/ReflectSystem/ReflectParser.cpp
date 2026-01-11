@@ -1,6 +1,5 @@
 #include "ReflectSystemPch.h"
 #include "ReflectParser.h"
-#include "ReflectObject.h"
 #include "StrUtil.h"
 
 #define DEFINE_GET_PROPERTY_BUFFER_SIZE(Type)													\

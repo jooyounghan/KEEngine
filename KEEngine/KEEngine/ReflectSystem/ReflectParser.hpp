@@ -1,5 +1,4 @@
 #pragma once
-#include "ReflectParser.h"
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																\
 template<> size_t ReflectParser::getPropertyBufferSize(const Type* outPropertyTypes);					\

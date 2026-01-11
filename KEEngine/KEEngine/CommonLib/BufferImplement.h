@@ -1,5 +1,4 @@
 #pragma once
-#include "CommonLibPch.h"
 #include "MathUtil.h"
 
 #define WRITE_IMPLEMENT(BufferClass, Size, Count)														\

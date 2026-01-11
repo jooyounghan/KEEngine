@@ -64,6 +64,12 @@
     <Filter Include="소스 파일\Container\Buffer">
       <UniqueIdentifier>{f54799cf-3c39-4358-9317-e969fbfab5a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Header\Hash">
+      <UniqueIdentifier>{45086453-e8d7-45f5-b317-b0db8ca18d0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Hash">
+      <UniqueIdentifier>{1867f1b2-0e38-405b-87fe-8059456f0916}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonLibPch.h">
@@ -111,14 +117,8 @@
     <ClInclude Include="MathUtil.hpp">
       <Filter>헤더 파일\Hpp\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="StaticBuffer.hpp">
-      <Filter>헤더 파일\Hpp\Container\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="FlyweightString.h">
       <Filter>헤더 파일\Header\String</Filter>
-    </ClInclude>
-    <ClInclude Include="Hash.h">
-      <Filter>헤더 파일\Header</Filter>
     </ClInclude>
     <ClInclude Include="Hash.hpp">
       <Filter>헤더 파일\Hpp</Filter>
@@ -138,6 +138,9 @@
     <ClInclude Include="BufferImplement.h">
       <Filter>헤더 파일\Header\Container\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Hash.h">
+      <Filter>헤더 파일\Header\Hash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonLibPch.cpp">
@@ -152,9 +155,6 @@
     <ClCompile Include="FlyweightString.cpp">
       <Filter>소스 파일\String</Filter>
     </ClCompile>
-    <ClCompile Include="Hash.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="StrUtil.cpp">
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
@@ -163,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="DynamicBuffer.cpp">
       <Filter>소스 파일\Container\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticBuffer.cpp">
+      <Filter>소스 파일\Container\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferImplement.cpp">
+      <Filter>소스 파일\Container\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Hash.cpp">
+      <Filter>소스 파일\Hash</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

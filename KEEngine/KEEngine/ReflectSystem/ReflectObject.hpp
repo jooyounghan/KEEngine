@@ -1,115 +1,81 @@
-#pragma once
-#include "ReflectObject.h"
 
-#define BEGIN_BIND_REFLECT_META_DATA(ObjectType)										\
-	ke::ReflectMetaData<ObjectType> ke::ReflectObject<ObjectType>::_reflectMetaData; 	\
-	template<> void ke::ReflectObject<ObjectType>::initializeMetaData() {				\
-		ke::ReflectMetaData<ObjectType>& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
+#pragma region Reflect Property Macros
+// Declare Reflect Property Macros
+#define BEGIN_DECLARE_REFLECT_PROPERTY() 
 
-#define BIND_REFLECT_META_DATA(PropertyType, VariableName, DefaultValue, Description)	\
-	{																					\
-		reflectMetaData.registerPropertyMetaData<PropertyType>(							\
-			#VariableName,																\
-			DefaultValue																\
-		);																				\
-	}
+#define DECLARE_REFLECT_PROPERTY(Type, Variable)								\
+private:																		\
+	Type Variable;																\
+public:																			\
+	inline static const ke::FlyweightStringA& getName##Variable()				\
+	{																			\
+		static ke::FlyweightStringA name = ke::FlyweightStringA(#Variable);		\
+		return name;															\
+	}																			\
+	inline Type& get##Variable() { return Variable; }							\
+	inline const Type& getConst##Variable() const { return Variable; }			\
+	inline void set##Variable(const Type& variable) { Variable = variable; }
 
-#define END_BIND_REFLECT_META_DATA()	};
+#define END_DECLARE_REFLECT_PROPERTY()
 
-#define DECLARE_REFLECT_PROPERTY(Type, VariableName)																			\
-private:																														\
-	Type VariableName;																											\
-public:																															\
-	inline static ke::FlyweightStringA getName##VariableName = #VariableName;													\
-	inline const Type& get##VariableName() const { return VariableName; }														\
+// Define Reflect Property Macros
+#define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)													\
+	ke::FlyweightStringA ke::ReflectObject<ObjectType>::_objectName = FlyweightStringA(#ObjectType);\
+	ke::ReflectMetaData ke::ReflectObject<ObjectType>::_reflectMetaData = ReflectMetaData(			\
+		ke::ReflectObject<ObjectType>::_objectName													\
+	); 																								\
+	template<> void ke::ReflectObject<ObjectType>::initializeMetaData() {							\
+		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
 
-#define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType) template<> void ke::ReflectObject<ObjectType>::initializeProperties() {	
-
-#define DEFINE_REFLECT_PROPERTY(PropertyType, VariableName)										\
-	{																							\
-		registerProperty<PropertyType>(_object->getName##VariableName, &_object->VariableName);	\
+#define DEFINE_REFLECT_PROPERTY(ObjectType, PropertyType, Variable)	\
+	{																\
+		reflectMetaData.addProperty(								\
+			ObjectType::getName##Variable()							\
+			, &ObjectType::get##Variable							\
+			, &ObjectType::getConst##Variable						\
+			, &ObjectType::set##Variable							\
+		);															\
 	}
 
 #define END_DEFINE_REFLECT_PROPERTY()	};
+#pragma endregion
 
-#define DECLARE_REFLECT_OBJECT(ObjectType) template<> void ke::ReflectObject<ObjectType>::initializeMetaData()
-
-#define REFLECT_OBJECT_CLASS(ObjectType)	\
-	class ObjectType;						\
-	DECLARE_REFLECT_OBJECT(ObjectType);		\
+#pragma region Reflect Object Macros
+#define REFLECT_OBJECT_CLASS(ObjectType)								\
+	class ObjectType;													\
+	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();\
 	class ObjectType : public ke::ReflectObject<ObjectType>
-
-#define BEGIN_DECLARE_REFLECT_PROPERTY(ObjectType) friend class ke::ReflectObject<ObjectType>;
-#define REFLECT_OBJECT_CONSTRUCTOR() ReflectObject(this)
-#define END_DECLARE_REFLECT_PROPERTY()
+#pragma endregion
 
 namespace ke
 {
 	template<typename ObjectType>
-	void ReflectObject<ObjectType>::initializeMetaData()
+	ReflectObject<ObjectType>::ReflectObject()
+	{
+	}
+	
+	template<typename ObjectType>
+	void ke::ReflectObject<ObjectType>::initializeMetaData()
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
 	}
-
+	
 	template<typename ObjectType>
 	void ReflectObject<ObjectType>::ensureInitialized()
 	{
-		static const bool once = (initializeMetaData(), true);
-		(void)once;
+		KE_MAYBE_UNUSED static const bool once = (initializeMetaData(), true);
 	}
 
 	template<typename ObjectType>
-	const ReflectMetaData<ObjectType>& ReflectObject<ObjectType>::getReflectMetaData()
+	const ReflectMetaData& ReflectObject<ObjectType>::getObjectMetaData()
 	{
 		ensureInitialized();
 		return _reflectMetaData;
 	}
-
+	
 	template<typename ObjectType>
-	void ReflectObject<ObjectType>::initializeProperties()
+	const ReflectMetaData& ReflectObject<ObjectType>::getMetaData() const
 	{
-		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectObject);
-	}
-
-	template<typename ObjectType>
-	template<typename PropertyType, typename ...Args>
-	void ReflectObject<ObjectType>::registerProperty(FlyweightStringA propertyName, Args ...args)
-	{
-		if (_reflectPropertyIndexMap.find(propertyName) != _reflectPropertyIndexMap.end())
-		{
-			KE_DEBUG_ASSERT(false, "PropertyMetaData already registered in ReflectMetaData.");
-		}
-		else
-		{
-			uint32 propertyIndex = static_cast<uint32>(_reflectPropertyList.size());
-			_reflectPropertyIndexMap.emplace(propertyName, propertyIndex);
-			_reflectPropertyList.push_back(std::make_unique<ReflectProperty<PropertyType>>(propertyName, args...));
-		}
-
-	}
-
-	template<typename ObjectType>
-	ReflectObject<ObjectType>::ReflectObject(ObjectType* object)
-		: _object(object)
-	{
-	}
-
-	template<typename ObjectType>
-	void ReflectObject<ObjectType>::initialize()
-	{
-		initializeProperties();
-
-		const ReflectMetaData<ObjectType>& reflectMetaData = getReflectMetaData();
-		for (size_t i = 0; i < _reflectPropertyList.size(); ++i)
-		{
-			IReflectProperty* reflectProperty = _reflectPropertyList[i].get();
-			const std::unique_ptr<IPropertyMetaData<ObjectType>>& propertyMetaData = reflectMetaData._propertyMetaDataList[i];
-			
-			if (propertyMetaData)
-			{
-				propertyMetaData->applyDefaultValue(reflectProperty);
-				reflectProperty->setIsDefaultProperty(true);
-			}
-		}
+		return getObjectMetaData();
 	}
 }

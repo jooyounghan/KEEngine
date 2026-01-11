@@ -1,5 +1,6 @@
 #pragma once
 #include "IBuffer.h"
+#include "BufferImplement.h"
 
 namespace ke
 {
@@ -26,5 +27,3 @@ namespace ke
 		virtual size_t		getAvailableSize() const override;
 	};
 }
-
-#include "StaticBuffer.hpp"

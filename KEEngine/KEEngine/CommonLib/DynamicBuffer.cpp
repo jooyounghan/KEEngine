@@ -1,6 +1,6 @@
 #include "CommonLibPch.h"
-#include "BufferImplement.h"
 #include "DynamicBuffer.h"
+#include "BufferImplement.h"
 #include "MemoryUtil.h"
 
 namespace ke
