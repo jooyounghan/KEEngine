@@ -1,5 +1,6 @@
 #include "BlackBoardPch.h"
 #include "test.h"
+#include "ReflectPropertyBinder.h"
 
 namespace ke
 {
@@ -8,7 +9,10 @@ namespace ke
 		DEFINE_REFLECT_PROPERTY(MoveStatus, float, _slowRatio)
 	END_DEFINE_REFLECT_PROPERTY()
 
-	BEGIN_BIND_PROPERTY()
+	BEGIN_BIND_REFLECT_PROPERTY(MoveStatus)
+		BIND_REFLECT_PROPERTY(MoveStatus, int32, _speed, EReflectUIOption::Editable, 0, 0, 100);
+		BIND_REFLECT_PROPERTY(MoveStatus, float, _slowRatio, EReflectUIOption::Editable, 0.0f, 0.0f, 1.0f);
+	END_BIND_REFLECT_PROPERTY()
 //
 //	BEGIN_BIND_REFLECT_META_DATA(CharacterStatus)
 //		BIND_REFLECT_META_DATA(MoveStatus, _moveStatus, MoveStatus(), "Move Status");

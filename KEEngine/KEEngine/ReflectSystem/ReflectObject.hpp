@@ -41,13 +41,33 @@ public:																			\
 #pragma endregion
 
 #pragma region Bind ReflectProperty Macros
+#define BEGIN_BIND_REFLECT_PROPERTY(ObjectType)													\
+	template<> void ke::ReflectObject<ObjectType>::bindMetaData() {								\
+		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
+
+#define BIND_REFLECT_PROPERTY(ObjectType, PropertyType, Variable, UiOption, ...)	\
+	{																				\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(		\
+			ObjectType::getName##Variable()										\
+		);																			\
+		KE_ASSERT(reflectProperty != nullptr, "Reflect Property not found: %s",		\
+			ObjectType::getName##Variable().c_str()								\
+		);																			\
+		ke::ReflectPropertyBinder<ObjectType, PropertyType>::bindProperty(			\
+			reflectProperty,														\
+			UiOption,																\
+			__VA_ARGS__																\
+		);																			\
+	}
+
+#define END_BIND_REFLECT_PROPERTY() };
 
 #pragma endregion
 
 #pragma region ReflectObject Macros
-#define REFLECT_OBJECT_CLASS(ObjectType)								\
-	class ObjectType;													\
-	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();\
+#define REFLECT_OBJECT_CLASS(ObjectType)									\
+	class ObjectType;														\
+	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();	\
 	class ObjectType : public ke::ReflectObject<ObjectType>
 #pragma endregion
 

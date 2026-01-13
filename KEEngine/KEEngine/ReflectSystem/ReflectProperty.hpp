@@ -1,4 +1,3 @@
-#include "ReflectProperty.h"
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
@@ -59,27 +58,34 @@ namespace ke
 		STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
 	}
 
+#define ERROR_REFLECT_OBJECT_METHOD_NOT_ALLOWED(methodName, description) \
+    KE_ASSERT(false, "ReflectObjectProperty::" #methodName               \
+                     " is not allowed. (" #description ")")
+
+#define ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(methodName) \
+	ERROR_REFLECT_OBJECT_METHOD_NOT_ALLOWED(methodName, "Serialize/Deserialize is not allowed for ReflectObjectProperty.")
+
 	template<typename ObjectType, typename PropertyType>
 	void ReflectObjectProperty<ObjectType, PropertyType>::setFromBianry(IReflectObject* object, const void* src)
 	{
-		KE_ASSERT(false, "ReflectObjectProperty::setFromBianry is not allowed.");
+		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(setFromBianry);
 	}
 	
 	template<typename ObjectType, typename PropertyType>
 	void ReflectObjectProperty<ObjectType, PropertyType>::getToBinary(const IReflectObject* object, void* outDst) const
 	{
-		KE_ASSERT(false, "ReflectObjectProperty::getToBinary is not allowed.");
+		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(getToBinary);
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectObjectProperty<ObjectType, PropertyType>::setFromString(IReflectObject* object, const char* src)
 	{
-		KE_ASSERT(false, "ReflectObjectProperty::setFromString is not allowed.");
+		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(setFromString);
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectObjectProperty<ObjectType, PropertyType>::getToString(const IReflectObject* object, IBuffer* outStringBuffer) const
 	{
-		KE_ASSERT(false, "ReflectObjectProperty::getToString is not allowed.");
+		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(getToString);
 	}
 }

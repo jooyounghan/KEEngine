@@ -6,6 +6,12 @@
 
 namespace ke
 {
+	DECLARE_ENUM_CLASS(EReflectUIOption, uint8,
+		None,
+		Visible = 1 << 0,
+		Editable = 1 << 1
+	);
+
 	class IReflectProperty
 	{
 	public:
