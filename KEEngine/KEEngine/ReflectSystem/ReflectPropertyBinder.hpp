@@ -1,27 +1,28 @@
 #pragma once
 
-#define BIND_PROPERTY_FUNCITON_HEADER(PropertyType)		\
-template<>												\
-template<>												\
-void ReflectPropertyBinder<PropertyType>::bindProperty(	\
-
 #define DEFAULT_BIND_PROPERTY_PARAMETER	\
     IReflectProperty* reflectProperty,  \
     const EReflectUIOption& uiOption
 
+// default-only specialization: bindProperty<PropertyType>(..., const PropertyType& defaultValue)
 #define DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)  \
-BIND_PROPERTY_FUNCITON_HEADER(PropertyType)					\
+template<>													\
+template<>													\
+void ReflectPropertyBinder<PropertyType>::bindProperty(		\
 DEFAULT_BIND_PROPERTY_PARAMETER,							\
     const PropertyType& defaultValue						\
 )
 
-#define DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType) \
-BIND_PROPERTY_FUNCITON_HEADER(PropertyType)						\
-DEFAULT_BIND_PROPERTY_PARAMETER,								\
-    const PropertyType& minValue,								\
-    const PropertyType& maxValue,								\
-    const PropertyType& step,									\
-    const PropertyType& defaultValue							\
+// range specialization: bindProperty<PropertyType,PropertyType,PropertyType,PropertyType>(..., min,max,step,default)
+#define DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)		\
+template<>															\
+template<>															\
+void ReflectPropertyBinder<PropertyType>::bindProperty(				\
+DEFAULT_BIND_PROPERTY_PARAMETER,									\
+    const PropertyType& minValue,									\
+    const PropertyType& maxValue,									\
+    const PropertyType& step,										\
+    const PropertyType& defaultValue								\
 )
 
 namespace ke
@@ -31,7 +32,7 @@ namespace ke
 	void ReflectPropertyBinder<PropertyType>::bindProperty(
 		IReflectProperty* reflectProperty
 		, const EReflectUIOption& uiOption
-		, Args... args
+		, const Args&... args
 	)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(bindProperty);

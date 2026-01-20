@@ -31,7 +31,7 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const = 0;
-		inline virtual ReflectMetaData* getMetaData() const = 0;
+		inline virtual const ReflectMetaData* getMetaData() const = 0;
 
 	public:
 		inline virtual size_t getPropertyBufferSize() const = 0;
@@ -91,7 +91,7 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const { return false; };
-		inline virtual ReflectMetaData* getMetaData() const { return nullptr; }
+		inline virtual const ReflectMetaData* getMetaData() const { return nullptr; }
 
 	public:
 		inline virtual size_t getPropertyBufferSize() const { return sizeof(PropertyType); }
@@ -120,7 +120,7 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const { return true; };
-		inline virtual ReflectMetaData* getMetaData() const { return PropertyType::getObjectMetaData(); }
+		inline virtual const ReflectMetaData* getMetaData() const { return PropertyType::getObjectMetaData(); }
 
 	public:
 		inline virtual size_t getPropertyBufferSize() const { return INVALID_INDEX(size_t); }

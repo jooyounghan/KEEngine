@@ -16,7 +16,7 @@ namespace ke
 		static void bindProperty(
 			IReflectProperty* reflectProperty
 			, const EReflectUIOption& uiOption
-			, Args... args
+			, const Args&... args
 		);
 	};
 }

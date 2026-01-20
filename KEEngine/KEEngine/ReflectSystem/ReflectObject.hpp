@@ -50,7 +50,7 @@ public:																			\
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(		\
 			ObjectType::getName##Variable()											\
 		);																			\
-		KE_ASSERT(reflectProperty != nullptr, "Reflect Property not found: %s",		\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s",\
 			ObjectType::getName##Variable().c_str()									\
 		);																			\
 		ke::ReflectPropertyBinder<PropertyType>::bindProperty(						\
@@ -68,6 +68,7 @@ public:																			\
 #define REFLECT_OBJECT_CLASS(ObjectType)									\
 	class ObjectType;														\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();	\
+	template<> void ke::ReflectObject<ObjectType>::bindMetaData();			\
 	class ObjectType : public ke::ReflectObject<ObjectType>
 #pragma endregion
 

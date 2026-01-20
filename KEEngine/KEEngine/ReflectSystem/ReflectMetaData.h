@@ -27,7 +27,7 @@ namespace ke
 		)
 		{
 			std::unique_ptr<IReflectProperty> propertyPtr;
-			if (IS_BASE_OF(IReflectObject, PropertyType))
+			if constexpr (IS_BASE_OF(IReflectObject, PropertyType))
 			{
 				propertyPtr = std::make_unique<ReflectObjectProperty<ObjectType, PropertyType>>(name, getter, constGetter, setter);
 			}

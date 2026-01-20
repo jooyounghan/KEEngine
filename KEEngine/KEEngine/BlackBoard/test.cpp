@@ -10,8 +10,8 @@ namespace ke
 	END_DEFINE_REFLECT_PROPERTY()
 
 	BEGIN_BIND_REFLECT_PROPERTY(MoveStatus)
-		BIND_REFLECT_PROPERTY(MoveStatus, int32, _speed, EReflectUIOption::Editable, 0, 0, 100);
-		BIND_REFLECT_PROPERTY(MoveStatus, float, _slowRatio, EReflectUIOption::Editable, 0.0f, 0.0f, 1.0f);
+		BIND_REFLECT_PROPERTY(MoveStatus, int32, _speed, EReflectUIOption::Editable, 0, 100, 1, 10);
+		BIND_REFLECT_PROPERTY(MoveStatus, float, _slowRatio, EReflectUIOption::Editable, 0.0f, 1.0f, 0.01f, 0.f);
 	END_BIND_REFLECT_PROPERTY()
 //
 //	BEGIN_BIND_REFLECT_META_DATA(CharacterStatus)

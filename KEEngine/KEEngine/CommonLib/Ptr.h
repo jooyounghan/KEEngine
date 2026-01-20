@@ -37,6 +37,10 @@ namespace ke
 		inline bool operator==(std::nullptr_t) { return _ptr == nullptr; }
 		inline bool operator!=(std::nullptr_t) { return _ptr != nullptr; }
 
+	public:
+		inline T* get() const { return _ptr; }
+		inline T* operator->() const { return _ptr; }
+
 	private:
 		T* _ptr = nullptr;
 	};

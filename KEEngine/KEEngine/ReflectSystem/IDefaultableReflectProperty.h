@@ -5,9 +5,9 @@ namespace ke
 	template<typename PropertyType>
 	struct RangedPropertyInfo
 	{
-		PropertyType	maxValue;
-		PropertyType	minValue;
-		PropertyType	step;
+		PropertyType	_maxValue;
+		PropertyType	_minValue;
+		PropertyType	_step;
 	};
 
 	class IDefaultableReflectPropertyBase
