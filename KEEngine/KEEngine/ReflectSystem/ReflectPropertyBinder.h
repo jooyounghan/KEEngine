@@ -3,10 +3,15 @@
 
 namespace ke
 {
-	template<typename ObjectType, typename PropertyType>
+	template<typename PropertyType>
 	class ReflectPropertyBinder
 	{
 	public:
+		static void bindProperty(
+			IReflectProperty* reflectProperty
+			, const EReflectUIOption& uiOption
+		);
+
 		template<typename... Args>
 		static void bindProperty(
 			IReflectProperty* reflectProperty

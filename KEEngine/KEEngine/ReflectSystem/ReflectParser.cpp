@@ -2,13 +2,6 @@
 #include "ReflectParser.h"
 #include "StrUtil.h"
 
-#define DEFINE_GET_PROPERTY_BUFFER_SIZE(Type)													\
-template<>																						\
-size_t ReflectParser::getPropertyBufferSize(const Type* outPropertyTypes)						\
-{																								\
-    return sizeof(Type);																		\
-}
-
 #define DEFINE_PARSE_FROM_STRING(Type, StringParser, ...)										\
 template<>																						\
 Offset ReflectParser::parseFromString(const char* src, Type* outPropertyTypes)					\
@@ -43,20 +36,6 @@ void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type* outPrope
 
 namespace ke
 {
-#pragma region getPropertyBufferSize Specializations
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(bool);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint8);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint16);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint32);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(uint64);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(int8);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(int16);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(int32);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(int64);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(float);
-	DEFINE_GET_PROPERTY_BUFFER_SIZE(double);
-#pragma endregion
-
 #pragma region parseFromString Specializations
 	template<>
 	Offset ReflectParser::parseFromString(const char* src, bool* outPropertyTypes)
@@ -87,8 +66,8 @@ namespace ke
 	DEFINE_PARSE_TO_STRING(int16);
 	DEFINE_PARSE_TO_STRING(int32);
 	DEFINE_PARSE_TO_STRING(int64);
-	DEFINE_PARSE_TO_STRING(float, 3);
-	DEFINE_PARSE_TO_STRING(double, 3);
+	DEFINE_PARSE_TO_STRING(float, 5);
+	DEFINE_PARSE_TO_STRING(double, 5);
 #pragma endregion
 
 #pragma region ParseFromBinary Specializations

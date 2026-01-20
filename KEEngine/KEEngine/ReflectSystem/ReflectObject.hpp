@@ -48,12 +48,12 @@ public:																			\
 #define BIND_REFLECT_PROPERTY(ObjectType, PropertyType, Variable, UiOption, ...)	\
 	{																				\
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(		\
-			ObjectType::getName##Variable()										\
+			ObjectType::getName##Variable()											\
 		);																			\
 		KE_ASSERT(reflectProperty != nullptr, "Reflect Property not found: %s",		\
-			ObjectType::getName##Variable().c_str()								\
+			ObjectType::getName##Variable().c_str()									\
 		);																			\
-		ke::ReflectPropertyBinder<ObjectType, PropertyType>::bindProperty(			\
+		ke::ReflectPropertyBinder<PropertyType>::bindProperty(						\
 			reflectProperty,														\
 			UiOption,																\
 			__VA_ARGS__																\

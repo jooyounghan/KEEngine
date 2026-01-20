@@ -14,7 +14,8 @@
 #include <map>
 
 // Smart Pointer
-#include <memory>
+#include "Ptr.h"
+#include "RefCountedPtr.h"
 
 // Utilities
 #include <type_traits>

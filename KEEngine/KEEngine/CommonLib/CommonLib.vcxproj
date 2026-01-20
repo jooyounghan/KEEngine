@@ -155,6 +155,9 @@
     <ClInclude Include="MemoryUtil.h" />
     <ClInclude Include="MemoryUtil.hpp" />
     <ClInclude Include="CommonLibPch.h" />
+    <ClInclude Include="Ptr.h" />
+    <ClInclude Include="Ptr.hpp" />
+    <ClInclude Include="RefCountedPtr.h" />
     <ClInclude Include="SimdCommon.h" />
     <ClInclude Include="StaticBuffer.h" />
     <ClInclude Include="StrUtil.h" />

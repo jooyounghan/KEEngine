@@ -35,6 +35,7 @@ namespace ke
 			{
 				propertyPtr = std::make_unique<ReflectPODProperty<ObjectType, PropertyType>>(name, getter, constGetter, setter);
 			}
+
 			IReflectProperty* property = propertyPtr.get();
 			_properties.emplace_back(std::move(propertyPtr));
 			_orderedPropertyMap.emplace(name, property);

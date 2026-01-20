@@ -70,6 +70,12 @@
     <Filter Include="소스 파일\Hash">
       <UniqueIdentifier>{1867f1b2-0e38-405b-87fe-8059456f0916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Header\Proxy">
+      <UniqueIdentifier>{36d4d2ab-045a-4c38-a825-65dc38e37fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Proxy">
+      <UniqueIdentifier>{424f72f5-203e-476f-9b66-bd137b8251bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonLibPch.h">
@@ -140,6 +146,15 @@
     </ClInclude>
     <ClInclude Include="Hash.h">
       <Filter>헤더 파일\Header\Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="Ptr.h">
+      <Filter>헤더 파일\Header\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="RefCountedPtr.h">
+      <Filter>헤더 파일\Header\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ptr.hpp">
+      <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

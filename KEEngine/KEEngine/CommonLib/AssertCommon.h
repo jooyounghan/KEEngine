@@ -50,6 +50,10 @@
 #endif
 
 // Specialization ============================================================================
+#define STATIC_ASSERT(condition, message)	\
+	static_assert(condition,				\
+		message								\
+	)
 #define STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ClassName)	\
 	static_assert(false,								\
 		#ClassName										\

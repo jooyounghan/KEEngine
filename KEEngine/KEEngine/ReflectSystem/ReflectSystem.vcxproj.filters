@@ -87,6 +87,12 @@
     <ClInclude Include="ReflectPropertyBinder.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="IDefaultableReflectProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="IDefaultableReflectProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">
@@ -105,6 +111,9 @@
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
     <ClCompile Include="ReflectPropertyBinder.cpp">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="IDefaultableReflectProperty.cpp">
       <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
   </ItemGroup>

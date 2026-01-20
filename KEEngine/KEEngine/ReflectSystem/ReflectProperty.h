@@ -2,6 +2,8 @@
 #include "IReflectObject.h"
 #include "FlyweightString.h"
 #include "IBuffer.h"
+#include "ReflectParser.h"
+#include "IDefaultableReflectProperty.h"
 #include <memory>
 
 namespace ke
@@ -17,9 +19,15 @@ namespace ke
 	public:
 		constexpr IReflectProperty(const FlyweightStringA& name) : _name(name) {};
 		virtual ~IReflectProperty() = default;
-
+		
 	private:
-		FlyweightStringA _name;
+		FlyweightStringA	_name;
+		EReflectUIOption	_uiOption = EReflectUIOption::None;
+
+	public:
+		inline const FlyweightStringA& getName() const { return _name; }
+		inline void setUIOption(const EReflectUIOption& uiOption) { _uiOption = uiOption; }
+		inline EReflectUIOption getUIOption() const { return _uiOption; }
 
 	public:
 		inline virtual bool isReflectObject() const = 0;
@@ -30,9 +38,12 @@ namespace ke
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
-		virtual void getToBinary(const IReflectObject* object, void* outDst) const = 0;
+		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
 		virtual void setFromString(IReflectObject* object, const char* src) = 0;
 		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
+
+	public:
+		virtual IDefaultableReflectPropertyBase* asDefaultablePropertyBase() { return nullptr; }
 	};
 
 	template <typename ObjectType, typename PropertyType>
@@ -67,7 +78,7 @@ namespace ke
 	};
 
 	template<typename ObjectType, typename PropertyType>
-	class ReflectPODProperty : public ReflectPropertyBase<ObjectType, PropertyType>
+	class ReflectPODProperty : public ReflectPropertyBase<ObjectType, PropertyType>, public IDefaultableReflectProperty<PropertyType>
 	{
 	public:
 		ReflectPODProperty(
@@ -79,7 +90,7 @@ namespace ke
 		~ReflectPODProperty() override = default;
 
 	public:
-		inline virtual bool isReflectObject() const { return false };
+		inline virtual bool isReflectObject() const { return false; };
 		inline virtual ReflectMetaData* getMetaData() const { return nullptr; }
 
 	public:
@@ -87,9 +98,12 @@ namespace ke
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src);
-		virtual void getToBinary(const IReflectObject* object, void* outDst) const;
+		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const;
 		virtual void setFromString(IReflectObject* object, const char* src);
 		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const;
+
+	public:
+		inline virtual IDefaultableReflectPropertyBase* asDefaultablePropertyBase() override { return static_cast<IDefaultableReflectPropertyBase*>(this); }
 	};
 
 	template<typename ObjectType, typename PropertyType>
@@ -105,7 +119,7 @@ namespace ke
 		~ReflectObjectProperty() override = default;
 
 	public:
-		inline virtual bool isReflectObject() const { return true };
+		inline virtual bool isReflectObject() const { return true; };
 		inline virtual ReflectMetaData* getMetaData() const { return PropertyType::getObjectMetaData(); }
 
 	public:
@@ -113,7 +127,7 @@ namespace ke
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src);
-		virtual void getToBinary(const IReflectObject* object, void* outDst) const;
+		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const;
 		virtual void setFromString(IReflectObject* object, const char* src);
 		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const;
 	};

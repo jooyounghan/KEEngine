@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IDefaultableReflectProperty.h" />
+    <ClInclude Include="IDefaultableReflectProperty.hpp" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectObject.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="ReflectParser.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IDefaultableReflectProperty.cpp" />
     <ClCompile Include="ReflectMetaData.cpp" />
     <ClCompile Include="ReflectObject.cpp" />
     <ClCompile Include="ReflectParser.cpp" />

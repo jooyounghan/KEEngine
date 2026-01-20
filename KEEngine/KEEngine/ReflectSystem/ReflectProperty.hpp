@@ -1,3 +1,4 @@
+#include "IDefaultableReflectProperty.h"
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
@@ -28,22 +29,26 @@ namespace ke
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectPODProperty<ObjectType, PropertyType>::setFromBianry(IReflectObject* object, const void* src)
-	{
+	{		
+		ReflectParser::parseFromBinary(src, &this->get(object));
 	}
 
 	template<typename ObjectType, typename PropertyType>
-	void ReflectPODProperty<ObjectType, PropertyType>::getToBinary(const IReflectObject* object, void* outDst) const
+	void ReflectPODProperty<ObjectType, PropertyType>::getToBinary(const IReflectObject* object, IBuffer* outDst) const
 	{
+		ReflectParser::parseToBinary(outDst, &this->get(object));
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectPODProperty<ObjectType, PropertyType>::setFromString(IReflectObject* object, const char* src)
 	{
+		ReflectParser::parseFromString(src, &this->get(object));
 	}
 
 	template<typename ObjectType, typename PropertyType>
 	void ReflectPODProperty<ObjectType, PropertyType>::getToString(const IReflectObject* object, IBuffer* outStringBuffer) const
 	{
+		ReflectParser::parseToString(outStringBuffer, &this->get(object));
 	}
 
 	template<typename ObjectType, typename PropertyType>
@@ -72,7 +77,7 @@ namespace ke
 	}
 	
 	template<typename ObjectType, typename PropertyType>
-	void ReflectObjectProperty<ObjectType, PropertyType>::getToBinary(const IReflectObject* object, void* outDst) const
+	void ReflectObjectProperty<ObjectType, PropertyType>::getToBinary(const IReflectObject* object, IBuffer* outDst) const
 	{
 		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(getToBinary);
 	}
