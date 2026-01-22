@@ -9,10 +9,15 @@ namespace ke
 	class ReflectSerializer
 	{
 	public:
-		void SerializeToXML(IBuffer* outBuffer, const ReflectObject<ObjectType>& obj);
-		void DeserializeFromXML(const IBuffer* const outBuffer, ReflectObject<ObjectType>& obj);
+		static void serializeToXML(IBuffer* outBuffer, const ReflectObject<ObjectType>* obj);
+		static void deserializeFromXML(const IBuffer* const outBuffer, ReflectObject<ObjectType>* obj);
 
-		void SerializeToBinary(IBuffer* outBuffer, const ReflectObject<ObjectType>& obj);
-		void DeserializeFromBinary(const IBuffer* const outBuffer, ReflectObject<ObjectType>& obj);
+	private:
+		static void serializeToXMLInner(IBuffer* outBuffer, const ReflectMetaData* reflectMetaData);
+
+	public:
+		static void serializeToBinary(IBuffer* outBuffer, const ReflectObject<ObjectType>* obj);
+		static void deserializeFromBinary(const IBuffer* const outBuffer, ReflectObject<ObjectType>* obj);
 	};
 }
+#include "ReflectSerializer.hpp"

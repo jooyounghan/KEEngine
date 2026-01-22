@@ -1,6 +1,6 @@
 #include "CommonLibPch.h"
 #include "XMLReader.h"
-#include "FileUtil.h"
+#include "StrUtil.h"
 
 namespace ke
 {
@@ -32,7 +32,7 @@ namespace ke
         ++p;  // skip '/'
 
         const char* nameStart = p;
-        p = FileUtil::findNext(p, end, '>');
+        p = StrUtil::findNext(p, end, '>');
         const char* nameEnd = p;
 
         KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing end tag.");
@@ -55,7 +55,7 @@ namespace ke
             if (*p == '!' && p + 2 < end && p[1] == '-' && p[2] == '-')
             {
                 // comment: skip until "-->"
-                p = FileUtil::findSequence(p, end, "-->", 3);
+                p = StrUtil::findSequence(p, end, "-->", 3);
                 KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing comment.");
 				p += 3; // skip "-->"
 
@@ -68,7 +68,7 @@ namespace ke
                 if (*p == '?')
                 {
                     // processing instruction: skip until "?>"
-                    p = FileUtil::findSequence(p, end, "?>", 2);
+                    p = StrUtil::findSequence(p, end, "?>", 2);
                     KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing processing instruction.");
 					p += 2; // skip "?>"
 
@@ -77,7 +77,7 @@ namespace ke
                 }
                 else
                 {
-                    p = FileUtil::findNext(p, end, '>');
+                    p = StrUtil::findNext(p, end, '>');
                     KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing declaration.");
                     ++p; // skip '>'
                     
@@ -89,7 +89,7 @@ namespace ke
 
         // start tag
         const char* elementNameStart = p;
-        p = FileUtil::findNameEnd(p, end);
+        p = StrUtil::findNameEnd(p, end);
         const char* elementNameEnd = p;
         std::string_view elementName = std::string_view(elementNameStart, elementNameEnd);
 
@@ -99,22 +99,22 @@ namespace ke
         std::vector<XmlAttribute> attributes;
         attributes.clear();
 
-        FileUtil::skipWhitespace(p, end);
+        StrUtil::skipWhitespace(p, end);
         while (p < end && *p != '>' && *p != '/')
         {
             const char* attrNameStart = p;
-            p = FileUtil::findNameEnd(p, end);
+            p = StrUtil::findNameEnd(p, end);
             const char* attrNameEnd = p;
             KE_DEBUG_RETURN(attrNameStart != attrNameEnd, "XML Parsing Error: Expected attribute name.");
             KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing attribute value.");
 
-            FileUtil::skipWhitespace(p, end);
+            StrUtil::skipWhitespace(p, end);
 
             KE_DEBUG_RETURN(*p == '=', "XML Parsing Error : Expected '=' after attribute name.");
             KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing attribute.");
             ++p;
 
-            FileUtil::skipWhitespace(p, end);
+            StrUtil::skipWhitespace(p, end);
             KE_DEBUG_RETURN(p < end, "XML Parsing Error: Unexpected end of input while parsing attribute value.");
 
             char quote = *p;
@@ -122,7 +122,7 @@ namespace ke
             ++p; // skip opening " or '
 
             const char* valueStart = p;
-            p = FileUtil::findNext(p, end, quote);
+            p = StrUtil::findNext(p, end, quote);
             const char* valueEnd = p;
             KE_DEBUG_RETURN(valueStart != valueEnd, "XML Parsing Error: Expected attribute value.");
             KE_DEBUG_RETURN(*p == quote, "XML Parsing Error: Expected closing quote for attribute value.");
@@ -134,7 +134,7 @@ namespace ke
             atrribute._value = std::string_view(valueStart, valueEnd);
 
             attributes.push_back(atrribute);
-            FileUtil::skipWhitespace(p, end);
+            StrUtil::skipWhitespace(p, end);
         }
 
         bool selfClosing = false;
@@ -185,7 +185,7 @@ namespace ke
     void XMLReader::parseText(const char*& p, const char* end)
     {
         const char* textStart = p;
-        p = FileUtil::findNext(p, end, '<');
+        p = StrUtil::findNext(p, end, '<');
         const char* textEnd = p;
 
 		KE_DEBUG_RETURN(_isParsing != true, "XML Parsing Error: Text found outside of start element.");

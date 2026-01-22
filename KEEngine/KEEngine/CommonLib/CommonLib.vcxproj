@@ -144,7 +144,6 @@
     <ClInclude Include="DynamicBuffer.h" />
     <ClInclude Include="EnumCommon.h" />
     <ClInclude Include="File.h" />
-    <ClInclude Include="FileUtil.h" />
     <ClInclude Include="FlyweightString.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Hash.hpp" />
@@ -164,13 +163,14 @@
     <ClInclude Include="StrUtil.hpp" />
     <ClInclude Include="TraitCommon.h" />
     <ClInclude Include="TypeCommon.h" />
-    <ClInclude Include="XMLReader.h" />
+    <ClInclude Include="XmlReader.h" />
+    <ClInclude Include="XmlStruct.h" />
+    <ClInclude Include="XmlWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BufferImplement.cpp" />
     <ClCompile Include="DynamicBuffer.cpp" />
     <ClCompile Include="File.cpp" />
-    <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="FlyweightString.cpp" />
     <ClCompile Include="Hash.cpp" />
     <ClCompile Include="CommonLibPch.cpp">
@@ -181,7 +181,8 @@
     </ClCompile>
     <ClCompile Include="StaticBuffer.cpp" />
     <ClCompile Include="StrUtil.cpp" />
-    <ClCompile Include="XMLReader.cpp" />
+    <ClCompile Include="XmlReader.cpp" />
+    <ClCompile Include="XmlStruct.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

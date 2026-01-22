@@ -149,6 +149,7 @@
     <ClInclude Include="IDefaultableReflectProperty.hpp" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="ReflectMetaData.h" />
+    <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
     <ClInclude Include="ReflectProperty.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="ReflectParser.cpp" />
     <ClCompile Include="ReflectProperty.cpp" />
     <ClCompile Include="ReflectPropertyBinder.cpp" />
+    <ClCompile Include="ReflectSerializer.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

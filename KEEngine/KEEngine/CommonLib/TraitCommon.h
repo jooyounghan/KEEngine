@@ -1,5 +1,4 @@
 #pragma once
-#include "CommonLibPch.h"
 #include <type_traits>
 
 #define IS_INTEGER_TYPE(T) std::is_integral_v<T>

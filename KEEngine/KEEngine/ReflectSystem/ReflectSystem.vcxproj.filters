@@ -93,6 +93,9 @@
     <ClInclude Include="IDefaultableReflectProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectMetaData.hpp">
+      <Filter>헤더 파일\Hpp\MetaData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="IDefaultableReflectProperty.cpp">
       <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectSerializer.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

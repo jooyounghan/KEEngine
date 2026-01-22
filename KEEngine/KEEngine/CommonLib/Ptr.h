@@ -22,6 +22,9 @@ namespace ke
 	template<typename T>
 	class Ptr
 	{
+		template<typename U>
+		friend class Ptr;
+
 	public:
 		Ptr(T* ptr = nullptr);
 		Ptr(const Ptr<T>& other) = delete;
@@ -34,12 +37,24 @@ namespace ke
 		Ptr<T>& operator=(std::nullptr_t);
 
 	public:
+		template<typename U>
+		Ptr<T>& operator=(const Ptr<U>& other) = delete;
+		template<typename U>
+		Ptr<T>& operator=(Ptr<U>&& other);
+
+
+	public:
 		inline bool operator==(std::nullptr_t) { return _ptr == nullptr; }
 		inline bool operator!=(std::nullptr_t) { return _ptr != nullptr; }
 
 	public:
 		inline T* get() const { return _ptr; }
 		inline T* operator->() const { return _ptr; }
+
+	private:
+		inline void release();
+		template<typename U>
+		inline void move(Ptr<U>&& other) noexcept;
 
 	private:
 		T* _ptr = nullptr;

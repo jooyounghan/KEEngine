@@ -6,12 +6,11 @@ namespace ke
 	REFLECT_OBJECT_CLASS(MoveStatus)
 	{
 	public:
-		MoveStatus() {}
-
-	BEGIN_DECLARE_REFLECT_PROPERTY()
+		REFLECT_OBJECT_CONSTRUCTOR(MoveStatus);
+		
+	public:
 		DECLARE_REFLECT_PROPERTY(int32, _speed);
 		DECLARE_REFLECT_PROPERTY(float, _slowRatio);
-	END_DECLARE_REFLECT_PROPERTY();
 	};
 //
 //	REFLECT_OBJECT_CLASS(CharacterStatus)

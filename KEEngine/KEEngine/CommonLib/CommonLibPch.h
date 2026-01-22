@@ -17,9 +17,6 @@
 #include "Ptr.h"
 #include "RefCountedPtr.h"
 
-// Utilities
-#include <type_traits>
-
 // Project Includes
 #include "MacroCommon.h"
 #include "TypeCommon.h"

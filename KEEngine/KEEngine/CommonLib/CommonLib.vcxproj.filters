@@ -108,9 +108,6 @@
     <ClInclude Include="StaticBuffer.h">
       <Filter>헤더 파일\Header\Container\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="FileUtil.h">
-      <Filter>헤더 파일\Header\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
@@ -135,7 +132,7 @@
     <ClInclude Include="StrUtil.hpp">
       <Filter>헤더 파일\Hpp\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="XMLReader.h">
+    <ClInclude Include="XmlReader.h">
       <Filter>헤더 파일\Header\File</Filter>
     </ClInclude>
     <ClInclude Include="DynamicBuffer.h">
@@ -156,13 +153,16 @@
     <ClInclude Include="Ptr.hpp">
       <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
+    <ClInclude Include="XmlWriter.h">
+      <Filter>헤더 파일\Header\File</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlStruct.h">
+      <Filter>헤더 파일\Header\File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonLibPch.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FileUtil.cpp">
-      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
       <Filter>소스 파일\File</Filter>
@@ -173,7 +173,7 @@
     <ClCompile Include="StrUtil.cpp">
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="XMLReader.cpp">
+    <ClCompile Include="XmlReader.cpp">
       <Filter>소스 파일\File</Filter>
     </ClCompile>
     <ClCompile Include="DynamicBuffer.cpp">
@@ -187,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Hash.cpp">
       <Filter>소스 파일\Hash</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlStruct.cpp">
+      <Filter>소스 파일\File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,26 +1,28 @@
 #include "BlackBoardPch.h"
 #include "test.h"
-#include "ReflectProperty.h"
+#include "ReflectSerializer.h"
+#include "XmlStruct.h"
 
 int main()
 {
 	{
-		//ke::MoveStatus moveStatus;
-		//const ke::ReflectMetaData& reflectMetaData = ke::MoveStatus::getObjectMetaData();
-		//ke::IReflectProperty* speedProperty = reflectMetaData.getPropertyByName("_speed");
-		//ke::IReflectProperty* slowProperty = reflectMetaData.getPropertyByName("_slowRatio");
-		//ke::ReflectProperty<ke::MoveStatus, int>* speedReflectProperty =
-		//	static_cast<ke::ReflectProperty<ke::MoveStatus, int>*>(speedProperty);
-		//ke::ReflectProperty<ke::MoveStatus, float>* slowReflectProperty =
-		//	static_cast<ke::ReflectProperty<ke::MoveStatus, float>*>(slowProperty);
+		ke::MoveStatus moveStatus;
+		moveStatus._speed = 50;
+		moveStatus._slowRatio = 0.5f;
 
-		//speedReflectProperty->set(&moveStatus, 100);
-		//int s1 = speedReflectProperty->get(&moveStatus);
+		ke::ReflectSerializer<ke::MoveStatus>::serializeToXML(nullptr, &moveStatus);
+		bool t = true;
 
-		//slowReflectProperty->set(&moveStatus, 11.f);
-		//float r1 = slowReflectProperty->get(&moveStatus);
+		const char* test = "\"Test1 = \\\"10\\\" Test2 = \\\"20\\\" Test3 = \\\"30\\\" Test4 = \\\"40\\\"\"";
+		ke::XMLAttribute xmlAttr(test);
+		while (xmlAttr.isValid())
+		{
 
-		//bool t = true;
+			std::string_view name = xmlAttr.getName();
+			std::string_view value = xmlAttr.getValue();
+
+			xmlAttr = xmlAttr.getNextAttribute();
+		}
 	}
 
 	return 0;

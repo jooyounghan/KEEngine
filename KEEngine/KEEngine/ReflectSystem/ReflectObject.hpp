@@ -1,12 +1,9 @@
 
 #pragma region ReflectProperty Macros
 // Declare Reflect Property Macros
-#define BEGIN_DECLARE_REFLECT_PROPERTY() 
 
 #define DECLARE_REFLECT_PROPERTY(Type, Variable)								\
-private:																		\
 	Type Variable;																\
-public:																			\
 	inline static const ke::FlyweightStringA& getName##Variable()				\
 	{																			\
 		static ke::FlyweightStringA name = ke::FlyweightStringA(#Variable);		\
@@ -15,8 +12,6 @@ public:																			\
 	inline Type& get##Variable() { return Variable; }							\
 	inline const Type& getConst##Variable() const { return Variable; }			\
 	inline void set##Variable(const Type& variable) { Variable = variable; }
-
-#define END_DECLARE_REFLECT_PROPERTY()
 
 // Define Reflect Property Macros
 #define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)													\
@@ -70,6 +65,11 @@ public:																			\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();	\
 	template<> void ke::ReflectObject<ObjectType>::bindMetaData();			\
 	class ObjectType : public ke::ReflectObject<ObjectType>
+
+#define REFLECT_OBJECT_CONSTRUCTOR(ObjectType)		\
+ObjectType() : ke::ReflectObject<ObjectType>() {};	\
+friend class ke::ReflectObject<ObjectType>;
+
 #pragma endregion
 
 namespace ke

@@ -1,6 +1,5 @@
 #include "BlackBoardPch.h"
 #include "test.h"
-#include "ReflectPropertyBinder.h"
 
 namespace ke
 {
