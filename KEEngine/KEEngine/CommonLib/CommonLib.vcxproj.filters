@@ -76,6 +76,12 @@
     <Filter Include="헤더 파일\Hpp\Proxy">
       <UniqueIdentifier>{424f72f5-203e-476f-9b66-bd137b8251bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Header\File\XML">
+      <UniqueIdentifier>{5b121614-7516-481d-a13c-287e127211f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\File\XML">
+      <UniqueIdentifier>{a25258e9-a923-49fd-8095-86c66e1f97ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonLibPch.h">
@@ -132,9 +138,6 @@
     <ClInclude Include="StrUtil.hpp">
       <Filter>헤더 파일\Hpp\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="XmlReader.h">
-      <Filter>헤더 파일\Header\File</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicBuffer.h">
       <Filter>헤더 파일\Header\Container\Buffer</Filter>
     </ClInclude>
@@ -153,11 +156,17 @@
     <ClInclude Include="Ptr.hpp">
       <Filter>헤더 파일\Hpp\Proxy</Filter>
     </ClInclude>
-    <ClInclude Include="XmlWriter.h">
-      <Filter>헤더 파일\Header\File</Filter>
+    <ClInclude Include="XmlReader.h">
+      <Filter>헤더 파일\Header\File\XML</Filter>
     </ClInclude>
-    <ClInclude Include="XmlStruct.h">
-      <Filter>헤더 파일\Header\File</Filter>
+    <ClInclude Include="XmlAttribute.h">
+      <Filter>헤더 파일\Header\File\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlWriter.h">
+      <Filter>헤더 파일\Header\File\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlNode.h">
+      <Filter>헤더 파일\Header\File\XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +182,6 @@
     <ClCompile Include="StrUtil.cpp">
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="XmlReader.cpp">
-      <Filter>소스 파일\File</Filter>
-    </ClCompile>
     <ClCompile Include="DynamicBuffer.cpp">
       <Filter>소스 파일\Container\Buffer</Filter>
     </ClCompile>
@@ -188,8 +194,14 @@
     <ClCompile Include="Hash.cpp">
       <Filter>소스 파일\Hash</Filter>
     </ClCompile>
-    <ClCompile Include="XmlStruct.cpp">
-      <Filter>소스 파일\File</Filter>
+    <ClCompile Include="XmlReader.cpp">
+      <Filter>소스 파일\File\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlAttribute.cpp">
+      <Filter>소스 파일\File\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlNode.cpp">
+      <Filter>소스 파일\File\XML</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

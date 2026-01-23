@@ -204,19 +204,6 @@ namespace ke
         return p;
     }
 
-    CONSTEXPR_INLINE constexpr bool StrUtil::isWhitespace(char c) noexcept
-    {
-        return c == ' ' || c == '\t' || c == '\r' || c == '\n';
-    }
-
-    CONSTEXPR_INLINE constexpr bool StrUtil::isNameChar(char c) noexcept
-    {
-        return (c >= 'A' && c <= 'Z')
-            || (c >= 'a' && c <= 'z')
-            || (c >= '0' && c <= '9')
-            || c == ':' || c == '_' || c == '-';
-    }
-
     const char* StrUtil::findSequence(const char* p, const char* end, const char* seq, size_t seqLen) noexcept
     {
         if (seqLen == 0) return p;

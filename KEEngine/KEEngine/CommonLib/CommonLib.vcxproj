@@ -163,8 +163,9 @@
     <ClInclude Include="StrUtil.hpp" />
     <ClInclude Include="TraitCommon.h" />
     <ClInclude Include="TypeCommon.h" />
+    <ClInclude Include="XmlNode.h" />
     <ClInclude Include="XmlReader.h" />
-    <ClInclude Include="XmlStruct.h" />
+    <ClInclude Include="XmlAttribute.h" />
     <ClInclude Include="XmlWriter.h" />
   </ItemGroup>
   <ItemGroup>
@@ -181,8 +182,9 @@
     </ClCompile>
     <ClCompile Include="StaticBuffer.cpp" />
     <ClCompile Include="StrUtil.cpp" />
+    <ClCompile Include="XmlNode.cpp" />
     <ClCompile Include="XmlReader.cpp" />
-    <ClCompile Include="XmlStruct.cpp" />
+    <ClCompile Include="XmlAttribute.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

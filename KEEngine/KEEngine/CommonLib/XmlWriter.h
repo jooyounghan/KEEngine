@@ -9,7 +9,7 @@ namespace ke
 		void EndElement();
 
 	private:
-		struct XMLNode;
-		XMLNode* _currentNode = nullptr;
+		struct XmlNode;
+		XmlNode* _currentNode = nullptr;
 	};
 }

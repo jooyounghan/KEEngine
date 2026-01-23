@@ -68,7 +68,7 @@ namespace ke
         FILE* fp = _fileCore->getFilePointer();
         if (buffer != nullptr && fseek(fp, 0, SEEK_CUR) == 0)
         {
-            size_t bytesRead = fread(buffer, 1, size, fp);
+            size_t bytesRead = fread(buffer->getBuffer(), 1, size, fp);
             if (bytesRead != size || ferror(fp))
             {
                 KE_DEBUG_ASSERT(false, "File read error occurred.");

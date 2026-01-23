@@ -53,8 +53,18 @@ namespace ke
         static void         skipWhitespace(const char*& p, const char* end) noexcept;
 
     public:
-        static CONSTEXPR_INLINE constexpr bool  isWhitespace(char c) noexcept;
-        static CONSTEXPR_INLINE constexpr bool  isNameChar(char c) noexcept;
+        static CONSTEXPR_INLINE constexpr bool isWhitespace(char c) noexcept { return c == ' ' || c == '\t' || c == '\r' || c == '\n'; }
+        static CONSTEXPR_INLINE constexpr bool isNameCharStart(char c) noexcept
+        {
+            return (c >= 'A' && c <= 'Z')
+                || (c >= 'a' && c <= 'z')
+                || c == ':' || c == '_' || c == '-';
+        }
+        static CONSTEXPR_INLINE constexpr bool isNameChar(char c) noexcept
+        {
+            return isNameCharStart(c) || (c >= '0' && c <= '9');
+        }
+
 
     };
 }
