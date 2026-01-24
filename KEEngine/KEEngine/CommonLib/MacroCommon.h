@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef _DEBUG
+#define KE_DEV
+#endif
+
 #if _HAS_CXX17
 #define CONSTEXPR_INLINE inline
 #else

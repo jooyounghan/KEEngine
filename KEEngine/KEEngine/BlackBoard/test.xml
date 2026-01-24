@@ -55,3 +55,211 @@
   </ui>
 
 </app>
+<app id="app01" name="SampleApp" version="3">
+
+	<env os="windows" arch="x64" locale="ko-KR" />
+
+	<paths>
+		<path key="data" value="assets/data" />
+		<path key="shader" value='assets/shader' />
+		<path key="log" value="logs" />
+	</paths>
+
+	<network enabled="true" timeout_ms="5000">
+		<endpoint name="main" url="https://example.com/api" />
+		<endpoint name="backup" url="https://backup.example.com/api" />
+		<headers>
+			<header name="User-Agent" value="KeClient/1" />
+			<header name="Accept" value="application/json" />
+		</headers>
+	</network>
+
+	<features>
+		<feature name="render" enabled="true" />
+		<feature name="audio" enabled="true" />
+		<feature name="dev_console" enabled="false" />
+	</features>
+
+	<ui>
+		<section id="root" title="Main &amp; Settings">
+			<section id="graphics" title="Graphics">
+				<option key="fullscreen" value="false" />
+				<option key="vsync" value="true" />
+				<option key="resolution" value="1920x1080" />
+			</section>
+
+			<section id="audio" title="Audio">
+				<option key="master" value="0.8" />
+				<option key="bgm" value="0.6" />
+				<option key="sfx" value="0.7" />
+			</section>
+
+			<section id="notes" title="Notes">
+				<text value="Use &lt;ENTER&gt; to apply" />
+				<raw>
+					<![CDATA[
+            This block can contain <tags> & symbols like & and quotes " ' safely.
+            It should not be parsed as elements by a simple element-only traversal.
+          ]]>
+				</raw>
+			</section>
+		</section>
+	</ui>
+
+</app>
+<app id="app01" name="SampleApp" version="3">
+
+	<env os="windows" arch="x64" locale="ko-KR" />
+
+	<paths>
+		<path key="data" value="assets/data" />
+		<path key="shader" value='assets/shader' />
+		<path key="log" value="logs" />
+	</paths>
+
+	<network enabled="true" timeout_ms="5000">
+		<endpoint name="main" url="https://example.com/api" />
+		<endpoint name="backup" url="https://backup.example.com/api" />
+		<headers>
+			<header name="User-Agent" value="KeClient/1" />
+			<header name="Accept" value="application/json" />
+		</headers>
+	</network>
+
+	<features>
+		<feature name="render" enabled="true" />
+		<feature name="audio" enabled="true" />
+		<feature name="dev_console" enabled="false" />
+	</features>
+
+	<ui>
+		<section id="root" title="Main &amp; Settings">
+			<section id="graphics" title="Graphics">
+				<option key="fullscreen" value="false" />
+				<option key="vsync" value="true" />
+				<option key="resolution" value="1920x1080" />
+			</section>
+
+			<section id="audio" title="Audio">
+				<option key="master" value="0.8" />
+				<option key="bgm" value="0.6" />
+				<option key="sfx" value="0.7" />
+			</section>
+
+			<section id="notes" title="Notes">
+				<text value="Use &lt;ENTER&gt; to apply" />
+				<raw>
+					<![CDATA[
+            This block can contain <tags> & symbols like & and quotes " ' safely.
+            It should not be parsed as elements by a simple element-only traversal.
+          ]]>
+				</raw>
+			</section>
+		</section>
+	</ui>
+
+</app>
+<app id="app01" name="SampleApp" version="3">
+
+	<env os="windows" arch="x64" locale="ko-KR" />
+
+	<paths>
+		<path key="data" value="assets/data" />
+		<path key="shader" value='assets/shader' />
+		<path key="log" value="logs" />
+	</paths>
+
+	<network enabled="true" timeout_ms="5000">
+		<endpoint name="main" url="https://example.com/api" />
+		<endpoint name="backup" url="https://backup.example.com/api" />
+		<headers>
+			<header name="User-Agent" value="KeClient/1" />
+			<header name="Accept" value="application/json" />
+		</headers>
+	</network>
+
+	<features>
+		<feature name="render" enabled="true" />
+		<feature name="audio" enabled="true" />
+		<feature name="dev_console" enabled="false" />
+	</features>
+
+	<ui>
+		<section id="root" title="Main &amp; Settings">
+			<section id="graphics" title="Graphics">
+				<option key="fullscreen" value="false" />
+				<option key="vsync" value="true" />
+				<option key="resolution" value="1920x1080" />
+			</section>
+
+			<section id="audio" title="Audio">
+				<option key="master" value="0.8" />
+				<option key="bgm" value="0.6" />
+				<option key="sfx" value="0.7" />
+			</section>
+
+			<section id="notes" title="Notes">
+				<text value="Use &lt;ENTER&gt; to apply" />
+				<raw>
+					<![CDATA[
+            This block can contain <tags> & symbols like & and quotes " ' safely.
+            It should not be parsed as elements by a simple element-only traversal.
+          ]]>
+				</raw>
+			</section>
+		</section>
+	</ui>
+
+</app>
+<app id="app01" name="SampleApp" version="3">
+
+	<env os="windows" arch="x64" locale="ko-KR" />
+
+	<paths>
+		<path key="data" value="assets/data" />
+		<path key="shader" value='assets/shader' />
+		<path key="log" value="logs" />
+	</paths>
+
+	<network enabled="true" timeout_ms="5000">
+		<endpoint name="main" url="https://example.com/api" />
+		<endpoint name="backup" url="https://backup.example.com/api" />
+		<headers>
+			<header name="User-Agent" value="KeClient/1" />
+			<header name="Accept" value="application/json" />
+		</headers>
+	</network>
+
+	<features>
+		<feature name="render" enabled="true" />
+		<feature name="audio" enabled="true" />
+		<feature name="dev_console" enabled="false" />
+	</features>
+
+	<ui>
+		<section id="root" title="Main &amp; Settings">
+			<section id="graphics" title="Graphics">
+				<option key="fullscreen" value="false" />
+				<option key="vsync" value="true" />
+				<option key="resolution" value="1920x1080" />
+			</section>
+
+			<section id="audio" title="Audio">
+				<option key="master" value="0.8" />
+				<option key="bgm" value="0.6" />
+				<option key="sfx" value="0.7" />
+			</section>
+
+			<section id="notes" title="Notes">
+				<text value="Use &lt;ENTER&gt; to apply" />
+				<raw>
+					<![CDATA[
+            This block can contain <tags> & symbols like & and quotes " ' safely.
+            It should not be parsed as elements by a simple element-only traversal.
+          ]]>
+				</raw>
+			</section>
+		</section>
+	</ui>
+
+</app>

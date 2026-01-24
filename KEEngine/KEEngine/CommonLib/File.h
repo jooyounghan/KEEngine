@@ -75,6 +75,7 @@ namespace ke
 		FileCore* _fileCore = nullptr;
 
 	public:
+		void write(const char* data, size_t count);
 		void write(const IBuffer* buffer, size_t count);
 	};
 

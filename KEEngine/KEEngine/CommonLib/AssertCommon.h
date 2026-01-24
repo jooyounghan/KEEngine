@@ -1,5 +1,4 @@
 #pragma once
-#include "CommonLibPch.h"
 
 // Assertion ============================================================================
 #define HANDLE_IF_FAILURE(method, condition, message)																					\
@@ -19,24 +18,24 @@
 #define KE_ASSERT(condition, message)			HANDLE_IF_FAILURE(abort(), condition, message)
 #define KE_ASSERT_ARGS(condition, format, ...)	HANDLE_IF_FAILURE_FMT(abort(), condition, format, __VA_ARGS__)
 
-#ifdef _DEBUG
-#define KE_DEBUG_ASSERT(condition, message)				KE_ASSERT(condition, message)
-#define KE_DEBUG_ASSERT_ARGS(condition, format, ...)	KE_ASSERT_ARGS(condition, format, __VA_ARGS__)
+#ifdef KE_DEV
+#define KE_ASSERT_DEV(condition, message)			KE_ASSERT(condition, message)
+#define KE_ASSERT_DEV_ARGS(condition, format, ...)	KE_ASSERT_ARGS(condition, format, __VA_ARGS__)
 #else
-#define KE_DEBUG_ASSERT(condition, message)				__noop
-#define KE_DEBUG_ASSERT_ARGS(condition, format, ...)	__noop
-#endif // _DEBUG
+#define KE_ASSERT_DEV(condition, message)			__noop
+#define KE_ASSERT_DEV_ARGS(condition, format, ...)	__noop
+#endif // KE_DEV
 
 #define KE_RETURN(condition, message)			HANDLE_IF_FAILURE(return, condition, message)
 #define KE_RETURN_ARGS(condition, format, ...)	HANDLE_IF_FAILURE(return, condition, format, __VA_ARGS__)
 
-#ifdef _DEBUG
-#define KE_DEBUG_RETURN(condition, message)				KE_RETURN(condition, message)
-#define KE_DEBUG_RETURN_ARGS(condition, format, ...)	KE_RETURN_ARGS(condition, format, __VA_ARGS__)
+#ifdef KE_DEV
+#define KE_RETURN_DEV(condition, message)			KE_RETURN(condition, message)
+#define KE_RETURN_DEV_ARGS(condition, format, ...)	KE_RETURN_ARGS(condition, format, __VA_ARGS__)
 #else
-#define KE_DEBUG_RETURN(condition, message)			__noop
-#define KE_DEBUG_RETURN_ARGS(condition, format, ...)	__noop
-#endif // _DEBUG
+#define KE_RETURN_DEV(condition, message)			__noop
+#define KE_RETURN_DEV_ARGS(condition, format, ...)	__noop
+#endif // KE_DEV
 
 
 #if defined(__clang__)

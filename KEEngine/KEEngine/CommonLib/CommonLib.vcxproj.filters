@@ -203,5 +203,8 @@
     <ClCompile Include="XmlNode.cpp">
       <Filter>소스 파일\File\XML</Filter>
     </ClCompile>
+    <ClCompile Include="XmlWriter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

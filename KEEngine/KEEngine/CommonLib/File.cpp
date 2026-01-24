@@ -1,11 +1,17 @@
 #include "CommonLibPch.h"
 #include "File.h"
 
-#define VALIDATE_FILE_CORE() {                                      \
-	KE_DEBUG_ASSERT(_fileCore != nullptr, "FileCore is null.");     \
-    if (_fileCore == nullptr) return;                               \
-    FILE* fp = _fileCore->getFilePointer();                         \
-	KE_DEBUG_ASSERT(fp != nullptr, "File Pointer is null."); }
+#ifdef KE_DEV
+    #define VALIDATE_FILE_CORE()                                    \
+    {                                                               \
+	    KE_ASSERT_DEV(_fileCore != nullptr, "FileCore is null.");   \
+        if (_fileCore == nullptr) return;                           \
+        FILE* fp = _fileCore->getFilePointer();                     \
+	    KE_ASSERT_DEV(fp != nullptr, "File Pointer is null.");      \
+    }
+#else
+#define VALIDATE_FILE_CORE() __noop
+#endif
 
 namespace ke
 {
@@ -71,7 +77,7 @@ namespace ke
             size_t bytesRead = fread(buffer->getBuffer(), 1, size, fp);
             if (bytesRead != size || ferror(fp))
             {
-                KE_DEBUG_ASSERT(false, "File read error occurred.");
+                KE_ASSERT_DEV(false, "File read error occurred.");
             }
             else
             {
@@ -98,7 +104,7 @@ namespace ke
             return;
         }
 
-        KE_DEBUG_ASSERT(false, "Failed to get current file position.");
+        KE_ASSERT_DEV(false, "Failed to get current file position.");
     }
 
     AllowWrite::AllowWrite(FileCore& fileCore)
@@ -106,11 +112,18 @@ namespace ke
     {
     }
 
+    void AllowWrite::write(const char* data, size_t count)
+    {
+        VALIDATE_FILE_CORE();
+        FILE* fp = _fileCore->getFilePointer();
+        fwrite(data, 1, count, fp);
+    }
+
     void AllowWrite::write(const IBuffer* buffer, size_t count)
     {
         VALIDATE_FILE_CORE();
         FILE* fp = _fileCore->getFilePointer();
-        if (count < buffer->getCursorPos())
+        if (count <= buffer->getCursorPos())
         {
             fwrite(buffer->getConstBuffer(), 1, count, fp);
         }

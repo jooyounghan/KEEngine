@@ -25,9 +25,9 @@ namespace ke
         const char* _nextPos = nullptr;
 
         const char* _nameStartPos = nullptr;
-        uint8 _nameLen = 0;
+        uint8       _nameLen = 0;
 
         const char* _valueStart = nullptr;
-        uint8 _valueLen = 0;
+        uint8       _valueLen = 0;
     };
 }
