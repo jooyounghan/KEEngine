@@ -114,7 +114,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>CommonLibPch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="AssertCommon.h" />
     <ClInclude Include="BufferImplement.h" />
+    <ClInclude Include="ChromeTraceProfiler.h" />
     <ClInclude Include="DynamicBuffer.h" />
     <ClInclude Include="EnumCommon.h" />
     <ClInclude Include="File.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BufferImplement.cpp" />
+    <ClCompile Include="ChromeTraceProfiler.cpp" />
     <ClCompile Include="DynamicBuffer.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="FlyweightString.cpp" />

@@ -34,10 +34,15 @@ namespace ke
 
 	private:
 		WriteOnlyFile	_file;
-		XmlBuilder _rootBuilder;
+		XmlBuilder		_rootBuilder;
+		DynamicBuffer	_buffer;
 
 	public:
 		inline XmlBuilder& getRootBuilder() { return _rootBuilder; }
+
+	private:
+		void writeBuffer(const char* data, size_t count);
+		void flushBuffer();
 
 	private:
 		void writeNode(XmlBuilder* node, int indentLevel);

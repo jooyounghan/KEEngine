@@ -4,8 +4,9 @@
 namespace ke
 {
 	constexpr size_t kXmlIndentSize = 2;
-	constexpr uint32 kXmlNodeBufferSize = 1024;
-	constexpr size_t kSpaceBlockSize = 4096;
+	constexpr size_t kXmlNodeBufferSize = 1024;
+	constexpr size_t kSpaceBlockSize = 1024;
+	constexpr size_t kWriteBufferSize = 4096;
 
 	XmlBuilder::XmlBuilder(const char* name)
 		: _name(name)
@@ -39,6 +40,7 @@ namespace ke
 	{
 		const FileCore& fileCore = _file.core();
 		if (fileCore.getOpenStatus() != 0) return;
+		_buffer.set(kWriteBufferSize);
 	}
 
 	const char* getSpaceBlock()
@@ -50,16 +52,49 @@ namespace ke
 		}();
 		return block.data();
 	}
+	
+	void XmlWriter::writeBuffer(const char* data, size_t count)
+	{
+		if (count >= kWriteBufferSize)
+		{
+			_file.writer().write(data, count);
+		}
+		else
+		{
+			const size_t bufferPos = _buffer.getCursorPos();
+			size_t remainingBufferSize = kWriteBufferSize - bufferPos;
+			if (count <= remainingBufferSize)
+			{
+				_buffer.write(data, count);
+			}
+			else
+			{
+				flushBuffer();
+				_buffer.write(data, count);
+			}
+		}
+	}
 
-#define WRITE_INDENT(level) _file.writer().write(getSpaceBlock(), level * kXmlIndentSize);
+	void XmlWriter::flushBuffer()
+	{
+		const size_t _bufferPos = _buffer.getCursorPos();
+		if (_bufferPos > 0)
+		{
+			_file.writer().write(_buffer.getConstBuffer(), _bufferPos);
+			_buffer.reset();
+		}
+	}
+
+
+#define WRITE_INDENT(level) writeBuffer(getSpaceBlock(), level * kXmlIndentSize);
 	void XmlWriter::writeNode(XmlBuilder* node, int indentLevel)
 	{
 		WRITE_INDENT(indentLevel);
-		_file.writer().write(&node->_buffer, node->_buffer.getCursorPos());
+		writeBuffer(node->_buffer.getConstBuffer(), node->_buffer.getCursorPos());
 		const bool isSelfClosing = node->isSelfClosing();
 		const char* endTag = isSelfClosing ? "/>\n" : ">\n";
 		const size_t endTagLen = isSelfClosing ? 3 : 2;
-		_file.writer().write(endTag, endTagLen);
+		writeBuffer(endTag, endTagLen);		
 
 		for (const PTR(XmlBuilder)& child : node->_children)
 		{
@@ -69,9 +104,9 @@ namespace ke
 		if (isSelfClosing == false)
 		{
 			WRITE_INDENT(indentLevel);
-			_file.writer().write("</", 2);
-			_file.writer().write(node->_name.c_str(), node->_name.length());
-			_file.writer().write(">\n", 2);
+			writeBuffer("</", 2);
+			writeBuffer(node->_name.c_str(), node->_name.length());
+			writeBuffer(">\n", 2);
 		}
 	}
 #undef WRITE_INDENT

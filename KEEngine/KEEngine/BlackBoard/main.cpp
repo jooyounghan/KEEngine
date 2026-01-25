@@ -9,6 +9,14 @@
 
 using namespace ke;
 
+#if defined(_WIN32)
+#include <windows.h>
+#elif defined(__APPLE__)
+#include <cstdlib>
+#else
+#include <cstdlib>
+#endif
+
 static void PrintNodeHeader(const XmlNode& node, XmlBuilder* builder, int depth)
 {
     for (XmlAttribute a = node.getFirstAttribute(); a.isValid(); a = a.getNextAttribute())
@@ -57,6 +65,15 @@ int main()
 	auto startTime = clock.now();
     int iteration = 0;
 
+    auto& prof = ChromeTraceProfiler::getInstance();
+
+    bool enableProfiling = true;
+
+    prof.setFlushEventThreshold(512);
+    prof.setFlushByteThreshold(128 * 1024);
+
+    prof.beginSession("trace.json");
+
     while(true)
     {
 		iteration++;
@@ -67,15 +84,16 @@ int main()
 
         xmlWriter.writeToFile();
 
-        if (iteration % 100 == 0)
+        if (iteration % 10 == 0)
         {
 			auto endTime = clock.now();
 			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 			std::cout << "Elapsed time for " << iteration << " iterations: " << duration << " ms\n";
 			startTime = endTime;
+            break;
         }
-
 	}
 
+    prof.endSession();
 	return 0;
 }

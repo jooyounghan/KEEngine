@@ -168,6 +168,9 @@
     <ClInclude Include="XmlNode.h">
       <Filter>헤더 파일\Header\File\XML</Filter>
     </ClInclude>
+    <ClInclude Include="ChromeTraceProfiler.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonLibPch.cpp">
@@ -205,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="XmlWriter.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ChromeTraceProfiler.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

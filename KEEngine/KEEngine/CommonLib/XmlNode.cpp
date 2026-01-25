@@ -194,6 +194,7 @@ namespace ke
 
     void XmlNode::parse(const char* pos, const char* end, const char* siblingEnd)
     {
+        CT_FUNCTION_CAT("XmlNode");
         reset();
         _xmlEndPos = end;
         _siblingEnd = siblingEnd ? siblingEnd : end;

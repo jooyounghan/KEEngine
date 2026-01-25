@@ -49,7 +49,13 @@ namespace ke
     FileCore::FileCore(const char* path, EOpenMode openMode)
     {
         _openStatus = FileCore::openFile(path, GET_ENUM_STRING(EOpenMode, openMode), _fp);
-        if (_openStatus == 0) _fileSize = getFileSize();
+        if (_openStatus != 0)
+        {
+            char buf[128];
+            strerror_s(buf, sizeof(buf), _openStatus);
+			KE_ASSERT_DEV_ARGS(false, "Failed to open file: %s(%d)", buf, _openStatus);
+        }            
+        _fileSize = getFileSize();
     }
 
     FileCore::~FileCore()

@@ -27,6 +27,7 @@ namespace ke
 
     void XmlAttribute::parse(const char* pos, const char* end)
     {
+        CT_FUNCTION_CAT("XmlAttribute");
         _pos = nullptr;
         _end = end;
         _nextPos = nullptr;

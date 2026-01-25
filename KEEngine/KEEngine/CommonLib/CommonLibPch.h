@@ -1,7 +1,8 @@
-﻿// Standard Library Includes
+// Standard Library Includes
 
 // I/O
 #include <cstdio>
+#include <fstream>
 
 // Strings
 #include <string>
@@ -11,11 +12,16 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <map>
 
 // Smart Pointer
 #include "Ptr.h"
 #include "RefCountedPtr.h"
+
+// Threading
+#include <atomic>
+#include <mutex>
 
 // Project Includes
 #include "MacroCommon.h"
@@ -24,3 +30,5 @@
 #include "AssertCommon.h"
 #include "SimdCommon.h"
 #include "TraitCommon.h"
+
+#include "ChromeTraceProfiler.h"
