@@ -27,16 +27,13 @@ static void PrintNodeHeader(const XmlNode& node, XmlBuilder* builder, int depth)
 
 static void TraverseSiblings(XmlNode node, XmlBuilder* builder, int depth)
 {
-    for (XmlNode n = node; n.isValid(); n = n.getNextSibling())
-    {
-		XmlBuilder* childBuilder = builder->addChild(std::string(n.getName()).c_str());
-        PrintNodeHeader(n, childBuilder, depth);
+    XmlBuilder* childBuilder = builder->addChild(std::string(node.getName()).c_str());
+    PrintNodeHeader(node, childBuilder, depth);
 
-        XmlNode child = n.getFirstChild();
-        if (child.isValid())
-        {
-            TraverseSiblings(child, childBuilder, depth + 1);
-        }
+    const std::vector<XmlNode>& childNodes = node.getChildNodes();
+    for (const XmlNode& childNode : childNodes)
+    {
+        TraverseSiblings(childNode, childBuilder, depth + 1);
     }
 }
 
@@ -48,7 +45,11 @@ static void TraverseDocument(const XmlNode& rootNode, XmlBuilder& rootBuilder)
         return;
     }
 
-    TraverseSiblings(rootNode, &rootBuilder, 0);
+    const std::vector<XmlNode>& childNodes = rootNode.getChildNodes();
+    for (const XmlNode& childNode : childNodes)
+    {
+        TraverseSiblings(childNode, &rootBuilder, 0);
+    }
 }
 
 
@@ -72,7 +73,7 @@ int main()
     prof.setFlushEventThreshold(512);
     prof.setFlushByteThreshold(128 * 1024);
 
-    prof.beginSession("trace.json");
+    //prof.beginSession("trace.json");
 
     while(true)
     {

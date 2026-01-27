@@ -15,6 +15,7 @@ namespace ke
 
 		const char* begin = _buffer.getConstBuffer();
 		const char* end = begin + fileSize;
-		_rootNode = XmlNode(begin, end, end);
+
+		_rootNode = _xmlIndexer.build(begin, end);
 	}
 }

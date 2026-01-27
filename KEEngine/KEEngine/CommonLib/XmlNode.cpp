@@ -4,92 +4,57 @@
 
 namespace ke
 {
-    XmlNode::XmlNode(const char* pos, const char* end, const char* siblingEnd) { parse(pos, end, siblingEnd); }
-
     std::string_view XmlNode::getName() const
     {
-        return isValid() ? std::string_view(_nameStartPos, _nameLen) : std::string_view();
+        return (_nameStartPos && _nameLen) ? std::string_view(_nameStartPos, _nameLen) : std::string_view();
     }
-
+    
     XmlAttribute XmlNode::getFirstAttribute() const
     {
-        return (isValid() && _attrStartPos != nullptr) ? XmlAttribute(_attrStartPos, _attrEndPos) : XmlAttribute();
+        return (_attrStartPos && _attrEndPos) ? XmlAttribute(_attrStartPos, _attrEndPos) : XmlAttribute();
     }
-
-    XmlNode XmlNode::getFirstChild() const
+    
+    const std::vector<XmlNode>& XmlNode::getSiblingNodes() const
     {
-        if (!isValid() || _selfClosing) return XmlNode();
-
-        const char* childLt = findNextElementStart(_contentStart, _contentEnd);
-        if (!childLt) return XmlNode();
-
-        return XmlNode(childLt, _xmlEndPos, _contentEnd);
+        if (_parent) return _parent->_children;
+        else return this->getChildNodes();
     }
-
-    XmlNode XmlNode::getNextSibling() const
+    
+    XmlNode& XmlIndexer::build(const char* begin, const char* end)
     {
-        if (!isValid() || !_nodeEnd) return XmlNode();
-        if (!_siblingEnd || _nodeEnd >= _siblingEnd) return XmlNode();
+        _begin = begin;
+        _end = end;
 
-        const char* sibLt = findNextElementStart(_nodeEnd, _siblingEnd);
-        if (!sibLt) return XmlNode();
+        _nodes.clear();
+        _children.clear();
+        _topLevel.clear();
 
-        return XmlNode(sibLt, _xmlEndPos, _siblingEnd);
+        resetRoot();
+
+        if (!begin || !end || begin >= end)
+            return _root;
+
+        scanOnce(begin, end);
+
+        _root._children.reserve(_topLevel.size());
+        for (int32 idx : _topLevel)
+            buildInto(_root, idx);
+
+        return _root;
     }
 
-    const char* XmlNode::findNextElementStart(const char* p, const char* end)
+    void XmlIndexer::resetRoot()
     {
-        while (p && p < end)
-        {
-            const char* lt = StrUtil::findNext(p, end, '<');
-            if (!lt || lt >= end) return nullptr;
-            if (lt + 1 >= end) return nullptr;
-
-            // <!-- ... -->
-            if ((end - lt) >= 4 && lt[1] == '!' && lt[2] == '-' && lt[3] == '-')
-            {
-                static const char seq[] = "-->";
-                const char* close = StrUtil::findSequence(lt + 4, end, seq, 3);
-                if (close >= end) return nullptr;
-                p = close + 3;
-                continue;
-            }
-
-            // <? ... ?>
-            if (lt[1] == '?')
-            {
-                static const char seq[] = "?>";
-                const char* close = StrUtil::findSequence(lt + 2, end, seq, 2);
-                if (close >= end) return nullptr;
-                p = close + 2;
-                continue;
-            }
-
-            // <!DOCTYPE ...>
-            if (lt[1] == '!')
-            {
-                const char* gt = StrUtil::findNext(lt + 2, end, '>');
-                if (gt >= end) return nullptr;
-                p = gt + 1;
-                continue;
-            }
-
-            if (lt[1] == '/')
-            {
-                p = lt + 2;
-                continue;
-            }
-
-            // <name ...>
-            if (StrUtil::isNameCharStart(lt[1]))
-                return lt;
-
-            p = lt + 1;
-        }
-        return nullptr;
+        _root = XmlNode();
+        _root._nameStartPos = nullptr;
+        _root._nameLen = 0;
+        _root._attrStartPos = nullptr;
+        _root._attrEndPos = nullptr;
+        _root._parent = nullptr;
+        _root._children.clear();
     }
 
-    const char* XmlNode::findTagHeaderEnd(const char* p, const char* end)
+    const char* XmlIndexer::findTagHeaderEnd(const char* p, const char* end)
     {
         bool inQuote = false;
         char qc = 0;
@@ -111,76 +76,129 @@ namespace ke
         return end;
     }
 
-    bool XmlNode::isSelfClosingTag(const char* afterName, const char* gt)
+    bool XmlIndexer::isSelfClosingTag(const char* afterName, const char* gt)
     {
         const char* p = gt;
         while (p > afterName && StrUtil::isWhitespace(*(p - 1))) --p;
         return (p > afterName && *(p - 1) == '/');
     }
 
-    const char* XmlNode::findMatchingCloseTagLt(const char* p, const char* end, std::string_view name)
+    int32 XmlIndexer::addNode(const char* nameStart, uint32 nameLen, const char* attrStart, const char* attrEnd, int32 parentIdx)
     {
-        int depth = 1;
+        FlatNode n;
+        n.nameStart = nameStart;
+        n.nameLen = nameLen;
+        n.attrStart = attrStart;
+        n.attrEnd = attrEnd;
+
+        int32 idx = (int32)_nodes.size();
+        _nodes.push_back(n);
+        _children.emplace_back();
+
+        if (parentIdx >= 0)
+            _children[(size_t)parentIdx].push_back(idx);
+        else
+            _topLevel.push_back(idx);
+
+        return idx;
+    }
+
+    void XmlIndexer::scanOnce(const char* begin, const char* end)
+    {
+        std::vector<int32> stack;
+        stack.reserve(256);
+
+        const char* p = begin;
 
         while (p && p < end)
         {
             const char* lt = StrUtil::findNext(p, end, '<');
-            if (!lt || lt >= end) return nullptr;
-            if (lt + 1 >= end) return nullptr;
+            if (!lt || lt + 1 >= end) break;
 
+            // <!-- ... -->
             if ((end - lt) >= 4 && lt[1] == '!' && lt[2] == '-' && lt[3] == '-')
             {
                 static const char seq[] = "-->";
                 const char* close = StrUtil::findSequence(lt + 4, end, seq, 3);
-                if (close >= end) return nullptr;
+                if (close >= end) break;
                 p = close + 3;
                 continue;
             }
+
+            // <? ... ?>
             if (lt[1] == '?')
             {
                 static const char seq[] = "?>";
                 const char* close = StrUtil::findSequence(lt + 2, end, seq, 2);
-                if (close >= end) return nullptr;
+                if (close >= end) break;
                 p = close + 2;
                 continue;
             }
+
+            // <!DOCTYPE ...>
             if (lt[1] == '!')
             {
                 const char* gt = StrUtil::findNext(lt + 2, end, '>');
-                if (gt >= end) return nullptr;
+                if (gt >= end) break;
                 p = gt + 1;
                 continue;
             }
 
+            // close tag </name>
             if (lt[1] == '/')
             {
                 const char* n0 = lt + 2;
                 if (n0 < end && StrUtil::isNameCharStart(*n0))
                 {
                     const char* nEnd = StrUtil::findNameEnd(n0, end);
-                    std::string_view closeName(n0, static_cast<size_t>(nEnd - n0));
-                    if (closeName == name)
+                    uint32 len = (uint32)(nEnd - n0);
+
+                    const char* closeGt = StrUtil::findNext(lt, end, '>');
+                    if (closeGt >= end) break;
+
+                    for (int i = (int)stack.size() - 1; i >= 0; --i)
                     {
-                        --depth;
-                        if (depth == 0) return lt;
+                        int32 openIdx = stack[(size_t)i];
+                        const FlatNode& openN = _nodes[(size_t)openIdx];
+
+                        if (openN.nameLen == len &&
+                            std::memcmp(openN.nameStart, n0, len) == 0)
+                        {
+                            stack.resize((size_t)i);
+                            break;
+                        }
                     }
+
+                    p = closeGt + 1;
+                    continue;
                 }
+
                 p = lt + 2;
                 continue;
             }
 
+            // open tag <name ...>
             if (StrUtil::isNameCharStart(lt[1]))
             {
-                const char* n0 = lt + 1;
-                const char* nEnd = StrUtil::findNameEnd(n0, end);
-                std::string_view openName(n0, static_cast<size_t>(nEnd - n0));
+                const char* nameStart = lt + 1;
+                const char* nameEnd = StrUtil::findNameEnd(nameStart, end);
+                if (nameEnd <= nameStart) { p = lt + 1; continue; }
 
-                const char* gt = findTagHeaderEnd(nEnd, end);
-                if (gt >= end) return nullptr;
+                uint32 nameLen = (uint32)(nameEnd - nameStart);
 
-                bool selfClosing = isSelfClosingTag(nEnd, gt);
-                if (!selfClosing && openName == name)
-                    ++depth;
+                const char* gt = findTagHeaderEnd(nameEnd, end);
+                if (gt >= end) break;
+
+                const char* attrStart = nameEnd;
+                const char* attrEnd = gt;
+
+                bool selfClosing = isSelfClosingTag(nameEnd, gt);
+
+                int32 parentIdx = stack.empty() ? -1 : stack.back();
+                int32 idx = addNode(nameStart, nameLen, attrStart, attrEnd, parentIdx);
+
+                if (!selfClosing)
+                    stack.push_back(idx);
 
                 p = gt + 1;
                 continue;
@@ -188,83 +206,28 @@ namespace ke
 
             p = lt + 1;
         }
-
-        return nullptr;
     }
 
-    void XmlNode::parse(const char* pos, const char* end, const char* siblingEnd)
+    void XmlIndexer::buildInto(XmlNode& parent, int32 idx)
     {
-        CT_FUNCTION_CAT("XmlNode");
-        reset();
-        _xmlEndPos = end;
-        _siblingEnd = siblingEnd ? siblingEnd : end;
+        const FlatNode& fn = _nodes[(size_t)idx];
 
-        if (!pos || !end || pos >= _siblingEnd) return;
+        parent._children.emplace_back();
+        XmlNode& me = parent._children.back();
 
-        const char* lt = nullptr;
+        me._nameStartPos = fn.nameStart;
+        me._nameLen = (size_t)fn.nameLen;
+        me._attrStartPos = fn.attrStart;
+        me._attrEndPos = fn.attrEnd;
+        me._parent = &parent;
 
-        if (*pos == '<' && (pos + 1) < _siblingEnd && StrUtil::isNameCharStart(pos[1]))
-            lt = pos;
-        else
-            lt = findNextElementStart(pos, _siblingEnd);
+        const auto& kids = _children[(size_t)idx];
+        me._children.clear();
+        me._children.reserve(kids.size());
 
-        if (!lt) return;
-        if (lt + 1 >= _siblingEnd || !StrUtil::isNameCharStart(lt[1])) return;
-
-        _nodeStartPos = lt;
-        _nodeStartPos = lt;
-
-        _nameStartPos = lt + 1;
-        const char* nameEnd = StrUtil::findNameEnd(_nameStartPos, _siblingEnd);
-        if (nameEnd <= _nameStartPos) { reset(); return; }
-        _nameLen = static_cast<size_t>(nameEnd - _nameStartPos);
-
-        _attrStartPos = nameEnd;
-
-        const char* gt = findTagHeaderEnd(nameEnd, _siblingEnd);
-        if (gt >= _siblingEnd) { reset(); return; }
-        _attrEndPos = gt;
-
-        _selfClosing = isSelfClosingTag(nameEnd, gt);
-        if (_selfClosing)
-        {
-            _contentStart = gt + 1;
-            _contentEnd = _contentStart;
-            _nodeEnd = gt + 1;
-            return;
-        }
-
-        _contentStart = gt + 1;
-
-        std::string_view myName(_nameStartPos, _nameLen);
-        const char* closeLt = findMatchingCloseTagLt(_contentStart, _siblingEnd, myName);
-        if (!closeLt) { reset(); return; }
-
-        _contentEnd = closeLt;
-
-        const char* closeGt = StrUtil::findNext(closeLt, _siblingEnd, '>');
-        if (closeGt >= _siblingEnd) { reset(); return; }
-
-        _nodeEnd = closeGt + 1;
+        for (int32 c : kids)
+            buildInto(me, c);
     }
-    
-    void XmlNode::reset()
-    {
-        _nodeStartPos = nullptr;
-        _xmlEndPos = nullptr;
 
-        _nameStartPos = nullptr;
-        _nameLen = 0;
-
-        _attrStartPos = nullptr;
-        _attrEndPos = nullptr;
-
-        _contentStart = nullptr;
-        _contentEnd = nullptr;
-
-        _siblingEnd = nullptr;
-        _nodeEnd = nullptr;
-        _selfClosing = false;
-    }
 }
 

@@ -13,6 +13,7 @@ namespace ke
 	private:
 		ReadOnlyFile	_file;
 		DynamicBuffer	_buffer;
+		XmlIndexer		_xmlIndexer;
 		XmlNode			_rootNode;
 
 	public:
