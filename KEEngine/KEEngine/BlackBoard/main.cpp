@@ -17,84 +17,79 @@ using namespace ke;
 #include <cstdlib>
 #endif
 
-static void PrintNodeHeader(const XmlNode& node, XmlBuilder* builder, int depth)
+static void TraverseSiblings(const XmlNode& node, XmlWriter* writer, int depth)
 {
+    std::string_view name = node.getName();
+    XmlBuilder builder(name.data(), name.length(), writer, depth);
+
     for (XmlAttribute a = node.getFirstAttribute(); a.isValid(); a = a.getNextAttribute())
     {
-		builder->addAttribute(std::string(a.getName()).c_str(), std::string(a.getValue()).c_str());
+        std::string_view n = a.getName();
+        std::string_view v = a.getValue();
+        builder.addAttribute(n.data(), n.length(), v.data(), v.length());
+    }
+
+    const auto& children = node.getChildNodes();
+    if (!children.empty())
+    {
+        builder.openHeaderEnd();
+        for (const XmlNode& childNode : children)
+        {
+            TraverseSiblings(childNode, writer, depth + 1);
+        }
     }
 }
 
-static void TraverseSiblings(XmlNode node, XmlBuilder* builder, int depth)
+static void TraverseDocument(const XmlNode& rootNode, XmlWriter& writer)
 {
-    XmlBuilder* childBuilder = builder->addChild(std::string(node.getName()).c_str());
-    PrintNodeHeader(node, childBuilder, depth);
+    if (!rootNode.isValid()) return;
 
-    const std::vector<XmlNode>& childNodes = node.getChildNodes();
-    for (const XmlNode& childNode : childNodes)
+    const auto& children = rootNode.getChildNodes();
+    XmlBuilder* rootBuilder = writer.getRootBuilder();
+    if (!children.empty())
     {
-        TraverseSiblings(childNode, childBuilder, depth + 1);
-    }
-}
-
-static void TraverseDocument(const XmlNode& rootNode, XmlBuilder& rootBuilder)
-{
-    if (!rootNode.isValid())
-    {
-        std::cout << "No valid root element found.\n";
-        return;
-    }
-
-    const std::vector<XmlNode>& childNodes = rootNode.getChildNodes();
-    for (const XmlNode& childNode : childNodes)
-    {
-        TraverseSiblings(childNode, &rootBuilder, 0);
+        rootBuilder->openHeaderEnd();
+        for (const XmlNode& childNode : children)
+        {
+            TraverseSiblings(childNode, &writer, 1);
+        }
     }
 }
 
 
 int main()
 {
-	MoveStatus moveStatus;
-	moveStatus._speed = 50;
-	moveStatus._slowRatio = 0.5f;
-
-	ReflectSerializer<MoveStatus>::serializeToXML(nullptr, &moveStatus);
-	bool t = true;
-
 	std::chrono::high_resolution_clock clock;
-	auto startTime = clock.now();
+
     int iteration = 0;
-
-    auto& prof = ChromeTraceProfiler::getInstance();
-
-    bool enableProfiling = true;
-
-    prof.setFlushEventThreshold(512);
-    prof.setFlushByteThreshold(128 * 1024);
-
-    //prof.beginSession("trace.json");
 
     while(true)
     {
+        auto startTime = clock.now();
 		iteration++;
 		XmlReader xmlReader("./xml_stress_1mb.xml");
+        auto endTime = clock.now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+        std::cout << "XMLReader : " << duration << " ms\n";
 		XmlWriter xmlWriter("Root", "./output.xml");
+        endTime = clock.now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+        std::cout << "XMLWriter : " << duration << " ms\n";
 
-        TraverseDocument(xmlReader.getRootNode(), xmlWriter.getRootBuilder());
+        TraverseDocument(xmlReader.getRootNode(), xmlWriter);
+        endTime = clock.now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+        std::cout << "Traverse: " << duration << " ms\n";
 
         xmlWriter.writeToFile();
+        endTime = clock.now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+        std::cout << "WriteToFile : " << duration << " ms\n";
 
-        if (iteration % 10 == 0)
-        {
-			auto endTime = clock.now();
-			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-			std::cout << "Elapsed time for " << iteration << " iterations: " << duration << " ms\n";
-			startTime = endTime;
+		iteration++;
+		if (iteration >= 10)
             break;
-        }
 	}
 
-    prof.endSession();
 	return 0;
 }

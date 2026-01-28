@@ -15,7 +15,6 @@
 #if defined(__GNUC__) || defined(__clang__)
 #define CT_FUNCTION() CT_SCOPE(__PRETTY_FUNCTION__)
 #define CT_FUNCTION_CAT(cat_literal) CT_SCOPE_CAT(__PRETTY_FUNCTION__, cat_literal)
-#define CT_FUNCTION_CAT_COLOR(cat_literal, color_literal) CT_SCOPE_CAT_COLOR(__PRETTY_FUNCTION__, cat_literal, color_literal)
 #else
 #define CT_FUNCTION() CT_SCOPE(__func__)
 #define CT_FUNCTION_CAT(cat_literal) CT_SCOPE_CAT(__func__, cat_literal)

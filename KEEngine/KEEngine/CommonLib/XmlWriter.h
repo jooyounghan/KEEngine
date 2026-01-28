@@ -4,50 +4,45 @@
 
 namespace ke
 {
-	class XmlBuilder
-	{
-		friend class XmlWriter;
+    class XmlWriter;
 
-	public:
-		XmlBuilder(const char* name);
-		~XmlBuilder() = default;
+    class XmlBuilder
+    {
+    public:
+        XmlBuilder(const char* name, size_t len, XmlWriter* writer, int depth);
+        ~XmlBuilder();
 
-	private:
-		std::string		_name;
-		DynamicBuffer	_buffer;
+    public:
+        void addAttribute(const char* name, size_t nLen, const char* value, size_t vLen);
+        void openHeaderEnd();
+        void closeTag();
 
-	private:
-		std::vector<PTR(XmlBuilder)> _children;
+    private:
+        const char* _name;
+        size_t      _nameLen;
+        XmlWriter* _writer;
+        int         _depth;
+        bool        _headerClosed = false;
+        bool        _tagClosed = false;
+    };
 
-	public:
-		inline bool isSelfClosing() const { return _children.empty(); }
+    class XmlWriter
+    {
+    public:
+        XmlWriter(const char* rootName, const char* path);
+        ~XmlWriter();
 
-	public:
-		void		addAttribute(const char* name, const char* value);
-		XmlBuilder* addChild(const char* name);
-	};
+    public:
+        void writeBuffer(const char* data, size_t count);
+        void flushBuffer();
+        void writeIndent(int level);
+        void writeToFile();
 
-	class XmlWriter
-	{
-	public:
-		XmlWriter(const char* rootName, const char* path );
+        inline XmlBuilder* getRootBuilder() { return _rootBuilder; }
 
-	private:
-		WriteOnlyFile	_file;
-		XmlBuilder		_rootBuilder;
-		DynamicBuffer	_buffer;
-
-	public:
-		inline XmlBuilder& getRootBuilder() { return _rootBuilder; }
-
-	private:
-		void writeBuffer(const char* data, size_t count);
-		void flushBuffer();
-
-	private:
-		void writeNode(XmlBuilder* node, int indentLevel);
-
-	public:
-		void writeToFile();
-	};
+    private:
+        WriteOnlyFile  _file;
+        DynamicBuffer  _buffer;
+        XmlBuilder* _rootBuilder = nullptr;
+    };
 }
