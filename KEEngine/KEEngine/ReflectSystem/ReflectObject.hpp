@@ -40,19 +40,19 @@
 	template<> void ke::ReflectObject<ObjectType>::bindMetaData() {								\
 		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
 
-#define BIND_REFLECT_PROPERTY(ObjectType, PropertyType, Variable, UiOption, ...)	\
-	{																				\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(		\
-			ObjectType::getName##Variable()											\
-		);																			\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s",\
-			ObjectType::getName##Variable().c_str()									\
-		);																			\
-		ke::ReflectPropertyBinder<PropertyType>::bindProperty(						\
-			reflectProperty,														\
-			UiOption,																\
-			__VA_ARGS__																\
-		);																			\
+#define BIND_REFLECT_PROPERTY(ObjectType, PropertyType, Variable, UiOption, ...)		\
+	{																					\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(			\
+			ObjectType::getName##Variable()												\
+		);																				\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s",	\
+			ObjectType::getName##Variable().c_str()										\
+		);																				\
+		ke::ReflectPropertyBinder<PropertyType>::bindProperty(							\
+			reflectProperty,															\
+			UiOption,																	\
+			##__VA_ARGS__																\
+		);																				\
 	}
 
 #define END_BIND_REFLECT_PROPERTY() };

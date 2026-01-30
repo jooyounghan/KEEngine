@@ -158,7 +158,6 @@
     <ClInclude Include="ReflectPropertyBinder.h" />
     <ClInclude Include="ReflectPropertyBinder.hpp" />
     <ClInclude Include="ReflectSerializer.h" />
-    <ClInclude Include="ReflectSerializer.hpp" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectParser.h" />
     <ClInclude Include="ReflectParser.hpp" />

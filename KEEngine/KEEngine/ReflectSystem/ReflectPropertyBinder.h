@@ -12,8 +12,21 @@ namespace ke
 			, const EReflectUIOption& uiOption
 		);
 
+		static void bindPropertyInner(
+			IReflectProperty* reflectProperty
+			, const EReflectUIOption& uiOption
+		);
+
+	public:
 		template<typename... Args>
 		static void bindProperty(
+			IReflectProperty* reflectProperty
+			, const EReflectUIOption& uiOption
+			, const Args&... args
+		);
+
+		template<typename... Args>
+		static void bindPropertyInner(
 			IReflectProperty* reflectProperty
 			, const EReflectUIOption& uiOption
 			, const Args&... args

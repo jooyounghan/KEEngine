@@ -27,3 +27,4 @@ namespace ke
 		virtual size_t		getAvailableSize() const override;
 	};
 }
+#include "StaticBuffer.hpp"

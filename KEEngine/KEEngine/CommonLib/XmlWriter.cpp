@@ -67,20 +67,14 @@ namespace ke
         _tagClosed = true;
     }
 
-    XmlWriter::XmlWriter(const char* rootName, const char* path)
+    XmlWriter::XmlWriter(const char* path)
         : _file(path)
     {
         _buffer.set(kWriteBufferSize);
-        _rootBuilder = new XmlBuilder(rootName, std::strlen(rootName), this, 0);
     }
 
     XmlWriter::~XmlWriter()
     {
-        if (_rootBuilder)
-        {
-            delete _rootBuilder;
-            _rootBuilder = nullptr;
-        }
     }
 
     void XmlWriter::writeBuffer(const char* data, size_t count)
@@ -114,10 +108,6 @@ namespace ke
 
     void XmlWriter::writeToFile()
     {
-        if (_rootBuilder)
-        {
-            _rootBuilder->closeTag();
-        }
         flushBuffer();
     }
 }

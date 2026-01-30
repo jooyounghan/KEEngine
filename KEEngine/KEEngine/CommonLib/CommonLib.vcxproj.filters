@@ -171,6 +171,9 @@
     <ClInclude Include="ChromeTraceProfiler.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="StaticBuffer.hpp">
+      <Filter>헤더 파일\Hpp\Container\Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonLibPch.cpp">
@@ -186,9 +189,6 @@
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
     <ClCompile Include="DynamicBuffer.cpp">
-      <Filter>소스 파일\Container\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticBuffer.cpp">
       <Filter>소스 파일\Container\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="BufferImplement.cpp">
@@ -211,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="ChromeTraceProfiler.cpp">
       <Filter>소스 파일\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticBuffer.cpp">
+      <Filter>소스 파일\Container\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@ namespace ke
     class XmlWriter
     {
     public:
-        XmlWriter(const char* rootName, const char* path);
+        XmlWriter(const char* path);
         ~XmlWriter();
 
     public:
@@ -38,11 +38,8 @@ namespace ke
         void writeIndent(int level);
         void writeToFile();
 
-        inline XmlBuilder* getRootBuilder() { return _rootBuilder; }
-
     private:
         WriteOnlyFile  _file;
         DynamicBuffer  _buffer;
-        XmlBuilder* _rootBuilder = nullptr;
     };
 }

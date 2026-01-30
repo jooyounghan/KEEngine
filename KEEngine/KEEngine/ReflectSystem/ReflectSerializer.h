@@ -1,23 +1,21 @@
 #pragma once
-#include "File.h"
-#include "XMLReader.h"
-#include "ReflectObject.h"
 
 namespace ke
 {
-	template<typename ObjectType>
+	class IReflectObject;
+	class XmlWriter;
+
 	class ReflectSerializer
 	{
 	public:
-		static void serializeToXML(IBuffer* outBuffer, const ReflectObject<ObjectType>* obj);
-		static void deserializeFromXML(const IBuffer* const outBuffer, ReflectObject<ObjectType>* obj);
+		static void serializeToXML(const char* fileDir, const IReflectObject* obj);
+		static void deserializeFromXML(const char* fileDir, const IReflectObject* obj);
 
 	private:
-		static void serializeToXMLInner(IBuffer* outBuffer, const ReflectMetaData* reflectMetaData);
+		static void serializeToXMLInner(XmlWriter& xmlWriter, const IReflectObject* reflectObject, uint32 depth);
 
 	public:
-		static void serializeToBinary(IBuffer* outBuffer, const ReflectObject<ObjectType>* obj);
-		static void deserializeFromBinary(const IBuffer* const outBuffer, ReflectObject<ObjectType>* obj);
+		//static void serializeToBinary(IBuffer* outBuffer, const IReflectObject* obj);
+		//static void deserializeFromBinary(const IBuffer* const IReflectObject* obj);
 	};
 }
-#include "ReflectSerializer.hpp"

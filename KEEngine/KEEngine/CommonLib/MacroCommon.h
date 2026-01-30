@@ -98,6 +98,18 @@
 #define KE_63(WHAT, SEP, X, ...) WHAT(X) SEP() KE_EXPAND(KE_62(WHAT, SEP, __VA_ARGS__))
 #define KE_64(WHAT, SEP, X, ...) WHAT(X) SEP() KE_EXPAND(KE_63(WHAT, SEP, __VA_ARGS__))
 
+#define KE_1T(WHAT,  SEP, FIXED, X) WHAT(FIXED, X)
+#define KE_2T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_1T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_3T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_2T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_4T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_3T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_5T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_4T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_6T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_5T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_7T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_6T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_8T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_7T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_9T(WHAT,  SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_8T(WHAT,  SEP, FIXED, __VA_ARGS__))
+#define KE_10T(WHAT, SEP, FIXED, X, ...) WHAT(FIXED, X) SEP() KE_EXPAND(KE_9T(WHAT, SEP, FIXED, __VA_ARGS__))
+
+
 #define GET_KE_MACRO(                                                                                                               \
     _1,     _2,     _3,     _4,     _5,     _6,     _7,     _8,     _9,     _10,    _11,    _12,    _13,    _14,    _15,    _16,    \
     _17,    _18,    _19,    _20,    _21,    _22,    _23,    _24,    _25,    _26,    _27,    _28,    _29,    _30,    _31,    _32,    \
@@ -115,7 +127,9 @@
 
 #define STRIZE(x) #x
 
-#define INVALID_INDEX(T) static_cast<T>(-1)
+#define KE_CAST_TO(T, x) static_cast<T>(x)
+
+#define INVALID_INDEX(T) KE_CAST_TO(T, -1)
 
 #define DELETE_DEFAULT_CONSTRUCTOR(ClassName)	\
 	ClassName() = delete

@@ -14,7 +14,7 @@ namespace ke
 
 	private:
 		static std::unordered_map<std::basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& getStringEntryMap();
-		static std::vector<std::basic_string<CharType>>& getStringVector();
+		static std::vector<PTR(std::basic_string<CharType>)>& getStringVector();
 		static const CharType* getFromEntryIndex(size_t entryIndex);
 
 	private:
@@ -24,7 +24,8 @@ namespace ke
 		size_t _entryIndex = INVALID_INDEX(size_t);
 
 	public:
-		const CharType* c_str() const { return _entryIndex != INVALID_INDEX(size_t) ? getStringVector()[_entryIndex].c_str() : nullptr; }
+		const CharType* c_str() const { return _entryIndex != INVALID_INDEX(size_t) ? getStringVector()[_entryIndex]->c_str() : nullptr; }
+		const size_t	length() const { return _entryIndex != INVALID_INDEX(size_t) ? getStringVector()[_entryIndex]->length() : 0; }
 		size_t			getEntryIndex() const { return _entryIndex; }
 
 	public:

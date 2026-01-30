@@ -1,3 +1,4 @@
+#include "ReflectPropertyBinder.h"
 #pragma once
 
 #define DEFAULT_BIND_PROPERTY_PARAMETER	\
@@ -8,7 +9,7 @@
 #define DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)  \
 template<>													\
 template<>													\
-void ReflectPropertyBinder<PropertyType>::bindProperty(		\
+void ReflectPropertyBinder<PropertyType>::bindPropertyInner(\
 DEFAULT_BIND_PROPERTY_PARAMETER,							\
     const PropertyType& defaultValue						\
 )
@@ -17,7 +18,7 @@ DEFAULT_BIND_PROPERTY_PARAMETER,							\
 #define DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)		\
 template<>															\
 template<>															\
-void ReflectPropertyBinder<PropertyType>::bindProperty(				\
+void ReflectPropertyBinder<PropertyType>::bindPropertyInner(		\
 DEFAULT_BIND_PROPERTY_PARAMETER,									\
     const PropertyType& minValue,									\
     const PropertyType& maxValue,									\
@@ -28,6 +29,24 @@ DEFAULT_BIND_PROPERTY_PARAMETER,									\
 namespace ke
 {
 	template<typename PropertyType>
+	void ReflectPropertyBinder<PropertyType>::bindProperty(
+		IReflectProperty* reflectProperty, 
+		const EReflectUIOption& uiOption
+	)
+	{
+		bindPropertyInner(reflectProperty, uiOption);
+	}
+
+	template<typename PropertyType>
+	void ReflectPropertyBinder<PropertyType>::bindPropertyInner(
+		IReflectProperty* reflectProperty,
+		const EReflectUIOption& uiOption
+	)
+	{
+		reflectProperty->setUIOption(uiOption);
+	}
+
+	template<typename PropertyType>
 	template<typename... Args>
 	void ReflectPropertyBinder<PropertyType>::bindProperty(
 		IReflectProperty* reflectProperty
@@ -35,17 +54,25 @@ namespace ke
 		, const Args&... args
 	)
 	{
-		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(bindProperty);
+		ke::ReflectPropertyBinder<PropertyType>::bindPropertyInner(
+			reflectProperty,
+			uiOption,
+			static_cast<PropertyType>(args)...
+		);
 	}
 
 	template<typename PropertyType>
-	void ReflectPropertyBinder<PropertyType>::bindProperty(
+	template<typename ...Args>
+	void ReflectPropertyBinder<PropertyType>::bindPropertyInner(
 		IReflectProperty* reflectProperty, 
-		const EReflectUIOption& uiOption
+		const EReflectUIOption& uiOption, 
+		const Args & ...args
 	)
 	{
-		reflectProperty->setUIOption(uiOption);
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(bindProperty);
 	}
+
+
 
 #pragma region Bind Specializations
 	DECLAERE_BIND_DEFAULT_SPECIALIZATION(bool);

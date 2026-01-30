@@ -31,10 +31,8 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const = 0;
-		inline virtual const ReflectMetaData* getMetaData() const = 0;
-
-	public:
-		inline virtual size_t getPropertyBufferSize() const = 0;
+		inline virtual IReflectObject* castAsReflectObject(IReflectObject* parentReflectObject) = 0;
+		inline virtual const IReflectObject* castAsReflectObject(const IReflectObject* parentReflectObject) const = 0;
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
@@ -91,10 +89,8 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const { return false; };
-		inline virtual const ReflectMetaData* getMetaData() const { return nullptr; }
-
-	public:
-		inline virtual size_t getPropertyBufferSize() const { return sizeof(PropertyType); }
+		inline virtual IReflectObject* castAsReflectObject(IReflectObject* parentReflectObject) { return nullptr; }
+		inline virtual const IReflectObject* castAsReflectObject(const IReflectObject* parentReflectObject) const { return nullptr; }
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src);
@@ -120,10 +116,8 @@ namespace ke
 
 	public:
 		inline virtual bool isReflectObject() const { return true; };
-		inline virtual const ReflectMetaData* getMetaData() const { return PropertyType::getObjectMetaData(); }
-
-	public:
-		inline virtual size_t getPropertyBufferSize() const { return INVALID_INDEX(size_t); }
+		inline virtual IReflectObject* castAsReflectObject(IReflectObject* parentReflectObject) { return static_cast<IReflectObject*>(&this->get(parentReflectObject)); }
+		inline virtual const IReflectObject* castAsReflectObject(const IReflectObject* parentReflectObject) const { return static_cast<const IReflectObject*>(&this->get(parentReflectObject)); }
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src);

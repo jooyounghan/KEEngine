@@ -1,6 +1,5 @@
 #include "CommonLibPch.h"
 #include "FlyweightString.h"
-#include <string_view>
 
 using namespace std;
 
@@ -14,24 +13,24 @@ namespace ke
 	}
 
 	template<typename CharType>
-	vector<basic_string<CharType>>& FlyweightString<CharType>::getStringVector()
+	vector<PTR(basic_string<CharType>)>& FlyweightString<CharType>::getStringVector()
 	{
-		static vector<basic_string<CharType>> instance;
+		static vector<PTR(basic_string<CharType>)> instance;
 		return instance;
 	}
 
 	template<typename CharType>
 	const CharType* FlyweightString<CharType>::getFromEntryIndex(size_t entryIndex)
 	{
-		const vector<basic_string<CharType>>& stringVector = getStringVector();
-		return stringVector.size() > entryIndex ? stringVector[entryIndex].c_str() : nullptr;
+		const vector<PTR(basic_string<CharType>)>& stringVector = getStringVector();
+		return stringVector.size() > entryIndex ? stringVector[entryIndex]->c_str() : nullptr;
 	}
 
 	template<typename CharType>
 	void FlyweightString<CharType>::registerString(const CharType* str)
 	{
 		unordered_map<basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& stringEntryMap = FlyweightString<CharType>::getStringEntryMap();
-		vector<basic_string<CharType>>& stringVector = FlyweightString<CharType>::getStringVector();
+		vector<PTR(basic_string<CharType>)>& stringVector = FlyweightString<CharType>::getStringVector();
 
 		basic_string_view<CharType> stringView = basic_string_view<CharType>(str);
 
@@ -39,7 +38,7 @@ namespace ke
 		if (stringEntryMap.find(stringView) == stringEntryMap.end())
 		{
 			_entryIndex = stringVector.size();
-			stringVector.push_back(basic_string<CharType>(str));
+			stringVector.push_back(MAKE_PTR(basic_string<CharType>, str));
 			stringEntryMap.emplace(stringView, _entryIndex);
 		}
 		else
