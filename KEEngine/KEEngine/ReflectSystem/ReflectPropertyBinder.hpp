@@ -1,6 +1,3 @@
-#include "ReflectPropertyBinder.h"
-#pragma once
-
 #define DEFAULT_BIND_PROPERTY_PARAMETER	\
     IReflectProperty* reflectProperty,  \
     const EReflectUIOption& uiOption

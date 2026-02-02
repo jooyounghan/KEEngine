@@ -13,8 +13,6 @@
     #define HASH(T) std::hash<T>
 #endif // DEBUG
 
-
-
 namespace ke
 {
     template<typename T>
@@ -29,21 +27,6 @@ namespace ke
     private:
         static size_t convertToHash(const T& value);
     };
-
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(bool);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint64);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint32);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint16);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(uint8);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int64);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int32);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int16);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(int8);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(double);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(float);
-
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(std::basic_string_view<char>);
-    DECLARE_RAW_VALUE_HASH_SPECIALIZATION(std::basic_string_view<wchar_t>);
 }
 
 #include "Hash.hpp"

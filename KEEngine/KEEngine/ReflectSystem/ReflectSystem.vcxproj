@@ -146,15 +146,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IDefaultableReflectProperty.h" />
-    <ClInclude Include="IDefaultableReflectProperty.hpp" />
+    <ClInclude Include="ReflectObjectProperty.h" />
+    <ClInclude Include="ReflectObjectProperty.hpp" />
+    <ClInclude Include="ReflectPODProperty.h" />
+    <ClInclude Include="ReflectPODProperty.hpp" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
-    <ClInclude Include="ReflectProperty.h" />
-    <ClInclude Include="ReflectProperty.hpp" />
+    <ClInclude Include="ReflectPropertyBase.h" />
+    <ClInclude Include="ReflectPropertyBase.hpp" />
     <ClInclude Include="ReflectPropertyBinder.h" />
     <ClInclude Include="ReflectPropertyBinder.hpp" />
     <ClInclude Include="ReflectSerializer.h" />
@@ -163,11 +165,11 @@
     <ClInclude Include="ReflectParser.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IDefaultableReflectProperty.cpp" />
+    <ClCompile Include="ReflectPODProperty.cpp" />
     <ClCompile Include="ReflectMetaData.cpp" />
     <ClCompile Include="ReflectObject.cpp" />
     <ClCompile Include="ReflectParser.cpp" />
-    <ClCompile Include="ReflectProperty.cpp" />
+    <ClCompile Include="ReflectPropertyBase.cpp" />
     <ClCompile Include="ReflectPropertyBinder.cpp" />
     <ClCompile Include="ReflectSerializer.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">

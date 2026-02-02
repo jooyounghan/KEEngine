@@ -62,16 +62,12 @@ int main()
 	characterStatus._moveStatus._speed = 20;
 	characterStatus._moveStatus._slowRatio = 0.2f;
 	characterStatus._attackStatus._power = 15;
-	characterStatus._attackStatus._lethality = 0.35;
+	characterStatus._attackStatus._lethality = 0.35f;
     
 	ReflectSerializer::serializeToXML("./characterStatus.xml", &characterStatus);
 
 	
 	CharacterStatus loadedStatus;
-    FlyweightStringA tt = loadedStatus.getName_killPoint();
-	printf("KillPoint name: %s\n", tt.c_str());
-    FlyweightStringA t =  loadedStatus.getName_moveStatus();
-	printf("MoveStatus name: %s\n", t.c_str());
     ReflectSerializer::deserializeFromXML("./characterStatus.xml", &loadedStatus);
 	return 0;
 }

@@ -4,7 +4,7 @@
 #include "StaticBuffer.h"
 #include "XmlReader.h"
 #include "XmlWriter.h"
-#include "ReflectProperty.h"
+#include "ReflectPropertyBase.h"
 #include "ReflectMetaData.h"
 
 namespace ke
@@ -29,7 +29,7 @@ namespace ke
 
 	void ke::ReflectSerializer::serializeToXMLInner(XmlWriter& xmlWriter, const IReflectObject* reflectObject, uint32 depth)
 	{
-		static StaticBuffer<256> propertyValueBuffer;
+		static StaticBuffer<BUFFER_BYTES_256> propertyValueBuffer;
 
 		const FlyweightStringA& objetName = reflectObject->getName();
 		XmlBuilder builder(objetName.c_str(), objetName.length(), &xmlWriter, depth);
@@ -62,6 +62,19 @@ namespace ke
 			}
 		}
 	}
+
+	static std::string_view createReflectiveString(const std::string_view& str) 
+	{
+		static StaticBuffer<BUFFER_BYTES_256> tempBuffer;
+		tempBuffer.reset();
+
+		tempBuffer.writeOne('_');
+		tempBuffer.writeOne(std::tolower(str[0]));
+		tempBuffer.write(str.data() + 1, str.size() - 1);
+
+		return std::string_view(tempBuffer.getConstBuffer(), tempBuffer.getCursorPos());
+	}
+
 	void ReflectSerializer::deserializeFromXMLInner(const XmlNode& xmlNode, IReflectObject* reflectObject)
 	{
 		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
@@ -70,8 +83,8 @@ namespace ke
 			std::string_view name = attribute.getName();
 			std::string_view value = attribute.getValue();
 
-			FlyweightStringA indexedName(name);
-			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(indexedName);
+			FlyweightStringA propertyName(name);
+			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(propertyName);
 
 			if (reflectProperty != nullptr)
 			{
@@ -82,9 +95,10 @@ namespace ke
 		const std::vector<XmlNode>& children = xmlNode.getChildNodes();
 		for (const XmlNode& childNode : children)
 		{
-			std::string_view name = childNode.getName();
-			FlyweightStringA indexedName(name);
-			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(indexedName);
+			std::string_view name = createReflectiveString(childNode.getName());
+
+			FlyweightStringA propertyName(name);
+			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(propertyName);
 
 			if (reflectProperty != nullptr)
 			{

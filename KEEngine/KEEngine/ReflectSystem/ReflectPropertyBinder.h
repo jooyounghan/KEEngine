@@ -1,6 +1,6 @@
 #pragma once
-#include "ReflectProperty.h"
-
+#include "ReflectPropertyBase.h"
+#include "ReflectPODProperty.h"
 namespace ke
 {
 	template<typename PropertyType>
