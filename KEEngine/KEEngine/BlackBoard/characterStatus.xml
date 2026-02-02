@@ -1,0 +1,4 @@
+<CharacterStatus _killPoint="5" _bountyPointRatio="0.75000">
+  <MoveStatus _speed="20" _slowRatio="0.20000" />
+  <AttackStatus _power="15" _lethality="0.35000" />
+</CharacterStatus>

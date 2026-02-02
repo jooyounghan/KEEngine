@@ -1,7 +1,5 @@
 #pragma once
 #include "ReflectProperty.h"
-#include <vector>
-#include <map>
 
 namespace ke
 {
@@ -12,7 +10,7 @@ namespace ke
 		~ReflectMetaData() = default;
 
 	private:
-		std::vector<PTR(IReflectProperty)> _properties;
+		OwnerVector<IReflectProperty> _properties;
 
 	private:
 		std::map<FlyweightStringA, IReflectProperty*> _orderedPropertyMap;
@@ -31,7 +29,7 @@ namespace ke
 		inline const FlyweightStringA& getOwnerObjectName() const { return _ownerObjectName; }
 
 	public:
-		inline const std::vector<PTR(IReflectProperty)>& getAllProperties() const { return _properties; }
+		inline const OwnerVector<IReflectProperty>& getAllProperties() const { return _properties; }
 
 	private:
 		FlyweightStringA _ownerObjectName;

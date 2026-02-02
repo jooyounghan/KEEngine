@@ -13,32 +13,32 @@ namespace ke
 	}
 
 	template<typename CharType>
-	vector<PTR(basic_string<CharType>)>& FlyweightString<CharType>::getStringVector()
+	OwnerVector<std::basic_string<CharType>>& FlyweightString<CharType>::getStringVector()
 	{
-		static vector<PTR(basic_string<CharType>)> instance;
+		static OwnerVector<std::basic_string<CharType>> instance;
 		return instance;
 	}
 
 	template<typename CharType>
 	const CharType* FlyweightString<CharType>::getFromEntryIndex(size_t entryIndex)
 	{
-		const vector<PTR(basic_string<CharType>)>& stringVector = getStringVector();
+		const OwnerVector<std::basic_string<CharType>>& stringVector = getStringVector();
 		return stringVector.size() > entryIndex ? stringVector[entryIndex]->c_str() : nullptr;
 	}
 
 	template<typename CharType>
-	void FlyweightString<CharType>::registerString(const CharType* str)
+	void FlyweightString<CharType>::registerString(const std::basic_string_view<CharType>& stringView)
 	{
 		unordered_map<basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& stringEntryMap = FlyweightString<CharType>::getStringEntryMap();
-		vector<PTR(basic_string<CharType>)>& stringVector = FlyweightString<CharType>::getStringVector();
-
-		basic_string_view<CharType> stringView = basic_string_view<CharType>(str);
+		OwnerVector<std::basic_string<CharType>>& stringVector = FlyweightString<CharType>::getStringVector();
 
 		auto it = stringEntryMap.find(stringView);
 		if (stringEntryMap.find(stringView) == stringEntryMap.end())
 		{
 			_entryIndex = stringVector.size();
-			stringVector.push_back(MAKE_PTR(basic_string<CharType>, str));
+
+			std::basic_string<CharType> str(stringView.data(), stringView.length());
+			stringVector.push_back(std::move(str));
 			stringEntryMap.emplace(stringView, _entryIndex);
 		}
 		else
@@ -50,13 +50,19 @@ namespace ke
 	template<typename CharType>
 	FlyweightString<CharType>::FlyweightString(const CharType* str)
 	{
-		registerString(str);
+		registerString(std::basic_string_view<CharType>(str));
 	}
 
 	template<typename CharType>
 	FlyweightString<CharType>::FlyweightString(const basic_string<CharType>& str)
 	{
-		registerString(str.data());
+		registerString(std::basic_string_view<CharType>(str.data(), str.length()));
+	}
+
+	template<typename CharType>
+	FlyweightString<CharType>::FlyweightString(const std::basic_string_view<CharType>& stringView)
+	{
+		registerString(stringView);
 	}
 
 	template<typename CharType>

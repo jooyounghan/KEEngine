@@ -16,6 +16,17 @@ namespace ke
 		xmlWriter.writeToFile();
 	}
 
+	void ReflectSerializer::deserializeFromXML(const char* path, IReflectObject* obj)
+	{
+		XmlReader xmlReader(path);
+		const XmlNode& rootNode = xmlReader.getRootNode();
+		const std::vector<XmlNode>& childNodes = rootNode.getChildNodes();
+		for (const XmlNode& childNode : childNodes)
+		{
+			deserializeFromXMLInner(childNode, obj);
+		}
+	}
+
 	void ke::ReflectSerializer::serializeToXMLInner(XmlWriter& xmlWriter, const IReflectObject* reflectObject, uint32 depth)
 	{
 		static StaticBuffer<256> propertyValueBuffer;
@@ -24,14 +35,14 @@ namespace ke
 		XmlBuilder builder(objetName.c_str(), objetName.length(), &xmlWriter, depth);
 
 		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
-		const std::vector<PTR(IReflectProperty)>& properties = reflectMetaData->getAllProperties();
-		std::vector<IReflectProperty*> reflectObjectProperties;
+		const OwnerVector<IReflectProperty>& properties = reflectMetaData->getAllProperties();
+		std::vector<const IReflectProperty*> reflectObjectProperties;
 
-		for (const PTR(IReflectProperty)& property : properties)
+		for (const IReflectProperty* property : properties)
 		{
 			if (property->isReflectObject())
 			{
-				reflectObjectProperties.push_back(property.get());
+				reflectObjectProperties.push_back(property);
 			}
 			else
 			{
@@ -42,10 +53,43 @@ namespace ke
 			}
 		}
 
-		builder.openHeaderEnd();
-		for (IReflectProperty* property : reflectObjectProperties)
+		if (reflectObjectProperties.empty() == false)
 		{
-			serializeToXMLInner(xmlWriter, property->castAsReflectObject(reflectObject), depth + 1);
+			builder.openHeaderEnd();
+			for (const IReflectProperty* property : reflectObjectProperties)
+			{
+				serializeToXMLInner(xmlWriter, property->getReflectObject(reflectObject), depth + 1);
+			}
+		}
+	}
+	void ReflectSerializer::deserializeFromXMLInner(const XmlNode& xmlNode, IReflectObject* reflectObject)
+	{
+		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
+		for (XmlAttribute attribute = xmlNode.getFirstAttribute(); attribute.isValid(); attribute = attribute.getNextAttribute())
+		{
+			std::string_view name = attribute.getName();
+			std::string_view value = attribute.getValue();
+
+			FlyweightStringA indexedName(name);
+			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(indexedName);
+
+			if (reflectProperty != nullptr)
+			{
+				reflectProperty->setFromString(reflectObject, value.data());
+			}
+		}
+
+		const std::vector<XmlNode>& children = xmlNode.getChildNodes();
+		for (const XmlNode& childNode : children)
+		{
+			std::string_view name = childNode.getName();
+			FlyweightStringA indexedName(name);
+			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(indexedName);
+
+			if (reflectProperty != nullptr)
+			{
+				deserializeFromXMLInner(childNode, reflectProperty->getReflectObject(reflectObject));
+			}
 		}
 	}
 }
