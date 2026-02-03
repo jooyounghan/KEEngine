@@ -1,0 +1,19 @@
+{
+  "name": "graphicssystem",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "d3dx12",
+    "directx-dxc"
+  ],
+  "builtin-baseline": "cc73782a88db48af17f8bfb8328d4cab3d4c246f",
+  "overrides": [
+    {
+      "name": "d3dx12",
+      "version-string": "may2021"
+    },
+    {
+      "name": "directx-dxc",
+      "version-date": "2025-10-10"
+    }
+  ]
+}

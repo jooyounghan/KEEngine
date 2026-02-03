@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>17.0</VCProjectVersion>
+    <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{559e4f56-84de-4aef-854f-3bb897f6ac31}</ProjectGuid>
-    <RootNamespace>CommonLib</RootNamespace>
+    <ProjectGuid>{06f94a3c-e2b6-404c-a18d-b8af5f40c5d1}</ProjectGuid>
+    <RootNamespace>GraphicsSystem</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,7 +71,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>$(SolutionDir)CommonLib;%(PublicIncludeDirectories);$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(SolutionDir)GraphicsSystem;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,6 +82,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -96,6 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -111,16 +116,21 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>CommonLibPch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>GraphicsSystemPch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>ReflectSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -130,6 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -140,61 +151,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AssertCommon.h" />
-    <ClInclude Include="BufferImplement.h" />
-    <ClInclude Include="ChromeTraceProfiler.h" />
-    <ClInclude Include="DynamicBuffer.h" />
-    <ClInclude Include="EnumCommon.h" />
-    <ClInclude Include="File.h" />
-    <ClInclude Include="FlyweightString.h" />
-    <ClInclude Include="Hash.h" />
-    <ClInclude Include="Hash.hpp" />
-    <ClInclude Include="IBuffer.h" />
-    <ClInclude Include="MacroCommon.h" />
-    <ClInclude Include="MathUtil.h" />
-    <ClInclude Include="MathUtil.hpp" />
-    <ClInclude Include="MemoryUtil.h" />
-    <ClInclude Include="MemoryUtil.hpp" />
-    <ClInclude Include="CommonLibPch.h" />
-    <ClInclude Include="OwnerVector.h" />
-    <ClInclude Include="OwnerVector.hpp" />
-    <ClInclude Include="Ptr.h" />
-    <ClInclude Include="Ptr.hpp" />
-    <ClInclude Include="RefCountedPtr.h" />
-    <ClInclude Include="SimdCommon.h" />
-    <ClInclude Include="StaticBuffer.h" />
-    <ClInclude Include="StrUtil.h" />
-    <ClInclude Include="StrUtil.hpp" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="TraitCommon.h" />
-    <ClInclude Include="TypeCommon.h" />
-    <ClInclude Include="XmlNode.h" />
-    <ClInclude Include="XmlReader.h" />
-    <ClInclude Include="XmlAttribute.h" />
-    <ClInclude Include="XmlWriter.h" />
+    <ClInclude Include="GraphicsSystemPch.h" />
+    <ClInclude Include="KEAppBase.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BufferImplement.cpp" />
-    <ClCompile Include="ChromeTraceProfiler.cpp" />
-    <ClCompile Include="DynamicBuffer.cpp" />
-    <ClCompile Include="File.cpp" />
-    <ClCompile Include="FlyweightString.cpp" />
-    <ClCompile Include="Hash.cpp" />
-    <ClCompile Include="CommonLibPch.cpp">
+    <ClCompile Include="GraphicsSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="OwnerVector.cpp" />
-    <ClCompile Include="StaticBuffer.cpp" />
-    <ClInclude Include="StaticBuffer.hpp" />
-    <ClCompile Include="StrUtil.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="XmlNode.cpp" />
-    <ClCompile Include="XmlReader.cpp" />
-    <ClCompile Include="XmlAttribute.cpp" />
-    <ClCompile Include="XmlWriter.cpp" />
+    <ClCompile Include="KEAppBase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.vcxproj">
+      <Project>{559e4f56-84de-4aef-854f-3bb897f6ac31}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ReflectSystem\ReflectSystem.vcxproj">
+      <Project>{4a1daa3e-76c4-42d8-b6d0-afc5ecbfa6b1}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -135,6 +135,9 @@
     <ProjectReference Include="..\CommonLib\CommonLib.vcxproj">
       <Project>{559e4f56-84de-4aef-854f-3bb897f6ac31}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\GraphicsSystem\GraphicsSystem.vcxproj">
+      <Project>{06f94a3c-e2b6-404c-a18d-b8af5f40c5d1}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ReflectSystem\ReflectSystem.vcxproj">
       <Project>{4a1daa3e-76c4-42d8-b6d0-afc5ecbfa6b1}</Project>
     </ProjectReference>

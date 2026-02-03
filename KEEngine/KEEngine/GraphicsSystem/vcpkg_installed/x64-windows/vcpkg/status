@@ -1,0 +1,31 @@
+Package: d3dx12
+Version: may2021
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 88ef365dff18052cfcbd6f682746478891d138fe0932550981af757293279a62
+Description: The D3D12 Helper Library
+Status: install ok installed
+
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: db88bc5b5f55c7505bb773d0a4d0f7c0d6e2e14a211bc6cb97c55e87befb868c
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 47d3bf484dfb38f13ec36aa408980a39231a6eb50b5c35db878afe41b2874053
+Status: install ok installed
+
+Package: directx-dxc
+Version: 2025-10-10
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4d935b68a9ea1c845926b3c28405095d047c632550aec686fefd9f7a0c133bd7
+Description: DirectX Shader Compiler (LLVM/Clang)
+Status: install ok installed
+

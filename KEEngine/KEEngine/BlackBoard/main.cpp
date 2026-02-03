@@ -1,73 +1,23 @@
 #include "BlackBoardPch.h"
-#include "test.h"
-#include "ReflectSerializer.h"
-#include "XmlReader.h"
-#include "XmlWriter.h"
-#include "OwnerVector.h"
-
-#include <iostream>
-#include <chrono>
-
+#include "KEAppBase.h"
 using namespace ke;
 
-static void TraverseSiblings(const XmlNode& node, XmlWriter* writer, int depth)
+class KEApp : public KEAppBase
 {
-    std::string_view name = node.getName();
-    XmlBuilder builder(name.data(), name.length(), writer, depth);
+public:
+	KEApp(int width, int height, const wchar_t* className, const wchar_t* appName)
+		: KEAppBase(width, height, className, appName)
+	{
+	}
 
-    for (XmlAttribute a = node.getFirstAttribute(); a.isValid(); a = a.getNextAttribute())
-    {
-        std::string_view n = a.getName();
-        std::string_view v = a.getValue();
-        builder.addAttribute(n.data(), n.length(), v.data(), v.length());
-    }
-
-    const auto& children = node.getChildNodes();
-    if (!children.empty())
-    {
-        builder.openHeaderEnd();
-        for (const XmlNode& childNode : children)
-        {
-            TraverseSiblings(childNode, writer, depth + 1);
-        }
-    }
-}
-
-static void TraverseDocument(const XmlNode& rootNode, XmlWriter& writer)
-{
-    if (!rootNode.isValid()) return;
-    TraverseSiblings(rootNode, &writer, 0);
-}
-
-void PrintOwnerVector(const OwnerVector<int>& vec)
-{
-    //std::cout << "OwnerVector contents: ";
-    //for (size_t i = 0; i < vec.size(); ++i)
-    //{
-    //    std::cout << *(vec[i]) << " ";
-    //}
-    //std::cout << std::endl;
-}
+protected:
+	virtual void onUpdate(float dt) override {};
+	virtual void onRender() override {};
+	virtual void onDestroy() override {}
+};
 
 int main()
 {
-    //XmlReader xmlReader("./xml_stress_1mb.xml");
-    //XmlWriter xmlWriter("./output.xml");
-    //TraverseDocument(xmlReader.getRootNode(), xmlWriter);
-    //xmlWriter.writeToFile();
-
-    CharacterStatus characterStatus;
-	characterStatus._killPoint = 5;
-	characterStatus._bountyPointRatio = 0.75f;
-	characterStatus._moveStatus._speed = 20;
-	characterStatus._moveStatus._slowRatio = 0.2f;
-	characterStatus._attackStatus._power = 15;
-	characterStatus._attackStatus._lethality = 0.35f;
-    
-	ReflectSerializer::serializeToXML("./characterStatus.xml", &characterStatus);
-
-	
-	CharacterStatus loadedStatus;
-    ReflectSerializer::deserializeFromXML("./characterStatus.xml", &loadedStatus);
-	return 0;
+	KEApp app(800, 600, L"BlackBoardAppClass", L"BlackBoardApp");
+	return app.run();
 }
