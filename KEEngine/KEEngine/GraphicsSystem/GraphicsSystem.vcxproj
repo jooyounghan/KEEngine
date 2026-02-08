@@ -153,6 +153,12 @@
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
+    <ClInclude Include="DescriptorHeap.h" />
+    <ClInclude Include="ConstantBufferResource.h" />
+    <ClInclude Include="StructuredBufferResource.h" />
+    <ClInclude Include="ShaderResource.h" />
+    <ClInclude Include="RenderTargetResource.h" />
+    <ClInclude Include="BindlessDescriptorHeap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -162,6 +168,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="KEAppBase.cpp" />
+    <ClCompile Include="DescriptorHeap.cpp" />
+    <ClCompile Include="ConstantBufferResource.cpp" />
+    <ClCompile Include="StructuredBufferResource.cpp" />
+    <ClCompile Include="ShaderResource.cpp" />
+    <ClCompile Include="RenderTargetResource.cpp" />
+    <ClCompile Include="BindlessDescriptorHeap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.vcxproj">

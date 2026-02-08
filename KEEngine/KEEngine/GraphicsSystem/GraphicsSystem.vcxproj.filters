@@ -19,6 +19,12 @@
     <Filter Include="헤더 파일\App">
       <UniqueIdentifier>{1a4b2a7f-81f2-4343-b294-4e87a1382e21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resources">
+      <UniqueIdentifier>{b3e7c8a1-5d2f-4a9e-8f6c-1d3e5a7b9c0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Resources">
+      <UniqueIdentifier>{c4f8d9b2-6e3a-4b0f-9a7d-2e4f6b8c0d1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -27,6 +33,24 @@
     <ClInclude Include="KEAppBase.h">
       <Filter>헤더 파일\App</Filter>
     </ClInclude>
+    <ClInclude Include="DescriptorHeap.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBufferResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="BindlessDescriptorHeap.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -34,6 +58,24 @@
     </ClCompile>
     <ClCompile Include="KEAppBase.cpp">
       <Filter>소스 파일\App</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorHeap.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBufferResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="BindlessDescriptorHeap.cpp">
+      <Filter>소스 파일\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
