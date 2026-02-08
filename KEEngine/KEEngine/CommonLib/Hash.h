@@ -19,7 +19,7 @@ namespace ke
     class Hash
     {
     public:
-        NODISC static size_t operator()(const T& value);
+        NODISC size_t operator()(const T& value) const;
 
     private:
         static size_t computeHash(const void* data, size_t len);

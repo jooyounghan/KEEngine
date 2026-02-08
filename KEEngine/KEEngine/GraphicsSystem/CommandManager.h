@@ -31,9 +31,9 @@ namespace ke
 		CopyCommandContext allocateCopyContext();
 
 	public:
-		uint64 executeGraphicsContext(GraphicsCommandContext& context, bool waitForCompletion = false);
-		uint64 executeComputeContext(ComputeCommandContext& context, bool waitForCompletion = false);
-		uint64 executeCopyContext(CopyCommandContext& context, bool waitForCompletion = false);
+		CommandFence executeGraphicsContext(GraphicsCommandContext& context, bool waitForCompletion = false);
+		CommandFence executeComputeContext(ComputeCommandContext& context, bool waitForCompletion = false);
+		CommandFence executeCopyContext(CopyCommandContext& context, bool waitForCompletion = false);
 
 	public:
 		void waitForIdle();

@@ -30,7 +30,7 @@ namespace ke
     };
 
     template<typename T>
-    size_t Hash<T>::operator()(const T& value)
+    size_t Hash<T>::operator()(const T& value) const
     {
         return convertToHash(value);
     }

@@ -36,15 +36,15 @@ namespace ke
         static size_t getDecimalLength(uint64 v);
 
     private:
-        static void writeFixedDigits(IBuffer* outStaticBuffer, bool isNegative, uint64 v);
+        static void writeFixedDigits(IBuffer* outBuffer, bool isNegative, uint64 v);
 
     private:
-        static void zToStringBuffer(IBuffer* outStaticBuffer, bool isNegative, uint64 v);
-        static void fToStringBuffer(IBuffer* outStaticBuffer, double v, size_t precision);
+        static void zToStringBuffer(IBuffer* outBuffer, bool isNegative, uint64 v);
+        static void fToStringBuffer(IBuffer* outBuffer, double v, size_t precision);
 
     public:
         template<typename T, typename ...Args>
-        static void convertToStringBuffer(IBuffer* outStaticBuffer, const T& v, Args... args);
+        static void convertToStringBuffer(IBuffer* outBuffer, const T& v, Args... args);
 
     public:
         static const char*  findNext(const char* p, const char* end, char c) noexcept;

@@ -20,7 +20,7 @@ namespace ke
 	public:
 		void initialize(ID3D12Device* device, ECommandType type);
 		void reset();
-		uint64 finish(CommandQueue& queue, bool waitForCompletion = false);
+		CommandFence finish(CommandQueue& queue, bool waitForCompletion = false);
 
 	public:
 		inline ID3D12GraphicsCommandList4* getCommandList() const { return _commandList.Get(); }

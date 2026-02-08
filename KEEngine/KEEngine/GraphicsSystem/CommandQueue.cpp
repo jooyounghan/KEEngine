@@ -10,15 +10,20 @@ namespace ke
 		shutdown();
 	}
 
-	void CommandQueue::initialize(ID3D12Device* device, ECommandType type)
+	void CommandQueue::initialize(
+		ID3D12Device* device
+		, ECommandType type
+		, D3D12_COMMAND_QUEUE_PRIORITY priority/* = D3D12_COMMAND_QUEUE_PRIORITY::D3D12_COMMAND_QUEUE_PRIORITY_NORMAL*/
+		, D3D12_COMMAND_QUEUE_FLAGS flag/* = D3D12_COMMAND_QUEUE_FLAGS::D3D12_COMMAND_QUEUE_FLAG_NONE*/
+	)
 	{
 		KE_ASSERT(device != nullptr, "Device must not be null.");
 		_type = type;
 
 		D3D12_COMMAND_QUEUE_DESC desc = {};
 		desc.Type = toD3D12CommandListType(type);
-		desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
-		desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+		desc.Priority = priority;
+		desc.Flags = flag;
 		desc.NodeMask = 0;
 
 		KE_ASSERT(!FAILED(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&_commandQueue))),
@@ -50,51 +55,68 @@ namespace ke
 		_commandQueue.Reset();
 	}
 
-	uint64 CommandQueue::executeCommandList(ID3D12CommandList* commandList)
+	CommandFence CommandQueue::executeCommandList(ID3D12CommandList* commandList, const std::string& debugHint)
 	{
-		return executeCommandLists(&commandList, 1);
+		return executeCommandLists(&commandList, 1, debugHint);
 	}
 
-	uint64 CommandQueue::executeCommandLists(ID3D12CommandList* const* commandLists, uint32 count)
+	CommandFence CommandQueue::executeCommandLists(ID3D12CommandList* const* commandLists, uint32 count, const std::string& debugHint)
 	{
 		_commandQueue->ExecuteCommandLists(count, commandLists);
-		return signal();
+		return signal(debugHint);
 	}
 
-	uint64 CommandQueue::signal()
+	CommandFence CommandQueue::signal(const std::string& debugHint)
 	{
 		const uint64 fenceValue = _nextFenceValue++;
 		KE_ASSERT(!FAILED(_commandQueue->Signal(_fence.Get(), fenceValue)),
 			"Failed to signal fence.");
-		return fenceValue;
+
+		CommandFence ret;
+		ret.value = fenceValue;
+
+#ifdef KE_DEV
+		ret.commandDebugHint = debugHint;
+#endif
+
+		return ret;
 	}
 
-	bool CommandQueue::isFenceComplete(uint64 fenceValue) const
+	CommandFence CommandQueue::getCompletedCommandFence() const
 	{
-		return _fence->GetCompletedValue() >= fenceValue;
+		CommandFence commandFence;
+		commandFence.value = _fence->GetCompletedValue();
+		return commandFence;
 	}
 
-	void CommandQueue::waitForFenceValue(uint64 fenceValue)
+	bool CommandQueue::isComplete(CommandFence fenceValue)
 	{
-		if (isFenceComplete(fenceValue))
+		if (fenceValue.value <= _lastCompletedFenceValue)
+		{
+			return true;
+		}
+
+		_lastCompletedFenceValue = std::max(_lastCompletedFenceValue, _fence->GetCompletedValue());
+		return fenceValue.value <= _lastCompletedFenceValue;
+	}
+
+	void CommandQueue::wait(CommandFence fenceValue, DWORD timeOutMilliSecond/* = INFINITE*/)
+	{
+		if (isComplete(fenceValue))
 		{
 			return;
 		}
 
-		KE_ASSERT(!FAILED(_fence->SetEventOnCompletion(fenceValue, _fenceEvent)),
+		KE_ASSERT(!FAILED(_fence->SetEventOnCompletion(fenceValue.value, _fenceEvent)),
 			"Failed to set fence event.");
 
-		WaitForSingleObject(_fenceEvent, INFINITE);
+		WaitForSingleObject(_fenceEvent, timeOutMilliSecond);
+		_lastCompletedFenceValue = fenceValue.value;
 	}
 
 	void CommandQueue::waitForIdle()
 	{
-		const uint64 fenceValue = signal();
-		waitForFenceValue(fenceValue);
-	}
-
-	uint64 CommandQueue::getLastCompletedFenceValue() const
-	{
-		return _fence->GetCompletedValue();
+		const CommandFence fenceValue = signal("WaitForIdle");
+		wait(fenceValue);
 	}
 }

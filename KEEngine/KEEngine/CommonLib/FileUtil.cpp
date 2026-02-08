@@ -1,16 +1,6 @@
 #include "CommonLibPch.h"
 #include "FileUtil.h"
 
-#ifdef _WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
-#else
-	#include <sys/stat.h>
-	#include <sys/types.h>
-	#include <dirent.h>
-	#include <cstring>
-#endif
-
 namespace ke
 {
 	// ---------------------------------------------------------------
@@ -207,22 +197,6 @@ namespace ke
 	)
 	{
 		collectFilesInternal(directoryPath, outFiles, extensions, recursive);
-	}
-
-	void FileUtil::collectFiles(
-		const char* directoryPath,
-		std::vector<std::string>& outFiles,
-		const std::vector<const char*>& extensions,
-		bool recursive
-	)
-	{
-		std::vector<std::string> exts;
-		exts.reserve(extensions.size());
-		for (const char* ext : extensions)
-		{
-			exts.emplace_back(ext);
-		}
-		collectFilesInternal(directoryPath, outFiles, exts, recursive);
 	}
 
 	int64_t FileUtil::getLastModifiedTime(const char* filePath)

@@ -50,17 +50,17 @@ namespace ke
 		return context;
 	}
 
-	uint64 CommandManager::executeGraphicsContext(GraphicsCommandContext& context, bool waitForCompletion)
+	CommandFence CommandManager::executeGraphicsContext(GraphicsCommandContext& context, bool waitForCompletion)
 	{
 		return context.finish(_graphicsQueue, waitForCompletion);
 	}
 
-	uint64 CommandManager::executeComputeContext(ComputeCommandContext& context, bool waitForCompletion)
+	CommandFence CommandManager::executeComputeContext(ComputeCommandContext& context, bool waitForCompletion)
 	{
 		return context.finish(_computeQueue, waitForCompletion);
 	}
 
-	uint64 CommandManager::executeCopyContext(CopyCommandContext& context, bool waitForCompletion)
+	CommandFence CommandManager::executeCopyContext(CopyCommandContext& context, bool waitForCompletion)
 	{
 		return context.finish(_copyQueue, waitForCompletion);
 	}

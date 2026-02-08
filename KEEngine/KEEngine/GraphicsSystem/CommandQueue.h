@@ -10,6 +10,18 @@ namespace ke
 		Count
 	};
 
+	struct CommandFence
+	{
+		uint64 value = 0;
+#ifdef KE_DEV
+		std::string commandDebugHint;
+#endif
+		bool operator<=(const CommandFence& other)
+		{
+			return value <= other.value;
+		}
+	};
+
 	inline D3D12_COMMAND_LIST_TYPE toD3D12CommandListType(ECommandType type)
 	{
 		switch (type)
@@ -26,35 +38,40 @@ namespace ke
 	public:
 		CommandQueue() = default;
 		~CommandQueue();
-
-		DELETE_COPYABLE(CommandQueue);
-		DEFAULT_MOVEABLE(CommandQueue);
+		NONCOPYABLE(CommandQueue);
 
 	public:
-		void initialize(ID3D12Device* device, ECommandType type);
+		void initialize(
+			ID3D12Device* device
+			, ECommandType type
+			, D3D12_COMMAND_QUEUE_PRIORITY priority = D3D12_COMMAND_QUEUE_PRIORITY::D3D12_COMMAND_QUEUE_PRIORITY_NORMAL
+			, D3D12_COMMAND_QUEUE_FLAGS flag = D3D12_COMMAND_QUEUE_FLAGS::D3D12_COMMAND_QUEUE_FLAG_NONE
+		);
 		void shutdown();
 
 	public:
-		uint64 executeCommandList(ID3D12CommandList* commandList);
-		uint64 executeCommandLists(ID3D12CommandList* const* commandLists, uint32 count);
+		CommandFence executeCommandList(ID3D12CommandList* commandList, const std::string& debugHint = "");
+		CommandFence executeCommandLists(ID3D12CommandList* const* commandLists, uint32 count, const std::string& debugHint = "");
+
+	private:
+		CommandFence signal(const std::string& debugHint = "");
 
 	public:
-		uint64 signal();
-		bool isFenceComplete(uint64 fenceValue) const;
-		void waitForFenceValue(uint64 fenceValue);
+		CommandFence getCompletedCommandFence() const;
+		bool isComplete(CommandFence fenceValue);
+		void wait(CommandFence fenceValue, DWORD timeOutMilliSecond = INFINITE);
 		void waitForIdle();
 
 	public:
 		inline ID3D12CommandQueue* getQueue() const { return _commandQueue.Get(); }
-		inline uint64 getNextFenceValue() const { return _nextFenceValue; }
-		uint64 getLastCompletedFenceValue() const;
 		inline ECommandType getType() const { return _type; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue>	_commandQueue;
 		Microsoft::WRL::ComPtr<ID3D12Fence>			_fence;
-		HANDLE		_fenceEvent = nullptr;
-		uint64		_nextFenceValue = 1;
-		ECommandType _type = ECommandType::Direct;
+		HANDLE										_fenceEvent = nullptr;
+		uint64										_nextFenceValue = 1;
+		uint64										_lastCompletedFenceValue = 0;
+		ECommandType								_type = ECommandType::Direct;
 	};
 }

@@ -43,7 +43,7 @@ namespace ke
 		_pendingBarrierCount = 0;
 	}
 
-	uint64 CommandContext::finish(CommandQueue& queue, bool waitForCompletion)
+	CommandFence CommandContext::finish(CommandQueue& queue, bool waitForCompletion)
 	{
 		flushBarriers();
 
@@ -51,11 +51,11 @@ namespace ke
 			"Failed to close command list.");
 
 		ID3D12CommandList* lists[] = { _commandList.Get() };
-		const uint64 fenceValue = queue.executeCommandLists(lists, 1);
+		const CommandFence fenceValue = queue.executeCommandLists(lists, 1);
 
 		if (waitForCompletion)
 		{
-			queue.waitForFenceValue(fenceValue);
+			queue.wait(fenceValue);
 		}
 
 		return fenceValue;

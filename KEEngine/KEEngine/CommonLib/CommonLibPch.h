@@ -28,6 +28,18 @@
 
 // Project Includes
 #include "MacroCommon.h"
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+#else
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <cstring>
+#endif
+
 #include "TypeCommon.h"
 #include "EnumCommon.h"
 #include "AssertCommon.h"
