@@ -4,7 +4,8 @@ namespace ke
 {
 	enum class ECommandType : uint8
 	{
-		Direct = 0,
+		None = 0,
+		Direct,
 		Compute,
 		Copy,
 		Count
@@ -29,7 +30,7 @@ namespace ke
 		case ECommandType::Direct:	return D3D12_COMMAND_LIST_TYPE_DIRECT;
 		case ECommandType::Compute:	return D3D12_COMMAND_LIST_TYPE_COMPUTE;
 		case ECommandType::Copy:	return D3D12_COMMAND_LIST_TYPE_COPY;
-		default:					return D3D12_COMMAND_LIST_TYPE_DIRECT;
+		default:					KE_ASSERT(false, "Invalid command type."); return D3D12_COMMAND_LIST_TYPE_DIRECT;
 		}
 	}
 
@@ -72,6 +73,6 @@ namespace ke
 		HANDLE										_fenceEvent = nullptr;
 		uint64										_nextFenceValue = 1;
 		uint64										_lastCompletedFenceValue = 0;
-		ECommandType								_type = ECommandType::Direct;
+		ECommandType								_type = ECommandType::None;
 	};
 }

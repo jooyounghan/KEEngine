@@ -60,9 +60,6 @@
     <ClInclude Include="CommandContext.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
-    <ClInclude Include="CommandManager.h">
-      <Filter>헤더 파일\Command</Filter>
-    </ClInclude>
     <ClInclude Include="CommandQueue.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
@@ -93,9 +90,6 @@
       <Filter>소스 파일\Resources</Filter>
     </ClCompile>
     <ClCompile Include="CommandContext.cpp">
-      <Filter>소스 파일\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandManager.cpp">
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
     <ClCompile Include="CommandQueue.cpp">

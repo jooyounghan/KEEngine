@@ -5,15 +5,14 @@ using namespace Microsoft::WRL;
 
 namespace ke
 {
-	// ============================================================================
-	// CommandContext (Base)
-	// ============================================================================
-
 	void CommandContext::initialize(ID3D12Device* device, ECommandType type)
 	{
-		KE_ASSERT(device != nullptr, "Device must not be null.");
+		if (device == nullptr)
+		{
+			KE_ASSERT(device != nullptr, "Device must not be null.");
+			return;
+		}
 		_type = type;
-
 		const D3D12_COMMAND_LIST_TYPE d3dType = toD3D12CommandListType(type);
 
 		KE_ASSERT(!FAILED(device->CreateCommandAllocator(d3dType, IID_PPV_ARGS(&_commandAllocator))),
