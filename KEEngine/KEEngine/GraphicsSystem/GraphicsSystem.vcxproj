@@ -151,11 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommandContext.h" />
+    <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="CommandQueue.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
     <ClInclude Include="SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandContext.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
+    <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="GraphicsSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
