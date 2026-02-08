@@ -39,6 +39,8 @@ namespace ke
 		D3D12_GPU_DESCRIPTOR_HANDLE						_gpuStart = {};
 		uint32_t										_descriptorSize = 0;
 		uint32_t										_numDescriptors = 0;
+		bool											_shaderVisible = false;
 		std::vector<uint32_t>							_freeIndices;
+		std::vector<bool>								_allocated;
 	};
 }

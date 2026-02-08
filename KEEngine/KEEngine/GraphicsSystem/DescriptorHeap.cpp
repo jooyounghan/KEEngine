@@ -24,6 +24,7 @@ namespace ke
 
 		_descriptorSize = device->GetDescriptorHandleIncrementSize(type);
 		_numDescriptors = numDescriptors;
+		_shaderVisible = shaderVisible;
 		_cpuStart = _heap->GetCPUDescriptorHandleForHeapStart();
 
 		if (shaderVisible)
@@ -36,6 +37,8 @@ namespace ke
 		{
 			_freeIndices[i] = (numDescriptors - 1) - i;
 		}
+
+		_allocated.resize(numDescriptors, false);
 	}
 
 	DescriptorHandle DescriptorHeap::allocate()
@@ -44,11 +47,17 @@ namespace ke
 
 		const uint32_t index = _freeIndices.back();
 		_freeIndices.pop_back();
+		_allocated[index] = true;
 
 		DescriptorHandle handle;
 		handle.heapIndex = index;
 		handle.cpuHandle.ptr = _cpuStart.ptr + static_cast<SIZE_T>(index) * _descriptorSize;
-		handle.gpuHandle.ptr = _gpuStart.ptr + static_cast<UINT64>(index) * _descriptorSize;
+
+		if (_shaderVisible)
+		{
+			handle.gpuHandle.ptr = _gpuStart.ptr + static_cast<UINT64>(index) * _descriptorSize;
+		}
+
 		return handle;
 	}
 
@@ -56,6 +65,9 @@ namespace ke
 	{
 		KE_ASSERT(handle.isValid(), "Cannot release an invalid descriptor handle.");
 		KE_ASSERT(handle.heapIndex < _numDescriptors, "Descriptor handle index out of range.");
+		KE_ASSERT(_allocated[handle.heapIndex], "Descriptor handle is already released (double-free detected).");
+
+		_allocated[handle.heapIndex] = false;
 		_freeIndices.push_back(handle.heapIndex);
 	}
 }
