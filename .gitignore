@@ -457,3 +457,4 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,windows,c++
 DirectX12/Zombie.fbx
+_codeql_detected_source_root
