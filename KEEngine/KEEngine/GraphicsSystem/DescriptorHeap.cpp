@@ -76,6 +76,9 @@ namespace ke
 	{
 		KE_ASSERT(handle.isValid(), "Cannot release an invalid descriptor handle.");
 		KE_ASSERT(handle.heapIndex < _capacity, "Descriptor handle index out of range.");
+		KE_ASSERT_DEV(
+			std::find(_freeIndices.begin(), _freeIndices.end(), handle.heapIndex) == _freeIndices.end(),
+			"Double-free detected: descriptor handle is already released.");
 
 		_freeIndices.push_back(handle.heapIndex);
 		--_activeCount;

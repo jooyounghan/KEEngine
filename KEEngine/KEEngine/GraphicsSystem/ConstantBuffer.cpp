@@ -5,6 +5,8 @@ namespace ke
 {
 	namespace
 	{
+		// D3D12 requires constant buffer sizes to be aligned to
+		// D3D12_CONSTANT_BUFFER_DATA_PLACEMENT_ALIGNMENT (256 bytes).
 		inline uint32 alignTo256(uint32 size)
 		{
 			return (size + 255) & ~255;

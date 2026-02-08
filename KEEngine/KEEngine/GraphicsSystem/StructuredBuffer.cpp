@@ -26,7 +26,9 @@ namespace ke
 		const uint64 totalSize = static_cast<uint64>(elementCount) * elementSize;
 
 		const D3D12_HEAP_PROPERTIES heapProps = {
-			cpuWritable ? D3D12_HEAP_TYPE_UPLOAD : D3D12_HEAP_TYPE_DEFAULT
+			cpuWritable ? D3D12_HEAP_TYPE_UPLOAD : D3D12_HEAP_TYPE_DEFAULT,
+			D3D12_CPU_PAGE_PROPERTY_UNKNOWN,
+			D3D12_MEMORY_POOL_UNKNOWN, 0, 0
 		};
 		const D3D12_RESOURCE_DESC resourceDesc = {
 			D3D12_RESOURCE_DIMENSION_BUFFER, 0,

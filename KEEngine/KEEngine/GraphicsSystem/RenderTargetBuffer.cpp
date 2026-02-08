@@ -26,13 +26,10 @@ namespace ke
 
 		D3D12_CLEAR_VALUE optimizedClearValue = {};
 		optimizedClearValue.Format = format;
-		if (clearColor)
-		{
-			optimizedClearValue.Color[0] = clearColor[0];
-			optimizedClearValue.Color[1] = clearColor[1];
-			optimizedClearValue.Color[2] = clearColor[2];
-			optimizedClearValue.Color[3] = clearColor[3];
-		}
+		optimizedClearValue.Color[0] = clearColor ? clearColor[0] : 0.0f;
+		optimizedClearValue.Color[1] = clearColor ? clearColor[1] : 0.0f;
+		optimizedClearValue.Color[2] = clearColor ? clearColor[2] : 0.0f;
+		optimizedClearValue.Color[3] = clearColor ? clearColor[3] : 1.0f;
 
 		const D3D12_HEAP_PROPERTIES heapProps = { D3D12_HEAP_TYPE_DEFAULT };
 		D3D12_RESOURCE_DESC resourceDesc = {};
