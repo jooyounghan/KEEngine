@@ -5,17 +5,6 @@ using namespace Microsoft::WRL;
 
 namespace ke
 {
-	static D3D12_COMMAND_LIST_TYPE toD3D12Type(ECommandType type)
-	{
-		switch (type)
-		{
-		case ECommandType::Direct:	return D3D12_COMMAND_LIST_TYPE_DIRECT;
-		case ECommandType::Compute:	return D3D12_COMMAND_LIST_TYPE_COMPUTE;
-		case ECommandType::Copy:	return D3D12_COMMAND_LIST_TYPE_COPY;
-		default:					return D3D12_COMMAND_LIST_TYPE_DIRECT;
-		}
-	}
-
 	CommandQueue::~CommandQueue()
 	{
 		shutdown();
@@ -27,7 +16,7 @@ namespace ke
 		_type = type;
 
 		D3D12_COMMAND_QUEUE_DESC desc = {};
-		desc.Type = toD3D12Type(type);
+		desc.Type = toD3D12CommandListType(type);
 		desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
 		desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 		desc.NodeMask = 0;

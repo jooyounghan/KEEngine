@@ -5,17 +5,6 @@ using namespace Microsoft::WRL;
 
 namespace ke
 {
-	static D3D12_COMMAND_LIST_TYPE toD3D12Type(ECommandType type)
-	{
-		switch (type)
-		{
-		case ECommandType::Direct:	return D3D12_COMMAND_LIST_TYPE_DIRECT;
-		case ECommandType::Compute:	return D3D12_COMMAND_LIST_TYPE_COMPUTE;
-		case ECommandType::Copy:	return D3D12_COMMAND_LIST_TYPE_COPY;
-		default:					return D3D12_COMMAND_LIST_TYPE_DIRECT;
-		}
-	}
-
 	// ============================================================================
 	// CommandContext (Base)
 	// ============================================================================
@@ -25,7 +14,7 @@ namespace ke
 		KE_ASSERT(device != nullptr, "Device must not be null.");
 		_type = type;
 
-		const D3D12_COMMAND_LIST_TYPE d3dType = toD3D12Type(type);
+		const D3D12_COMMAND_LIST_TYPE d3dType = toD3D12CommandListType(type);
 
 		KE_ASSERT(!FAILED(device->CreateCommandAllocator(d3dType, IID_PPV_ARGS(&_commandAllocator))),
 			"Failed to create command allocator.");

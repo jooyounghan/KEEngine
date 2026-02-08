@@ -10,6 +10,17 @@ namespace ke
 		Count
 	};
 
+	inline D3D12_COMMAND_LIST_TYPE toD3D12CommandListType(ECommandType type)
+	{
+		switch (type)
+		{
+		case ECommandType::Direct:	return D3D12_COMMAND_LIST_TYPE_DIRECT;
+		case ECommandType::Compute:	return D3D12_COMMAND_LIST_TYPE_COMPUTE;
+		case ECommandType::Copy:	return D3D12_COMMAND_LIST_TYPE_COPY;
+		default:					return D3D12_COMMAND_LIST_TYPE_DIRECT;
+		}
+	}
+
 	class CommandQueue
 	{
 	public:
