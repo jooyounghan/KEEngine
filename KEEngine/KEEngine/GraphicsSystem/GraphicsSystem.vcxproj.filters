@@ -19,6 +19,12 @@
     <Filter Include="헤더 파일\App">
       <UniqueIdentifier>{1a4b2a7f-81f2-4343-b294-4e87a1382e21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Resources">
+      <UniqueIdentifier>{a2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resources">
+      <UniqueIdentifier>{b3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -30,6 +36,21 @@
     <ClInclude Include="SwapChain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="DescriptorHeap.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GPUResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBuffer.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetBuffer.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -40,6 +61,21 @@
     </ClCompile>
     <ClCompile Include="SwapChain.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorHeap.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetBuffer.cpp">
+      <Filter>소스 파일\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

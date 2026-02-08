@@ -154,14 +154,24 @@
     <ClInclude Include="CommandContext.h" />
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="CommandQueue.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="DescriptorHeap.h" />
+    <ClInclude Include="GPUResource.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
+    <ClInclude Include="RenderTargetBuffer.h" />
+    <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandContext.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="CommandQueue.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="DescriptorHeap.cpp" />
+    <ClCompile Include="GPUResource.cpp" />
+    <ClCompile Include="RenderTargetBuffer.cpp" />
+    <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="GraphicsSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
