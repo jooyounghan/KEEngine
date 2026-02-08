@@ -3,6 +3,13 @@
 
 namespace ke
 {
+    struct HardwareAdapterInfo
+    {
+        Microsoft::WRL::ComPtr<IDXGIAdapter1>    _adapter;
+        DXGI_ADAPTER_DESC1                       _desc;
+		bool									 isDX12Supported;
+	};
+
     class KEAppBase
     {
     public:
@@ -43,7 +50,7 @@ namespace ke
     protected:
         void getHardwareAdapter(
             IDXGIFactory1* pFactory,
-            IDXGIAdapter1** ppAdapter,
-            bool requestHighPerformanceAdapter = false);
+            std::vector<HardwareAdapterInfo>& outHardwareAdaptersInfo
+        );
     };
 }

@@ -27,6 +27,9 @@
     <ClInclude Include="KEAppBase.h">
       <Filter>헤더 파일\App</Filter>
     </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -34,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="KEAppBase.cpp">
       <Filter>소스 파일\App</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

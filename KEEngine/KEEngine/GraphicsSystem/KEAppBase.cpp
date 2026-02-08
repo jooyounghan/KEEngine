@@ -76,7 +76,18 @@ namespace ke
 #endif
 
 		KE_ASSERT(!FAILED(CreateDXGIFactory1(IID_PPV_ARGS(&_factory))), "Failed to create DXGI Factory and D3D12 Device.");
-		getHardwareAdapter(_factory.Get(), &_hardwareAdapter);
+
+		std::vector<HardwareAdapterInfo> hardwareAdaptersInfo;
+		getHardwareAdapter(_factory.Get(), hardwareAdaptersInfo);
+
+		for (const auto& adapterInfo : hardwareAdaptersInfo)
+		{
+			if (adapterInfo.isDX12Supported)
+			{
+				_hardwareAdapter = adapterInfo._adapter;
+				break;
+			}
+		}
 
 		KE_ASSERT(!FAILED(D3D12CreateDevice(
 			_hardwareAdapter.Get(),
@@ -99,13 +110,11 @@ namespace ke
 	}
 
 	// ==============================================================================================
-	// From DirectX12 Example https://github.com/microsoft/DirectX-Graphics-Samples 
-	void KEAppBase::getHardwareAdapter(IDXGIFactory1* pFactory, IDXGIAdapter1** ppAdapter, bool requestHighPerformanceAdapter)
+	void KEAppBase::getHardwareAdapter(IDXGIFactory1* pFactory, std::vector<HardwareAdapterInfo>& outHardwareAdaptersInfo)
 	{
-		*ppAdapter = nullptr;
+		outHardwareAdaptersInfo.clear();
 
 		ComPtr<IDXGIAdapter1> adapter;
-
 		ComPtr<IDXGIFactory6> factory6;
 		if (SUCCEEDED(pFactory->QueryInterface(IID_PPV_ARGS(&factory6))))
 		{
@@ -113,12 +122,17 @@ namespace ke
 				UINT adapterIndex = 0;
 				SUCCEEDED(factory6->EnumAdapterByGpuPreference(
 					adapterIndex,
-					requestHighPerformanceAdapter == true ? DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE : DXGI_GPU_PREFERENCE_UNSPECIFIED,
+					DXGI_GPU_PREFERENCE_UNSPECIFIED,
 					IID_PPV_ARGS(&adapter)));
 					++adapterIndex)
 			{
+				outHardwareAdaptersInfo.push_back(HardwareAdapterInfo{});
+				HardwareAdapterInfo& adapterInfo = outHardwareAdaptersInfo.back();
+				adapterInfo._adapter = adapter;
+
 				DXGI_ADAPTER_DESC1 desc;
 				adapter->GetDesc1(&desc);
+				adapterInfo._desc = desc;
 
 				if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
 				{
@@ -131,35 +145,10 @@ namespace ke
 				// actual device yet.
 				if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_2, _uuidof(ID3D12Device), nullptr)))
 				{
-					break;
+					adapterInfo.isDX12Supported = true;
 				}
 			}
 		}
-
-		if (adapter.Get() == nullptr)
-		{
-			for (UINT adapterIndex = 0; SUCCEEDED(pFactory->EnumAdapters1(adapterIndex, &adapter)); ++adapterIndex)
-			{
-				DXGI_ADAPTER_DESC1 desc;
-				adapter->GetDesc1(&desc);
-
-				if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
-				{
-					// Don't select the Basic Render Driver adapter.
-					// If you want a software adapter, pass in "/warp" on the command line.
-					continue;
-				}
-
-				// Check to see whether the adapter supports Direct3D 12, but don't create the
-				// actual device yet.
-				if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_2, _uuidof(ID3D12Device), nullptr)))
-				{
-					break;
-				}
-			}
-		}
-
-		*ppAdapter = adapter.Detach();
 	}
 	// ==============================================================================================
 }
