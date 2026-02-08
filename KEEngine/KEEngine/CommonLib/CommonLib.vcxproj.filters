@@ -108,6 +108,9 @@
     <ClInclude Include="File.h">
       <Filter>헤더 파일\Header\File</Filter>
     </ClInclude>
+    <ClInclude Include="FileUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="IBuffer.h">
       <Filter>헤더 파일\Header\Container\Buffer</Filter>
     </ClInclude>
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="File.cpp">
       <Filter>소스 파일\File</Filter>
+    </ClCompile>
+    <ClCompile Include="FileUtil.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
     <ClCompile Include="FlyweightString.cpp">
       <Filter>소스 파일\String</Filter>
