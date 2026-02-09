@@ -2,6 +2,13 @@
 
 namespace ke
 {
+	struct FileMergeInfo
+	{
+		const char* fileName;
+		const char* preAdditional;
+		const char* postAdditional;
+	};
+
 	struct FileUtil
 	{
 		static bool directoryExists(const char* path, bool createIfNotExist = false);
@@ -12,5 +19,10 @@ namespace ke
 			bool recursive = false
 		);
 		static int64_t getLastModifiedTime(const char* filePath);
+		static bool mergeFiles(
+			const FileMergeInfo* files,
+			size_t count,
+			const char* outputPath
+		);
 	};
 }

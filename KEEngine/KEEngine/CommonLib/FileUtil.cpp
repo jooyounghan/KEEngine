@@ -225,4 +225,66 @@ namespace ke
 		return static_cast<int64_t>(st.st_mtime);
 #endif
 	}
+
+	bool FileUtil::mergeFiles(
+		const FileMergeInfo* files,
+		size_t count,
+		const char* outputPath
+	)
+	{
+		if (!files || count == 0 || !outputPath)
+		{
+			return false;
+		}
+
+		std::ofstream outFile(outputPath, std::ios::binary);
+		if (!outFile.is_open())
+		{
+			return false;
+		}
+
+		for (size_t i = 0; i < count; ++i)
+		{
+			const FileMergeInfo& info = files[i];
+
+			// Write preAdditional if provided
+			if (info.preAdditional)
+			{
+				outFile.write(info.preAdditional, strlen(info.preAdditional));
+			}
+
+			// Read and write file content if fileName is provided
+			if (info.fileName)
+			{
+				std::ifstream inFile(info.fileName, std::ios::binary);
+				if (inFile.is_open())
+				{
+					// Get file size
+					inFile.seekg(0, std::ios::end);
+					std::streamsize fileSize = inFile.tellg();
+					inFile.seekg(0, std::ios::beg);
+
+					// Read and write file content
+					if (fileSize > 0)
+					{
+						std::vector<char> buffer(static_cast<size_t>(fileSize));
+						if (inFile.read(buffer.data(), fileSize))
+						{
+							outFile.write(buffer.data(), fileSize);
+						}
+					}
+					inFile.close();
+				}
+			}
+
+			// Write postAdditional if provided
+			if (info.postAdditional)
+			{
+				outFile.write(info.postAdditional, strlen(info.postAdditional));
+			}
+		}
+
+		outFile.close();
+		return true;
+	}
 }
