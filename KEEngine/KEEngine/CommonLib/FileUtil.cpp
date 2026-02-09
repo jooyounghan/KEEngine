@@ -257,24 +257,34 @@ namespace ke
 			if (info.fileName)
 			{
 				std::ifstream inFile(info.fileName, std::ios::binary);
-				if (inFile.is_open())
+				if (!inFile.is_open())
 				{
-					// Get file size
-					inFile.seekg(0, std::ios::end);
-					std::streamsize fileSize = inFile.tellg();
-					inFile.seekg(0, std::ios::beg);
-
-					// Read and write file content
-					if (fileSize > 0)
-					{
-						std::vector<char> buffer(static_cast<size_t>(fileSize));
-						if (inFile.read(buffer.data(), fileSize))
-						{
-							outFile.write(buffer.data(), fileSize);
-						}
-					}
-					inFile.close();
+					outFile.close();
+					return false;
 				}
+
+				// Get file size
+				inFile.seekg(0, std::ios::end);
+				std::streamsize fileSize = inFile.tellg();
+				inFile.seekg(0, std::ios::beg);
+
+				// Read and write file content
+				if (fileSize > 0)
+				{
+					std::vector<char> buffer(static_cast<size_t>(fileSize));
+					inFile.read(buffer.data(), fileSize);
+					
+					// Verify the entire file was read
+					if (inFile.gcount() != fileSize)
+					{
+						inFile.close();
+						outFile.close();
+						return false;
+					}
+					
+					outFile.write(buffer.data(), fileSize);
+				}
+				inFile.close();
 			}
 
 			// Write postAdditional if provided
