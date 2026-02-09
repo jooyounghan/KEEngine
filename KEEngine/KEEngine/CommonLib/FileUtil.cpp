@@ -231,16 +231,10 @@ namespace ke
 	bool FileUtil::mergeFiles(
 		const FileMergeInfo* files,
 		size_t count,
-		const char* outputPath
+		IBuffer* outputBuffer
 	)
 	{
-		if (!files || count == 0 || !outputPath)
-		{
-			return false;
-		}
-
-		WriteOnlyFile outFile(outputPath);
-		if (!outFile.core().isValid())
+		if (!files || count == 0 || !outputBuffer)
 		{
 			return false;
 		}
@@ -258,7 +252,7 @@ namespace ke
 			if (info.preAdditional)
 			{
 				size_t preLen = strlen(info.preAdditional);
-				outFile.writer().write(info.preAdditional, preLen);
+				outputBuffer->write(info.preAdditional, preLen);
 			}
 
 			// Read and write file content if fileName is provided
@@ -288,7 +282,7 @@ namespace ke
 						buffer.reset();
 						inFile.reader().read(&buffer, toRead);
 
-						outFile.writer().write(buffer.getConstBuffer(), toRead);
+						outputBuffer->write(buffer.getConstBuffer(), toRead);
 
 						remaining -= toRead;
 					}
@@ -299,7 +293,7 @@ namespace ke
 			if (info.postAdditional)
 			{
 				size_t postLen = strlen(info.postAdditional);
-				outFile.writer().write(info.postAdditional, postLen);
+				outputBuffer->write(info.postAdditional, postLen);
 			}
 		}
 

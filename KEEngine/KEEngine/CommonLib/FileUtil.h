@@ -2,6 +2,8 @@
 
 namespace ke
 {
+	class IBuffer;
+
 	struct FileMergeInfo
 	{
 		const char* fileName;
@@ -22,7 +24,7 @@ namespace ke
 		static bool mergeFiles(
 			const FileMergeInfo* files,
 			size_t count,
-			const char* outputPath
+			IBuffer* outputBuffer
 		);
 	};
 }
