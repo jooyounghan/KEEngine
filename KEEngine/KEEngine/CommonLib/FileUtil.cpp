@@ -1,5 +1,7 @@
 #include "CommonLibPch.h"
 #include "FileUtil.h"
+#include "File.h"
+#include "DynamicBuffer.h"
 
 namespace ke
 {
@@ -237,15 +239,16 @@ namespace ke
 			return false;
 		}
 
-		std::ofstream outFile(outputPath, std::ios::binary);
-		if (!outFile.is_open())
+		WriteOnlyFile outFile(outputPath);
+		if (!outFile.core().isValid())
 		{
 			return false;
 		}
 
 		// Reusable buffer for reading files
 		constexpr size_t chunkSize = 65536; // 64KB chunks
-		std::vector<char> buffer(chunkSize);
+		DynamicBuffer buffer;
+		buffer.set(chunkSize);
 
 		for (size_t i = 0; i < count; ++i)
 		{
@@ -255,98 +258,51 @@ namespace ke
 			if (info.preAdditional)
 			{
 				size_t preLen = strlen(info.preAdditional);
-				outFile.write(info.preAdditional, preLen);
-				if (!outFile.good())
-				{
-					outFile.close();
-					return false;
-				}
+				outFile.writer().write(info.preAdditional, preLen);
 			}
 
 			// Read and write file content if fileName is provided
 			if (info.fileName)
 			{
-				std::ifstream inFile(info.fileName, std::ios::binary);
-				if (!inFile.is_open())
+				ReadOnlyFile inFile(info.fileName);
+				if (!inFile.core().isValid())
 				{
-					outFile.close();
 					return false;
 				}
 
 				// Get file size
-				inFile.seekg(0, std::ios::end);
-				if (!inFile.good())
-				{
-					inFile.close();
-					outFile.close();
-					return false;
-				}
-
-				std::streamsize fileSize = inFile.tellg();
-				if (fileSize < 0)
-				{
-					inFile.close();
-					outFile.close();
-					return false;
-				}
-
-				inFile.seekg(0, std::ios::beg);
-				if (!inFile.good())
-				{
-					inFile.close();
-					outFile.close();
-					return false;
-				}
+				uint64 fileSize = inFile.core().getSize();
 
 				// Read and write file content in chunks
 				if (fileSize > 0)
 				{
-					std::streamsize remaining = fileSize;
+					uint64 remaining = fileSize;
+					inFile.reader().setOffset(0);
 
 					while (remaining > 0)
 					{
-						std::streamsize toRead = (remaining < static_cast<std::streamsize>(chunkSize)) 
-							? remaining 
-							: static_cast<std::streamsize>(chunkSize);
+						size_t toRead = (remaining < chunkSize) 
+							? static_cast<size_t>(remaining)
+							: chunkSize;
 
-						inFile.read(buffer.data(), toRead);
-						std::streamsize bytesRead = inFile.gcount();
+						buffer.reset();
+						inFile.reader().read(&buffer, toRead);
 
-						if (bytesRead != toRead)
-						{
-							inFile.close();
-							outFile.close();
-							return false;
-						}
+						outFile.writer().write(buffer.getConstBuffer(), toRead);
 
-						outFile.write(buffer.data(), bytesRead);
-						if (!outFile.good())
-						{
-							inFile.close();
-							outFile.close();
-							return false;
-						}
-
-						remaining -= bytesRead;
+						remaining -= toRead;
 					}
 				}
-				inFile.close();
 			}
 
 			// Write postAdditional if provided
 			if (info.postAdditional)
 			{
 				size_t postLen = strlen(info.postAdditional);
-				outFile.write(info.postAdditional, postLen);
-				if (!outFile.good())
-				{
-					outFile.close();
-					return false;
-				}
+				outFile.writer().write(info.postAdditional, postLen);
 			}
 		}
 
-		outFile.close();
 		return true;
 	}
 }
