@@ -228,19 +228,17 @@ namespace ke
 #endif
 	}
 
-	bool FileUtil::mergeFiles(
+	size_t FileUtil::getMergeSize(
 		const FileMergeInfo* files,
-		size_t count,
-		IBuffer* outputBuffer
+		size_t count
 	)
 	{
-		if (!files || count == 0 || !outputBuffer)
+		if (!files || count == 0)
 		{
-			return false;
+			return 0;
 		}
 
-		// Calculate total size needed for all merged content
-		size_t totalSizeNeeded = 0;
+		size_t totalSize = 0;
 		for (size_t i = 0; i < count; ++i)
 		{
 			const FileMergeInfo& info = files[i];
@@ -248,7 +246,7 @@ namespace ke
 			// Add size of preAdditional
 			if (info.preAdditional)
 			{
-				totalSizeNeeded += strlen(info.preAdditional);
+				totalSize += strlen(info.preAdditional);
 			}
 
 			// Add file size
@@ -257,20 +255,28 @@ namespace ke
 				ReadOnlyFile inFile(info.fileName);
 				if (!inFile.core().isValid())
 				{
-					return false;
+					return 0; // Invalid file
 				}
-				totalSizeNeeded += inFile.core().getSize();
+				totalSize += inFile.core().getSize();
 			}
 
 			// Add size of postAdditional
 			if (info.postAdditional)
 			{
-				totalSizeNeeded += strlen(info.postAdditional);
+				totalSize += strlen(info.postAdditional);
 			}
 		}
 
-		// Check if output buffer has sufficient capacity
-		if (outputBuffer->getAvailableSize() < totalSizeNeeded)
+		return totalSize;
+	}
+
+	bool FileUtil::mergeFiles(
+		const FileMergeInfo* files,
+		size_t count,
+		IBuffer* outputBuffer
+	)
+	{
+		if (!files || count == 0 || !outputBuffer)
 		{
 			return false;
 		}
