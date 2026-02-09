@@ -160,6 +160,8 @@
     <ClInclude Include="KEAppBase.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
     <ClInclude Include="StructuredBuffer.h" />
+    <ClInclude Include="Texture2DResource.h" />
+    <ClInclude Include="Texture3DResource.h" />
     <ClInclude Include="SwapChain.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +172,8 @@
     <ClCompile Include="GPUResource.cpp" />
     <ClCompile Include="RenderTargetBuffer.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="Texture2DResource.cpp" />
+    <ClCompile Include="Texture3DResource.cpp" />
     <ClCompile Include="GraphicsSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

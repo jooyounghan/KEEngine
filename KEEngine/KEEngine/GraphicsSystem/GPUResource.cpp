@@ -28,4 +28,14 @@ namespace ke
 		KE_ASSERT(_resource, "Resource is not initialized.");
 		return _resource->GetGPUVirtualAddress();
 	}
+
+	void GPUResource::releaseDescriptor()
+	{
+		if (_ownerHeap != nullptr && _descriptorHandle.isValid())
+		{
+			_ownerHeap->release(_descriptorHandle);
+			_descriptorHandle = {};
+			_ownerHeap = nullptr;
+		}
+	}
 }

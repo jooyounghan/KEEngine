@@ -57,6 +57,12 @@
     <ClInclude Include="RenderTargetBuffer.h">
       <Filter>헤더 파일\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Texture2DResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture3DResource.h">
+      <Filter>헤더 파일\Resources</Filter>
+    </ClInclude>
     <ClInclude Include="CommandContext.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
@@ -87,6 +93,12 @@
       <Filter>소스 파일\Resources</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetBuffer.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2DResource.cpp">
+      <Filter>소스 파일\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture3DResource.cpp">
       <Filter>소스 파일\Resources</Filter>
     </ClCompile>
     <ClCompile Include="CommandContext.cpp">
