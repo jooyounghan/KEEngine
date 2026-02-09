@@ -51,5 +51,6 @@ namespace ke
 		uint16		_mipLevels = 1;
 		uint32		_rowPitch = 0;
 		uint32		_slicePitch = 0;
+		uint64		_stagingSize = 0;
 	};
 }

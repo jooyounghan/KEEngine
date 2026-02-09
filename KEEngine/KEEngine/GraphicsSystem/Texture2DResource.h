@@ -47,5 +47,6 @@ namespace ke
 		DXGI_FORMAT	_format = DXGI_FORMAT_UNKNOWN;
 		uint16		_mipLevels = 1;
 		uint32		_rowPitch = 0;
+		uint64		_stagingSize = 0;
 	};
 }

@@ -53,6 +53,7 @@ namespace ke
 			const D3D12_RESOURCE_DESC texDesc = _resource->GetDesc();
 			device->GetCopyableFootprints(&texDesc, 0, 1, 0, &footprint, nullptr, nullptr, &totalBytes);
 			_rowPitch = footprint.Footprint.RowPitch;
+			_stagingSize = totalBytes;
 		}
 
 		// Create UPLOAD-heap staging buffer
@@ -103,12 +104,14 @@ namespace ke
 		_format = DXGI_FORMAT_UNKNOWN;
 		_mipLevels = 1;
 		_rowPitch = 0;
+		_stagingSize = 0;
 	}
 
 	void Texture2DResource::upload(const void* data, uint32 size)
 	{
 		KE_ASSERT(_stagingResource, "Staging resource is not initialized.");
 		KE_ASSERT(data != nullptr, "Data must not be null.");
+		KE_ASSERT(size <= _stagingSize, "Upload size exceeds staging buffer capacity.");
 
 		void* mappedData = nullptr;
 		D3D12_RANGE readRange = { 0, 0 };
