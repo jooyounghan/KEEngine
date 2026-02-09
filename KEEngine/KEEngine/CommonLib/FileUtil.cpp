@@ -250,7 +250,13 @@ namespace ke
 			// Write preAdditional if provided
 			if (info.preAdditional)
 			{
-				outFile.write(info.preAdditional, strlen(info.preAdditional));
+				size_t preLen = strlen(info.preAdditional);
+				outFile.write(info.preAdditional, preLen);
+				if (!outFile.good())
+				{
+					outFile.close();
+					return false;
+				}
 			}
 
 			// Read and write file content if fileName is provided
@@ -283,6 +289,12 @@ namespace ke
 					}
 					
 					outFile.write(buffer.data(), fileSize);
+					if (!outFile.good())
+					{
+						inFile.close();
+						outFile.close();
+						return false;
+					}
 				}
 				inFile.close();
 			}
@@ -290,7 +302,13 @@ namespace ke
 			// Write postAdditional if provided
 			if (info.postAdditional)
 			{
-				outFile.write(info.postAdditional, strlen(info.postAdditional));
+				size_t postLen = strlen(info.postAdditional);
+				outFile.write(info.postAdditional, postLen);
+				if (!outFile.good())
+				{
+					outFile.close();
+					return false;
+				}
 			}
 		}
 
