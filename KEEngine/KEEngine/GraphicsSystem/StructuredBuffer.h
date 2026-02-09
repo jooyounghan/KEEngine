@@ -19,9 +19,7 @@ namespace ke
 	public:
 		StructuredBuffer() = default;
 		~StructuredBuffer() override;
-
-		DELETE_COPYABLE(StructuredBuffer);
-		DEFAULT_MOVEABLE(StructuredBuffer);
+		NONCOPYABLE(StructuredBuffer);
 
 	public:
 		void initialize(

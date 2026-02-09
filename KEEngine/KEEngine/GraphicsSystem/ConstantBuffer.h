@@ -1,9 +1,10 @@
 #pragma once
 #include "GPUResource.h"
-#include "DescriptorHeap.h"
 
 namespace ke
 {
+	class DescriptorHeap;
+
 	// ============================================================================
 	// ConstantBuffer - Upload-heap buffer for constant data (CBV)
 	//
@@ -15,9 +16,7 @@ namespace ke
 	public:
 		ConstantBuffer() = default;
 		~ConstantBuffer() override;
-
-		DELETE_COPYABLE(ConstantBuffer);
-		DEFAULT_MOVEABLE(ConstantBuffer);
+		NONCOPYABLE(ConstantBuffer);
 
 	public:
 		void initialize(ID3D12Device* device, uint32 bufferSize, DescriptorHeap* cbvHeap = nullptr);

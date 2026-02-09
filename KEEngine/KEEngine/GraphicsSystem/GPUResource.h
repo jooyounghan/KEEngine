@@ -12,9 +12,7 @@ namespace ke
 	public:
 		GPUResource() = default;
 		virtual ~GPUResource() = default;
-
-		DELETE_COPYABLE(GPUResource);
-		DEFAULT_MOVEABLE(GPUResource);
+		NONCOPYABLE(GPUResource);
 
 	public:
 		void* map(uint32 subresource = 0, const D3D12_RANGE* readRange = nullptr);

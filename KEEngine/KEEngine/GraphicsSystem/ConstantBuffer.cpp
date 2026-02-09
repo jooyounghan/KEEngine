@@ -1,18 +1,10 @@
 #include "GraphicsSystemPch.h"
 #include "ConstantBuffer.h"
+#include "DescriptorHeap.h"
+#include "MemoryUtil.h"
 
 namespace ke
 {
-	namespace
-	{
-		// D3D12 requires constant buffer sizes to be aligned to
-		// D3D12_CONSTANT_BUFFER_DATA_PLACEMENT_ALIGNMENT (256 bytes).
-		inline uint32 alignTo256(uint32 size)
-		{
-			return (size + 255) & ~255;
-		}
-	}
-
 	ConstantBuffer::~ConstantBuffer()
 	{
 		shutdown();
@@ -23,7 +15,7 @@ namespace ke
 		KE_ASSERT(device != nullptr, "Device must not be null.");
 		KE_ASSERT(bufferSize > 0, "Buffer size must be greater than zero.");
 
-		_bufferSize = alignTo256(bufferSize);
+		_bufferSize = MemoryUtil::getAlignedUp(bufferSize, 256);
 
 		const D3D12_HEAP_PROPERTIES heapProps = { D3D12_HEAP_TYPE_UPLOAD };
 		const D3D12_RESOURCE_DESC resourceDesc = {

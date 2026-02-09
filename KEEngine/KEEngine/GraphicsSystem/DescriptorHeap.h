@@ -26,9 +26,7 @@ namespace ke
 	public:
 		DescriptorHeap() = default;
 		~DescriptorHeap();
-
-		DELETE_COPYABLE(DescriptorHeap);
-		DEFAULT_MOVEABLE(DescriptorHeap);
+		NONCOPYABLE(DescriptorHeap);
 
 	public:
 		void initialize(
