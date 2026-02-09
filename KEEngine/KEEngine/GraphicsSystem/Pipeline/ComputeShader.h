@@ -1,0 +1,16 @@
+#pragma once
+#include "ReflectObject.h"
+
+namespace ke
+{
+	REFLECT_OBJECT_CLASS(ComputeShader)
+	{
+	public:
+		REFLECT_OBJECT_CONSTRUCTOR(ComputeShader);
+
+	public:
+		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _shaderPath);
+		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _entryPoint);
+		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _targetProfile);
+	};
+}

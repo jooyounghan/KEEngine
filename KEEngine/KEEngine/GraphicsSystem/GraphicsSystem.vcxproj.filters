@@ -31,6 +31,12 @@
     <Filter Include="소스 파일\Command">
       <UniqueIdentifier>{a6e44714-38d1-4974-87e2-76ebfa617d4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Pipeline">
+      <UniqueIdentifier>{c5e66816-49e2-4a8d-ae3f-d9fac8d98e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline">
+      <UniqueIdentifier>{d6f77927-5af3-4b9e-bf4f-eabbd9e9f9f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -63,6 +69,24 @@
     <ClInclude Include="CommandQueue.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline\VertexShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\PixelShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\ComputeShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\BlendState.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DepthState.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\StencilState.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -94,6 +118,24 @@
     </ClCompile>
     <ClCompile Include="CommandQueue.cpp">
       <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\VertexShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PixelShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\ComputeShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\BlendState.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthState.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\StencilState.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

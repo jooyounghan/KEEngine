@@ -158,6 +158,12 @@
     <ClInclude Include="GPUResource.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
+    <ClInclude Include="Pipeline\BlendState.h" />
+    <ClInclude Include="Pipeline\ComputeShader.h" />
+    <ClInclude Include="Pipeline\DepthState.h" />
+    <ClInclude Include="Pipeline\PixelShader.h" />
+    <ClInclude Include="Pipeline\StencilState.h" />
+    <ClInclude Include="Pipeline\VertexShader.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="SwapChain.h" />
@@ -168,6 +174,12 @@
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DescriptorHeap.cpp" />
     <ClCompile Include="GPUResource.cpp" />
+    <ClCompile Include="Pipeline\BlendState.cpp" />
+    <ClCompile Include="Pipeline\ComputeShader.cpp" />
+    <ClCompile Include="Pipeline\DepthState.cpp" />
+    <ClCompile Include="Pipeline\PixelShader.cpp" />
+    <ClCompile Include="Pipeline\StencilState.cpp" />
+    <ClCompile Include="Pipeline\VertexShader.cpp" />
     <ClCompile Include="RenderTargetBuffer.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="GraphicsSystemPch.cpp">
