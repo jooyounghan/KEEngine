@@ -87,6 +87,36 @@
     <ClInclude Include="Pipeline\StencilState.h">
       <Filter>헤더 파일\Pipeline</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline\RasterizerState.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DomainShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\HullShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\GeometryShader.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\PrimitiveTopology.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\InputLayoutElement.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\RenderTargetFormats.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DepthStencilFormat.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleDesc.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleMask.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -135,6 +165,36 @@
       <Filter>소스 파일\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline\StencilState.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RasterizerState.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DomainShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\HullShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\GeometryShader.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleDesc.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleMask.cpp">
       <Filter>소스 파일\Pipeline</Filter>
     </ClCompile>
   </ItemGroup>
