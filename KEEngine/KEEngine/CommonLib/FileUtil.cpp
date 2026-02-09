@@ -243,6 +243,10 @@ namespace ke
 			return false;
 		}
 
+		// Reusable buffer for reading files
+		constexpr size_t chunkSize = 65536; // 64KB chunks
+		std::vector<char> buffer(chunkSize);
+
 		for (size_t i = 0; i < count; ++i)
 		{
 			const FileMergeInfo& info = files[i];
@@ -297,8 +301,6 @@ namespace ke
 				// Read and write file content in chunks
 				if (fileSize > 0)
 				{
-					constexpr size_t chunkSize = 65536; // 64KB chunks
-					std::vector<char> buffer(chunkSize);
 					std::streamsize remaining = fileSize;
 
 					while (remaining > 0)
