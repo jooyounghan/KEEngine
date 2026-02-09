@@ -71,5 +71,10 @@ namespace ke
 	DECLARE_PARSE_SPECIALIZATION(int64);
 	DECLARE_PARSE_SPECIALIZATION(float);
 	DECLARE_PARSE_SPECIALIZATION(double);
+
+	DECLARE_PARSE_SPECIALIZATION(std::string);
+
+	class FlyweightStringA;
+	DECLARE_PARSE_SPECIALIZATION(FlyweightStringA);
 #pragma endregion
 }
