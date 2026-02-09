@@ -239,6 +239,42 @@ namespace ke
 			return false;
 		}
 
+		// Calculate total size needed for all merged content
+		size_t totalSizeNeeded = 0;
+		for (size_t i = 0; i < count; ++i)
+		{
+			const FileMergeInfo& info = files[i];
+
+			// Add size of preAdditional
+			if (info.preAdditional)
+			{
+				totalSizeNeeded += strlen(info.preAdditional);
+			}
+
+			// Add file size
+			if (info.fileName)
+			{
+				ReadOnlyFile inFile(info.fileName);
+				if (!inFile.core().isValid())
+				{
+					return false;
+				}
+				totalSizeNeeded += inFile.core().getSize();
+			}
+
+			// Add size of postAdditional
+			if (info.postAdditional)
+			{
+				totalSizeNeeded += strlen(info.postAdditional);
+			}
+		}
+
+		// Check if output buffer has sufficient capacity
+		if (outputBuffer->getAvailableSize() < totalSizeNeeded)
+		{
+			return false;
+		}
+
 		// Reusable buffer for reading files
 		constexpr size_t chunkSize = 65536; // 64KB chunks
 		DynamicBuffer buffer;
