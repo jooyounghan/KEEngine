@@ -271,29 +271,61 @@ namespace ke
 
 				// Get file size
 				inFile.seekg(0, std::ios::end);
-				std::streamsize fileSize = inFile.tellg();
-				inFile.seekg(0, std::ios::beg);
+				if (!inFile.good())
+				{
+					inFile.close();
+					outFile.close();
+					return false;
+				}
 
-				// Read and write file content
+				std::streamsize fileSize = inFile.tellg();
+				if (fileSize < 0)
+				{
+					inFile.close();
+					outFile.close();
+					return false;
+				}
+
+				inFile.seekg(0, std::ios::beg);
+				if (!inFile.good())
+				{
+					inFile.close();
+					outFile.close();
+					return false;
+				}
+
+				// Read and write file content in chunks
 				if (fileSize > 0)
 				{
-					std::vector<char> buffer(static_cast<size_t>(fileSize));
-					inFile.read(buffer.data(), fileSize);
-					
-					// Verify the entire file was read
-					if (inFile.gcount() != fileSize)
+					constexpr size_t chunkSize = 65536; // 64KB chunks
+					std::vector<char> buffer(chunkSize);
+					std::streamsize remaining = fileSize;
+
+					while (remaining > 0)
 					{
-						inFile.close();
-						outFile.close();
-						return false;
-					}
-					
-					outFile.write(buffer.data(), fileSize);
-					if (!outFile.good())
-					{
-						inFile.close();
-						outFile.close();
-						return false;
+						std::streamsize toRead = (remaining < static_cast<std::streamsize>(chunkSize)) 
+							? remaining 
+							: static_cast<std::streamsize>(chunkSize);
+
+						inFile.read(buffer.data(), toRead);
+						std::streamsize bytesRead = inFile.gcount();
+
+						if (bytesRead != toRead)
+						{
+							inFile.close();
+							outFile.close();
+							return false;
+						}
+
+						outFile.write(buffer.data(), bytesRead);
+						if (!outFile.good())
+						{
+							inFile.close();
+							outFile.close();
+							return false;
+						}
+
+						remaining -= bytesRead;
 					}
 				}
 				inFile.close();
