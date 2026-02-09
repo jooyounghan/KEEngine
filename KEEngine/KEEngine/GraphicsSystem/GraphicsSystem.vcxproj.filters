@@ -117,6 +117,9 @@
     <ClInclude Include="Pipeline\SampleMask.h">
       <Filter>헤더 파일\Pipeline</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline\ShaderBase.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -195,6 +198,9 @@
       <Filter>소스 파일\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline\SampleMask.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\ShaderBase.cpp">
       <Filter>소스 파일\Pipeline</Filter>
     </ClCompile>
   </ItemGroup>

@@ -172,6 +172,7 @@
     <ClInclude Include="Pipeline\RenderTargetFormats.h" />
     <ClInclude Include="Pipeline\SampleDesc.h" />
     <ClInclude Include="Pipeline\SampleMask.h" />
+    <ClInclude Include="Pipeline\ShaderBase.h" />
     <ClInclude Include="Pipeline\StencilState.h" />
     <ClInclude Include="Pipeline\VertexShader.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Pipeline\RenderTargetFormats.cpp" />
     <ClCompile Include="Pipeline\SampleDesc.cpp" />
     <ClCompile Include="Pipeline\SampleMask.cpp" />
+    <ClCompile Include="Pipeline\ShaderBase.cpp" />
     <ClCompile Include="Pipeline\StencilState.cpp" />
     <ClCompile Include="Pipeline\VertexShader.cpp" />
     <ClCompile Include="RenderTargetBuffer.cpp" />
