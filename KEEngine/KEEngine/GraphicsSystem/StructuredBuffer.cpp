@@ -1,6 +1,5 @@
 #include "GraphicsSystemPch.h"
 #include "StructuredBuffer.h"
-#include "CommandContext.h"
 
 namespace ke
 {
@@ -112,13 +111,14 @@ namespace ke
 		_stagingResource->Unmap(0, nullptr);
 	}
 
-	void StructuredBuffer::commitUpload(CopyCommandContext& copyCtx)
+	void StructuredBuffer::commitUpload(ID3D12GraphicsCommandList* commandList)
 	{
 		KE_ASSERT(_resource, "Default resource is not initialized.");
 		KE_ASSERT(_stagingResource, "Staging resource is not initialized.");
+		KE_ASSERT(commandList != nullptr, "Command list must not be null.");
 
 		const uint64 totalSize = static_cast<uint64>(_elementCount) * _elementSize;
-		copyCtx.copyBufferRegion(
+		commandList->CopyBufferRegion(
 			_resource.Get(), 0,
 			_stagingResource.Get(), 0,
 			totalSize);

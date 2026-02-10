@@ -3,8 +3,6 @@
 
 namespace ke
 {
-	class CopyCommandContext;
-
 	// ============================================================================
 	// ConstantBuffer - Default-heap buffer for constant data (CBV) with staging
 	//
@@ -28,7 +26,7 @@ namespace ke
 
 	public:
 		void upload(const void* data, uint32 size);
-		void commitUpload(CopyCommandContext& copyCtx);
+		void commitUpload(ID3D12GraphicsCommandList* commandList);
 
 	public:
 		inline uint32 getBufferSize() const { return _bufferSize; }

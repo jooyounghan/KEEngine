@@ -1,6 +1,5 @@
 #include "GraphicsSystemPch.h"
 #include "Texture2DResource.h"
-#include "CommandContext.h"
 
 namespace ke
 {
@@ -122,10 +121,11 @@ namespace ke
 		_stagingResource->Unmap(0, nullptr);
 	}
 
-	void Texture2DResource::commitUpload(CopyCommandContext& copyCtx)
+	void Texture2DResource::commitUpload(ID3D12GraphicsCommandList* commandList)
 	{
 		KE_ASSERT(_resource, "Default resource is not initialized.");
 		KE_ASSERT(_stagingResource, "Staging resource is not initialized.");
+		KE_ASSERT(commandList != nullptr, "Command list must not be null.");
 
 		D3D12_TEXTURE_COPY_LOCATION dst = {};
 		dst.pResource = _resource.Get();
@@ -142,6 +142,6 @@ namespace ke
 		src.PlacedFootprint.Footprint.Depth = 1;
 		src.PlacedFootprint.Footprint.RowPitch = _rowPitch;
 
-		copyCtx.copyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
+		commandList->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
 	}
 }
