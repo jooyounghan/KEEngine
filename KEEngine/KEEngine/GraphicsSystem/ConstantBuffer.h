@@ -3,8 +3,14 @@
 
 namespace ke
 {
+	class CopyCommandContext;
+
 	// ============================================================================
-	// ConstantBuffer - Upload-heap buffer for constant data (CBV)
+	// ConstantBuffer - Default-heap buffer for constant data (CBV) with staging
+	//
+	// Internally maintains an UPLOAD-heap staging buffer. Call upload() to write
+	// CPU data into the staging buffer, then commitUpload() to copy it to the
+	// DEFAULT-heap resource that is exposed externally.
 	//
 	// If a DescriptorHeap is provided during initialization, a CBV descriptor
 	// is allocated for bindless access via getBindlessIndex().
@@ -22,15 +28,13 @@ namespace ke
 
 	public:
 		void upload(const void* data, uint32 size);
+		void commitUpload(CopyCommandContext& copyCtx);
 
 	public:
-		inline const DescriptorHandle& getDescriptorHandle() const { return _descriptorHandle; }
-		inline uint32 getBindlessIndex() const { return _descriptorHandle.heapIndex; }
 		inline uint32 getBufferSize() const { return _bufferSize; }
 
 	private:
-		DescriptorHeap*		_ownerHeap = nullptr;
-		DescriptorHandle	_descriptorHandle;
-		uint32				_bufferSize = 0;
+		Microsoft::WRL::ComPtr<ID3D12Resource> _stagingResource;
+		uint32 _bufferSize = 0;
 	};
 }

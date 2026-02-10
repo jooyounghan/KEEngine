@@ -49,14 +49,14 @@ namespace ke
 			&optimizedClearValue, IID_PPV_ARGS(&_resource))),
 			"Failed to create render target resource.");
 
-		_rtvHandle = rtvHeap->allocate();
+		_descriptorHandle = rtvHeap->allocate();
 
 		D3D12_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = format;
 		rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
 		rtvDesc.Texture2D.MipSlice = 0;
 
-		device->CreateRenderTargetView(_resource.Get(), &rtvDesc, _rtvHandle.cpuHandle);
+		device->CreateRenderTargetView(_resource.Get(), &rtvDesc, _descriptorHandle.cpuHandle);
 	}
 
 	void RenderTargetBuffer::initializeFromSwapChain(
@@ -77,18 +77,13 @@ namespace ke
 		_height = desc.Height;
 		_format = desc.Format;
 
-		_rtvHandle = rtvHeap->allocate();
-		device->CreateRenderTargetView(backBuffer, nullptr, _rtvHandle.cpuHandle);
+		_descriptorHandle = rtvHeap->allocate();
+		device->CreateRenderTargetView(backBuffer, nullptr, _descriptorHandle.cpuHandle);
 	}
 
 	void RenderTargetBuffer::shutdown()
 	{
-		if (_ownerHeap != nullptr && _rtvHandle.isValid())
-		{
-			_ownerHeap->release(_rtvHandle);
-			_rtvHandle = {};
-			_ownerHeap = nullptr;
-		}
+		releaseDescriptor();
 		_resource.Reset();
 		_width = 0;
 		_height = 0;

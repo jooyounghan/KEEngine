@@ -1,6 +1,5 @@
 #pragma once
 #include "GPUResource.h"
-#include "DescriptorHeap.h"
 
 namespace ke
 {
@@ -35,15 +34,12 @@ namespace ke
 		void shutdown();
 
 	public:
-		inline D3D12_CPU_DESCRIPTOR_HANDLE getRTV() const { return _rtvHandle.cpuHandle; }
-		inline const DescriptorHandle& getDescriptorHandle() const { return _rtvHandle; }
+		inline D3D12_CPU_DESCRIPTOR_HANDLE getRTV() const { return _descriptorHandle.cpuHandle; }
 		inline uint32 getWidth() const { return _width; }
 		inline uint32 getHeight() const { return _height; }
 		inline DXGI_FORMAT getFormat() const { return _format; }
 
 	private:
-		DescriptorHeap*		_ownerHeap = nullptr;
-		DescriptorHandle	_rtvHandle;
 		uint32				_width = 0;
 		uint32				_height = 0;
 		DXGI_FORMAT			_format = DXGI_FORMAT_UNKNOWN;
