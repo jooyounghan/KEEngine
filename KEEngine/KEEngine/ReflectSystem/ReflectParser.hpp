@@ -74,7 +74,7 @@ namespace ke
 
 	DECLARE_PARSE_SPECIALIZATION(std::string);
 
-	class FlyweightStringA;
-	DECLARE_PARSE_SPECIALIZATION(FlyweightStringA);
+	template<typename T> class FlyweightString;
+	DECLARE_PARSE_SPECIALIZATION(FlyweightString<char>);
 #pragma endregion
 }

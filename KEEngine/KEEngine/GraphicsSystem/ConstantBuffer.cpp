@@ -1,6 +1,5 @@
 #include "GraphicsSystemPch.h"
 #include "ConstantBuffer.h"
-#include "DescriptorHeap.h"
 #include "MemoryUtil.h"
 
 namespace ke

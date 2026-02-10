@@ -1,9 +1,8 @@
 #pragma once
+#include "DescriptorHeap.h"
 
 namespace ke
 {
-	struct DescriptorHandle;
-
 	// ============================================================================
 	// GPUResource - Base wrapper for ID3D12Resource with map/unmap support
 	// ============================================================================

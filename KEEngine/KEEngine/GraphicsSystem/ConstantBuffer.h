@@ -3,8 +3,6 @@
 
 namespace ke
 {
-	class DescriptorHeap;
-
 	// ============================================================================
 	// ConstantBuffer - Upload-heap buffer for constant data (CBV)
 	//

@@ -99,9 +99,6 @@
     <ClInclude Include="Pipeline\SampleMask.h">
       <Filter>헤더 파일\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="Pipeline\ShaderBase.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Pipeline\PixelShader.h">
       <Filter>헤더 파일\Pipeline\Shader</Filter>
     </ClInclude>
@@ -164,59 +161,56 @@
     <ClCompile Include="CommandQueue.cpp">
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
+    <ClCompile Include="Pipeline\ComputeShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DomainShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\GeometryShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\HullShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PixelShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\VertexShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleMask.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleDesc.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\BlendState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RasterizerState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\StencilState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
-    <None Include="Pipeline\BlendState.cpp">
-      <Filter>소스 파일\Pipeline\State</Filter>
-    </None>
-    <None Include="Pipeline\DepthState.cpp">
-      <Filter>소스 파일\Pipeline\State</Filter>
-    </None>
-    <None Include="Pipeline\RasterizerState.cpp">
-      <Filter>소스 파일\Pipeline\State</Filter>
-    </None>
-    <None Include="Pipeline\StencilState.cpp">
-      <Filter>소스 파일\Pipeline\State</Filter>
-    </None>
-    <None Include="Pipeline\ComputeShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\DomainShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\GeometryShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\HullShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\PixelShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\ShaderBase.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\VertexShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </None>
-    <None Include="Pipeline\DepthStencilFormat.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
-    <None Include="Pipeline\InputLayoutElement.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
-    <None Include="Pipeline\PrimitiveTopology.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
-    <None Include="Pipeline\RenderTargetFormats.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
-    <None Include="Pipeline\SampleDesc.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
-    <None Include="Pipeline\SampleMask.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </None>
   </ItemGroup>
 </Project>

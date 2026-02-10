@@ -11,12 +11,24 @@ namespace ke
 		Editable = 1 << 1
 	);
 
+	template<typename PropertyType>
+	class ReflectPODPropertyBase;
+
 	class IReflectPODProperty
 	{
 	public:
 		virtual ~IReflectPODProperty() = default;
-		virtual void setDefaultFromBuffer(const void* data, size_t size) = 0;
-		virtual void assignRangeInfoFromBuffer(const void* min, const void* max, const void* step, size_t elemSize) = 0;
+
+	protected:
+		virtual const void* getTypeId() const = 0;
+		template<typename T>
+		static const void* getStaticTypeId();
+
+	public:
+		template<typename PropertyType>
+		ReflectPODPropertyBase<PropertyType>* getBase();
+		template<typename PropertyType>
+		const ReflectPODPropertyBase<PropertyType>* getBase() const;
 	};
 
 	class IReflectProperty

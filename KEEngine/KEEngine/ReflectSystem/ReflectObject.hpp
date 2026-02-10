@@ -60,10 +60,13 @@
 #pragma endregion
 
 #pragma region ReflectObject Macros
-#define REFLECT_OBJECT_CLASS(ObjectType)									\
+#define REFLECT_OBJECT_PRE_DECLARE(ObjectType)								\
 	class ObjectType;														\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();	\
 	template<> void ke::ReflectObject<ObjectType>::bindMetaData();			\
+
+#define REFLECT_OBJECT_CLASS(ObjectType)									\
+	REFLECT_OBJECT_PRE_DECLARE(ObjectType)									\
 	class ObjectType : public ke::ReflectObject<ObjectType>
 
 #define REFLECT_OBJECT_CONSTRUCTOR(ObjectType)		\

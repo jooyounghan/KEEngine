@@ -14,17 +14,17 @@ namespace ke
 	template<typename PropertyType>
 	class ReflectPODPropertyBase : public IReflectPODProperty
 	{
+	protected:
+		virtual const void* getTypeId() const override;
+
 	public:
+		inline void setDefaultValue(const PropertyType& defaultValue) { _defaultValue = defaultValue; }
 		inline const PropertyType& getDefaultValue() const { return _defaultValue; }
 
 	public:
 		inline bool hasRange() const { return _rangeInfo != nullptr; }
 		void assignRangeInfo(const PropertyType& minValue, const PropertyType& maxValue, const PropertyType& step);
 		inline const RangedPropertyInfo<PropertyType>* getRangeInfo() const { return _rangeInfo.get(); }
-
-	public:
-		virtual void setDefaultFromBuffer(const void* data, size_t size) override;
-		virtual void assignRangeInfoFromBuffer(const void* min, const void* max, const void* step, size_t elemSize) override;
 
 	protected:
 		PTR(RangedPropertyInfo<PropertyType>) _rangeInfo = nullptr;

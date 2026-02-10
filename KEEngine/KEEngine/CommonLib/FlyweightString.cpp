@@ -50,7 +50,7 @@ namespace ke
 	template<typename CharType>
 	FlyweightString<CharType>::FlyweightString()
 	{
-		registerString(std::basic_string_view<CharType>(""));
+		registerString(std::basic_string_view<CharType>());
 	}
 
 	template<typename CharType>

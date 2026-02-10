@@ -1,6 +1,5 @@
 #pragma once
 #include "GPUResource.h"
-#include "DescriptorHeap.h"
 
 namespace ke
 {
