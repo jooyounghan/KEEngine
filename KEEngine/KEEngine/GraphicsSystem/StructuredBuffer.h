@@ -3,6 +3,8 @@
 
 namespace ke
 {
+	class CopyCommandContext;
+
 	// ============================================================================
 	// StructuredBuffer - Buffer of structured elements with SRV support
 	//
@@ -29,7 +31,7 @@ namespace ke
 
 	public:
 		void upload(const void* data, uint32 size);
-		void commitUpload(ID3D12GraphicsCommandList* commandList);
+		void commitUpload(CopyCommandContext& copyCtx);
 
 	public:
 		inline uint32 getElementCount() const { return _elementCount; }

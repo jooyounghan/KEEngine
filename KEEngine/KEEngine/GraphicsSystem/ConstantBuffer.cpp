@@ -1,5 +1,6 @@
 #include "GraphicsSystemPch.h"
 #include "ConstantBuffer.h"
+#include "CommandContext.h"
 #include "MemoryUtil.h"
 
 namespace ke
@@ -90,13 +91,12 @@ namespace ke
 		_stagingResource->Unmap(0, nullptr);
 	}
 
-	void ConstantBuffer::commitUpload(ID3D12GraphicsCommandList* commandList)
+	void ConstantBuffer::commitUpload(CopyCommandContext& copyCtx)
 	{
 		KE_ASSERT(_resource, "Default resource is not initialized.");
 		KE_ASSERT(_stagingResource, "Staging resource is not initialized.");
-		KE_ASSERT(commandList != nullptr, "Command list must not be null.");
 
-		commandList->CopyBufferRegion(
+		copyCtx.copyBufferRegion(
 			_resource.Get(), 0,
 			_stagingResource.Get(), 0,
 			_bufferSize);

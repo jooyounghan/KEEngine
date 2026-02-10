@@ -3,6 +3,8 @@
 
 namespace ke
 {
+	class CopyCommandContext;
+
 	// ============================================================================
 	// Texture2DResource - 2D texture with SRV support and staging upload
 	//
@@ -30,7 +32,7 @@ namespace ke
 
 	public:
 		void upload(const void* data, uint32 size);
-		void commitUpload(ID3D12GraphicsCommandList* commandList);
+		void commitUpload(CopyCommandContext& copyCtx);
 
 	public:
 		inline uint32 getWidth() const { return _width; }
