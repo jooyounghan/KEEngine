@@ -1,5 +1,33 @@
+#include "ReflectPropertyBase.h"
 namespace ke
 {
+	template<typename T>
+	const void* IReflectPODProperty::getStaticTypeId()
+	{
+		static char staticTypeId;
+		return &staticTypeId;
+	}
+
+	template<typename PropertyType>
+	ReflectPODPropertyBase<PropertyType>* IReflectPODProperty::getBase()
+	{
+		if (getTypeId() == getStaticTypeId<PropertyType>())
+		{
+			return static_cast<ReflectPODPropertyBase<PropertyType>*>(this);
+		}
+		return nullptr;
+	}
+
+	template<typename PropertyType>
+	const ReflectPODPropertyBase<PropertyType>* IReflectPODProperty::getBase() const
+	{
+		if (getTypeId() == getStaticTypeId<PropertyType>())
+		{
+			return static_cast<const ReflectPODPropertyBase<PropertyType>*>(this);
+		}
+		return nullptr;
+	}
+
 	template<typename ObjectType, typename PropertyType>
 	ReflectPropertyBase<ObjectType, PropertyType>::ReflectPropertyBase(
 		const FlyweightStringA& name

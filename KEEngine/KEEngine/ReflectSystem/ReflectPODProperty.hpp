@@ -1,6 +1,13 @@
+#include "ReflectPODProperty.h"
 #pragma once
 namespace ke
 {
+	template<typename PropertyType>
+	 const void* ReflectPODPropertyBase<PropertyType>::getTypeId() const
+	{
+		return IReflectPODProperty::getStaticTypeId<PropertyType>();
+	}
+
 	template<typename PropertyType>
 	void ReflectPODPropertyBase<PropertyType>::assignRangeInfo(const PropertyType& minValue, const PropertyType& maxValue, const PropertyType& step)
 	{
@@ -9,25 +16,6 @@ namespace ke
 		_rangeInfo->_maxValue = maxValue;
 		_rangeInfo->_step = step;
 	}
-
-	template<typename PropertyType>
-	void ReflectPODPropertyBase<PropertyType>::setDefaultFromBuffer(const void* data, size_t size)
-	{
-		KE_ASSERT_DEV(size == sizeof(PropertyType), "IDefaultableReflectProperty::setDefaultFromBuffer size mismatch");
-		_defaultValue = *static_cast<const PropertyType*>(data);
-	}
-
-	template<typename PropertyType>
-	void ReflectPODPropertyBase<PropertyType>::assignRangeInfoFromBuffer(const void* min, const void* max, const void* step, size_t elemSize)
-	{
-		KE_ASSERT_DEV(elemSize == sizeof(PropertyType), "IDefaultableReflectProperty::assignRangeInfoFromBuffer size mismatch");
-		assignRangeInfo(
-			*static_cast<const PropertyType*>(min),
-			*static_cast<const PropertyType*>(max),
-			*static_cast<const PropertyType*>(step)
-		);
-	}
-
 
 	template<typename ObjectType, typename PropertyType>
 	ReflectPODProperty<ObjectType, PropertyType>::ReflectPODProperty(

@@ -6,24 +6,25 @@ DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)										\
 {																						\
 	reflectProperty->setUIOption(uiOption);												\
 	IReflectPODProperty* reflectPODProperty =											\
-		reflectProperty->getPODProperty();									\
+		reflectProperty->getPODProperty();												\
 	if (reflectPODProperty != nullptr)													\
 	{																					\
-		reflectPODProperty->setDefaultFromBuffer(&defaultValue, sizeof(PropertyType));	\
+		reflectPODProperty->getBase<PropertyType>()->setDefaultValue(defaultValue);		\
 	}																					\
 }
 
-#define DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(PropertyType)														\
-DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)																\
-{																													\
-	reflectProperty->setUIOption(uiOption);																			\
+#define DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(PropertyType)												\
+DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)														\
+{																											\
+	reflectProperty->setUIOption(uiOption);																	\
 	IReflectPODProperty* reflectPODProperty =																\
-		reflectProperty->getPODProperty();														\
+		reflectProperty->getPODProperty();																	\
 	if (reflectPODProperty != nullptr)																		\
 	{																										\
-		reflectPODProperty->assignRangeInfoFromBuffer(&minValue, &maxValue, &step, sizeof(PropertyType));	\
-		reflectPODProperty->setDefaultFromBuffer(&defaultValue, sizeof(PropertyType));						\
-	}																												\
+		ReflectPODPropertyBase<PropertyType>* property = reflectPODProperty->getBase<PropertyType>();		\
+		property->assignRangeInfo(minValue, maxValue, step);												\
+		property->setDefaultValue(defaultValue);															\
+	}																										\
 }
 
 namespace ke
@@ -39,4 +40,7 @@ namespace ke
 	DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(int64);
 	DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(float);
 	DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(double);
+
+	DEFINE_BIND_DEFAULT_SPECIALIZATION(std::string);
+	DEFINE_BIND_DEFAULT_SPECIALIZATION(FlyweightStringA);
 }

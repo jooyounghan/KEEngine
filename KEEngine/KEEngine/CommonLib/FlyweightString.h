@@ -7,9 +7,8 @@ namespace ke
 	template<typename CharType>
 	class FlyweightString
 	{
-		DELETE_DEFAULT_CONSTRUCTOR(FlyweightString);
-
 	public:
+		FlyweightString();
 		FlyweightString(const CharType* str);
 		FlyweightString(const std::basic_string<CharType>& str);
 		FlyweightString(const std::basic_string_view<CharType>& stringView);

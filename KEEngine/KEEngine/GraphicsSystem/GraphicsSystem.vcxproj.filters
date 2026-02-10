@@ -31,6 +31,24 @@
     <Filter Include="소스 파일\Command">
       <UniqueIdentifier>{a6e44714-38d1-4974-87e2-76ebfa617d4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Pipeline">
+      <UniqueIdentifier>{c5e66816-49e2-4a8d-ae3f-d9fac8d98e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline">
+      <UniqueIdentifier>{d6f77927-5af3-4b9e-bf4f-eabbd9e9f9f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline\Shader">
+      <UniqueIdentifier>{da1684d1-1862-436f-a079-ba66122d786b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Pipeline\Shader">
+      <UniqueIdentifier>{fe59052b-9468-4384-896d-eb0023d29943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline\State">
+      <UniqueIdentifier>{95398b38-c7a8-45d4-80a4-c05ad9cbf03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Pipeline\State">
+      <UniqueIdentifier>{989d4e7e-1933-4c64-8677-2da85cfe5e0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -69,6 +87,54 @@
     <ClInclude Include="CommandQueue.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline\PrimitiveTopology.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\InputLayoutElement.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\RenderTargetFormats.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DepthStencilFormat.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleDesc.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleMask.h">
+      <Filter>헤더 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\PixelShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\HullShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\GeometryShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DomainShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\ComputeShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\VertexShader.h">
+      <Filter>헤더 파일\Pipeline\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DepthState.h">
+      <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\BlendState.h">
+      <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\RasterizerState.h">
+      <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\StencilState.h">
+      <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -106,6 +172,54 @@
     </ClCompile>
     <ClCompile Include="CommandQueue.cpp">
       <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\ComputeShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DomainShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\GeometryShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\HullShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PixelShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\VertexShader.cpp">
+      <Filter>소스 파일\Pipeline\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleMask.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleDesc.cpp">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\BlendState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RasterizerState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\StencilState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,1 @@
+<VertexShader _shaderPath="Shaders/BasicVertexShader.hlsl" _entryPoint="VSMain" _targetProfile="vs_5_0" />
