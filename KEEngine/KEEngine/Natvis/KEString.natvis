@@ -4,17 +4,11 @@
 	<Type Name="ke::FlyweightString&lt;char&gt;">
 		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
 		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString [index={_entryIndex}]</DisplayString>
-		<Expand>
-			<Item Name="[EntryIndex]">_entryIndex</Item>
-		</Expand>
 	</Type>
 
 	<!-- FlyweightString<wchar_t> visualization -->
 	<Type Name="ke::FlyweightString&lt;wchar_t&gt;">
 		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
 		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString [index={_entryIndex}]</DisplayString>
-		<Expand>
-			<Item Name="[EntryIndex]">_entryIndex</Item>
-		</Expand>
 	</Type>
 </AutoVisualizer>
