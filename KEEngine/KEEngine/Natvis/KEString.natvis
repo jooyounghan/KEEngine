@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="ke::FlyweightString&lt;*&gt;">
-		<DisplayString>ke::FlyweightString ({_entryIndex == -1 ? nullptr : getStringVector()[_entryIndex]->c_str()})</DisplayString>
+	<!-- FlyweightString<char> visualization -->
+	<Type Name="ke::FlyweightString&lt;char&gt;">
+		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
+		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString ("{getStringVector()._pointer[_entryIndex]->_Mypair._Myval2._Bx._Ptr,s}")</DisplayString>
+		<StringView Condition="_entryIndex != (size_t)-1">getStringVector()._pointer[_entryIndex]->_Mypair._Myval2._Bx._Ptr,s</StringView>
 		<Expand>
-			<Item Name="EntryIndex">_entryIndex</Item>
+			<Item Name="[EntryIndex]">_entryIndex</Item>
+			<Item Name="[String]" Condition="_entryIndex != (size_t)-1">getStringVector()._pointer[_entryIndex]</Item>
+		</Expand>
+	</Type>
+
+	<!-- FlyweightString<wchar_t> visualization -->
+	<Type Name="ke::FlyweightString&lt;wchar_t&gt;">
+		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
+		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString ("{getStringVector()._pointer[_entryIndex]->_Mypair._Myval2._Bx._Ptr,su}")</DisplayString>
+		<StringView Condition="_entryIndex != (size_t)-1">getStringVector()._pointer[_entryIndex]->_Mypair._Myval2._Bx._Ptr,su</StringView>
+		<Expand>
+			<Item Name="[EntryIndex]">_entryIndex</Item>
+			<Item Name="[String]" Condition="_entryIndex != (size_t)-1">getStringVector()._pointer[_entryIndex]</Item>
 		</Expand>
 	</Type>
 </AutoVisualizer>

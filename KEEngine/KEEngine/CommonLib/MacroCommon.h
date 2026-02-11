@@ -2,6 +2,7 @@
 
 #ifdef _DEBUG
 #define KE_DEV
+#define KE_NATIVS
 #endif
 
 #if _HAS_CXX17

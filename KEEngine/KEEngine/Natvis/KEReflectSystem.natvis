@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="ke::ReflectProperty&lt;*&gt;">
-		<DisplayString>{_propertyName.c_str()}({_property})</DisplayString>
-	</Type>
-	<Type Name="ke::SPropertyMetaData;">
-		<DisplayString>Type({_propertyType}) / DefaultValue() </DisplayString>
-	</Type>
-	<Type Name="ke::ReflectMetaData;">
-		<DisplayString>ke::ReflectMetaData</DisplayString>
-	</Type>
-	<Type Name="ke::ReflectObject&lt;*&gt;">
-		<DisplayString>ke::ReflectObject</DisplayString>
+	<!-- ReflectMetaData visualization -->
+	<Type Name="ke::ReflectMetaData">
+		<DisplayString>ke::ReflectMetaData (owner={_ownerObjectName}, properties={_properties._count})</DisplayString>
 		<Expand>
-			<Item Name="Object">_object</Item>
-			<Item Name="MetaData">_metaData</Item>
+			<Item Name="[OwnerObjectName]">_ownerObjectName</Item>
+			<Item Name="[PropertyCount]">_properties._count</Item>
+			<Item Name="[Properties]">_properties</Item>
+			<Item Name="[PropertyMap]">_orderedPropertyMap</Item>
 		</Expand>
 	</Type>
 
+	<!-- IReflectProperty base visualization -->
+	<Type Name="ke::IReflectProperty">
+		<DisplayString>IReflectProperty ({_name})</DisplayString>
+		<Expand>
+			<Item Name="[Name]">_name</Item>
+			<Item Name="[UIOption]">_uiOption</Item>
+		</Expand>
+	</Type>
+
+	<!-- ReflectPropertyBase visualization -->
+	<Type Name="ke::ReflectPropertyBase&lt;*,*&gt;">
+		<DisplayString>ReflectPropertyBase ({_name})</DisplayString>
+		<Expand>
+			<Item Name="[Name]">_name</Item>
+			<Item Name="[UIOption]">_uiOption</Item>
+			<Item Name="[Getter]">_getter</Item>
+			<Item Name="[ConstGetter]">_constGetter</Item>
+			<Item Name="[Setter]">_setter</Item>
+		</Expand>
+	</Type>
+
+	<!-- ReflectObject visualization -->
+	<Type Name="ke::ReflectObject&lt;*&gt;">
+		<DisplayString>ke::ReflectObject (name={_objectName})</DisplayString>
+		<Expand>
+			<Item Name="[ObjectName]">_objectName</Item>
+			<Item Name="[MetaData]">_reflectMetaData</Item>
+		</Expand>
+	</Type>
+
+	<!-- IReflectObject base visualization -->
+	<Type Name="ke::IReflectObject">
+		<DisplayString>ke::IReflectObject</DisplayString>
+	</Type>
 </AutoVisualizer>
