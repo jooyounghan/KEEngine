@@ -36,7 +36,7 @@
 	<Type Name="ke::ReflectObject&lt;*&gt;">
 		<DisplayString>ke::ReflectObject (name={_objectName})</DisplayString>
 		<Expand>
-			<Item Name="[ObjectName]">_objectName</Item>
+			<ExpandedItem>_objectName</ExpandedItem>
 			<Item Name="[MetaData]">_reflectMetaData</Item>
 		</Expand>
 	</Type>
