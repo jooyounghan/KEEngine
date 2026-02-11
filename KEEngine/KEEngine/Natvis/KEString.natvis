@@ -2,13 +2,19 @@
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
 	<!-- FlyweightString<char> visualization -->
 	<Type Name="ke::FlyweightString&lt;char&gt;">
-		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
-		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString [index={_entryIndex}]</DisplayString>
+		<DisplayString>ke::FlyweightString&lt;char&gt;{_debugStringChar}</DisplayString>
+		<Expand>
+			<Item Name="[EntryIndex]">_entryIndex</Item>
+			<Item Name="[String]">_debugStringChar</Item>
+		</Expand>
 	</Type>
 
 	<!-- FlyweightString<wchar_t> visualization -->
 	<Type Name="ke::FlyweightString&lt;wchar_t&gt;">
-		<DisplayString Condition="_entryIndex == (size_t)-1">ke::FlyweightString (empty)</DisplayString>
-		<DisplayString Condition="_entryIndex != (size_t)-1">ke::FlyweightString [index={_entryIndex}]</DisplayString>
+		<DisplayString>ke::FlyweightString&lt;wchar_t&gt;{_debugStringChar}</DisplayString>
+		<Expand>
+			<Item Name="[EntryIndex]">_entryIndex</Item>
+			<Item Name="[String]">_debugStringChar</Item>
+		</Expand>
 	</Type>
 </AutoVisualizer>

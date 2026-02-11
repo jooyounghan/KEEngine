@@ -36,7 +36,6 @@ namespace ke
 		if (stringEntryMap.find(stringView) == stringEntryMap.end())
 		{
 			_entryIndex = stringVector.size();
-
 			std::basic_string<CharType> str(stringView.data(), stringView.length());
 			stringVector.push_back(std::move(str));
 			stringEntryMap.emplace(stringView, _entryIndex);
@@ -45,6 +44,10 @@ namespace ke
 		{
 			_entryIndex = it->second;
 		}
+
+#ifdef KE_NATVIS
+		_debugStringChar = stringVector[_entryIndex]->c_str();
+#endif
 	}
 
 	template<typename CharType>

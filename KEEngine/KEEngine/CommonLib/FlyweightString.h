@@ -23,6 +23,9 @@ namespace ke
 
 	private:
 		size_t _entryIndex = INVALID_INDEX(size_t);
+#ifdef KE_NATVIS
+		const CharType* _debugStringChar = nullptr;
+#endif
 
 	public:
 		const std::basic_string<CharType>	toString() const { return _entryIndex != INVALID_INDEX(size_t) ? *(getStringVector()[_entryIndex]) : std::basic_string<CharType>(); }
