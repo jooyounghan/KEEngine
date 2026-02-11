@@ -9,8 +9,19 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(VertexShader);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(std::string, _shaderPath);
 		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _entryPoint);
 		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _targetProfile);
+
+	public:
+		std::vector<uint8> _compiledBytecode;
+
+	public:
+		inline D3D12_SHADER_BYTECODE getShaderBytecode() const
+		{
+			D3D12_SHADER_BYTECODE bytecode = {};
+			bytecode.pShaderBytecode = _compiledBytecode.data();
+			bytecode.BytecodeLength = _compiledBytecode.size();
+			return bytecode;
+		}
 	};
 }

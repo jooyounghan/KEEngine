@@ -175,6 +175,8 @@
     <ClInclude Include="Pipeline\StencilState.h" />
     <ClInclude Include="Pipeline\VertexShader.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
+    <ClInclude Include="Shader\ShaderCompilerManager.h" />
+    <ClInclude Include="Shader\PipelineStateManager.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="Texture2DResource.h" />
     <ClInclude Include="Texture3DResource.h" />
@@ -203,6 +205,8 @@
     <ClCompile Include="Pipeline\StencilState.cpp" />
     <ClCompile Include="Pipeline\VertexShader.cpp" />
     <ClCompile Include="RenderTargetBuffer.cpp" />
+    <ClCompile Include="Shader\ShaderCompilerManager.cpp" />
+    <ClCompile Include="Shader\PipelineStateManager.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="Texture2DResource.cpp" />
     <ClCompile Include="Texture3DResource.cpp" />
