@@ -53,6 +53,12 @@ namespace ke
         static void         skipWhitespace(const char*& p, const char* end) noexcept;
 
     public:
+        template<typename T>
+        static bool parseStringViewToInteger(std::string_view sv, T& out);
+        template<typename T>
+        static bool parseStringViewToFloating(std::string_view sv, T& out);
+
+    public:
         static CONSTEXPR_INLINE constexpr bool isWhitespace(char c) noexcept { return c == ' ' || c == '\t' || c == '\r' || c == '\n'; }
         static CONSTEXPR_INLINE constexpr bool isNameCharStart(char c) noexcept
         {

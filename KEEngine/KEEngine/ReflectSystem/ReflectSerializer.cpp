@@ -88,7 +88,7 @@ namespace ke
 
 			if (reflectProperty != nullptr)
 			{
-				reflectProperty->setFromString(reflectObject, value.data());
+				reflectProperty->setFromString(reflectObject, value.data(), value.length());
 			}
 		}
 

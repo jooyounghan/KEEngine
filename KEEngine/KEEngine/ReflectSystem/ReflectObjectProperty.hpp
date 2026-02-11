@@ -32,7 +32,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, typename PropertyType>
-	void ReflectObjectProperty<ObjectType, PropertyType>::setFromString(IReflectObject* object, const char* src)
+	void ReflectObjectProperty<ObjectType, PropertyType>::setFromString(IReflectObject* object, const char* src, size_t strlen)
 	{
 		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(setFromString);
 	}

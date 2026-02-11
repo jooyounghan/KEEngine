@@ -60,7 +60,7 @@ namespace ke
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
-		virtual void setFromString(IReflectObject* object, const char* src) = 0;
+		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) = 0;
 		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
 	};
 

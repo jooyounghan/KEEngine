@@ -1,3 +1,4 @@
+#include "StrUtil.h"
 
 #define DECLARE_Z_CONVERTOR_SPECIALIZATION(Type) template<> void StrUtil::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v);    
 #define DECLARE_F_CONVERTOR_SPECIALIZATION(Type) template<> void StrUtil::convertToStringBuffer(IBuffer* outStaticBuffer, const Type& v, int precision);
@@ -23,4 +24,30 @@ namespace ke
 
     DECLARE_F_CONVERTOR_SPECIALIZATION(double);
     DECLARE_F_CONVERTOR_SPECIALIZATION(float);
+
+
+
+    template<typename T>
+    bool StrUtil::parseStringViewToInteger(std::string_view sv, T& out)
+    {
+        const char* first = sv.data();
+        const char* last = sv.data() + sv.size();
+
+        auto [ptr, ec] = std::from_chars(first, last, out, 10);
+        if (ec != std::errc{}) return false;
+        if (ptr == first) return false;
+        return true;
+    }
+
+    template<typename T>
+    bool ke::StrUtil::parseStringViewToFloating(std::string_view sv, T& out)
+    {
+        const char* first = sv.data();
+        const char* last = sv.data() + sv.size();
+
+        auto [ptr, ec] = std::from_chars(first, last, out, std::chars_format::general);
+        if (ec != std::errc{}) return false;
+        if (ptr == first) return false;
+        return true;
+    }
 }

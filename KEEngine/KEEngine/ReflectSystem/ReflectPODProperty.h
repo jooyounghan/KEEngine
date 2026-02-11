@@ -56,10 +56,10 @@ namespace ke
 		inline virtual const IReflectPODProperty* getPODProperty() const { return static_cast<const IReflectPODProperty*>(this); };
 
 	public:
-		virtual void setFromBianry(IReflectObject* object, const void* src);
-		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const;
-		virtual void setFromString(IReflectObject* object, const char* src);
-		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const;
+		virtual void setFromBianry(IReflectObject* object, const void* src) override;
+		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;
+		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) override;
+		virtual void getToString(const IReflectObject* object, IBuffer* outStringBuffer) const override;
 	};
 }
 #include "ReflectPODProperty.hpp"

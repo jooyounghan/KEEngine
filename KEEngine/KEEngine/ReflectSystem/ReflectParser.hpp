@@ -1,7 +1,7 @@
 #pragma once
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																\
-template<> Offset ReflectParser::parseFromString(const char* src, Type* outPropertyTypes);				\
+template<> void ReflectParser::parseFromString(const char* src, size_t strlen, Type* outPropertyTypes);	\
 template<> void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type* outPropertyTypes);	\
 template<> Offset ReflectParser::parseFromBinary(const void* src, Type* outPropertyTypes);				\
 template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Type* outPropertyTypes);	
@@ -9,15 +9,9 @@ template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Typ
 namespace ke
 {
 	template<typename PropertyType>
-	Offset ReflectParser::parseFromString(const char* src, PropertyType* outPropertyTypes)
+	void ReflectParser::parseFromString(const char* src, size_t strlen, PropertyType* outPropertyTypes)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
-	}
-
-	template<typename PropertyType, typename ...PropertyTypes>
-	Offset ReflectParser::parseFromString(const char* src, PropertyType* outPropertyType, PropertyTypes* ...outPropertyTypes)
-	{
-		return parseFromString(src + parseFromString(src, outPropertyType) + 1, outPropertyTypes...);
 	}
 
 	template<typename PropertyType>
@@ -26,37 +20,16 @@ namespace ke
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
 	}
 
-	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToString(IBuffer* outStringBuffer, const PropertyType* propertyType, const PropertyTypes* ...propertyTypes)
-	{
-		parseToString(outStringBuffer, propertyType);
-		outStringBuffer->writeOne(',');
-		parseToString(outStringBuffer, propertyTypes...);
-	}
-
 	template<typename PropertyType>
 	Offset ReflectParser::parseFromBinary(const void* src, PropertyType* outPropertyTypes)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
-	}
-	
-	template<typename PropertyType, typename ...PropertyTypes>
-	Offset ReflectParser::parseFromBinary(const void* src, PropertyType* outPropertyType, PropertyTypes* ...outPropertyTypes)
-	{
-		return parseFromBinary(static_cast<const uint8*>(src) + parseFromBinary(src, outPropertyType), outPropertyTypes...);
 	}
 
 	template<typename PropertyType>
 	void ReflectParser::parseToBinary(IBuffer* outBuffer, const PropertyType* property)
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectParser);
-	}
-
-	template<typename PropertyType, typename ...PropertyTypes>
-	void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const PropertyType* propertyType, const PropertyTypes* ...propertyTypes)
-	{
-		parseToBinary(outStringBuffer, propertyType);
-		parseToBinary(outStringBuffer, propertyTypes...);
 	}
 
 #pragma region Parse Specializations

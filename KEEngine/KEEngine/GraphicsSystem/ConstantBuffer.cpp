@@ -15,7 +15,7 @@ namespace ke
 		KE_ASSERT(device != nullptr, "Device must not be null.");
 		KE_ASSERT(bufferSize > 0, "Buffer size must be greater than zero.");
 
-		_bufferSize = MemoryUtil::getAlignedUp(bufferSize, 256);
+		_bufferSize = static_cast<uint32>(MemoryUtil::getAlignedUp(bufferSize, 256));
 
 		// Create DEFAULT-heap resource (GPU-only, externally visible)
 		{

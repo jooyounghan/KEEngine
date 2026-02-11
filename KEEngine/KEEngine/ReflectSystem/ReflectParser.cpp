@@ -3,13 +3,12 @@
 #include "FlyweightString.h"
 #include "StrUtil.h"
 
-#define DEFINE_PARSE_FROM_STRING(Type, StringParser, ...)										\
+#define DEFINE_PARSE_FROM_STRING(Type, StringParser)											\
 template<>																						\
-Offset ReflectParser::parseFromString(const char* src, Type* outPropertyTypes)					\
+void ReflectParser::parseFromString(const char* src, size_t strlen, Type* outPropertyTypes)		\
 {																								\
-    char* endPtr = nullptr;																		\
-    *outPropertyTypes = static_cast<Type>(StringParser(src, &endPtr, ## __VA_ARGS__));			\
-    return static_cast<size_t>(endPtr - src);													\
+	std::string_view strView(static_cast<const char*>(src), strlen);							\
+    StringParser(strView, *outPropertyTypes);													\
 }
 
 #define DEFINE_PARSE_TO_STRING(Type, ...)														\
@@ -19,13 +18,12 @@ void ReflectParser::parseToString(IBuffer* outStringBuffer, const Type* property
 	return StrUtil::convertToStringBuffer(outStringBuffer, *property, ## __VA_ARGS__);			\
 }
 
-#define DEFINE_PARSE_FROM_BINARY(Type)													\
-template<>																				\
-Offset ReflectParser::parseFromBinary(const void* src, Type* outPropertyTypes)			\
-{																						\
-	Offset offset = sizeof(Type);														\
-	memcpy(&outPropertyTypes, src, offset);												\
-	return offset;																		\
+#define DEFINE_PARSE_FROM_BINARY(Type)											\
+template<>																		\
+Offset ReflectParser::parseFromBinary(const void* src, Type* outPropertyTypes)	\
+{																				\
+	memcpy(&outPropertyTypes, src, sizeof(Type));								\
+	return sizeof(Type);														\
 }
 
 #define DEFINE_PARSE_TO_BINARY(Type)															\
@@ -39,38 +37,41 @@ namespace ke
 {
 #pragma region parseFromString Specializations
 	template<>
-	Offset ReflectParser::parseFromString(const char* src, bool* outPropertyTypes)
+	void ReflectParser::parseFromString(const char* src, size_t strlen, bool* outPropertyTypes)
 	{
-		*outPropertyTypes = strcmp(src, "true") == 0;
-		return outPropertyTypes ? 4 : 5;
+		std::string_view strView(static_cast<const char*>(src), strlen);
+		if (strView == "true" || strView == "1")
+		{
+			*outPropertyTypes = true;
+		}
+		else
+		{
+			*outPropertyTypes = false;
+		}
 	}
 
-	DEFINE_PARSE_FROM_STRING(uint8, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(uint16, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(uint32, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(uint64, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(int8, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(int16, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(int32, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(int64, strtoull, 0);
-	DEFINE_PARSE_FROM_STRING(float, strtof);
-	DEFINE_PARSE_FROM_STRING(double, strtod);
+	DEFINE_PARSE_FROM_STRING(uint8, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(uint16, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(uint32, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(uint64, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(int8, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(int16, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(int32, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(int64, StrUtil::parseStringViewToInteger);
+	DEFINE_PARSE_FROM_STRING(float, StrUtil::parseStringViewToFloating);
+	DEFINE_PARSE_FROM_STRING(double, StrUtil::parseStringViewToFloating);
 
 	template<>
-	Offset ReflectParser::parseFromString(const char* src, std::string* outPropertyTypes)
+	void ReflectParser::parseFromString(const char* src, size_t strlen, std::string* outPropertyTypes)
 	{
-		size_t length = strlen(src);
-		outPropertyTypes->assign(src, length);
-		return static_cast<Offset>(length);
+		outPropertyTypes->assign(src, strlen);
 	}
 
 	template<>
-	Offset ReflectParser::parseFromString(const char* src, FlyweightStringA* outPropertyTypes)
+	void ReflectParser::parseFromString(const char* src, size_t strlen, FlyweightStringA* outPropertyTypes)
 	{
-		size_t length = strlen(src);
-		std::string_view strView(static_cast<const char*>(src), length);
+		std::string_view strView(static_cast<const char*>(src), strlen);
 		outPropertyTypes->operator=(strView);
-		return static_cast<Offset>(length);
 	}
 
 #pragma endregion
