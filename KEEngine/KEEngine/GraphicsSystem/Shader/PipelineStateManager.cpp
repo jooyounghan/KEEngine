@@ -42,12 +42,13 @@ namespace ke
 			return it->second.Get();
 		}
 
-		ID3D12PipelineState* pso = createGraphicsPipelineState(desc);
+		auto pso = createGraphicsPipelineState(desc);
 		if (pso)
 		{
 			_pipelineStates[hash] = pso;
+			return pso.Get();
 		}
-		return pso;
+		return nullptr;
 	}
 
 	ID3D12PipelineState* PipelineStateManager::getOrCreateComputePipelineState(const ComputePipelineDesc& desc)
@@ -60,12 +61,13 @@ namespace ke
 			return it->second.Get();
 		}
 
-		ID3D12PipelineState* pso = createComputePipelineState(desc);
+		auto pso = createComputePipelineState(desc);
 		if (pso)
 		{
 			_pipelineStates[hash] = pso;
+			return pso.Get();
 		}
-		return pso;
+		return nullptr;
 	}
 
 	size_t PipelineStateManager::computeGraphicsPipelineHash(const GraphicsPipelineDesc& desc)
@@ -115,7 +117,7 @@ namespace ke
 		return hash;
 	}
 
-	ID3D12PipelineState* PipelineStateManager::createGraphicsPipelineState(const GraphicsPipelineDesc& desc)
+	Microsoft::WRL::ComPtr<ID3D12PipelineState> PipelineStateManager::createGraphicsPipelineState(const GraphicsPipelineDesc& desc)
 	{
 		if (!_device || !desc.vertexShader || !desc.rootSignature)
 			return nullptr;
@@ -298,10 +300,10 @@ namespace ke
 			return nullptr;
 		}
 
-		return pso.Get();
+		return pso;
 	}
 
-	ID3D12PipelineState* PipelineStateManager::createComputePipelineState(const ComputePipelineDesc& desc)
+	Microsoft::WRL::ComPtr<ID3D12PipelineState> PipelineStateManager::createComputePipelineState(const ComputePipelineDesc& desc)
 	{
 		if (!_device || !desc.computeShader || !desc.rootSignature)
 			return nullptr;
@@ -317,6 +319,6 @@ namespace ke
 			return nullptr;
 		}
 
-		return pso.Get();
+		return pso;
 	}
 }

@@ -68,7 +68,7 @@ namespace ke
 		size_t computeGraphicsPipelineHash(const GraphicsPipelineDesc& desc);
 		size_t computeComputePipelineHash(const ComputePipelineDesc& desc);
 		
-		ID3D12PipelineState* createGraphicsPipelineState(const GraphicsPipelineDesc& desc);
-		ID3D12PipelineState* createComputePipelineState(const ComputePipelineDesc& desc);
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> createGraphicsPipelineState(const GraphicsPipelineDesc& desc);
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> createComputePipelineState(const ComputePipelineDesc& desc);
 	};
 }
