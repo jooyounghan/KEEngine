@@ -37,17 +37,23 @@
     <Filter Include="소스 파일\Pipeline">
       <UniqueIdentifier>{d6f77927-5af3-4b9e-bf4f-eabbd9e9f9f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Pipeline\Shader">
-      <UniqueIdentifier>{da1684d1-1862-436f-a079-ba66122d786b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Pipeline\Shader">
       <UniqueIdentifier>{fe59052b-9468-4384-896d-eb0023d29943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline\Shader">
+      <UniqueIdentifier>{da1684d1-1862-436f-a079-ba66122d786b}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Pipeline\State">
       <UniqueIdentifier>{95398b38-c7a8-45d4-80a4-c05ad9cbf03f}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Pipeline\State">
       <UniqueIdentifier>{989d4e7e-1933-4c64-8677-2da85cfe5e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Shader">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Shader">
+      <UniqueIdentifier>{b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +141,12 @@
     <ClInclude Include="Pipeline\StencilState.h">
       <Filter>헤더 파일\Pipeline\State</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\ShaderCompilerManager.h">
+      <Filter>헤더 파일\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\PipelineStateManager.h">
+      <Filter>헤더 파일\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
@@ -220,6 +232,12 @@
     </ClCompile>
     <ClCompile Include="Pipeline\StencilState.cpp">
       <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\ShaderCompilerManager.cpp">
+      <Filter>소스 파일\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\PipelineStateManager.cpp">
+      <Filter>소스 파일\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
