@@ -72,18 +72,30 @@ namespace ke
 	{
 		size_t hash = 0;
 		
+		// Improved hash combining using multiplication and XOR
+		auto combineHash = [&hash](size_t newHash) {
+			hash ^= newHash + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+		};
+		
 		// Hash shader pointers
-		hash ^= std::hash<void*>{}(desc.vertexShader);
-		hash ^= std::hash<void*>{}(desc.pixelShader) << 1;
-		hash ^= std::hash<void*>{}(desc.geometryShader) << 2;
-		hash ^= std::hash<void*>{}(desc.domainShader) << 3;
-		hash ^= std::hash<void*>{}(desc.hullShader) << 4;
+		combineHash(std::hash<void*>{}(desc.vertexShader));
+		combineHash(std::hash<void*>{}(desc.pixelShader));
+		combineHash(std::hash<void*>{}(desc.geometryShader));
+		combineHash(std::hash<void*>{}(desc.domainShader));
+		combineHash(std::hash<void*>{}(desc.hullShader));
 		
 		// Hash pipeline state components
-		hash ^= std::hash<void*>{}(desc.blendState) << 5;
-		hash ^= std::hash<void*>{}(desc.rasterizerState) << 6;
-		hash ^= std::hash<void*>{}(desc.depthState) << 7;
-		hash ^= std::hash<void*>{}(desc.rootSignature) << 8;
+		combineHash(std::hash<void*>{}(desc.inputLayout));
+		combineHash(std::hash<void*>{}(desc.primitiveTopology));
+		combineHash(std::hash<void*>{}(desc.blendState));
+		combineHash(std::hash<void*>{}(desc.rasterizerState));
+		combineHash(std::hash<void*>{}(desc.depthState));
+		combineHash(std::hash<void*>{}(desc.stencilState));
+		combineHash(std::hash<void*>{}(desc.renderTargetFormats));
+		combineHash(std::hash<void*>{}(desc.depthStencilFormat));
+		combineHash(std::hash<void*>{}(desc.sampleDesc));
+		combineHash(std::hash<void*>{}(desc.sampleMask));
+		combineHash(std::hash<void*>{}(desc.rootSignature));
 		
 		return hash;
 	}
@@ -91,8 +103,15 @@ namespace ke
 	size_t PipelineStateManager::computeComputePipelineHash(const ComputePipelineDesc& desc)
 	{
 		size_t hash = 0;
-		hash ^= std::hash<void*>{}(desc.computeShader);
-		hash ^= std::hash<void*>{}(desc.rootSignature) << 1;
+		
+		// Improved hash combining using multiplication and XOR
+		auto combineHash = [&hash](size_t newHash) {
+			hash ^= newHash + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+		};
+		
+		combineHash(std::hash<void*>{}(desc.computeShader));
+		combineHash(std::hash<void*>{}(desc.rootSignature));
+		
 		return hash;
 	}
 
@@ -138,9 +157,7 @@ namespace ke
 		// Set primitive topology type
 		if (desc.primitiveTopology)
 		{
-			// Map from topology enum to topology type
-			// This is a simplified mapping - you may need to adjust based on your enum values
-			psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+			psoDesc.PrimitiveTopologyType = static_cast<D3D12_PRIMITIVE_TOPOLOGY_TYPE>(desc.primitiveTopology->_primitiveTopologyType);
 		}
 		else
 		{
