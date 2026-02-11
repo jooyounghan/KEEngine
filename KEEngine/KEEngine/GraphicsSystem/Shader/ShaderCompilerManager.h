@@ -60,8 +60,7 @@ namespace ke
 			const IBuffer* shaderSource,
 			const wchar_t* entryPoint,
 			const wchar_t* targetProfile,
-			void** outBytecode,
-			size_t* outBytecodeSize
+			Microsoft::WRL::ComPtr<IDxcBlob>& outBlob
 		);
 	};
 }

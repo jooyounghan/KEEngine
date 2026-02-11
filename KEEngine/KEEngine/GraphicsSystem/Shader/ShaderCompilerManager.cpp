@@ -54,16 +54,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -81,16 +79,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -108,16 +104,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -135,16 +129,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -162,16 +154,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -189,16 +179,14 @@ namespace ke
 		std::wstring wEntryPoint(entryPoint.begin(), entryPoint.end());
 		std::wstring wTargetProfile(targetProfile.begin(), targetProfile.end());
 
-		void* bytecode = nullptr;
-		size_t bytecodeSize = 0;
-
-		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), &bytecode, &bytecodeSize))
+		Microsoft::WRL::ComPtr<IDxcBlob> blob;
+		if (!compileShaderInternal(shaderSource, wEntryPoint.c_str(), wTargetProfile.c_str(), blob))
 		{
 			return false;
 		}
 
-		outShader->_compiledBytecode.resize(bytecodeSize);
-		memcpy(outShader->_compiledBytecode.data(), bytecode, bytecodeSize);
+		outShader->_compiledBytecode.resize(blob->GetBufferSize());
+		memcpy(outShader->_compiledBytecode.data(), blob->GetBufferPointer(), blob->GetBufferSize());
 
 		return true;
 	}
@@ -207,10 +195,9 @@ namespace ke
 		const IBuffer* shaderSource,
 		const wchar_t* entryPoint,
 		const wchar_t* targetProfile,
-		void** outBytecode,
-		size_t* outBytecodeSize)
+		Microsoft::WRL::ComPtr<IDxcBlob>& outBlob)
 	{
-		if (!shaderSource || !entryPoint || !targetProfile || !outBytecode || !outBytecodeSize)
+		if (!shaderSource || !entryPoint || !targetProfile)
 			return false;
 
 		// Create source buffer
@@ -261,16 +248,12 @@ namespace ke
 		}
 
 		// Get compiled shader bytecode
-		Microsoft::WRL::ComPtr<IDxcBlob> shaderBlob;
-		result->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&shaderBlob), nullptr);
+		result->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&outBlob), nullptr);
 
-		if (!shaderBlob)
+		if (!outBlob)
 		{
 			return false;
 		}
-
-		*outBytecode = shaderBlob->GetBufferPointer();
-		*outBytecodeSize = shaderBlob->GetBufferSize();
 
 		return true;
 	}
