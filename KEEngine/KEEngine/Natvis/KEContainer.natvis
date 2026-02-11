@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-	<Type Name="ke::StaticArray&lt;*,*&gt;">
-		<DisplayString>ke::StaticArray ( size={_count} )</DisplayString>
+	<!-- StaticBuffer visualization -->
+	<Type Name="ke::StaticBuffer&lt;*&gt;">
+		<DisplayString>ke::StaticBuffer (capacity={$T1}, cursor={_cursorPos})</DisplayString>
 		<Expand>
+			<Item Name="[Capacity]">$T1</Item>
+			<Item Name="[CursorPos]">_cursorPos</Item>
+			<Item Name="[Buffer]">_buffer,na</Item>
 			<ArrayItems>
-				<Size>_count</Size>
-				<ValuePointer>_data</ValuePointer>
+				<Size>_cursorPos &lt; $T1 ? _cursorPos : $T1</Size>
+				<ValuePointer>_buffer</ValuePointer>
 			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- DynamicBuffer visualization -->
+	<Type Name="ke::DynamicBuffer">
+		<DisplayString>ke::DynamicBuffer (capacity={_capacity}, cursor={_cursorPos})</DisplayString>
+		<Expand>
+			<Item Name="[Capacity]">_capacity</Item>
+			<Item Name="[CursorPos]">_cursorPos</Item>
+			<Item Name="[Buffer]">_buffer,na</Item>
+			<ArrayItems Condition="_buffer != nullptr">
+				<Size>_cursorPos &lt; _capacity ? _cursorPos : _capacity</Size>
+				<ValuePointer>_buffer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- OwnerVector visualization -->
+	<Type Name="ke::OwnerVector&lt;*&gt;">
+		<DisplayString>ke::OwnerVector (size={_count}, capacity={_capacity})</DisplayString>
+		<Expand>
+			<Item Name="[Size]">_count</Item>
+			<Item Name="[Capacity]">_capacity</Item>
+			<ArrayItems Condition="_pointer != nullptr">
+				<Size>_count</Size>
+				<ValuePointer>_pointer</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- Ptr (smart pointer) visualization -->
+	<Type Name="ke::Ptr&lt;*&gt;">
+		<DisplayString Condition="_ptr == nullptr">ke::Ptr (nullptr)</DisplayString>
+		<DisplayString Condition="_ptr != nullptr">ke::Ptr ({*_ptr})</DisplayString>
+		<Expand>
+			<Item Name="[ptr]" Condition="_ptr != nullptr">_ptr</Item>
 		</Expand>
 	</Type>
 </AutoVisualizer>
