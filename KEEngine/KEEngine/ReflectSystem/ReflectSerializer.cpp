@@ -64,10 +64,10 @@ namespace ke
 			builder.openHeaderEnd();
 			for (const IReflectProperty* property : reflectObjectProperties)
 			{
-				IReflectObjectProperty* objectProperty = const_cast<IReflectProperty*>(property)->as<IReflectObjectProperty>();
+				const IReflectObjectProperty* objectProperty = property->as<IReflectObjectProperty>();
 				if (objectProperty != nullptr)
 				{
-					serializeToXMLInner(xmlWriter, objectProperty->getReflectObject(const_cast<IReflectObject*>(reflectObject)), depth + 1);
+					serializeToXMLInner(xmlWriter, objectProperty->getReflectObject(reflectObject), depth + 1);
 				}
 			}
 		}

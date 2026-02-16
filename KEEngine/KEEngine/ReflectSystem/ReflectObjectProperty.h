@@ -5,7 +5,7 @@
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
-	class ReflectObjectProperty : public IReflectObjectProperty, public ReflectPropertyBase<ObjectType, PropertyType>
+	class ReflectObjectProperty : public ReflectPropertyBase<ObjectType, PropertyType>, public IReflectObjectProperty
 	{
 	public:
 		ReflectObjectProperty(
