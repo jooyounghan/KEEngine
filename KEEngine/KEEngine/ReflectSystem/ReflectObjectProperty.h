@@ -16,14 +16,20 @@ namespace ke
 		~ReflectObjectProperty() override = default;
 
 	public:
-		inline virtual bool isReflectObject() const { return true; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) { return static_cast<IReflectObject*>(&this->get(parentReflectObject)); }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const { return static_cast<const IReflectObject*>(&this->get(parentReflectObject)); }
+		// New type system
+		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Object; }
 
 	public:
-		inline virtual bool isPODProperty() const { return false; }
-		inline virtual IReflectPODProperty* getPODProperty() { return nullptr; }
-		inline virtual const IReflectPODProperty* getPODProperty() const { return nullptr; };
+		// Legacy compatibility
+		inline virtual bool isReflectObject() const override { return true; };
+		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return static_cast<IReflectObject*>(&this->get(parentReflectObject)); }
+		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return static_cast<const IReflectObject*>(&this->get(parentReflectObject)); }
+
+	public:
+		// Legacy compatibility
+		inline virtual bool isPODProperty() const override { return false; }
+		inline virtual IReflectPODProperty* getPODProperty() override { return nullptr; }
+		inline virtual const IReflectPODProperty* getPODProperty() const override { return nullptr; };
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
