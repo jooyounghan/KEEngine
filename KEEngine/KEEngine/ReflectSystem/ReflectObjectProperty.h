@@ -20,6 +20,11 @@ namespace ke
 		// New type system
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Object; }
 
+	protected:
+		// Override helper methods for type-safe conversion
+		inline virtual IReflectObjectProperty* asIReflectObjectProperty() override { return this; }
+		inline virtual const IReflectObjectProperty* asIReflectObjectProperty() const override { return this; }
+
 	public:
 		// IReflectObjectProperty implementation
 		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override 

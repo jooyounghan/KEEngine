@@ -21,6 +21,11 @@ namespace ke
 		// New type system
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Vector; }
 
+	protected:
+		// Override helper methods for type-safe conversion
+		inline virtual IReflectVectorProperty* asIReflectVectorProperty() override { return this; }
+		inline virtual const IReflectVectorProperty* asIReflectVectorProperty() const override { return this; }
+
 	public:
 		// IReflectVectorProperty implementation
 		virtual size_t getSize(const IReflectObject* object) const override;

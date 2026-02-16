@@ -21,6 +21,11 @@ namespace ke
 		// New type system
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Enum; }
 
+	protected:
+		// Override helper methods for type-safe conversion
+		inline virtual IReflectEnumProperty* asIReflectEnumProperty() override { return this; }
+		inline virtual const IReflectEnumProperty* asIReflectEnumProperty() const override { return this; }
+
 	public:
 		// IReflectEnumProperty implementation
 		virtual int64 getEnumValue(const IReflectObject* object) const override;

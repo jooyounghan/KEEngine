@@ -19,84 +19,52 @@ namespace ke
 	template<>
 	inline IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::POD)
-		{
-			return dynamic_cast<IReflectPODProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectPODProperty();
 	}
 
 	template<>
 	inline const IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::POD)
-		{
-			return dynamic_cast<const IReflectPODProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectPODProperty();
 	}
 
 	// Specialization for IReflectVectorProperty
 	template<>
 	inline IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::Vector)
-		{
-			return dynamic_cast<IReflectVectorProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectVectorProperty();
 	}
 
 	template<>
 	inline const IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::Vector)
-		{
-			return dynamic_cast<const IReflectVectorProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectVectorProperty();
 	}
 
 	// Specialization for IReflectEnumProperty
 	template<>
 	inline IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::Enum)
-		{
-			return dynamic_cast<IReflectEnumProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectEnumProperty();
 	}
 
 	template<>
 	inline const IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::Enum)
-		{
-			return dynamic_cast<const IReflectEnumProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectEnumProperty();
 	}
 
 	// Specialization for IReflectObjectProperty
 	template<>
 	inline IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::Object)
-		{
-			return dynamic_cast<IReflectObjectProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectObjectProperty();
 	}
 
 	template<>
 	inline const IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::Object)
-		{
-			return dynamic_cast<const IReflectObjectProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectObjectProperty();
 	}
 
 	template<typename ObjectType, typename PropertyType>

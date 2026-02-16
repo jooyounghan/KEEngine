@@ -67,6 +67,11 @@ namespace ke
 		// New type system
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::POD; }
 
+	protected:
+		// Override helper methods for type-safe conversion
+		inline virtual IReflectPODProperty* asIReflectPODProperty() override { return this; }
+		inline virtual const IReflectPODProperty* asIReflectPODProperty() const override { return this; }
+
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;

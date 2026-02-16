@@ -51,6 +51,21 @@ namespace ke
 		template<typename T>
 		const T* as() const;
 
+	protected:
+		// Virtual helper methods for type-safe interface conversion
+		// Each concrete class overrides these to return the appropriate interface pointer
+		virtual IReflectPODProperty* asIReflectPODProperty() { return nullptr; }
+		virtual const IReflectPODProperty* asIReflectPODProperty() const { return nullptr; }
+		
+		virtual IReflectVectorProperty* asIReflectVectorProperty() { return nullptr; }
+		virtual const IReflectVectorProperty* asIReflectVectorProperty() const { return nullptr; }
+		
+		virtual IReflectEnumProperty* asIReflectEnumProperty() { return nullptr; }
+		virtual const IReflectEnumProperty* asIReflectEnumProperty() const { return nullptr; }
+		
+		virtual IReflectObjectProperty* asIReflectObjectProperty() { return nullptr; }
+		virtual const IReflectObjectProperty* asIReflectObjectProperty() const { return nullptr; }
+
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
