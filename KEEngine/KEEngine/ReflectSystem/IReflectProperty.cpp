@@ -1,5 +1,5 @@
 #include "ReflectSystemPch.h"
-#include "ReflectPropertyBase.h"
+#include "IReflectProperty.h"
 
 namespace ke
 {

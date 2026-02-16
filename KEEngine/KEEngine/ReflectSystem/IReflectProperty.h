@@ -11,25 +11,10 @@ namespace ke
 		Editable = 1 << 1
 	);
 
+	class IReflectPODProperty;
+
 	template<typename PropertyType>
 	class ReflectPODPropertyBase;
-
-	class IReflectPODProperty
-	{
-	public:
-		virtual ~IReflectPODProperty() = default;
-
-	protected:
-		virtual const void* getTypeId() const = 0;
-		template<typename T>
-		static const void* getStaticTypeId();
-
-	public:
-		template<typename PropertyType>
-		ReflectPODPropertyBase<PropertyType>* getBase();
-		template<typename PropertyType>
-		const ReflectPODPropertyBase<PropertyType>* getBase() const;
-	};
 
 	class IReflectProperty
 	{
@@ -56,6 +41,8 @@ namespace ke
 		inline virtual IReflectPODProperty* getPODProperty() = 0;
 		inline virtual const IReflectPODProperty* getPODProperty() const = 0;
 
+	public:
+		inline virtual bool isReflectVector() const = 0;
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
@@ -95,4 +82,4 @@ namespace ke
 		void set(IReflectObject* o, const PropertyType& v) { (static_cast<ObjectType*>(o)->*_setter)(v); }
 	};
 }
-#include "ReflectPropertyBase.hpp"
+#include "IReflectProperty.hpp"

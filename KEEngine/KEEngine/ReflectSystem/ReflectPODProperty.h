@@ -1,5 +1,5 @@
 #pragma once
-#include "ReflectPropertyBase.h"
+#include "IReflectProperty.h"
 
 namespace ke
 {
@@ -10,6 +10,24 @@ namespace ke
 		PropertyType	_minValue;
 		PropertyType	_step;
 	};
+
+	class IReflectPODProperty
+	{
+	public:
+		virtual ~IReflectPODProperty() = default;
+
+	protected:
+		virtual const void* getTypeId() const = 0;
+		template<typename T>
+		static const void* getStaticTypeId();
+
+	public:
+		template<typename PropertyType>
+		ReflectPODPropertyBase<PropertyType>* getBase();
+		template<typename PropertyType>
+		const ReflectPODPropertyBase<PropertyType>* getBase() const;
+	};
+
 
 	template<typename PropertyType>
 	class ReflectPODPropertyBase : public IReflectPODProperty

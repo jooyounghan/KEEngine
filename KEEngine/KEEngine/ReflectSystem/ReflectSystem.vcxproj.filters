@@ -60,13 +60,13 @@
     <ClInclude Include="ReflectSerializer.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPropertyBase.h">
+    <ClInclude Include="IReflectProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="IReflectObject.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPropertyBase.hpp">
+    <ClInclude Include="IReflectProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObject.h">
@@ -99,6 +99,9 @@
     <ClInclude Include="ReflectObjectProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectVector.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">
@@ -110,7 +113,7 @@
     <ClCompile Include="ReflectObject.cpp">
       <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="ReflectPropertyBase.cpp">
+    <ClCompile Include="IReflectProperty.cpp">
       <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="ReflectParser.cpp">

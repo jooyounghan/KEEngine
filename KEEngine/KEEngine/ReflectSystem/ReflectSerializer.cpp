@@ -4,7 +4,7 @@
 #include "StaticBuffer.h"
 #include "XmlReader.h"
 #include "XmlWriter.h"
-#include "ReflectPropertyBase.h"
+#include "IReflectProperty.h"
 #include "ReflectMetaData.h"
 
 namespace ke
@@ -44,7 +44,7 @@ namespace ke
 			{
 				reflectObjectProperties.push_back(property);
 			}
-			else
+			else if (property->isPODProperty())
 			{
 				const FlyweightStringA& propertyName = property->getName();
 				property->getToString(reflectObject, &propertyValueBuffer);
