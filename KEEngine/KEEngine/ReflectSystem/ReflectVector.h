@@ -22,18 +22,6 @@ namespace ke
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Vector; }
 
 	public:
-		// Legacy compatibility
-		inline virtual bool isReflectObject() const override { return false; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return nullptr; }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return nullptr; }
-
-	public:
-		// Legacy compatibility
-		inline virtual bool isPODProperty() const override { return false; }
-		inline virtual IReflectPODProperty* getPODProperty() override { return nullptr; }
-		inline virtual const IReflectPODProperty* getPODProperty() const override { return nullptr; };
-
-	public:
 		// IReflectVectorProperty implementation
 		virtual size_t getSize(const IReflectObject* object) const override;
 		virtual void resize(IReflectObject* object, size_t newSize) override;

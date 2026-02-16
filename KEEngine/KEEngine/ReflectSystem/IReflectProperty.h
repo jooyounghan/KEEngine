@@ -52,18 +52,6 @@ namespace ke
 		const T* as() const;
 
 	public:
-		// Legacy methods for backward compatibility - deprecated
-		inline virtual bool isReflectObject() const = 0;
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) = 0;
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const = 0;
-
-	public:
-		// Legacy methods for backward compatibility - deprecated
-		inline virtual bool isPODProperty() const = 0;
-		inline virtual IReflectPODProperty* getPODProperty() = 0;
-		inline virtual const IReflectPODProperty* getPODProperty() const = 0;
-
-	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) = 0;

@@ -1,10 +1,11 @@
 #pragma once
 #include "IReflectProperty.h"
+#include "IReflectObjectProperty.h"
 
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
-	class ReflectObjectProperty : public ReflectPropertyBase<ObjectType, PropertyType>
+	class ReflectObjectProperty : public IReflectObjectProperty, public ReflectPropertyBase<ObjectType, PropertyType>
 	{
 	public:
 		ReflectObjectProperty(
@@ -20,16 +21,15 @@ namespace ke
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Object; }
 
 	public:
-		// Legacy compatibility
-		inline virtual bool isReflectObject() const override { return true; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return static_cast<IReflectObject*>(&this->get(parentReflectObject)); }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return static_cast<const IReflectObject*>(&this->get(parentReflectObject)); }
-
-	public:
-		// Legacy compatibility
-		inline virtual bool isPODProperty() const override { return false; }
-		inline virtual IReflectPODProperty* getPODProperty() override { return nullptr; }
-		inline virtual const IReflectPODProperty* getPODProperty() const override { return nullptr; };
+		// IReflectObjectProperty implementation
+		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override 
+		{ 
+			return static_cast<IReflectObject*>(&this->get(parentReflectObject)); 
+		}
+		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override 
+		{ 
+			return static_cast<const IReflectObject*>(&this->get(parentReflectObject)); 
+		}
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;

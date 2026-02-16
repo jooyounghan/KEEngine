@@ -22,18 +22,6 @@ namespace ke
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Enum; }
 
 	public:
-		// Legacy compatibility
-		inline virtual bool isReflectObject() const override { return false; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return nullptr; }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return nullptr; }
-
-	public:
-		// Legacy compatibility
-		inline virtual bool isPODProperty() const override { return false; }
-		inline virtual IReflectPODProperty* getPODProperty() override { return nullptr; }
-		inline virtual const IReflectPODProperty* getPODProperty() const override { return nullptr; };
-
-	public:
 		// IReflectEnumProperty implementation
 		virtual int64 getEnumValue(const IReflectObject* object) const override;
 		virtual void setEnumValue(IReflectObject* object, int64 value) override;

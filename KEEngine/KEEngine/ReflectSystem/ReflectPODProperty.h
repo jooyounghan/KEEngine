@@ -68,18 +68,6 @@ namespace ke
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::POD; }
 
 	public:
-		// Legacy compatibility
-		inline virtual bool isReflectObject() const override { return false; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return nullptr; }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return nullptr; }
-
-	public:
-		// Legacy compatibility
-		inline virtual bool isPODProperty() const override { return true; }
-		inline virtual IReflectPODProperty* getPODProperty() override { return static_cast<IReflectPODProperty*>(this); }
-		inline virtual const IReflectPODProperty* getPODProperty() const override { return static_cast<const IReflectPODProperty*>(this); };
-
-	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) override;
