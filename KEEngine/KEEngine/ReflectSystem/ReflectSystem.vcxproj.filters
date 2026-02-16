@@ -102,6 +102,21 @@
     <ClInclude Include="ReflectVector.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectVector.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectVectorProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectEnumProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectEnumProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectEnumProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectSystemPch.cpp">

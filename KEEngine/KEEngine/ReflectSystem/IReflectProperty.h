@@ -11,7 +11,16 @@ namespace ke
 		Editable = 1 << 1
 	);
 
+	DECLARE_ENUM_CLASS(EReflectPropertyType, uint8,
+		POD,
+		Object,
+		Vector,
+		Enum
+	);
+
 	class IReflectPODProperty;
+	class IReflectVectorProperty;
+	class IReflectEnumProperty;
 
 	template<typename PropertyType>
 	class ReflectPODPropertyBase;
@@ -32,17 +41,27 @@ namespace ke
 		inline EReflectUIOption getUIOption() const { return _uiOption; }
 
 	public:
+		// New extensible type system
+		virtual EReflectPropertyType getPropertyType() const = 0;
+		
+		// Template-based safe casting for any property type
+		template<typename T>
+		T* as();
+		
+		template<typename T>
+		const T* as() const;
+
+	public:
+		// Legacy methods for backward compatibility - deprecated
 		inline virtual bool isReflectObject() const = 0;
 		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) = 0;
 		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const = 0;
 
 	public:
+		// Legacy methods for backward compatibility - deprecated
 		inline virtual bool isPODProperty() const = 0;
 		inline virtual IReflectPODProperty* getPODProperty() = 0;
 		inline virtual const IReflectPODProperty* getPODProperty() const = 0;
-
-	public:
-		inline virtual bool isReflectVector() const = 0;
 
 	public:
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;

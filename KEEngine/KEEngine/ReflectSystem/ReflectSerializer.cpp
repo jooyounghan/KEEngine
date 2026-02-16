@@ -40,16 +40,22 @@ namespace ke
 
 		for (const IReflectProperty* property : properties)
 		{
-			if (property->isReflectObject())
+			// New extensible approach using getPropertyType()
+			switch (property->getPropertyType())
 			{
+			case EReflectPropertyType::Object:
 				reflectObjectProperties.push_back(property);
-			}
-			else if (property->isPODProperty())
-			{
-				const FlyweightStringA& propertyName = property->getName();
-				property->getToString(reflectObject, &propertyValueBuffer);
-				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
-				propertyValueBuffer.reset();
+				break;
+			case EReflectPropertyType::POD:
+			case EReflectPropertyType::Vector:
+			case EReflectPropertyType::Enum:
+				{
+					const FlyweightStringA& propertyName = property->getName();
+					property->getToString(reflectObject, &propertyValueBuffer);
+					builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
+					propertyValueBuffer.reset();
+				}
+				break;
 			}
 		}
 
