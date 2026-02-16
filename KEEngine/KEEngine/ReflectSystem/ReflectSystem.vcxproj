@@ -146,6 +146,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IReflectEnumProperty.h" />
+    <ClInclude Include="IReflectVectorProperty.h" />
+    <ClInclude Include="ReflectEnumProperty.h" />
+    <ClInclude Include="ReflectEnumProperty.hpp" />
     <ClInclude Include="ReflectObjectProperty.h" />
     <ClInclude Include="ReflectObjectProperty.hpp" />
     <ClInclude Include="ReflectPODProperty.h" />
@@ -164,6 +168,7 @@
     <ClInclude Include="ReflectParser.h" />
     <ClInclude Include="ReflectParser.hpp" />
     <ClInclude Include="ReflectVector.h" />
+    <ClInclude Include="ReflectVector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectPODProperty.cpp" />
