@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IReflectEnumProperty.h" />
+    <ClInclude Include="IReflectObjectProperty.h" />
     <ClInclude Include="IReflectVectorProperty.h" />
     <ClInclude Include="ReflectEnumProperty.h" />
     <ClInclude Include="ReflectEnumProperty.hpp" />

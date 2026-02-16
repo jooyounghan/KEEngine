@@ -111,6 +111,9 @@
     <ClInclude Include="IReflectEnumProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="IReflectObjectProperty.h">
+      <Filter>헤더 파일\Header\Reflection</Filter>
+    </ClInclude>
     <ClInclude Include="ReflectEnumProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
