@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectEnumProperty.h"
+#include <cstring>
 
 namespace ke
 {

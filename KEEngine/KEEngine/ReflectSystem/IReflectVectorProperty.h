@@ -1,5 +1,6 @@
 #pragma once
 #include "IReflectProperty.h"
+#include <cstddef>
 
 namespace ke
 {
