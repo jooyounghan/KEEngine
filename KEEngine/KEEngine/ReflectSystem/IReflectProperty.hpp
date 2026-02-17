@@ -19,55 +19,52 @@ namespace ke
 	template<>
 	inline IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>()
 	{
-		return getPropertyType() == EReflectPropertyType::POD ? getPODProperty() : nullptr;
+		return asIReflectPODProperty();
 	}
 
 	template<>
 	inline const IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>() const
 	{
-		return getPropertyType() == EReflectPropertyType::POD ? getPODProperty() : nullptr;
+		return asIReflectPODProperty();
 	}
 
 	// Specialization for IReflectVectorProperty
 	template<>
 	inline IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::Vector)
-		{
-			return static_cast<IReflectVectorProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectVectorProperty();
 	}
 
 	template<>
 	inline const IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::Vector)
-		{
-			return static_cast<const IReflectVectorProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectVectorProperty();
 	}
 
 	// Specialization for IReflectEnumProperty
 	template<>
 	inline IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>()
 	{
-		if (getPropertyType() == EReflectPropertyType::Enum)
-		{
-			return static_cast<IReflectEnumProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectEnumProperty();
 	}
 
 	template<>
 	inline const IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>() const
 	{
-		if (getPropertyType() == EReflectPropertyType::Enum)
-		{
-			return static_cast<const IReflectEnumProperty*>(this);
-		}
-		return nullptr;
+		return asIReflectEnumProperty();
+	}
+
+	// Specialization for IReflectObjectProperty
+	template<>
+	inline IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>()
+	{
+		return asIReflectObjectProperty();
+	}
+
+	template<>
+	inline const IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>() const
+	{
+		return asIReflectObjectProperty();
 	}
 
 	template<typename ObjectType, typename PropertyType>

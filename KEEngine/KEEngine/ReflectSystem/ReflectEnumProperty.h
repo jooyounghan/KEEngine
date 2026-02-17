@@ -21,17 +21,10 @@ namespace ke
 		// New type system
 		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Enum; }
 
-	public:
-		// Legacy compatibility
-		inline virtual bool isReflectObject() const override { return false; };
-		inline virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) override { return nullptr; }
-		inline virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const override { return nullptr; }
-
-	public:
-		// Legacy compatibility
-		inline virtual bool isPODProperty() const override { return false; }
-		inline virtual IReflectPODProperty* getPODProperty() override { return nullptr; }
-		inline virtual const IReflectPODProperty* getPODProperty() const override { return nullptr; };
+	protected:
+		// Override helper methods for type-safe conversion
+		inline virtual IReflectEnumProperty* asIReflectEnumProperty() override { return this; }
+		inline virtual const IReflectEnumProperty* asIReflectEnumProperty() const override { return this; }
 
 	public:
 		// IReflectEnumProperty implementation

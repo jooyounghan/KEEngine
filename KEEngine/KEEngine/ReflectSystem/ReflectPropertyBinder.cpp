@@ -6,7 +6,7 @@ DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)										\
 {																						\
 	reflectProperty->setUIOption(uiOption);												\
 	IReflectPODProperty* reflectPODProperty =											\
-		reflectProperty->getPODProperty();												\
+		reflectProperty->as<IReflectPODProperty>();										\
 	if (reflectPODProperty != nullptr)													\
 	{																					\
 		reflectPODProperty->getBase<PropertyType>()->setDefaultValue(defaultValue);		\
@@ -18,7 +18,7 @@ DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)														\
 {																											\
 	reflectProperty->setUIOption(uiOption);																	\
 	IReflectPODProperty* reflectPODProperty =																\
-		reflectProperty->getPODProperty();																	\
+		reflectProperty->as<IReflectPODProperty>();															\
 	if (reflectPODProperty != nullptr)																		\
 	{																										\
 		ReflectPODPropertyBase<PropertyType>* property = reflectPODProperty->getBase<PropertyType>();		\

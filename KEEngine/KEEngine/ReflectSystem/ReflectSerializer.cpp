@@ -64,7 +64,11 @@ namespace ke
 			builder.openHeaderEnd();
 			for (const IReflectProperty* property : reflectObjectProperties)
 			{
-				serializeToXMLInner(xmlWriter, property->getReflectObject(reflectObject), depth + 1);
+				const IReflectObjectProperty* objectProperty = property->as<IReflectObjectProperty>();
+				if (objectProperty != nullptr)
+				{
+					serializeToXMLInner(xmlWriter, objectProperty->getReflectObject(reflectObject), depth + 1);
+				}
 			}
 		}
 	}
@@ -108,7 +112,11 @@ namespace ke
 
 			if (reflectProperty != nullptr)
 			{
-				deserializeFromXMLInner(childNode, reflectProperty->getReflectObject(reflectObject));
+				IReflectObjectProperty* objectProperty = reflectProperty->as<IReflectObjectProperty>();
+				if (objectProperty != nullptr)
+				{
+					deserializeFromXMLInner(childNode, objectProperty->getReflectObject(reflectObject));
+				}
 			}
 		}
 	}
