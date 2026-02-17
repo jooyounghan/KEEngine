@@ -1,6 +1,6 @@
 #pragma once
 #include "IReflectObjectSeqProperty.h"
-#include "ReflectObjectSeqProperty.h"
+#include "ReflectPropertyAccessor.h"
 
 namespace ke
 {
