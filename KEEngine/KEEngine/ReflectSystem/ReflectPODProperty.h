@@ -11,26 +11,8 @@ namespace ke
 		PropertyType	_step;
 	};
 
-	class IReflectPODProperty
-	{
-	public:
-		virtual ~IReflectPODProperty() = default;
-
-	protected:
-		virtual const void* getTypeId() const = 0;
-		template<typename T>
-		static const void* getStaticTypeId();
-
-	public:
-		template<typename PropertyType>
-		ReflectPODPropertyBase<PropertyType>* getBase();
-		template<typename PropertyType>
-		const ReflectPODPropertyBase<PropertyType>* getBase() const;
-	};
-
-
 	template<typename PropertyType>
-	class ReflectPODPropertyBase : public IReflectPODProperty
+	class IReflectPODProperty : public IReflectStaticTypeId
 	{
 	protected:
 		virtual const void* getTypeId() const override;
@@ -52,7 +34,7 @@ namespace ke
 	};
 
 	template<typename ObjectType, typename PropertyType>
-	class ReflectPODProperty : public ReflectPODPropertyBase<PropertyType>, public ReflectPropertyBase<ObjectType, PropertyType>
+	class ReflectPODProperty : public IReflectPODProperty<PropertyType>, public ReflectPropertyBase<ObjectType, PropertyType>
 	{
 	public:
 		ReflectPODProperty(
@@ -63,16 +45,12 @@ namespace ke
 		);
 		~ReflectPODProperty() override = default;
 
-	public:
-		// New type system
-		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::POD; }
-
 	protected:
-		// Override helper methods for type-safe conversion
-		inline virtual IReflectPODProperty* asIReflectPODProperty() override { return this; }
-		inline virtual const IReflectPODProperty* asIReflectPODProperty() const override { return this; }
+		virtual void* getInterface() override { return static_cast<IReflectPODProperty<PropertyType>*>(this); }
+		virtual const void* getInterface() const override { return static_cast<const IReflectPODProperty<PropertyType>*>(this); }
 
 	public:
+		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::POD; }
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) override;

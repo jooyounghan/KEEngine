@@ -1,7 +1,7 @@
 #pragma once
 #include "IReflectObject.h"
-#include "FlyweightString.h"
 #include "ReflectParser.h"
+#include "FlyweightString.h"
 
 namespace ke
 {
@@ -18,18 +18,37 @@ namespace ke
 		Enum
 	);
 
-	class IReflectPODProperty;
-	class IReflectVectorProperty;
-	class IReflectEnumProperty;
+	class IReflectStaticTypeId
+	{
+	protected:
+		virtual const void* getTypeId() const = 0;
 
-	template<typename PropertyType>
-	class ReflectPODPropertyBase;
+		template<typename T>
+		static const void* getStaticTypeId();
+
+		template<typename PropertyType, template<typename PropertyType> typename ReflectType>
+		ReflectType<PropertyType>* getBase();
+	};
+
+	class IReflectProperty;
+
+	template<typename T>
+	struct ReflectCastHelper
+	{
+		static T* cast(IReflectProperty* prop) { return nullptr; }
+		static const T* cast(const IReflectProperty* prop) { return nullptr; }
+	};
 
 	class IReflectProperty
 	{
 	public:
 		constexpr IReflectProperty(const FlyweightStringA& name) : _name(name) {};
 		virtual ~IReflectProperty() = default;
+
+	protected:
+		virtual void* getInterface() { return nullptr; }
+		virtual const void* getInterface() const { return nullptr; }
+		template<typename T> friend struct ReflectCastHelper;
 
 	private:
 		FlyweightStringA	_name;
@@ -41,32 +60,13 @@ namespace ke
 		inline EReflectUIOption getUIOption() const { return _uiOption; }
 
 	public:
-		// New extensible type system
-		virtual EReflectPropertyType getPropertyType() const = 0;
-		
-		// Template-based safe casting for any property type
 		template<typename T>
 		T* as();
-		
 		template<typename T>
 		const T* as() const;
 
-	protected:
-		// Virtual helper methods for type-safe interface conversion
-		// Each concrete class overrides these to return the appropriate interface pointer
-		virtual IReflectPODProperty* asIReflectPODProperty() { return nullptr; }
-		virtual const IReflectPODProperty* asIReflectPODProperty() const { return nullptr; }
-		
-		virtual IReflectVectorProperty* asIReflectVectorProperty() { return nullptr; }
-		virtual const IReflectVectorProperty* asIReflectVectorProperty() const { return nullptr; }
-		
-		virtual IReflectEnumProperty* asIReflectEnumProperty() { return nullptr; }
-		virtual const IReflectEnumProperty* asIReflectEnumProperty() const { return nullptr; }
-		
-		virtual IReflectObjectProperty* asIReflectObjectProperty() { return nullptr; }
-		virtual const IReflectObjectProperty* asIReflectObjectProperty() const { return nullptr; }
-
 	public:
+		virtual EReflectPropertyType getPropertyType() const = 0;
 		virtual void setFromBianry(IReflectObject* object, const void* src) = 0;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) = 0;

@@ -49,6 +49,12 @@
     <Filter Include="헤더 파일\Pipeline\State">
       <UniqueIdentifier>{989d4e7e-1933-4c64-8677-2da85cfe5e0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Pipeline\Graphics">
+      <UniqueIdentifier>{90a1c911-0f90-48ee-a852-dd80cbb40271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pipeline\Graphics">
+      <UniqueIdentifier>{621364dc-53fd-4c9d-a617-2d56806842fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -87,24 +93,6 @@
     <ClInclude Include="CommandQueue.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Pipeline\PrimitiveTopology.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\InputLayoutElement.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\RenderTargetFormats.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\DepthStencilFormat.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\SampleDesc.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\SampleMask.h">
-      <Filter>헤더 파일\Pipeline</Filter>
-    </ClInclude>
     <ClInclude Include="Pipeline\PixelShader.h">
       <Filter>헤더 파일\Pipeline\Shader</Filter>
     </ClInclude>
@@ -134,6 +122,30 @@
     </ClInclude>
     <ClInclude Include="Pipeline\StencilState.h">
       <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleMask.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\InputLayoutElement.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\PrimitiveTopology.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\RenderTargetFormats.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\SampleDesc.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline\DepthStencilFormat.h">
+      <Filter>헤더 파일\Pipeline\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPermuationPipeline.h">
+      <Filter>소스 파일\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineManager.h">
+      <Filter>소스 파일\Pipeline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,24 +203,6 @@
     <ClCompile Include="Pipeline\VertexShader.cpp">
       <Filter>소스 파일\Pipeline\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Pipeline\SampleMask.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\SampleDesc.cpp">
-      <Filter>소스 파일\Pipeline</Filter>
-    </ClCompile>
     <ClCompile Include="Pipeline\BlendState.cpp">
       <Filter>소스 파일\Pipeline\State</Filter>
     </ClCompile>
@@ -220,6 +214,24 @@
     </ClCompile>
     <ClCompile Include="Pipeline\StencilState.cpp">
       <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleDesc.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\SampleMask.cpp">
+      <Filter>소스 파일\Pipeline\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

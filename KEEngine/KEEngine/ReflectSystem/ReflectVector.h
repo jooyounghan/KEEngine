@@ -1,40 +1,41 @@
 #pragma once
 #include "IReflectProperty.h"
-#include "IReflectVectorProperty.h"
-#include <vector>
 
 namespace ke
 {
-	template<typename ObjectType, typename ElementType>
-	class ReflectVectorProperty : public IReflectVectorProperty, public ReflectPropertyBase<ObjectType, std::vector<ElementType>>
+	template<typename PropertyType>
+	class IReflectVectorProperty : public IReflectStaticTypeId
+	{
+	protected:
+		virtual const void* getTypeId() const override;
+
+	public:
+		virtual std::vector<PropertyType>& getVector(IReflectObject* object) = 0;
+		virtual const std::vector<PropertyType>& getVector(const IReflectObject* object) const = 0;
+	};
+
+	template<typename ObjectType, typename PropertyType>
+	class ReflectVectorProperty : public IReflectVectorProperty<PropertyType>, public ReflectPropertyBase<ObjectType, std::vector<PropertyType>>
 	{
 	public:
 		ReflectVectorProperty(
 			const FlyweightStringA& name
-			, Getter<ObjectType, std::vector<ElementType>> getter
-			, ConstGetter<ObjectType, std::vector<ElementType>> constGetter
-			, Setter<ObjectType, std::vector<ElementType>> setter
+			, Getter<ObjectType, std::vector<PropertyType>> getter
+			, ConstGetter<ObjectType, std::vector<PropertyType>> constGetter
+			, Setter<ObjectType, std::vector<PropertyType>> setter
 		);
 		~ReflectVectorProperty() override = default;
 
-	public:
-		// New type system
-		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Vector; }
-
 	protected:
-		// Override helper methods for type-safe conversion
-		inline virtual IReflectVectorProperty* asIReflectVectorProperty() override { return this; }
-		inline virtual const IReflectVectorProperty* asIReflectVectorProperty() const override { return this; }
+		virtual void* getInterface() override { return static_cast<IReflectVectorProperty<PropertyType>*>(this); }
+		virtual const void* getInterface() const override { return static_cast<const IReflectVectorProperty<PropertyType>*>(this); }
 
 	public:
-		// IReflectVectorProperty implementation
-		virtual size_t getSize(const IReflectObject* object) const override;
-		virtual void resize(IReflectObject* object, size_t newSize) override;
-		virtual void clear(IReflectObject* object) override;
-		virtual void* getElement(IReflectObject* object, size_t index) override;
-		virtual const void* getElement(const IReflectObject* object, size_t index) const override;
+		virtual inline std::vector<PropertyType>& getVector(IReflectObject* object) override { return this->get(object); }
+		virtual inline const std::vector<PropertyType>& getVector(IReflectObject* object) const override { return this->get(object); }
 
 	public:
+		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Vector; }
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) override;

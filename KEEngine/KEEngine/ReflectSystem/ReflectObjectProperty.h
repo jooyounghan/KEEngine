@@ -1,9 +1,20 @@
 #pragma once
 #include "IReflectProperty.h"
-#include "IReflectObjectProperty.h"
 
 namespace ke
 {
+	class IReflectObject;
+
+	class IReflectObjectProperty
+	{
+	public:
+		virtual ~IReflectObjectProperty() = default;
+
+	public:
+		virtual IReflectObject* getReflectObject(IReflectObject* parentReflectObject) = 0;
+		virtual const IReflectObject* getReflectObject(const IReflectObject* parentReflectObject) const = 0;
+	};
+
 	template<typename ObjectType, typename PropertyType>
 	class ReflectObjectProperty : public ReflectPropertyBase<ObjectType, PropertyType>, public IReflectObjectProperty
 	{
@@ -16,14 +27,9 @@ namespace ke
 		);
 		~ReflectObjectProperty() override = default;
 
-	public:
-		// New type system
-		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Object; }
-
 	protected:
-		// Override helper methods for type-safe conversion
-		inline virtual IReflectObjectProperty* asIReflectObjectProperty() override { return this; }
-		inline virtual const IReflectObjectProperty* asIReflectObjectProperty() const override { return this; }
+		virtual void* getInterface() override { return static_cast<IReflectObjectProperty*>(this); }
+		virtual const void* getInterface() const override { return static_cast<const IReflectObjectProperty*>(this); }
 
 	public:
 		// IReflectObjectProperty implementation
@@ -37,6 +43,7 @@ namespace ke
 		}
 
 	public:
+		inline virtual EReflectPropertyType getPropertyType() const override { return EReflectPropertyType::Object; }
 		virtual void setFromBianry(IReflectObject* object, const void* src) override;
 		virtual void getToBinary(const IReflectObject* object, IBuffer* outDst) const override;
 		virtual void setFromString(IReflectObject* object, const char* src, size_t strlen) override;

@@ -105,15 +105,6 @@
     <ClInclude Include="ReflectVector.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectVectorProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="IReflectEnumProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="IReflectObjectProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectEnumProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
@@ -144,6 +135,9 @@
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
     <ClCompile Include="ReflectPODProperty.cpp">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectVector.cpp">
       <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
   </ItemGroup>

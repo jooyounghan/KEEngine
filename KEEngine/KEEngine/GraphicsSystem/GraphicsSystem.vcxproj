@@ -158,6 +158,7 @@
     <ClInclude Include="GPUResource.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
+    <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Pipeline\BlendState.h" />
     <ClInclude Include="Pipeline\ComputeShader.h" />
     <ClInclude Include="Pipeline\DepthState.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Pipeline\StencilState.h" />
     <ClInclude Include="Pipeline\VertexShader.h" />
     <ClInclude Include="RenderTargetBuffer.h" />
+    <ClInclude Include="ShaderPermuationPipeline.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="Texture2DResource.h" />
     <ClInclude Include="Texture3DResource.h" />

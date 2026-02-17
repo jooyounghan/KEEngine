@@ -1,70 +1,31 @@
 namespace ke
 {
-	// Template specializations for safe type casting
+	template<typename T>
+	inline const void* IReflectStaticTypeId::getStaticTypeId()
+	{
+		static char staticTypeId;
+		return &staticTypeId;
+	}
+
+	template<typename PropertyType, template<typename PropertyType> typename ReflectType>
+	ReflectType<PropertyType>* IReflectStaticTypeId::getBase()
+	{
+		if (this->getTypeId() == getStaticTypeId<PropertyType>())
+		{
+			return static_cast<ReflectType<PropertyType>*>(this);
+		}
+	}
+
 	template<typename T>
 	T* IReflectProperty::as()
 	{
-		// Default implementation returns nullptr
-		return nullptr;
+		return ReflectCastHelper<T>::cast(this);
 	}
 
 	template<typename T>
 	const T* IReflectProperty::as() const
 	{
-		// Default implementation returns nullptr
-		return nullptr;
-	}
-
-	// Specialization for IReflectPODProperty
-	template<>
-	inline IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>()
-	{
-		return asIReflectPODProperty();
-	}
-
-	template<>
-	inline const IReflectPODProperty* IReflectProperty::as<IReflectPODProperty>() const
-	{
-		return asIReflectPODProperty();
-	}
-
-	// Specialization for IReflectVectorProperty
-	template<>
-	inline IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>()
-	{
-		return asIReflectVectorProperty();
-	}
-
-	template<>
-	inline const IReflectVectorProperty* IReflectProperty::as<IReflectVectorProperty>() const
-	{
-		return asIReflectVectorProperty();
-	}
-
-	// Specialization for IReflectEnumProperty
-	template<>
-	inline IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>()
-	{
-		return asIReflectEnumProperty();
-	}
-
-	template<>
-	inline const IReflectEnumProperty* IReflectProperty::as<IReflectEnumProperty>() const
-	{
-		return asIReflectEnumProperty();
-	}
-
-	// Specialization for IReflectObjectProperty
-	template<>
-	inline IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>()
-	{
-		return asIReflectObjectProperty();
-	}
-
-	template<>
-	inline const IReflectObjectProperty* IReflectProperty::as<IReflectObjectProperty>() const
-	{
-		return asIReflectObjectProperty();
+		return ReflectCastHelper<T>::cast(this);
 	}
 
 	template<typename ObjectType, typename PropertyType>

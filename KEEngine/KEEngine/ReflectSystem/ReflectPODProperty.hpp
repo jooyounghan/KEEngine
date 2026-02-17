@@ -1,42 +1,14 @@
-#include "ReflectPODProperty.h"
 #pragma once
 namespace ke
 {
-	template<typename T>
-	const void* IReflectPODProperty::getStaticTypeId()
+	template<typename PropertyType>
+	 const void* IReflectPODProperty<PropertyType>::getTypeId() const
 	{
-		static char staticTypeId;
-		return &staticTypeId;
+		return IReflectStaticTypeId::getStaticTypeId<PropertyType>();
 	}
 
 	template<typename PropertyType>
-	ReflectPODPropertyBase<PropertyType>* IReflectPODProperty::getBase()
-	{
-		if (getTypeId() == getStaticTypeId<PropertyType>())
-		{
-			return static_cast<ReflectPODPropertyBase<PropertyType>*>(this);
-		}
-		return nullptr;
-	}
-
-	template<typename PropertyType>
-	const ReflectPODPropertyBase<PropertyType>* IReflectPODProperty::getBase() const
-	{
-		if (getTypeId() == getStaticTypeId<PropertyType>())
-		{
-			return static_cast<const ReflectPODPropertyBase<PropertyType>*>(this);
-		}
-		return nullptr;
-	}
-
-	template<typename PropertyType>
-	 const void* ReflectPODPropertyBase<PropertyType>::getTypeId() const
-	{
-		return IReflectPODProperty::getStaticTypeId<PropertyType>();
-	}
-
-	template<typename PropertyType>
-	void ReflectPODPropertyBase<PropertyType>::assignRangeInfo(const PropertyType& minValue, const PropertyType& maxValue, const PropertyType& step)
+	void IReflectPODProperty<PropertyType>::assignRangeInfo(const PropertyType& minValue, const PropertyType& maxValue, const PropertyType& step)
 	{
 		_rangeInfo = MAKE_PTR(RangedPropertyInfo<PropertyType>);
 		_rangeInfo->_minValue = minValue;
@@ -78,4 +50,25 @@ namespace ke
 	{
 		ReflectParser::parseToString(outStringBuffer, &this->get(object));
 	}
+
+	template<typename T>
+	struct ReflectCastHelper<IReflectPODProperty<T>>
+	{
+		static IReflectPODProperty<T>* cast(IReflectProperty* prop)
+		{
+			if (prop && prop->getPropertyType() == EReflectPropertyType::POD)
+			{
+				return static_cast<IReflectPODProperty<T>*>(prop->getInterface());
+			}
+			return nullptr;
+		}
+		static const IReflectPODProperty<T>* cast(const IReflectProperty* prop)
+		{
+			if (prop && prop->getPropertyType() == EReflectPropertyType::POD)
+			{
+				return static_cast<IReflectPODProperty<T>*>(prop->getInterface());
+			}
+			return nullptr;
+		}
+	};
 }

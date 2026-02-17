@@ -36,33 +36,35 @@ namespace ke
 
 		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
 		const OwnerVector<IReflectProperty>& properties = reflectMetaData->getAllProperties();
-		std::vector<const IReflectProperty*> reflectObjectProperties;
+
+		std::vector<const IReflectProperty*> complexProperties;
 
 		for (const IReflectProperty* property : properties)
 		{
-			// New extensible approach using getPropertyType()
 			switch (property->getPropertyType())
 			{
 			case EReflectPropertyType::Object:
-				reflectObjectProperties.push_back(property);
-				break;
-			case EReflectPropertyType::POD:
 			case EReflectPropertyType::Vector:
-			case EReflectPropertyType::Enum:
-				{
-					const FlyweightStringA& propertyName = property->getName();
-					property->getToString(reflectObject, &propertyValueBuffer);
-					builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
-					propertyValueBuffer.reset();
-				}
+			{
+				complexProperties.push_back(property);
 				break;
+			}
+			case EReflectPropertyType::POD:
+			case EReflectPropertyType::Enum:
+			{
+				const FlyweightStringA& propertyName = property->getName();
+				property->getToString(reflectObject, &propertyValueBuffer);
+				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
+				propertyValueBuffer.reset();
+			break;
+			}
 			}
 		}
 
-		if (reflectObjectProperties.empty() == false)
+		if (complexProperties.empty() == false)
 		{
 			builder.openHeaderEnd();
-			for (const IReflectProperty* property : reflectObjectProperties)
+			for (const IReflectProperty* property : complexProperties)
 			{
 				const IReflectObjectProperty* objectProperty = property->as<IReflectObjectProperty>();
 				if (objectProperty != nullptr)

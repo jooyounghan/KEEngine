@@ -1,30 +1,29 @@
 #include "ReflectSystemPch.h"
 #include "ReflectPropertyBinder.h"
 
-#define DEFINE_BIND_DEFAULT_SPECIALIZATION(PropertyType)								\
-DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)										\
-{																						\
-	reflectProperty->setUIOption(uiOption);												\
-	IReflectPODProperty* reflectPODProperty =											\
-		reflectProperty->as<IReflectPODProperty>();										\
-	if (reflectPODProperty != nullptr)													\
-	{																					\
-		reflectPODProperty->getBase<PropertyType>()->setDefaultValue(defaultValue);		\
-	}																					\
+#define DEFINE_BIND_DEFAULT_SPECIALIZATION(PropertyType)			\
+DECLAERE_BIND_DEFAULT_SPECIALIZATION(PropertyType)					\
+{																	\
+	reflectProperty->setUIOption(uiOption);							\
+	IReflectPODProperty<PropertyType>* reflectPODProperty =			\
+		reflectProperty->as<IReflectPODProperty<PropertyType>>();	\
+	if (reflectPODProperty != nullptr)								\
+	{																\
+		reflectPODProperty->setDefaultValue(defaultValue);			\
+	}																\
 }
 
-#define DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(PropertyType)												\
-DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)														\
-{																											\
-	reflectProperty->setUIOption(uiOption);																	\
-	IReflectPODProperty* reflectPODProperty =																\
-		reflectProperty->as<IReflectPODProperty>();															\
-	if (reflectPODProperty != nullptr)																		\
-	{																										\
-		ReflectPODPropertyBase<PropertyType>* property = reflectPODProperty->getBase<PropertyType>();		\
-		property->assignRangeInfo(minValue, maxValue, step);												\
-		property->setDefaultValue(defaultValue);															\
-	}																										\
+#define DEFINE_BIND_DEFAULT_RANGE_SPECIALIZATION(PropertyType)			\
+DECLARE_BIND_DEFAULT_RANGE_SPECILAIZATION(PropertyType)					\
+{																		\
+	reflectProperty->setUIOption(uiOption);								\
+	IReflectPODProperty<PropertyType>* reflectPODProperty =				\
+		reflectProperty->as<IReflectPODProperty<PropertyType>>();		\
+	if (reflectPODProperty != nullptr)									\
+	{																	\
+		reflectPODProperty->assignRangeInfo(minValue, maxValue, step);	\
+		reflectPODProperty->setDefaultValue(defaultValue);				\
+	}																	\
 }
 
 namespace ke

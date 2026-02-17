@@ -42,4 +42,21 @@ namespace ke
 	{
 		ERROR_REFLECT_OBJECT_SERIALIZE_NOT_ALLOWED(getToString);
 	}
+
+	template<>
+	struct ReflectCastHelper<IReflectObjectProperty>
+	{
+		static IReflectObjectProperty* cast(IReflectProperty* prop)
+		{
+			if (prop && prop->getPropertyType() == EReflectPropertyType::Object)
+				return static_cast<IReflectObjectProperty*>(prop->getInterface());
+			return nullptr;
+		}
+		static const IReflectObjectProperty* cast(const IReflectProperty* prop)
+		{
+			if (prop && prop->getPropertyType() == EReflectPropertyType::Object)
+				return static_cast<const IReflectObjectProperty*>(prop->getInterface());
+			return nullptr;
+		}
+	};
 }
