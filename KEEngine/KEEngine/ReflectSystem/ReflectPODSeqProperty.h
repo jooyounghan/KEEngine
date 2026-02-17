@@ -1,5 +1,5 @@
 #pragma once
-#include "IReflectPODSequenceContainerProperty.h"
+#include "IReflectPODSeqProperty.h"
 #include "ReflectPropertyAccessor.h"
 #include "ReflectPODPropertyInfo.h"
 #include "ReflectParser.h"
@@ -7,10 +7,10 @@
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectPODSequenceContainerProperty : public IReflectPODSequenceContainerProperty, public RefelctPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectPODSeqProperty : public IReflectPODSeqProperty, public RefelctPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
-		ReflectPODSequenceContainerProperty(
+		ReflectPODSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
@@ -27,4 +27,4 @@ namespace ke
 		virtual void	toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const override;
 	};
 }
-#include "ReflectPODSequenceContainerProperty.hpp"
+#include "ReflectPODSeqProperty.hpp"
