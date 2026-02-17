@@ -146,22 +146,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IReflectObjectCotainerProperty.h" />
+    <ClInclude Include="IReflectObjectContainerProperty.h" />
     <ClInclude Include="IReflectPODContainerProperty.h" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="IReflectObjectProperty.h" />
     <ClInclude Include="IReflectPODProperty.h" />
-    <ClInclude Include="IReflectPODProperty.hpp" />
     <ClInclude Include="IReflectProperty.h" />
     <ClInclude Include="IReflectProperty.hpp" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
+    <ClInclude Include="ReflectObjectContainerProperty.h" />
+    <ClInclude Include="ReflectObjectContainerProperty.hpp" />
     <ClInclude Include="ReflectObjectProperty.h" />
     <ClInclude Include="ReflectObjectProperty.hpp" />
+    <ClInclude Include="ReflectPODContainerProperty.h" />
+    <ClInclude Include="ReflectPODContainerProperty.hpp" />
     <ClInclude Include="ReflectPODProperty.h" />
     <ClInclude Include="ReflectPODProperty.hpp" />
+    <ClInclude Include="ReflectPODPropertyInfo.h" />
+    <ClInclude Include="ReflectPODPropertyInfo.hpp" />
     <ClInclude Include="ReflectPropertyAccessor.h" />
     <ClInclude Include="ReflectSerializer.h" />
     <ClInclude Include="ReflectSystemPch.h" />
@@ -170,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IReflectObjectContainerProperty.cpp" />
-    <ClCompile Include="IReflectObjectCotainerProperty.cpp" />
     <ClCompile Include="IReflectPODContainerProperty.cpp" />
     <ClCompile Include="IReflectObjectProperty.cpp" />
     <ClCompile Include="IReflectPODProperty.cpp" />
@@ -179,6 +183,7 @@
     <ClCompile Include="ReflectObject.cpp" />
     <ClCompile Include="ReflectParser.cpp" />
     <ClCompile Include="IReflectProperty.cpp" />
+    <ClCompile Include="ReflectPODPropertyInfo.cpp" />
     <ClCompile Include="ReflectPropertyBinder.cpp" />
     <ClCompile Include="ReflectSerializer.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">

@@ -10,6 +10,7 @@ namespace ke
     )
 		: IReflectObjectProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
     {
+        STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
     }
 
     template<typename ObjectType, typename PropertyType>

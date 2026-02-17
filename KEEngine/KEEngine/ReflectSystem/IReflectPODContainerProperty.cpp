@@ -4,7 +4,7 @@
 namespace ke
 {
 	IReflectPODContainerProperty::IReflectPODContainerProperty(const FlyweightStringA& name)
-		: IReflectProperty(name)
+		: IReflectContainerProperty(name)
 	{
 	
 	}

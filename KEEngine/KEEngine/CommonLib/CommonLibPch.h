@@ -23,6 +23,9 @@
 #include "Ptr.h"
 #include "RefCountedPtr.h"
 
+// Template
+#include <concepts>
+
 // Threading
 #include <atomic>
 #include <mutex>

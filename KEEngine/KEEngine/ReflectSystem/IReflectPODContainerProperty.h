@@ -1,12 +1,11 @@
 #pragma once
-#include "IReflectProperty.h"
+#include "IReflectContainerProperty.h"
 
 namespace ke
 {
 	class IBuffer;
-	class IReflectObject;
 
-	class IReflectPODContainerProperty : public IReflectProperty
+	class IReflectPODContainerProperty : public IReflectContainerProperty
 	{
 	public:
 		IReflectPODContainerProperty(const FlyweightStringA& name);
@@ -18,9 +17,6 @@ namespace ke
 	protected:
 		inline virtual void*		getInterface() override final { return static_cast<IReflectPODContainerProperty*>(this); }
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectPODContainerProperty*>(this); }
-
-	public:
-		virtual size_t getSize(const IReflectObject* parentReflectObject) const = 0;
 
 	public:
 		virtual void fromBianry(const size_t index, IReflectObject* object, const void* src) = 0;

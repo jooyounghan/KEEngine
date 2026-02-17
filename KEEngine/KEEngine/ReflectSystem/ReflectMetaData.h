@@ -1,7 +1,8 @@
 #pragma once
-#include "IReflectProperty.h"
 #include "ReflectPODProperty.h"
 #include "ReflectObjectProperty.h"
+#include "ReflectPODContainerProperty.h"
+#include "ReflectObjectContainerProperty.h"
 
 namespace ke
 {
@@ -11,29 +12,47 @@ namespace ke
 		ReflectMetaData(const FlyweightStringA& ownerObjectName);
 		~ReflectMetaData() = default;
 
-	private:
-		OwnerVector<IReflectProperty> _properties;
-
-	private:
-		std::map<FlyweightStringA, IReflectProperty*> _orderedPropertyMap;
-
 	public:
 		template<typename ObjectType, typename PropertyType>
-		void addProperty(
+		void addPODProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, PropertyType> getter
 			, ConstGetter<ObjectType, PropertyType> constGetter
 			, Setter<ObjectType, PropertyType> setter
 		);
 
+		template<typename ObjectType, typename PropertyType>
+		void addReflectObjectProperty(
+			const FlyweightStringA& name
+			, Getter<ObjectType, PropertyType> getter
+			, ConstGetter<ObjectType, PropertyType> constGetter
+			, Setter<ObjectType, PropertyType> setter
+		);
+
+		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+		void addPODContainerProperty(
+			const FlyweightStringA& name
+			, Getter<ObjectType, ContainerType<PropertyType>> getter
+			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
+			, Setter<ObjectType, ContainerType<PropertyType>> setter
+		);
+
+		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+		void addReflectObjectContainerProperty(
+			const FlyweightStringA& name
+			, Getter<ObjectType, ContainerType<PropertyType>> getter
+			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
+			, Setter<ObjectType, ContainerType<PropertyType>> setter
+		);
+
 	public:
 		IReflectProperty* getPropertyByName(const FlyweightStringA& name) const;
 		inline const FlyweightStringA& getOwnerObjectName() const { return _ownerObjectName; }
-
-	public:
 		inline const OwnerVector<IReflectProperty>& getAllProperties() const { return _properties; }
 
 	private:
+		OwnerVector<IReflectProperty> _properties;
+		std::map<FlyweightStringA, IReflectProperty*> _orderedPropertyMap;
 		FlyweightStringA _ownerObjectName;
 	};
 }

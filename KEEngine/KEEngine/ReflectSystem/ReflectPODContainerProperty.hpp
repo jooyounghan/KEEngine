@@ -11,28 +11,45 @@ namespace ke
 		RefelctPODPropertyInfo<PropertyType>(),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
-
+		STATIC_ASSERT(ReflectContainerCompatible<ContainerType, PropertyType>, "ContainerType must be ReflectContainerCompatible");
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ke::ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject* parentReflectObject) const
+	size_t ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject* object) const
 	{
-		return size_t();
+		const ContainerType<PropertyType>& container = this->get(object);
+		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::fromBianry(const size_t index, IReflectObject* object, const void* src)
-	{}
+	{
+		ContainerType<PropertyType>& container = this->get(object);
+		PropertyType& property = container[index];
+		ReflectParser::parseFromBinary(src, &property);
+	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const
-	{}
+	{
+		const ContainerType<PropertyType>& container = this->get(object);
+		const PropertyType& property = container[index];
+		ReflectParser::parseToBinary(outDst, &property);
+	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen)
-	{}
+	{
+		const ContainerType<PropertyType>& container = this->get(object);
+		const PropertyType& property = container[index];
+		ReflectParser::parseFromString(src, strlen, &property);
+	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>::toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const
-	{}
+	{
+		const ContainerType<PropertyType>& container = this->get(object);
+		const PropertyType& property = container[index];
+		ReflectParser::parseToString(outStringBuffer, &property);
+	}
 }

@@ -8,23 +8,30 @@ namespace ke
 		Setter<ObjectType, ContainerType<PropertyType>> setter
 	)
 	{
+		STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
+		STATIC_ASSERT(ReflectContainerCompatible<ContainerType, PropertyType>, "ContainerType must be ReflectContainerCompatible");
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	size_t ke::ReflectObjectContainerProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject * parentReflectObject) const
 	{
-		return size_t();
+		const ContainerType<PropertyType>& container = this->get(object);
+		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	IReflectObject* ke::ReflectObjectContainerProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* parentReflectObject)
 	{
-		return nullptr;
+		ContainerType<PropertyType>& container = this->get(object);
+		PropertyType& property = container[index];
+		return static_cast<IReflectObject*>(&property);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	const IReflectObject* ke::ReflectObjectContainerProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const
 	{
-		return nullptr;
+		ContainerType<PropertyType>& container = this->get(object);
+		const PropertyType& property = container[index];
+		return static_cast<const IReflectObject*>(&property);
 	}
 }

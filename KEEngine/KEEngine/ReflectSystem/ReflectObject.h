@@ -1,7 +1,6 @@
 #pragma once
 #include "IReflectObject.h"
 #include "ReflectMetaData.h"
-#include "ReflectPropertyBinder.h"
 
 namespace ke
 {
@@ -23,10 +22,6 @@ namespace ke
 	protected:
 		static ReflectMetaData _reflectMetaData;
 		static FlyweightStringA _objectName;
-
-	public:
-		const ReflectMetaData* getMetaData() const override;
-		const FlyweightStringA& getName() const override { return _objectName; };
 	};
 }
 #include "ReflectObject.hpp"
