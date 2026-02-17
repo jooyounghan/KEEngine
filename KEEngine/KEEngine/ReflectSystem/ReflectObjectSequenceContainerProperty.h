@@ -1,14 +1,14 @@
 #pragma once
-#include "IReflectObjectContainerProperty.h"
-#include "ReflectPropertyAccessor.h"
+#include "IReflectObjectSequenceContainerProperty.h"
+#include "ReflectObjectSequenceContainerProperty.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectObjectContainerProperty : public IReflectObjectContainerProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectObjectSequenceContainerProperty : public IReflectObjectSeqeunceContainerProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
-		ReflectObjectContainerProperty(
+		ReflectObjectSequenceContainerProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
@@ -23,4 +23,4 @@ namespace ke
 		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const override;
 	};
 }
-#include "ReflectObjectContainerProperty.hpp"
+#include "ReflectObjectSequenceContainerProperty.hpp"

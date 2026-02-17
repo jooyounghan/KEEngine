@@ -29,4 +29,3 @@ namespace ke
         static const IReflectObjectProperty*	cast(const IReflectProperty* prop);
     };
 }
-#include "IReflectObjectProperty.hpp"

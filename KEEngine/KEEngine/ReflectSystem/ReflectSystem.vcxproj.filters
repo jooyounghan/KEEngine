@@ -120,10 +120,10 @@
     <ClInclude Include="ReflectPropertyAccessor.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectPODContainerProperty.h">
+    <ClInclude Include="IReflectPODSequenceContainerProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectObjectContainerProperty.h">
+    <ClInclude Include="IReflectObjectSequenceContainerProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObjectProperty.hpp">
@@ -135,16 +135,16 @@
     <ClInclude Include="ReflectPODProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPODContainerProperty.h">
+    <ClInclude Include="ReflectPODSequenceContainerProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectObjectContainerProperty.h">
+    <ClInclude Include="ReflectObjectSequenceContainerProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectObjectContainerProperty.hpp">
+    <ClInclude Include="ReflectObjectSequenceContainerProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPODContainerProperty.hpp">
+    <ClInclude Include="ReflectPODSequenceContainerProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
     <ClInclude Include="ReflectPODPropertyInfo.h">
@@ -152,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="ReflectPODPropertyInfo.hpp">
       <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectContainerProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +179,6 @@
     <ClCompile Include="ReflectSerializer.cpp">
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="ReflectVector.cpp">
-      <Filter>소스 파일\Reflection</Filter>
-    </ClCompile>
     <ClCompile Include="ReflectPODProperty.cpp">
       <Filter>소스 파일\Reflection\POD</Filter>
     </ClCompile>
@@ -188,13 +188,16 @@
     <ClCompile Include="IReflectObjectProperty.cpp">
       <Filter>소스 파일\Reflection\ReflectObject</Filter>
     </ClCompile>
-    <ClCompile Include="IReflectPODContainerProperty.cpp">
+    <ClCompile Include="IReflectPODSequenceContainerProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
-    <ClCompile Include="IReflectObjectContainerProperty.cpp">
+    <ClCompile Include="IReflectObjectSequenceContainerProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
     <ClCompile Include="ReflectPODPropertyInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectContainerProperty.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

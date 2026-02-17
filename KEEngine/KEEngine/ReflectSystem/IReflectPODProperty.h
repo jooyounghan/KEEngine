@@ -33,4 +33,3 @@ namespace ke
         static const IReflectPODProperty*	cast(const IReflectProperty* prop);
     };
 }
-#include "IReflectPODProperty.hpp"

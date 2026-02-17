@@ -146,8 +146,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IReflectObjectContainerProperty.h" />
-    <ClInclude Include="IReflectPODContainerProperty.h" />
+    <ClInclude Include="IReflectContainerProperty.h" />
+    <ClInclude Include="IReflectObjectSequenceContainerProperty.h" />
+    <ClInclude Include="IReflectPODSequenceContainerProperty.h" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="IReflectObjectProperty.h" />
     <ClInclude Include="IReflectPODProperty.h" />
@@ -157,12 +158,12 @@
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
-    <ClInclude Include="ReflectObjectContainerProperty.h" />
-    <ClInclude Include="ReflectObjectContainerProperty.hpp" />
+    <ClInclude Include="ReflectObjectSequenceContainerProperty.h" />
+    <ClInclude Include="ReflectObjectSequenceContainerProperty.hpp" />
     <ClInclude Include="ReflectObjectProperty.h" />
     <ClInclude Include="ReflectObjectProperty.hpp" />
-    <ClInclude Include="ReflectPODContainerProperty.h" />
-    <ClInclude Include="ReflectPODContainerProperty.hpp" />
+    <ClInclude Include="ReflectPODSequenceContainerProperty.h" />
+    <ClInclude Include="ReflectPODSequenceContainerProperty.hpp" />
     <ClInclude Include="ReflectPODProperty.h" />
     <ClInclude Include="ReflectPODProperty.hpp" />
     <ClInclude Include="ReflectPODPropertyInfo.h" />
@@ -174,8 +175,9 @@
     <ClInclude Include="ReflectParser.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IReflectObjectContainerProperty.cpp" />
-    <ClCompile Include="IReflectPODContainerProperty.cpp" />
+    <ClCompile Include="IReflectContainerProperty.cpp" />
+    <ClCompile Include="IReflectObjectSequenceContainerProperty.cpp" />
+    <ClCompile Include="IReflectPODSequenceContainerProperty.cpp" />
     <ClCompile Include="IReflectObjectProperty.cpp" />
     <ClCompile Include="IReflectPODProperty.cpp" />
     <ClCompile Include="ReflectPODProperty.cpp" />
@@ -192,7 +194,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ReflectVector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.vcxproj">

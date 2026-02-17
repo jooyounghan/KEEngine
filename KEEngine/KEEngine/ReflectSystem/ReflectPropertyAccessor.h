@@ -32,5 +32,5 @@ namespace ke
         Getter<ObjectType, PropertyType>            _getter;
         ConstGetter<ObjectType, PropertyType>       _constGetter;
         Setter<ObjectType, PropertyType>            _setter;
-	}
+	};
 }

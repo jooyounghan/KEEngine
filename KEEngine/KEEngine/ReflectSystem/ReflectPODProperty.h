@@ -6,14 +6,6 @@
 
 namespace ke
 {
-    template<typename PropertyType>
-    struct RangedPropertyInfo
-    {
-        PropertyType    _maxValue;
-        PropertyType    _minValue;
-        PropertyType    _step;
-    };
-
 	template<typename ObjectType, typename PropertyType>
 	class ReflectPODProperty : public IReflectPODProperty, public RefelctPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, PropertyType>
 	{

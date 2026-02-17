@@ -18,14 +18,14 @@ namespace ke
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectMetaData::addPODContainerProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
-		IReflectProperty* property = _properties.push_back<ReflectPODContainerProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
+		IReflectProperty* property = _properties.push_back<ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
 		_orderedPropertyMap.emplace(name, property);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectMetaData::addReflectObjectContainerProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
-		IReflectProperty* property = _properties.push_back<ReflectObjectContainerProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
+		IReflectProperty* property = _properties.push_back<ReflectObjectSequenceContainerProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
 		_orderedPropertyMap.emplace(name, property);
 	}
 }
