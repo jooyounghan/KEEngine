@@ -1,13 +1,13 @@
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::ReflectPODSequenceContainerProperty(
+	ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ReflectPODSeqProperty(
 		const FlyweightStringA& name,
 		Getter<ObjectType, ContainerType<PropertyType>> getter,
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter,
 		Setter<ObjectType, ContainerType<PropertyType>> setter
 	)
-		: IReflectPODSequenceContainerProperty(name),
+		: IReflectPODSeqProperty(name),
 		RefelctPODPropertyInfo<PropertyType>(),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
@@ -15,14 +15,14 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject* object) const
+	size_t ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject* object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::fromBianry(const size_t index, IReflectObject* object, const void* src)
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::fromBianry(const size_t index, IReflectObject* object, const void* src)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		PropertyType& property = container[index];
@@ -30,7 +30,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];
@@ -38,7 +38,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen)
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen)
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];
@@ -46,7 +46,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];

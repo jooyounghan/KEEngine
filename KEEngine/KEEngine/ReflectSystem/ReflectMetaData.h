@@ -1,8 +1,8 @@
 #pragma once
 #include "ReflectPODProperty.h"
 #include "ReflectObjectProperty.h"
-#include "ReflectPODSequenceContainerProperty.h"
-#include "ReflectObjectSequenceContainerProperty.h"
+#include "ReflectPODSeqProperty.h"
+#include "ReflectObjectSeqProperty.h"
 
 namespace ke
 {

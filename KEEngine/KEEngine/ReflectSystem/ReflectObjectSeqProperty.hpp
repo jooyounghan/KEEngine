@@ -1,7 +1,7 @@
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	ReflectObjectSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::ReflectObjectSequenceContainerProperty(
+	ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::ReflectObjectSeqProperty(
 		const FlyweightStringA& name, 
 		Getter<ObjectType, ContainerType<PropertyType>> getter, 
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, 
@@ -13,14 +13,14 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ke::ReflectObjectSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject * parentReflectObject) const
+	size_t ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject * parentReflectObject) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	IReflectObject* ke::ReflectObjectSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* parentReflectObject)
+	IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* parentReflectObject)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		PropertyType& property = container[index];
@@ -28,7 +28,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const IReflectObject* ke::ReflectObjectSequenceContainerProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const
+	const IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];
