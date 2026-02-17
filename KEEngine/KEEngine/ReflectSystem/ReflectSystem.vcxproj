@@ -146,29 +146,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ReflectEnumProperty.h" />
-    <ClInclude Include="ReflectEnumProperty.hpp" />
-    <ClInclude Include="ReflectObjectProperty.h" />
-    <ClInclude Include="ReflectObjectProperty.hpp" />
-    <ClInclude Include="ReflectPODProperty.h" />
-    <ClInclude Include="ReflectPODProperty.hpp" />
+    <ClInclude Include="IReflectObjectCotainerProperty.h" />
+    <ClInclude Include="IReflectPODContainerProperty.h" />
     <ClInclude Include="IReflectObject.h" />
+    <ClInclude Include="IReflectObjectProperty.h" />
+    <ClInclude Include="IReflectPODProperty.h" />
+    <ClInclude Include="IReflectPODProperty.hpp" />
+    <ClInclude Include="IReflectProperty.h" />
+    <ClInclude Include="IReflectProperty.hpp" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
-    <ClInclude Include="IReflectProperty.h" />
-    <ClInclude Include="IReflectProperty.hpp" />
-    <ClInclude Include="ReflectPropertyBinder.h" />
-    <ClInclude Include="ReflectPropertyBinder.hpp" />
+    <ClInclude Include="ReflectObjectProperty.h" />
+    <ClInclude Include="ReflectObjectProperty.hpp" />
+    <ClInclude Include="ReflectPODProperty.h" />
+    <ClInclude Include="ReflectPODProperty.hpp" />
+    <ClInclude Include="ReflectPropertyAccessor.h" />
     <ClInclude Include="ReflectSerializer.h" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectParser.h" />
     <ClInclude Include="ReflectParser.hpp" />
-    <ClInclude Include="ReflectVector.h" />
-    <ClInclude Include="ReflectVector.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IReflectObjectContainerProperty.cpp" />
+    <ClCompile Include="IReflectObjectCotainerProperty.cpp" />
+    <ClCompile Include="IReflectPODContainerProperty.cpp" />
+    <ClCompile Include="IReflectObjectProperty.cpp" />
+    <ClCompile Include="IReflectPODProperty.cpp" />
     <ClCompile Include="ReflectPODProperty.cpp" />
     <ClCompile Include="ReflectMetaData.cpp" />
     <ClCompile Include="ReflectObject.cpp" />

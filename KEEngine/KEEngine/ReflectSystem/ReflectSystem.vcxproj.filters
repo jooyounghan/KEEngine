@@ -46,6 +46,33 @@
     <Filter Include="소스 파일\Utility">
       <UniqueIdentifier>{33b3a303-7143-4f92-aeff-8c6bcf333caa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Hpp\Reflection\POD">
+      <UniqueIdentifier>{f8a3a1ea-2018-4073-b827-b0f05c96c554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Reflection\POD">
+      <UniqueIdentifier>{05bad911-48ab-4c03-8274-cbd215820697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Reflection\POD">
+      <UniqueIdentifier>{d62ddec4-ac3b-49fa-8a47-9a89001185ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Reflection\ReflectObject">
+      <UniqueIdentifier>{c3c81461-bb75-4548-a171-b4fad64760fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Reflection\ReflectObject">
+      <UniqueIdentifier>{08d958db-6250-4e73-831a-d714e9a2316e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Reflection\ReflectObject">
+      <UniqueIdentifier>{a4583283-5556-4f20-85e1-049ee793038e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Header\Reflection\Container">
+      <UniqueIdentifier>{dc063020-d97f-4f8d-a3f5-445e502980f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Hpp\Reflection\Container">
+      <UniqueIdentifier>{4ff064ee-c592-4024-8150-5e0433277de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Reflection\Container">
+      <UniqueIdentifier>{7cda38eb-25df-4fe3-ae2d-cce23abee6c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReflectSystemPch.h">
@@ -60,15 +87,6 @@
     <ClInclude Include="ReflectSerializer.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="IReflectObject.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="IReflectProperty.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectObject.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
@@ -78,38 +96,47 @@
     <ClInclude Include="ReflectObject.hpp">
       <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPropertyBinder.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectPropertyBinder.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectMetaData.hpp">
       <Filter>헤더 파일\Hpp\MetaData</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPODProperty.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectPODProperty.h">
+    <ClInclude Include="IReflectProperty.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
+    <ClInclude Include="IReflectProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectPODProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectPODProperty.h">
+      <Filter>헤더 파일\Header\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectPODProperty.h">
+      <Filter>헤더 파일\Header\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectPODProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
+    </ClInclude>
     <ClInclude Include="ReflectObjectProperty.h">
+      <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectObject.h">
+      <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectObjectProperty.h">
+      <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectPropertyAccessor.h">
       <Filter>헤더 파일\Header\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObjectProperty.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
+      <Filter>헤더 파일\Hpp\Reflection\ReflectObject</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectVector.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
+    <ClInclude Include="IReflectPODContainerProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectVector.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectEnumProperty.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectEnumProperty.hpp">
-      <Filter>헤더 파일\Hpp\Reflection</Filter>
+    <ClInclude Include="IReflectObjectCotainerProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +161,26 @@
     <ClCompile Include="ReflectSerializer.cpp">
       <Filter>소스 파일\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="ReflectPODProperty.cpp">
-      <Filter>소스 파일\Reflection</Filter>
-    </ClCompile>
     <ClCompile Include="ReflectVector.cpp">
       <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectPODProperty.cpp">
+      <Filter>소스 파일\Reflection\POD</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectPODProperty.cpp">
+      <Filter>소스 파일\Reflection\POD</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectObjectProperty.cpp">
+      <Filter>소스 파일\Reflection\ReflectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectPODContainerProperty.cpp">
+      <Filter>소스 파일\Reflection\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectObjectContainerProperty.cpp">
+      <Filter>소스 파일\Reflection\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectObjectCotainerProperty.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

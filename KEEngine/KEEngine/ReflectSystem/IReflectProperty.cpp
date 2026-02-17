@@ -3,9 +3,8 @@
 
 namespace ke
 {
-    DEFINE_ENUM_DESCRIPTOR(EReflectUIOption,
-		None,
-		Visible,
-		Editable
-    );
+	IReflectProperty::IReflectProperty(const FlyweightStringA& name)
+		: _name(name) 
+	{
+	}
 }
