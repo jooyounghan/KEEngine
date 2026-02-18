@@ -1,11 +1,16 @@
 #include "ReflectSystemPch.h"
 #include "ReflectSerializer.h"
 
-#include "StaticBuffer.h"
+#include "StrUtil.h"
 #include "XmlReader.h"
 #include "XmlWriter.h"
-#include "IReflectProperty.h"
+#include "StaticBuffer.h"
+#include "IReflectObject.h"
 #include "ReflectMetaData.h"
+#include "IReflectProperty.h"
+#include "IReflectPODSeqProperty.h"
+#include "IReflectObjectProperty.h"
+#include "IReflectObjectSeqProperty.h"
 
 namespace ke
 {
@@ -29,7 +34,7 @@ namespace ke
 
 	void ke::ReflectSerializer::serializeToXMLInner(XmlWriter& xmlWriter, const IReflectObject* reflectObject, uint32 depth)
 	{
-		static StaticBuffer<BUFFER_BYTES_256> propertyValueBuffer;
+		static StaticBuffer<BUFFER_BYTES_1KB> propertyValueBuffer;
 
 		const FlyweightStringA& objetName = reflectObject->getName();
 		XmlBuilder builder(objetName.c_str(), objetName.length(), &xmlWriter, depth);
@@ -41,23 +46,42 @@ namespace ke
 
 		for (const IReflectProperty* property : properties)
 		{
-			switch (property->getPropertyType())
+			const EReflectPropertyType reflectPropertyType = property->getType();
+			const FlyweightStringA& propertyName = property->getName();
+			switch (reflectPropertyType)
 			{
-			case EReflectPropertyType::Object:
-			case EReflectPropertyType::Vector:
+			case EReflectPropertyType::POD:
+			{
+				const IReflectPODProperty* reflectPODProperty = property->castTo<IReflectPODProperty>();
+				if (reflectPODProperty == nullptr) break;
+				reflectPODProperty->toString(reflectObject, &propertyValueBuffer);
+				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
+				propertyValueBuffer.reset();
+				break;
+			}
+			case EReflectPropertyType::PODContainer:
+			{
+				const IReflectPODSeqProperty* reflectPODContainerProperty = property->castTo<IReflectPODSeqProperty>();
+				if (reflectPODContainerProperty == nullptr) break;
+				const size_t count = reflectPODContainerProperty->size(reflectObject);
+				reflectPODContainerProperty->toString(0, reflectObject, &propertyValueBuffer);
+				for (size_t idx = 1; idx < count; ++idx)
+				{
+					propertyValueBuffer.write(", ", 2);
+					reflectPODContainerProperty->toString(idx, reflectObject, &propertyValueBuffer);
+				}
+				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
+				propertyValueBuffer.reset();
+				break;
+			}
+			case EReflectPropertyType::ReflectObject:
+			case EReflectPropertyType::ReflectObjectContainer:
 			{
 				complexProperties.push_back(property);
 				break;
 			}
-			case EReflectPropertyType::POD:
-			case EReflectPropertyType::Enum:
-			{
-				const FlyweightStringA& propertyName = property->getName();
-				property->getToString(reflectObject, &propertyValueBuffer);
-				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
-				propertyValueBuffer.reset();
-			break;
-			}
+			default:
+				break;
 			}
 		}
 
@@ -66,10 +90,32 @@ namespace ke
 			builder.openHeaderEnd();
 			for (const IReflectProperty* property : complexProperties)
 			{
-				const IReflectObjectProperty* objectProperty = property->as<IReflectObjectProperty>();
-				if (objectProperty != nullptr)
+				const EReflectPropertyType reflectPropertyType = property->getType();
+				const FlyweightStringA& propertyName = property->getName();
+				switch (reflectPropertyType)
 				{
+				case EReflectPropertyType::ReflectObject:
+				{
+					const IReflectObjectProperty* objectProperty = property->castTo<IReflectObjectProperty>();
+					if (objectProperty == nullptr) break;
 					serializeToXMLInner(xmlWriter, objectProperty->getReflectObject(reflectObject), depth + 1);
+					break;
+				}
+				case EReflectPropertyType::ReflectObjectContainer:
+				{
+					const IReflectObjectSeqProperty* objectSeqProperty = property->castTo<IReflectObjectSeqProperty>();
+					if (objectSeqProperty == nullptr) break;
+					const size_t count = objectSeqProperty->size(reflectObject);
+					for (size_t idx = 0; idx < count; ++idx)
+					{
+						serializeToXMLInner(xmlWriter, objectSeqProperty->getReflectObject(idx, reflectObject), depth + 1);
+					}
+					break;
+				}
+				case EReflectPropertyType::POD:
+				case EReflectPropertyType::PODContainer:
+				default:
+					break;
 				}
 			}
 		}
@@ -92,33 +138,81 @@ namespace ke
 		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
 		for (XmlAttribute attribute = xmlNode.getFirstAttribute(); attribute.isValid(); attribute = attribute.getNextAttribute())
 		{
-			std::string_view name = attribute.getName();
-			std::string_view value = attribute.getValue();
+			const std::string_view name = attribute.getName();
+			const std::string_view value = attribute.getValue();
 
 			FlyweightStringA propertyName(name);
 			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(propertyName);
+			if (reflectProperty == nullptr) continue;
 
-			if (reflectProperty != nullptr)
+			const EReflectPropertyType reflectPropertyType = reflectProperty->getType();
+			switch (reflectPropertyType)
 			{
-				reflectProperty->setFromString(reflectObject, value.data(), value.length());
+			case EReflectPropertyType::POD:
+			{
+				IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();
+				if (reflectPODProperty == nullptr) break;
+				reflectPODProperty->fromString(reflectObject, value.data(), value.length());
+				break;
+			}
+			case EReflectPropertyType::PODContainer:
+			{
+				IReflectPODSeqProperty* reflectPODSeqProperty = reflectProperty->castTo<IReflectPODSeqProperty>();
+				if (reflectPODSeqProperty == nullptr) break;
+				const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
+				const size_t count = values.size();
+				reflectPODSeqProperty->resize(reflectObject, count);
+				for (size_t idx = 0; idx < count; ++idx)
+				{
+					reflectPODSeqProperty->fromString(idx, reflectObject, values[idx].data(), values[idx].length());
+				}
+				break;
+			}
+			case EReflectPropertyType::ReflectObject:
+			case EReflectPropertyType::ReflectObjectContainer:
+			default:
+				break;
 			}
 		}
 
 		const std::vector<XmlNode>& children = xmlNode.getChildNodes();
 		for (const XmlNode& childNode : children)
 		{
-			std::string_view name = createReflectiveString(childNode.getName());
+			const std::string_view name = createReflectiveString(childNode.getName());
 
-			FlyweightStringA propertyName(name);
+			const FlyweightStringA propertyName(name);
 			IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(propertyName);
+			if (reflectProperty == nullptr) continue;
 
-			if (reflectProperty != nullptr)
+			const EReflectPropertyType reflectPropertyType = reflectProperty->getType();
+			switch (reflectPropertyType)
 			{
-				IReflectObjectProperty* objectProperty = reflectProperty->as<IReflectObjectProperty>();
-				if (objectProperty != nullptr)
+			case EReflectPropertyType::ReflectObject:
+			{
+				IReflectObjectProperty* objectProperty = reflectProperty->castTo<IReflectObjectProperty>();
+				if (objectProperty == nullptr) break;
+				deserializeFromXMLInner(childNode, objectProperty->getReflectObject(reflectObject));
+				break;
+			}
+			case EReflectPropertyType::ReflectObjectContainer:
+			{
+				IReflectObjectSeqProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSeqProperty>();
+				if (objectSeqProperty == nullptr) break;
+
+				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
+				const size_t count = grandChildren.size();
+				objectSeqProperty->resize(reflectObject, count);
+				for (size_t idx = 0; idx < count; ++idx)
 				{
-					deserializeFromXMLInner(childNode, objectProperty->getReflectObject(reflectObject));
+					deserializeFromXMLInner(grandChildren[idx], objectSeqProperty->getReflectObject(idx, reflectObject));
+
 				}
+				break;
+			}
+			case EReflectPropertyType::POD:
+			case EReflectPropertyType::PODContainer:
+			default:
+				break;
 			}
 		}
 	}

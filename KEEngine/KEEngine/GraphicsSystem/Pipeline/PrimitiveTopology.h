@@ -9,6 +9,6 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(PrimitiveTopology);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(uint8, _primitiveTopologyType);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _primitiveTopologyType, 0);
 	};
 }

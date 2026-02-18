@@ -9,6 +9,6 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(SampleMask);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(uint32, _sampleMask);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _sampleMask, 0);
 	};
 }

@@ -15,6 +15,8 @@ namespace ke
 	private:
 		static void serializeToXMLInner(XmlWriter& xmlWriter, const IReflectObject* reflectObject, uint32 depth);
 		static void deserializeFromXMLInner(const XmlNode& xmlNode, IReflectObject* reflectObject);
+
+
 	public:
 		//static void serializeToBinary(IBuffer* outBuffer, const IReflectObject* obj);
 		//static void deserializeFromBinary(const IBuffer* const IReflectObject* obj);

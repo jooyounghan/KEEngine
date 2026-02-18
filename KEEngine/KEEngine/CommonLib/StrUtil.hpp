@@ -40,7 +40,7 @@ namespace ke
     }
 
     template<typename T>
-    bool ke::StrUtil::parseStringViewToFloating(std::string_view sv, T& out)
+    bool StrUtil::parseStringViewToFloating(std::string_view sv, T& out)
     {
         const char* first = sv.data();
         const char* last = sv.data() + sv.size();

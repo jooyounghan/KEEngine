@@ -30,7 +30,7 @@ namespace ke
 		);
 
 		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-		void addPODContainerProperty(
+		void addReflectPODSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
@@ -38,7 +38,7 @@ namespace ke
 		);
 
 		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-		void addReflectObjectContainerProperty(
+		void addReflectObjectSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter

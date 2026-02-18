@@ -9,12 +9,12 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(InputLayoutElement);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(FlyweightStringA, _semanticName);
-		DECLARE_REFLECT_PROPERTY(uint32, _semanticIndex);
-		DECLARE_REFLECT_PROPERTY(uint8, _format);
-		DECLARE_REFLECT_PROPERTY(uint32, _inputSlot);
-		DECLARE_REFLECT_PROPERTY(uint32, _alignedByteOffset);
-		DECLARE_REFLECT_PROPERTY(uint8, _inputSlotClass);
-		DECLARE_REFLECT_PROPERTY(uint32, _instanceDataStepRate);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(FlyweightStringA, _semanticName, FlyweightStringA::_empty);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _semanticIndex, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _format, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _inputSlot, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _alignedByteOffset, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _inputSlotClass, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _instanceDataStepRate, 0);
 	};
 }

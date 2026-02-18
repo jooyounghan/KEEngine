@@ -276,4 +276,34 @@ namespace ke
         while (p < end && StrUtil::isWhitespace(*p))
             ++p;
     }
+
+    std::vector<std::string_view> StrUtil::split(const char* ptr, size_t len, const char* splitPtr, size_t splitLen)
+    {
+        std::vector<std::string_view> result;
+
+        if (ptr == nullptr || len == 0) return result;
+
+        if (splitPtr == nullptr || splitLen == 0)
+        {
+            result.emplace_back(ptr, len);
+            return result;
+        }
+
+        std::string_view str(ptr, len);
+        std::string_view delimiter(splitPtr, splitLen);
+
+        size_t start = 0;
+        size_t found = str.find(delimiter);
+
+        while (found != std::string_view::npos)
+        {
+            result.emplace_back(str.substr(start, found - start));
+            start = found + splitLen;
+            found = str.find(delimiter, start);
+        }
+
+        result.emplace_back(str.substr(start));
+
+        return result;
+    }
 }

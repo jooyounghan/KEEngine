@@ -1,4 +1,3 @@
-#include "ReflectMetaData.h"
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
@@ -16,14 +15,14 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectMetaData::addPODContainerProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
+	void ReflectMetaData::addReflectPODSeqProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
 		IReflectProperty* property = _properties.push_back<ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
 		_orderedPropertyMap.emplace(name, property);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectMetaData::addReflectObjectContainerProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
+	void ReflectMetaData::addReflectObjectSeqProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
 		IReflectProperty* property = _properties.push_back<ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
 		_orderedPropertyMap.emplace(name, property);

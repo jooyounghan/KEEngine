@@ -1,3 +1,4 @@
+#include "ReflectPODSeqProperty.h"
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
@@ -8,17 +9,30 @@ namespace ke
 		Setter<ObjectType, ContainerType<PropertyType>> setter
 	)
 		: IReflectPODSeqProperty(name),
-		RefelctPODPropertyInfo<PropertyType>(),
+		ReflectPODPropertyInfo<PropertyType>(),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
-		STATIC_ASSERT(ReflectContainerCompatible<ContainerType, PropertyType>, "ContainerType must be ReflectContainerCompatible");
+		STATIC_ASSERT((ReflectContainerCompatible<ContainerType, PropertyType>), "ContainerType must be ReflectContainerCompatible");
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject* object) const
+	const void* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getTypeId() const
+	{
+		return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
+	}
+
+	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	size_t ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject* object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
+	}
+
+	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
+	{
+		const ContainerType<PropertyType>& container = this->get(object);
+		return container.resize(newSize);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>

@@ -45,7 +45,8 @@ namespace ke
 
 	public:
 		const FlyweightStringA& getName() const { return _name; }
-		const EReflectUIOption getUIOption() const { return _uiOption; }
+		const EReflectUIOption	getUIOption() const { return _uiOption; }
+		void					setUIOption(const EReflectUIOption& uiOption) { _uiOption = uiOption; }
 
 	public:
 		template<typename T>

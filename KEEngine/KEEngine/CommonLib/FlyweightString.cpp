@@ -6,6 +6,9 @@ using namespace std;
 namespace ke
 {
 	template<typename CharType>
+	const FlyweightString<CharType> FlyweightString<CharType>::_empty;
+
+	template<typename CharType>
 	unordered_map<basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)>& FlyweightString<CharType>::getStringEntryMap()
 	{
 		static unordered_map<basic_string_view<CharType>, size_t, HASH(std::basic_string_view<CharType>)> instance;

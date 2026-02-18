@@ -169,6 +169,8 @@
     <ClInclude Include="ReflectPODPropertyInfo.h" />
     <ClInclude Include="ReflectPODPropertyInfo.hpp" />
     <ClInclude Include="ReflectPropertyAccessor.h" />
+    <ClInclude Include="ReflectPropertyBinder.h" />
+    <ClInclude Include="ReflectPropertyBinder.hpp" />
     <ClInclude Include="ReflectSerializer.h" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectParser.h" />

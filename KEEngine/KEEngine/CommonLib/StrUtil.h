@@ -71,7 +71,7 @@ namespace ke
             return isNameCharStart(c) || (c >= '0' && c <= '9');
         }
 
-
+        static std::vector<std::string_view> split(const char* ptr, size_t len, const char* splitPtr, size_t splitLen);
     };
 }
 

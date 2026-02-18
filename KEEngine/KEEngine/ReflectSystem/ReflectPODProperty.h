@@ -1,13 +1,12 @@
 #pragma once
 #include "IReflectPODProperty.h"
 #include "ReflectPropertyAccessor.h"
-#include "ReflectPODPropertyInfo.h"
 #include "ReflectParser.h"
 
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
-	class ReflectPODProperty : public IReflectPODProperty, public RefelctPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, PropertyType>
+	class ReflectPODProperty : public IReflectPODProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, PropertyType>
 	{
     public:
         ReflectPODProperty(
@@ -17,6 +16,9 @@ namespace ke
             , Setter<ObjectType, PropertyType> setter
         );
         ~ReflectPODProperty() override = default;
+
+    protected:
+        virtual const void* getTypeId() const;
 
     public:
         virtual void fromBianry(IReflectObject* object, const void* src) override;

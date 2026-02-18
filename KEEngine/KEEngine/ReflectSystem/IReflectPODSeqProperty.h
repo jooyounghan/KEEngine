@@ -1,11 +1,12 @@
 #pragma once
 #include "IReflectContainerProperty.h"
+#include "ReflectPODPropertyInfo.h"
 
 namespace ke
 {
 	class IBuffer;
 
-	class IReflectPODSeqProperty : public IReflectContainerProperty
+	class IReflectPODSeqProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
 	{
 	public:
 		IReflectPODSeqProperty(const FlyweightStringA& name);

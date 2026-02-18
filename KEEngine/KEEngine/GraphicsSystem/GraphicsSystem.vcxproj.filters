@@ -93,24 +93,6 @@
     <ClInclude Include="CommandQueue.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Pipeline\PixelShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\HullShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\GeometryShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\DomainShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\ComputeShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\VertexShader.h">
-      <Filter>헤더 파일\Pipeline\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Pipeline\DepthState.h">
       <Filter>헤더 파일\Pipeline\State</Filter>
     </ClInclude>
@@ -184,24 +166,6 @@
     </ClCompile>
     <ClCompile Include="CommandQueue.cpp">
       <Filter>소스 파일\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\ComputeShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\DomainShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\GeometryShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\HullShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\PixelShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\VertexShader.cpp">
-      <Filter>소스 파일\Pipeline\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline\BlendState.cpp">
       <Filter>소스 파일\Pipeline\State</Filter>

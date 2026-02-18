@@ -9,7 +9,7 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(SampleDesc);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(uint32, _count);
-		DECLARE_REFLECT_PROPERTY(uint32, _quality);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _count, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _quality, 0);
 	};
 }

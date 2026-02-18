@@ -1,4 +1,3 @@
-#include "ReflectObjectProperty.h"
 namespace ke
 {
     template<typename ObjectType, typename PropertyType>

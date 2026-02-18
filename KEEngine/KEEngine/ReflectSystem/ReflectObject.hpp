@@ -1,9 +1,5 @@
-
-#pragma region ReflectProperty Macros
-// Declare Reflect Property Macros
-
-#define DECLARE_REFLECT_PROPERTY(Type, Variable)								\
-	Type Variable;																\
+#pragma region Declare ReflectProperty Macros
+#define DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable)							\
 	inline static const ke::FlyweightStringA& getName##Variable()				\
 	{																			\
 		static ke::FlyweightStringA name = ke::FlyweightStringA(#Variable);		\
@@ -13,7 +9,16 @@
 	inline const Type& getConst##Variable() const { return Variable; }			\
 	inline void set##Variable(const Type& variable) { Variable = variable; }
 
-// Define Reflect Property Macros
+#define DECLARE_REFLECT_PROPERTY(Type, Variable)		\
+	Type Variable;										\
+	DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable);
+
+#define DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(Type, Variable, DefaultValue)	\
+	Type Variable = DefaultValue;											\
+	DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable);
+#pragma endregion
+
+#pragma region Define ReflectProperty Macros
 #define BEGIN_DEFINE_REFLECT_PROPERTY(ObjectType)													\
 	ke::FlyweightStringA ke::ReflectObject<ObjectType>::_objectName = FlyweightStringA(#ObjectType);\
 	ke::ReflectMetaData ke::ReflectObject<ObjectType>::_reflectMetaData = ReflectMetaData(			\
@@ -22,15 +27,16 @@
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData() {							\
 		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
 
-#define DEFINE_REFLECT_PROPERTY(ObjectType, PropertyType, Variable)	\
-	{																\
-		reflectMetaData.addProperty(								\
-			ObjectType::getName##Variable()							\
-			, &ObjectType::get##Variable							\
-			, &ObjectType::getConst##Variable						\
-			, &ObjectType::set##Variable							\
-		);															\
-	}
+#define DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)	\
+	ObjectType::getName##Variable()								\
+	, &ObjectType::get##Variable								\
+	, &ObjectType::getConst##Variable							\
+	, &ObjectType::set##Variable
+
+#define DEFINE_REFLECT_POD_PROPERTY(ObjectType, Variable) { reflectMetaData.addPODProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+#define DEFINE_REFLECT_OBJECT_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+#define DEFINE_REFLECT_POD_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectPODSeqProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+#define DEFINE_REFLECT_OBEJCT_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectSeqProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 
 #define END_DEFINE_REFLECT_PROPERTY()	};
 #pragma endregion
@@ -40,39 +46,43 @@
 	template<> void ke::ReflectObject<ObjectType>::bindMetaData() {								\
 		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
 
-#define BIND_REFLECT_PROPERTY(ObjectType, PropertyType, Variable, UiOption, ...)		\
-	{																					\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(			\
-			ObjectType::getName##Variable()												\
-		);																				\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s",	\
-			ObjectType::getName##Variable().c_str()										\
-		);																				\
-		ke::ReflectPropertyBinder<PropertyType>::bindProperty(							\
-			reflectProperty,															\
-			UiOption,																	\
-			##__VA_ARGS__																\
-		);																				\
+#define BIND_REFLECET_PROPERTY(ObjectType, PropertyType, Variable, UiOption)													\
+	{																															\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
+		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption);										\
 	}
 
+#define BIND_REFLECET_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)									\
+	{																															\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
+		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption, DefaultValue);							\
+	}
+
+#define BIND_REFLECET_POD_RANGED_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue, MaxValue, MinValue, Step)		\
+	{																																\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());						\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());		\
+		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption, DefaultValue, MaxValue, MinValue, Step);	\
+	}
 #define END_BIND_REFLECT_PROPERTY() };
 
 #pragma endregion
 
 #pragma region ReflectObject Macros
-#define REFLECT_OBJECT_PRE_DECLARE(ObjectType)								\
+#define REFLECT_OBJECT_PREDECLARE(ObjectType)								\
 	class ObjectType;														\
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData();	\
 	template<> void ke::ReflectObject<ObjectType>::bindMetaData();			\
 
 #define REFLECT_OBJECT_CLASS(ObjectType)									\
-	REFLECT_OBJECT_PRE_DECLARE(ObjectType)									\
+	REFLECT_OBJECT_PREDECLARE(ObjectType)									\
 	class ObjectType : public ke::ReflectObject<ObjectType>
 
 #define REFLECT_OBJECT_CONSTRUCTOR(ObjectType)		\
 ObjectType() : ke::ReflectObject<ObjectType>() {};	\
 friend class ke::ReflectObject<ObjectType>;
-
 #pragma endregion
 
 namespace ke
@@ -106,11 +116,5 @@ namespace ke
 	{
 		ensureInitialized();
 		return &_reflectMetaData;
-	}
-	
-	template<typename ObjectType>
-	const ReflectMetaData* ReflectObject<ObjectType>::getMetaData() const
-	{
-		return getObjectMetaData();
 	}
 }

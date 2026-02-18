@@ -1,4 +1,5 @@
 #pragma once
+#include "MathUtil.h"
 
 namespace ke
 {
@@ -11,11 +12,28 @@ namespace ke
     };
 
 	template<typename PropertyType>
-    class RefelctPODPropertyInfo
+    class ReflectPODPropertyInfo;
+
+    class IReflectPODPropertyInfoAccessor
+    {
+    protected:
+        virtual const void* getTypeId() const = 0;
+
+    protected:
+        template<typename T>
+        static const void* getPODTypeId();
+
+    public:
+        template<typename PropertyType>
+        ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo();
+    };
+
+	template<typename PropertyType>
+    class ReflectPODPropertyInfo
     {
     public:
-        RefelctPODPropertyInfo() = default;
-        virtual ~RefelctPODPropertyInfo() = default;
+        ReflectPODPropertyInfo() = default;
+        virtual ~ReflectPODPropertyInfo() = default;
 
     public:
         inline void                 setDefaultValue(const PropertyType& defaultValue) { _defaultValue = defaultValue; }
@@ -25,6 +43,7 @@ namespace ke
         inline bool                                     hasRangeInfo() const { return _rangeInfo != nullptr; }
         void                                            assignRangeInfo(const PropertyType& minValue, const PropertyType& maxValue, const PropertyType& step);
         inline const RangedPropertyInfo<PropertyType>*  getRangeInfo() const { return _rangeInfo.get(); }
+        void                                            validateRange(PropertyType& value);
 
     protected:
         PropertyType                            _defaultValue;

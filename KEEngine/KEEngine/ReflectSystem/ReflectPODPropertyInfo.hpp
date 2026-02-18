@@ -1,7 +1,20 @@
 namespace ke
 {
+    template<typename T>
+    const void* IReflectPODPropertyInfoAccessor::getPODTypeId()
+    {
+        static char staticTypeId;
+        return &staticTypeId;
+    }
+
     template<typename PropertyType>
-    void ke::RefelctPODPropertyInfo<PropertyType>::assignRangeInfo(
+    ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo()
+    {
+		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<ReflectPODPropertyInfo<PropertyType>*>(this) : nullptr;
+    }
+
+    template<typename PropertyType>
+    void ReflectPODPropertyInfo<PropertyType>::assignRangeInfo(
         const PropertyType& minValue,
         const PropertyType& maxValue,
         const PropertyType& step
@@ -11,5 +24,15 @@ namespace ke
         _rangeInfo->_minValue = minValue;
         _rangeInfo->_maxValue = maxValue;
         _rangeInfo->_step = step;
+    }
+
+    template<typename PropertyType>
+    void ReflectPODPropertyInfo<PropertyType>::validateRange(PropertyType& value)
+    {
+        if (_rangeInfo.get() != nullptr)
+        {
+            value = MathUtil::max(_rangeInfo->_minValue, value);
+            value = MathUtil::min(_rangeInfo->_maxValue, value);
+        }
     }
 }

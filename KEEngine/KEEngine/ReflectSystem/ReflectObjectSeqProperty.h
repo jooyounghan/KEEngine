@@ -16,11 +16,12 @@ namespace ke
 		);
 
 	public:
-		virtual size_t	getSize(const IReflectObject* parentReflectObject) const override;
+		virtual size_t	size(const IReflectObject* object) const override;
+		virtual void	resize(const IReflectObject* object, size_t newSize) override;
 
 	public:
-		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* parentReflectObject) override;
-		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const override;
+		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* object) override;
+		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* object) const override;
 	};
 }
 #include "ReflectObjectSeqProperty.hpp"

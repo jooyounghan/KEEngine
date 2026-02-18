@@ -1,13 +1,12 @@
 #pragma once
 #include "IReflectPODSeqProperty.h"
 #include "ReflectPropertyAccessor.h"
-#include "ReflectPODPropertyInfo.h"
 #include "ReflectParser.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectPODSeqProperty : public IReflectPODSeqProperty, public RefelctPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectPODSeqProperty : public IReflectPODSeqProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
 		ReflectPODSeqProperty(
@@ -17,8 +16,12 @@ namespace ke
 			, Setter<ObjectType, ContainerType<PropertyType>> setter
 		);
 
+	protected:
+		virtual const void* getTypeId() const;
+
 	public:
-		virtual size_t	getSize(const IReflectObject* parentReflectObject) const override;
+		virtual size_t	size(const IReflectObject* parentReflectObject) const override;
+		virtual void	resize(const IReflectObject* object, size_t newSize) override;
 
 	public:
 		virtual void	fromBianry(const size_t index, IReflectObject* object, const void* src) override;

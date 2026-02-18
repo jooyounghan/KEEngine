@@ -1,6 +1,7 @@
 #pragma once
 #include "IReflectObject.h"
 #include "ReflectMetaData.h"
+#include "ReflectPropertyBinder.h"
 
 namespace ke
 {
@@ -18,6 +19,10 @@ namespace ke
 	public:
 		static const ReflectMetaData* getObjectMetaData();
 		static const FlyweightStringA& getObjectName() { return _objectName; };
+
+	public:
+		inline virtual const ReflectMetaData* getMetaData() const override { return getObjectMetaData(); };
+		virtual const FlyweightStringA& getName() const override { return _objectName; };
 
 	protected:
 		static ReflectMetaData _reflectMetaData;

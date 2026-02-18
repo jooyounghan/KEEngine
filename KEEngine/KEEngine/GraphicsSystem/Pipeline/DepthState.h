@@ -9,8 +9,8 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(DepthState);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(bool, _depthEnable);
-		DECLARE_REFLECT_PROPERTY(uint8, _depthWriteMask);
-		DECLARE_REFLECT_PROPERTY(uint8, _depthFunc);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _depthEnable, false);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _depthWriteMask, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _depthFunc, 0);
 	};
 }

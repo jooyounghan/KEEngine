@@ -9,18 +9,25 @@ namespace ke
 	)
 	{
 		STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
-		STATIC_ASSERT(ReflectContainerCompatible<ContainerType, PropertyType>, "ContainerType must be ReflectContainerCompatible");
+		STATIC_ASSERT((ReflectContainerCompatible<ContainerType, PropertyType>), "ContainerType must be ReflectContainerCompatible");
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getSize(const IReflectObject * parentReflectObject) const
+	size_t ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject * object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* parentReflectObject)
+	void ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
+	{
+		const ContainerType<PropertyType>& container = this->get(object);
+		return container.resize(newSize);
+	}
+
+	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* object)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		PropertyType& property = container[index];
@@ -28,7 +35,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const
+	const IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* object) const
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];

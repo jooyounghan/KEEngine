@@ -11,6 +11,7 @@ namespace ke
         virtual ~IReflectObject() = default;
 
     public:
+		virtual const FlyweightStringA& getName() const = 0;
         virtual const ReflectMetaData* getMetaData() const = 0;
     };
 }

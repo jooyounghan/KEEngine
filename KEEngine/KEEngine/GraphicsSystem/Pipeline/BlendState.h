@@ -9,15 +9,15 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(BlendState);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(bool, _alphaToCoverageEnable);
-		DECLARE_REFLECT_PROPERTY(bool, _independentBlendEnable);
-		DECLARE_REFLECT_PROPERTY(bool, _blendEnable);
-		DECLARE_REFLECT_PROPERTY(uint8, _srcBlend);
-		DECLARE_REFLECT_PROPERTY(uint8, _destBlend);
-		DECLARE_REFLECT_PROPERTY(uint8, _blendOp);
-		DECLARE_REFLECT_PROPERTY(uint8, _srcBlendAlpha);
-		DECLARE_REFLECT_PROPERTY(uint8, _destBlendAlpha);
-		DECLARE_REFLECT_PROPERTY(uint8, _blendOpAlpha);
-		DECLARE_REFLECT_PROPERTY(uint8, _renderTargetWriteMask);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _alphaToCoverageEnable, false);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _independentBlendEnable, false);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _blendEnable, false);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _srcBlend, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _destBlend, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _blendOp, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _srcBlendAlpha, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _destBlendAlpha, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _blendOpAlpha, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _renderTargetWriteMask, 0);
 	};
 }
