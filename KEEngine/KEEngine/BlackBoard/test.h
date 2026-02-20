@@ -45,5 +45,8 @@ namespace ke
 		DECLARE_REFLECT_PROPERTY(AttackStatus, _attackStatus);
 		DECLARE_REFLECT_PROPERTY(ECharacterType, _characterType);
 	};
+
+	void testIsAttributeProperty();
+	void testReflectSerializerRoundTrip();
 	
 }

@@ -1,5 +1,6 @@
 #include "BlackBoardPch.h"
 #include "test.h"
+#include "ReflectSerializer.h"
 namespace ke
 {
 	DEFINE_ENUM_DESCRIPTOR(ECharacterType, Citizen, Warrior, Mage, Archer, Count);
@@ -40,5 +41,59 @@ namespace ke
 		BIND_REFLECET_PROPERTY(CharacterStatus, AttackStatus, _attackStatus, EReflectUIOption::Editable);
 		//BIND_REFLECET_POD_PROPERTY(CharacterStatus, ECharacterType, _characterType, EReflectUIOption::Editable, ECharacterType::Citizen);
 	END_BIND_REFLECT_PROPERTY()
+
+	void testIsAttributeProperty()
+	{
+		const ReflectMetaData* metaData = CharacterStatus::getObjectMetaData();
+
+		// POD properties must be serialized as XML attributes
+		const IReflectProperty* killPointProp = metaData->getPropertyByName(CharacterStatus::getName_killPoint());
+		KE_ASSERT(killPointProp != nullptr, "Property _killPoint not found");
+		KE_ASSERT(killPointProp->isAttributeProperty() == true, "_killPoint (POD) must be an attribute property");
+
+		const IReflectProperty* bountyPointRatioProp = metaData->getPropertyByName(CharacterStatus::getName_bountyPointRatio());
+		KE_ASSERT(bountyPointRatioProp != nullptr, "Property _bountyPointRatio not found");
+		KE_ASSERT(bountyPointRatioProp->isAttributeProperty() == true, "_bountyPointRatio (POD) must be an attribute property");
+
+		// ReflectObject properties must be serialized as XML child nodes
+		const IReflectProperty* moveStatusProp = metaData->getPropertyByName(CharacterStatus::getName_moveStatus());
+		KE_ASSERT(moveStatusProp != nullptr, "Property _moveStatus not found");
+		KE_ASSERT(moveStatusProp->isAttributeProperty() == false, "_moveStatus (ReflectObject) must not be an attribute property");
+
+		const IReflectProperty* attackStatusProp = metaData->getPropertyByName(CharacterStatus::getName_attackStatus());
+		KE_ASSERT(attackStatusProp != nullptr, "Property _attackStatus not found");
+		KE_ASSERT(attackStatusProp->isAttributeProperty() == false, "_attackStatus (ReflectObject) must not be an attribute property");
+
+		// Enum properties (stored as POD) must be serialized as XML attributes
+		const IReflectProperty* characterTypeProp = metaData->getPropertyByName(CharacterStatus::getName_characterType());
+		KE_ASSERT(characterTypeProp != nullptr, "Property _characterType not found");
+		KE_ASSERT(characterTypeProp->isAttributeProperty() == true, "_characterType (Enum/POD) must be an attribute property");
+	}
+
+	void testReflectSerializerRoundTrip()
+	{
+		CharacterStatus original;
+		original._killPoint = 42;
+		original._bountyPointRatio = 0.75f;
+		original._moveStatus._speed = 20;
+		original._moveStatus._slowRatio = 0.2f;
+		original._attackStatus._power = 15;
+		original._attackStatus._lethality = 0.35;
+		original._characterType = ECharacterType::Warrior;
+
+		const char* testPath = "test_roundtrip.xml";
+		ReflectSerializer::serializeToXML(testPath, &original);
+
+		CharacterStatus loaded;
+		ReflectSerializer::deserializeFromXML(testPath, &loaded);
+
+		KE_ASSERT(loaded._killPoint == original._killPoint, "Round-trip failed: _killPoint mismatch");
+		KE_ASSERT(loaded._bountyPointRatio == original._bountyPointRatio, "Round-trip failed: _bountyPointRatio mismatch");
+		KE_ASSERT(loaded._moveStatus._speed == original._moveStatus._speed, "Round-trip failed: _moveStatus._speed mismatch");
+		KE_ASSERT(loaded._moveStatus._slowRatio == original._moveStatus._slowRatio, "Round-trip failed: _moveStatus._slowRatio mismatch");
+		KE_ASSERT(loaded._attackStatus._power == original._attackStatus._power, "Round-trip failed: _attackStatus._power mismatch");
+		KE_ASSERT(loaded._attackStatus._lethality == original._attackStatus._lethality, "Round-trip failed: _attackStatus._lethality mismatch");
+		KE_ASSERT(loaded._characterType == original._characterType, "Round-trip failed: _characterType mismatch");
+	}
 
 }

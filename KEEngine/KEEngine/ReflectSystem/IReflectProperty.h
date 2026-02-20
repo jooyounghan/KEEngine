@@ -38,6 +38,7 @@ namespace ke
 
 	public:
 		virtual EReflectPropertyType getType() const = 0;
+		virtual bool isAttributeProperty() const { return false; }
 
 	protected:
 		inline virtual void* getInterface() { return nullptr; }

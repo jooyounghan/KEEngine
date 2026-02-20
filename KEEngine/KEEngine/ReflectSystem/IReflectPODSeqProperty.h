@@ -14,6 +14,7 @@ namespace ke
 
 	public:
 		inline virtual EReflectPropertyType getType() const override final { return EReflectPropertyType::PODContainer; }
+		inline virtual bool isAttributeProperty() const override final { return true; }
 
 	protected:
 		inline virtual void*		getInterface() override final { return static_cast<IReflectPODSeqProperty*>(this); }
