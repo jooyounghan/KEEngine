@@ -1,5 +1,6 @@
 #pragma once
 #include "IReflectProperty.h"
+#include "IReflectPODProperty.h"
 
 namespace ke
 {

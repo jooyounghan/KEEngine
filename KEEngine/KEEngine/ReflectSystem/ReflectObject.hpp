@@ -67,6 +67,10 @@
 		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());		\
 		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption, DefaultValue, MaxValue, MinValue, Step);	\
 	}
+
+#define BIND_REFLECET_ENUM_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue) \
+	BIND_REFLECET_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)
+
 #define END_BIND_REFLECT_PROPERTY() };
 
 #pragma endregion

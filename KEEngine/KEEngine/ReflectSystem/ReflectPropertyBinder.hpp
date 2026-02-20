@@ -33,7 +33,14 @@ namespace ke
     template<typename PropertyType>
     void ReflectPropertyBinder<PropertyType>::bindProperty(IReflectProperty* reflectProperty, const EReflectUIOption& uiOption, const PropertyType& defaultValue)
     {
-        STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(ReflectPropertyBinder);
+        reflectProperty->setUIOption(uiOption);
+        if (IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>())
+        {
+            if (ReflectPODPropertyInfo<PropertyType>* info = reflectPODProperty->getPODPropertyInfo<PropertyType>())
+            {
+                info->setDefaultValue(defaultValue);
+            }
+        }
     }
 
     template<typename PropertyType>
