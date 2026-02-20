@@ -15,12 +15,6 @@
 
 namespace ke
 {
-    DEFINE_ENUM_DESCRIPTOR(EOpenMode,
-        rb,
-        wb,
-        r + b
-    );
-
     errno_t FileCore::openFile(const char* path, const char* mode, FILE*& fpOut)
     {
 #ifdef _MSC_VER
@@ -46,9 +40,25 @@ namespace ke
         return size;
     }
 
+    static const char* getModeString(EOpenMode openMode)
+    {
+        switch (openMode)
+        {
+        case EOpenMode::ReadOnly:
+            return "rb";
+        case EOpenMode::WriteOnly:
+            return "wb";
+        case EOpenMode::ReadWrite:
+            return "r+b";
+        default:
+            KE_ASSERT_DEV(false, "Invalid open mode.");
+            return "rb";
+        }
+	}
+
     FileCore::FileCore(const char* path, EOpenMode openMode)
     {
-        _openStatus = FileCore::openFile(path, GET_ENUM_STRING(EOpenMode, openMode), _fp);
+        _openStatus = FileCore::openFile(path, getModeString(openMode), _fp);
         if (_openStatus != 0)
         {
             char buf[128];

@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectPODProperty.h"
+#include "ReflectEnumProperty.h"
 #include "ReflectObjectProperty.h"
 #include "ReflectPODSeqProperty.h"
 #include "ReflectObjectSeqProperty.h"
@@ -15,6 +16,14 @@ namespace ke
 	public:
 		template<typename ObjectType, typename PropertyType>
 		void addPODProperty(
+			const FlyweightStringA& name
+			, Getter<ObjectType, PropertyType> getter
+			, ConstGetter<ObjectType, PropertyType> constGetter
+			, Setter<ObjectType, PropertyType> setter
+		);
+
+		template<typename ObjectType, typename PropertyType>
+		void addEnumProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, PropertyType> getter
 			, ConstGetter<ObjectType, PropertyType> constGetter

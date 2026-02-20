@@ -19,9 +19,10 @@
 #include <unordered_set>
 #include <map>
 
-// Smart Pointer
+// Proxy
 #include "Ptr.h"
 #include "RefCountedPtr.h"
+#include <optional>
 
 // Template
 #include <concepts>
@@ -45,7 +46,6 @@
 #endif
 
 #include "TypeCommon.h"
-#include "EnumCommon.h"
 #include "AssertCommon.h"
 #include "SimdCommon.h"
 #include "TraitCommon.h"

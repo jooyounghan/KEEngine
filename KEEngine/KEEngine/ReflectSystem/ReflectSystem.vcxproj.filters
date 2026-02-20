@@ -87,9 +87,6 @@
     <ClInclude Include="ReflectSerializer.h">
       <Filter>헤더 파일\Header\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectObject.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectMetaData.h">
       <Filter>헤더 파일\Header\MetaData</Filter>
     </ClInclude>
@@ -147,9 +144,6 @@
     <ClInclude Include="ReflectPODSeqProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPODPropertyInfo.h">
-      <Filter>헤더 파일\Header\Reflection</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectPODPropertyInfo.hpp">
       <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
     </ClInclude>
@@ -161,6 +155,18 @@
     </ClInclude>
     <ClInclude Include="ReflectPropertyBinder.h">
       <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectEnumProperty.h">
+      <Filter>헤더 파일\Header\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectEnumProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectPODPropertyInfo.h">
+      <Filter>헤더 파일\Header\Reflection\POD</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObject.h">
+      <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

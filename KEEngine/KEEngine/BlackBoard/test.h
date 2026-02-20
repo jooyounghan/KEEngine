@@ -3,6 +3,15 @@
 
 namespace ke
 {
+	enum class ECharacterType : uint8
+	{
+		Citizen,
+		Warrior,
+		Mage,
+		Archer,
+		Count
+	};
+
 	REFLECT_OBJECT_CLASS(MoveStatus)
 	{
 	public:
@@ -34,6 +43,7 @@ namespace ke
 		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(float, _bountyPointRatio, -1.f);
 		DECLARE_REFLECT_PROPERTY(MoveStatus, _moveStatus);
 		DECLARE_REFLECT_PROPERTY(AttackStatus, _attackStatus);
+		DECLARE_REFLECT_PROPERTY(ECharacterType, _characterType);
 	};
 	
 }

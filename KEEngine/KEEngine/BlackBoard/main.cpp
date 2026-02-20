@@ -1,6 +1,8 @@
 #include "BlackBoardPch.h"
 #include "KEAppBase.h"
 #include "ReflectSerializer.h"
+#include "EnumUtil.h"
+#include "test.h"
 
 using namespace ke;
 

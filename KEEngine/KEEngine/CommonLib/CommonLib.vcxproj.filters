@@ -102,9 +102,6 @@
     <ClInclude Include="AssertCommon.h">
       <Filter>헤더 파일\Header\Common</Filter>
     </ClInclude>
-    <ClInclude Include="EnumCommon.h">
-      <Filter>헤더 파일\Header\Common</Filter>
-    </ClInclude>
     <ClInclude Include="File.h">
       <Filter>헤더 파일\Header\File</Filter>
     </ClInclude>
@@ -186,6 +183,12 @@
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EnumUtil.h">
+      <Filter>헤더 파일\Header\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumUtil.hpp">
+      <Filter>헤더 파일\Hpp\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonLibPch.cpp">
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumUtil.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,11 +3,12 @@
 
 namespace ke
 {
-	DECLARE_ENUM_CLASS(EOpenMode, uint8,
+	enum class EOpenMode : uint8
+	{
 		ReadOnly,
 		WriteOnly,
 		ReadWrite
-	);
+	};
 
 	class FileCore
 	{
