@@ -2,15 +2,15 @@
 #include "IReflectPODSeqProperty.h"
 #include "IReflectPODProperty.h"
 #include "ReflectPropertyAccessor.h"
-#include "ReflectParser.h"
+#include "EnumUtil.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectPODSeqProperty : public IReflectPODSeqProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectEnumSeqProperty : public IReflectPODSeqProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
-		ReflectPODSeqProperty(
+		ReflectEnumSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
@@ -54,4 +54,4 @@ namespace ke
 		mutable ElementProxy _elementProxy;
 	};
 }
-#include "ReflectPODSeqProperty.hpp"
+#include "ReflectEnumSeqProperty.hpp"

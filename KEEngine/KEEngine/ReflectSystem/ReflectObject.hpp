@@ -37,6 +37,7 @@
 #define DEFINE_REFLECT_ENUM_PROPERTY(ObjectType, Variable) { reflectMetaData.addEnumProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 #define DEFINE_REFLECT_OBJECT_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 #define DEFINE_REFLECT_POD_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectPODSeqProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+#define DEFINE_REFLECT_ENUM_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectEnumSeqProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 #define DEFINE_REFLECT_OBEJCT_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectSeqProperty(DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 
 #define END_DEFINE_REFLECT_PROPERTY()	};

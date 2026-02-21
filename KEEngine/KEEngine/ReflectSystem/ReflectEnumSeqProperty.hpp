@@ -1,8 +1,7 @@
-#include "ReflectPODSeqProperty.h"
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ReflectPODSeqProperty(
+	ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ReflectEnumSeqProperty(
 		const FlyweightStringA& name,
 		Getter<ObjectType, ContainerType<PropertyType>> getter,
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter,
@@ -16,27 +15,27 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const void* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getTypeId() const
+	const void* ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::getTypeId() const
 	{
 		return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject* object) const
+	size_t ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject* object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
+	void ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.resize(newSize);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	IReflectPODProperty* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getElementProperty(const size_t index, IReflectObject* object)
+	IReflectPODProperty* ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::getElementProperty(const size_t index, IReflectObject* object)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		_elementProxy.set(&container[index]);
@@ -44,7 +43,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const IReflectPODProperty* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getElementProperty(const size_t index, const IReflectObject* object) const
+	const IReflectPODProperty* ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::getElementProperty(const size_t index, const IReflectObject* object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		_elementProxy.setConst(&container[index]);
@@ -52,38 +51,44 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::ElementProxy()
+	ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::ElementProxy()
 		: IReflectPODProperty(FlyweightStringA(""))
 	{
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const void* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::getTypeId() const
+	const void* ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::getTypeId() const
 	{
 		return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromBianry(IReflectObject* /*object*/, const void* src)
+	void ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromBianry(IReflectObject* /*object*/, const void* src)
 	{
-		ReflectParser::parseFromBinary(src, _ptr);
+		*_ptr = static_cast<PropertyType>(*static_cast<const size_t*>(src));
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toBinary(const IReflectObject* /*object*/, IBuffer* outDst) const
+	void ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toBinary(const IReflectObject* /*object*/, IBuffer* outDst) const
 	{
-		ReflectParser::parseToBinary(outDst, _constPtr);
+		const size_t val = static_cast<size_t>(*_constPtr);
+		outDst->write(&val, sizeof(size_t));
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromString(IReflectObject* /*object*/, const char* src, size_t strlen)
+	void ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromString(IReflectObject* /*object*/, const char* src, size_t strlen)
 	{
-		ReflectParser::parseFromString(src, strlen, _ptr);
+		std::optional<PropertyType> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
+		if (optVal.has_value())
+		{
+			*_ptr = optVal.value();
+		}
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toString(const IReflectObject* /*object*/, IBuffer* outStringBuffer) const
+	void ReflectEnumSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toString(const IReflectObject* /*object*/, IBuffer* outStringBuffer) const
 	{
-		ReflectParser::parseToString(outStringBuffer, _constPtr);
+		const std::string& enumString = EnumWrapper<PropertyType>::toString(*_constPtr);
+		outStringBuffer->write(enumString.c_str(), enumString.length());
 	}
 }

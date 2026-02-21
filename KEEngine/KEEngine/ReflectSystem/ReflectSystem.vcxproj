@@ -156,6 +156,8 @@
     <ClInclude Include="IReflectProperty.hpp" />
     <ClInclude Include="ReflectEnumProperty.h" />
     <ClInclude Include="ReflectEnumProperty.hpp" />
+    <ClInclude Include="ReflectEnumSeqProperty.h" />
+    <ClInclude Include="ReflectEnumSeqProperty.hpp" />
     <ClInclude Include="ReflectMetaData.h" />
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />

@@ -5,6 +5,7 @@
 namespace ke
 {
 	class IBuffer;
+	class IReflectPODProperty;
 
 	class IReflectPODSeqProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
 	{
@@ -20,10 +21,14 @@ namespace ke
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectPODSeqProperty*>(this); }
 
 	public:
-		virtual void fromBianry(const size_t index, IReflectObject* object, const void* src) = 0;
-		virtual void toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const = 0;
-		virtual void fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen) = 0;
-		virtual void toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
+		void fromBianry(const size_t index, IReflectObject* object, const void* src);
+		void toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const;
+		void fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen);
+		void toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const;
+
+	protected:
+		virtual IReflectPODProperty* getElementProperty(const size_t index, IReflectObject* object) = 0;
+		virtual const IReflectPODProperty* getElementProperty(const size_t index, const IReflectObject* object) const = 0;
 	};
 
 	template<>
