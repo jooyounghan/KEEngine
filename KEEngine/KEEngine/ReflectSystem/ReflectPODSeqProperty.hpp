@@ -66,24 +66,58 @@ namespace ke
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromBianry(IReflectObject* /*object*/, const void* src)
 	{
-		ReflectParser::parseFromBinary(src, _ptr);
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			*_ptr = static_cast<PropertyType>(*static_cast<const size_t*>(src));
+		}
+		else
+		{
+			ReflectParser::parseFromBinary(src, _ptr);
+		}
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toBinary(const IReflectObject* /*object*/, IBuffer* outDst) const
 	{
-		ReflectParser::parseToBinary(outDst, _constPtr);
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			const size_t val = static_cast<size_t>(*_constPtr);
+			outDst->write(&val, sizeof(size_t));
+		}
+		else
+		{
+			ReflectParser::parseToBinary(outDst, _constPtr);
+		}
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::fromString(IReflectObject* /*object*/, const char* src, size_t strlen)
 	{
-		ReflectParser::parseFromString(src, strlen, _ptr);
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			std::optional<PropertyType> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
+			if (optVal.has_value())
+			{
+				*_ptr = optVal.value();
+			}
+		}
+		else
+		{
+			ReflectParser::parseFromString(src, strlen, _ptr);
+		}
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::ElementProxy::toString(const IReflectObject* /*object*/, IBuffer* outStringBuffer) const
 	{
-		ReflectParser::parseToString(outStringBuffer, _constPtr);
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			const std::string& enumString = EnumWrapper<PropertyType>::toString(*_constPtr);
+			outStringBuffer->write(enumString.c_str(), enumString.length());
+		}
+		else
+		{
+			ReflectParser::parseToString(outStringBuffer, _constPtr);
+		}
 	}
 }

@@ -3,7 +3,6 @@
 #include "ReflectEnumProperty.h"
 #include "ReflectObjectProperty.h"
 #include "ReflectPODSeqProperty.h"
-#include "ReflectEnumSeqProperty.h"
 #include "ReflectObjectSeqProperty.h"
 
 namespace ke
@@ -41,14 +40,6 @@ namespace ke
 
 		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
 		void addReflectPODSeqProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<PropertyType>> getter
-			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
-			, Setter<ObjectType, ContainerType<PropertyType>> setter
-		);
-
-		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-		void addReflectEnumSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter

@@ -3,6 +3,7 @@
 #include "IReflectPODProperty.h"
 #include "ReflectPropertyAccessor.h"
 #include "ReflectParser.h"
+#include "EnumUtil.h"
 
 namespace ke
 {
