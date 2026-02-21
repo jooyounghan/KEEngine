@@ -26,7 +26,7 @@ namespace ke
 	public:
 		virtual void	fromBianry(const size_t index, IReflectObject* object, const void* src) override;
 		virtual void	toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const override;
-		virtual void	fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen) override;
+		virtual void	fromString(const size_t index, IReflectObject* object, const char* src, size_t strLen) override;
 		virtual void	toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const override;
 	};
 }

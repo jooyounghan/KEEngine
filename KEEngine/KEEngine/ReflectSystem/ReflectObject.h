@@ -1,7 +1,6 @@
 #pragma once
 #include "IReflectObject.h"
 #include "ReflectMetaData.h"
-#include "ReflectPropertyBinder.h"
 
 namespace ke
 {

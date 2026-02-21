@@ -51,21 +51,25 @@
 	{																															\
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
 		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
-		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption);										\
+		reflectProperty->setUIOption(UiOption);																					\
 	}
 
 #define BIND_REFLECET_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)									\
 	{																															\
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
 		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
-		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption, DefaultValue);							\
+		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();								\
+		reflectPODProperty->getPODPropertyInfo<PropertyType>()->setDefaultValue(DefaultValue);									\
 	}
 
-#define BIND_REFLECET_POD_RANGED_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue, MaxValue, MinValue, Step)		\
-	{																																\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());						\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());		\
-		ke::ReflectPropertyBinder<PropertyType>::bindProperty(reflectProperty, UiOption, DefaultValue, MaxValue, MinValue, Step);	\
+#define BIND_REFLECET_POD_RANGED_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue, MaxValue, MinValue, Step)	\
+	{																															\
+		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
+		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
+		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();								\
+		ReflectPODPropertyInfo<PropertyType>* reflectPODPropertyInfo = reflectPODProperty->getPODPropertyInfo<PropertyType>();	\
+		reflectPODPropertyInfo->setDefaultValue(DefaultValue);																	\
+		reflectPODPropertyInfo->assignRangeInfo(MinValue, MaxValue, Step);														\
 	}
 #define END_BIND_REFLECT_PROPERTY() };
 

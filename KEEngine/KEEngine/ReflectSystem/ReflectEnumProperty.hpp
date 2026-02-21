@@ -25,13 +25,14 @@ namespace ke
 	template<typename ObjectType, typename PropertyType>
 	void ReflectEnumProperty<ObjectType, PropertyType>::toBinary(const IReflectObject * object, IBuffer * outDst) const
 	{
-		outDst->write(&static_cast<const size_t>(this->get(object)), sizeof(size_t));
+		const size_t enumValue = static_cast<const size_t>(this->get(object));
+		outDst->write(&enumValue, sizeof(size_t));
 	}
 
 	template<typename ObjectType, typename PropertyType>
-	void ReflectEnumProperty<ObjectType, PropertyType>::fromString(IReflectObject * object, const char* src, size_t strlen)
+	void ReflectEnumProperty<ObjectType, PropertyType>::fromString(IReflectObject * object, const char* src, size_t strLen)
 	{
-		std::optional<PropertyType> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
+		std::optional<PropertyType> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strLen));
 		if (optVal.has_value())
 		{
 			this->get(object) = optVal.value();

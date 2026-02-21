@@ -150,12 +150,6 @@
     <ClInclude Include="IReflectContainerProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectPropertyBinder.hpp">
-      <Filter>헤더 파일\Hpp\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectPropertyBinder.h">
-      <Filter>헤더 파일\Header\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectEnumProperty.h">
       <Filter>헤더 파일\Header\Reflection\POD</Filter>
     </ClInclude>
@@ -184,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="ReflectParser.cpp">
       <Filter>소스 파일\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="ReflectPropertyBinder.cpp">
-      <Filter>소스 파일\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="ReflectSerializer.cpp">
       <Filter>소스 파일\Utility</Filter>

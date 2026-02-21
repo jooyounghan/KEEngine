@@ -52,11 +52,11 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strlen)
+	void ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strLen)
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];
-		ReflectParser::parseFromString(src, strlen, &property);
+		ReflectParser::parseFromString(src, strLen, &property);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>

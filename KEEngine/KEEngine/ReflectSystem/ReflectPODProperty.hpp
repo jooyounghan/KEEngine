@@ -29,9 +29,9 @@ namespace ke
     }
 
     template<typename ObjectType, typename PropertyType>
-    void ReflectPODProperty<ObjectType, PropertyType>::fromString(IReflectObject* object, const char* src, size_t strlen)
+    void ReflectPODProperty<ObjectType, PropertyType>::fromString(IReflectObject* object, const char* src, size_t strLen)
     {
-        ReflectParser::parseFromString(src, strlen, &this->get(object));
+        ReflectParser::parseFromString(src, strLen, &this->get(object));
     }
 
     template<typename ObjectType, typename PropertyType>

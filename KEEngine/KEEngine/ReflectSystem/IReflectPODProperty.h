@@ -21,13 +21,9 @@ namespace ke
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectPODProperty*>(this); }
 
 	public:
-		template<typename PropertyType>
-		ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo() { return dynamic_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
-
-	public:
 		virtual void fromBianry(IReflectObject* object, const void* src) = 0;
 		virtual void toBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
-		virtual void fromString(IReflectObject* object, const char* src, size_t strlen) = 0;
+		virtual void fromString(IReflectObject* object, const char* src, size_t strLen) = 0;
 		virtual void toString(const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
 	};
 

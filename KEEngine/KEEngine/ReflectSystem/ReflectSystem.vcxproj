@@ -171,8 +171,6 @@
     <ClInclude Include="ReflectPODPropertyInfo.h" />
     <ClInclude Include="ReflectPODPropertyInfo.hpp" />
     <ClInclude Include="ReflectPropertyAccessor.h" />
-    <ClInclude Include="ReflectPropertyBinder.h" />
-    <ClInclude Include="ReflectPropertyBinder.hpp" />
     <ClInclude Include="ReflectSerializer.h" />
     <ClInclude Include="ReflectSystemPch.h" />
     <ClInclude Include="ReflectParser.h" />
@@ -190,7 +188,6 @@
     <ClCompile Include="ReflectParser.cpp" />
     <ClCompile Include="IReflectProperty.cpp" />
     <ClCompile Include="ReflectPODPropertyInfo.cpp" />
-    <ClCompile Include="ReflectPropertyBinder.cpp" />
     <ClCompile Include="ReflectSerializer.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
