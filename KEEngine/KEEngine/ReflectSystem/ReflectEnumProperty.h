@@ -19,6 +19,8 @@ namespace ke
 
 	protected:
 		virtual const void* getTypeId() const;
+		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
+		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this); }
 
 	public:
 		virtual void fromBianry(IReflectObject* object, const void* src) override;
