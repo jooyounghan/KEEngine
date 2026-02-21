@@ -26,6 +26,9 @@ namespace ke
     public:
         template<typename PropertyType>
         ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo();
+
+        template<typename PropertyType>
+        const ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo() const;
     };
 
 	template<typename PropertyType>

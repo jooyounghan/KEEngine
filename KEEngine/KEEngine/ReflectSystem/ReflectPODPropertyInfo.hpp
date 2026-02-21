@@ -14,6 +14,12 @@ namespace ke
     }
 
     template<typename PropertyType>
+    const ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo() const
+    {
+		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this) : nullptr;
+    }
+
+    template<typename PropertyType>
     void ReflectPODPropertyInfo<PropertyType>::assignRangeInfo(
         const PropertyType& minValue,
         const PropertyType& maxValue,
