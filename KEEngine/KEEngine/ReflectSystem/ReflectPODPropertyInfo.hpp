@@ -10,7 +10,13 @@ namespace ke
     template<typename PropertyType>
     ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo()
     {
-		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<ReflectPODPropertyInfo<PropertyType>*>(this) : nullptr;
+		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr()) : nullptr;
+    }
+
+    template<typename PropertyType>
+    const ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo() const
+    {
+		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<const ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr()) : nullptr;
     }
 
     template<typename PropertyType>

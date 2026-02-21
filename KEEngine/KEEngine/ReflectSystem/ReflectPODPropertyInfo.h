@@ -18,6 +18,8 @@ namespace ke
     {
     protected:
         virtual const void* getTypeId() const = 0;
+        virtual void* getPODPropertyInfoPtr() = 0;
+        virtual const void* getPODPropertyInfoPtr() const = 0;
 
     protected:
         template<typename T>
@@ -26,6 +28,9 @@ namespace ke
     public:
         template<typename PropertyType>
         ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo();
+
+        template<typename PropertyType>
+        const ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo() const;
     };
 
 	template<typename PropertyType>
