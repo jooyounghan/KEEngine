@@ -11,12 +11,6 @@ namespace ke
 	}
 
 	template<typename ObjectType, typename PropertyType>
-	const void* ke::ReflectEnumProperty<ObjectType, PropertyType>::getTypeId() const
-	{
-		return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
-	}
-
-	template<typename ObjectType, typename PropertyType>
 	void ReflectEnumProperty<ObjectType, PropertyType>::fromBianry(IReflectObject* object, const void* src)
 	{
 		this->get(object) = static_cast<const PropertyType>(*static_cast<const size_t*>(src));

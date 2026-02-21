@@ -18,7 +18,6 @@ namespace ke
 		~ReflectEnumProperty() override = default;
 
 	protected:
-		virtual const void* getTypeId() const;
 		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
 		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this); }
 

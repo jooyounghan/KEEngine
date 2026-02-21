@@ -1,4 +1,3 @@
-#include "ReflectPODSeqProperty.h"
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
@@ -13,12 +12,6 @@ namespace ke
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
 		STATIC_ASSERT((ReflectContainerCompatible<ContainerType, PropertyType>), "ContainerType must be ReflectContainerCompatible");
-	}
-
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const void* ReflectPODSeqProperty<ObjectType, ContainerType, PropertyType>::getTypeId() const
-	{
-		return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>

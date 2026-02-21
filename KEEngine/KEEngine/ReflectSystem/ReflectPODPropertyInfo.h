@@ -17,13 +17,8 @@ namespace ke
     class IReflectPODPropertyInfoAccessor
     {
     protected:
-        virtual const void* getTypeId() const = 0;
-        virtual void* getPODPropertyInfoPtr() = 0;
+        virtual void*       getPODPropertyInfoPtr() = 0;
         virtual const void* getPODPropertyInfoPtr() const = 0;
-
-    protected:
-        template<typename T>
-        static const void* getPODTypeId();
 
     public:
         template<typename PropertyType>

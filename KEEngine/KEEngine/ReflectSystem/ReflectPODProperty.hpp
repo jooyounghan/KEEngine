@@ -11,12 +11,6 @@ namespace ke
     }
 
     template<typename ObjectType, typename PropertyType>
-    const void* ReflectPODProperty<ObjectType, PropertyType>::getTypeId() const
-    {
-        return IReflectPODPropertyInfoAccessor::getPODTypeId<PropertyType>();
-    }
-
-    template<typename ObjectType, typename PropertyType>
     void ReflectPODProperty<ObjectType, PropertyType>::fromBianry(IReflectObject* object, const void* src)
     {
         ReflectParser::parseFromBinary(src, &this->get(object));

@@ -1,22 +1,15 @@
 namespace ke
 {
-    template<typename T>
-    const void* IReflectPODPropertyInfoAccessor::getPODTypeId()
-    {
-        static char staticTypeId;
-        return &staticTypeId;
-    }
-
     template<typename PropertyType>
     ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo()
     {
-		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr()) : nullptr;
+		return static_cast<ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
     }
 
     template<typename PropertyType>
     const ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo() const
     {
-		return this->getTypeId() == getPODTypeId<PropertyType>() ? static_cast<const ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr()) : nullptr;
+		return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
     }
 
     template<typename PropertyType>

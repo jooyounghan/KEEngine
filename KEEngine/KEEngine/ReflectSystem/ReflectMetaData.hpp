@@ -1,4 +1,3 @@
-#include "ReflectMetaData.h"
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
