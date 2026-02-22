@@ -99,6 +99,9 @@
     <ClInclude Include="Pipeline\BlendState.h">
       <Filter>헤더 파일\Pipeline\State</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline\D3D12Enums.h">
+      <Filter>헤더 파일\Pipeline\State</Filter>
+    </ClInclude>
     <ClInclude Include="Pipeline\RasterizerState.h">
       <Filter>헤더 파일\Pipeline\State</Filter>
     </ClInclude>
@@ -168,6 +171,9 @@
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline\BlendState.cpp">
+      <Filter>소스 파일\Pipeline\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipeline\D3D12Enums.cpp">
       <Filter>소스 파일\Pipeline\State</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline\DepthState.cpp">
