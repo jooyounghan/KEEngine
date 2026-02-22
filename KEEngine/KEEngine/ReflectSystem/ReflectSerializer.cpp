@@ -8,7 +8,7 @@
 #include "IReflectObject.h"
 #include "ReflectMetaData.h"
 #include "IReflectProperty.h"
-#include "IReflectPODSeqProperty.h"
+#include "IReflectSequenceProperty.h"
 #include "IReflectObjectProperty.h"
 #include "IReflectObjectSeqProperty.h"
 
@@ -61,7 +61,7 @@ namespace ke
 			}
 			case EReflectPropertyType::PODContainer:
 			{
-				const IReflectPODSeqProperty* reflectPODContainerProperty = property->castTo<IReflectPODSeqProperty>();
+				const IReflectSequenceProperty* reflectPODContainerProperty = property->castTo<IReflectSequenceProperty>();
 				if (reflectPODContainerProperty == nullptr) break;
 				const size_t count = reflectPODContainerProperty->size(reflectObject);
 				reflectPODContainerProperty->toString(0, reflectObject, &propertyValueBuffer);
@@ -157,7 +157,7 @@ namespace ke
 			}
 			case EReflectPropertyType::PODContainer:
 			{
-				IReflectPODSeqProperty* reflectPODSeqProperty = reflectProperty->castTo<IReflectPODSeqProperty>();
+				IReflectSequenceProperty* reflectPODSeqProperty = reflectProperty->castTo<IReflectSequenceProperty>();
 				if (reflectPODSeqProperty == nullptr) break;
 				const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
 				const size_t count = values.size();

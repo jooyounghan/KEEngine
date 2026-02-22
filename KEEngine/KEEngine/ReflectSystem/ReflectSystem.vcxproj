@@ -148,7 +148,7 @@
   <ItemGroup>
     <ClInclude Include="IReflectContainerProperty.h" />
     <ClInclude Include="IReflectObjectSeqProperty.h" />
-    <ClInclude Include="IReflectPODSeqProperty.h" />
+    <ClInclude Include="IReflectSequenceProperty.h" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="IReflectObjectProperty.h" />
     <ClInclude Include="IReflectPODProperty.h" />
@@ -164,8 +164,8 @@
     <ClInclude Include="ReflectObjectSeqProperty.hpp" />
     <ClInclude Include="ReflectObjectProperty.h" />
     <ClInclude Include="ReflectObjectProperty.hpp" />
-    <ClInclude Include="ReflectPODSeqProperty.h" />
-    <ClInclude Include="ReflectPODSeqProperty.hpp" />
+    <ClInclude Include="ReflectSequenceProperty.h" />
+    <ClInclude Include="ReflectSequenceProperty.hpp" />
     <ClInclude Include="ReflectPODProperty.h" />
     <ClInclude Include="ReflectPODProperty.hpp" />
     <ClInclude Include="ReflectPODPropertyInfo.h" />
@@ -179,7 +179,7 @@
   <ItemGroup>
     <ClCompile Include="IReflectContainerProperty.cpp" />
     <ClCompile Include="IReflectObjectSeqProperty.cpp" />
-    <ClCompile Include="IReflectPODSeqProperty.cpp" />
+    <ClCompile Include="IReflectSequenceProperty.cpp" />
     <ClCompile Include="IReflectObjectProperty.cpp" />
     <ClCompile Include="IReflectPODProperty.cpp" />
     <ClCompile Include="ReflectPODProperty.cpp" />

@@ -1,15 +1,16 @@
 #pragma once
-#include "IReflectPODSeqProperty.h"
+#include "IReflectSequenceProperty.h"
 #include "ReflectPropertyAccessor.h"
 #include "ReflectParser.h"
+#include "EnumUtil.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectPODSeqProperty : public IReflectPODSeqProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectSequenceProperty : public IReflectSequenceProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
-		ReflectPODSeqProperty(
+		ReflectSequenceProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
@@ -31,4 +32,4 @@ namespace ke
 		virtual void	toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const override;
 	};
 }
-#include "ReflectPODSeqProperty.hpp"
+#include "ReflectSequenceProperty.hpp"
