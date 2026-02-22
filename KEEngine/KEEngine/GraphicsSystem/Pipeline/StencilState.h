@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectObject.h"
+#include "D3D12Enums.h"
 
 namespace ke
 {
@@ -10,15 +11,15 @@ namespace ke
 
 	public:
 		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _stencilEnable, false);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _frontFaceStencilFailOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _frontFaceStencilDepthFailOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _frontFaceStencilPassOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _frontFaceStencilFunc, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _backFaceStencilFailOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _backFaceStencilDepthFailOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _backFaceStencilPassOp, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _backFaceStencilFunc, 0);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, 0xff);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, 0xff);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilFailOp);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilDepthFailOp);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilPassOp);
+		DECLARE_REFLECT_PROPERTY(EComparisonFunc, _frontFaceStencilFunc);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilFailOp);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilDepthFailOp);
+		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilPassOp);
+		DECLARE_REFLECT_PROPERTY(EComparisonFunc, _backFaceStencilFunc);
 	};
 }
