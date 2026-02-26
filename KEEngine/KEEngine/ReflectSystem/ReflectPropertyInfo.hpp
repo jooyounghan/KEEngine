@@ -1,19 +1,19 @@
 namespace ke
 {
     template<typename PropertyType>
-    ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo()
+    ReflectPropertyInfo<PropertyType>* IReflectPropertyInfoAccessor::getPODPropertyInfo()
     {
-		return static_cast<ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
+		return static_cast<ReflectPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
     }
 
     template<typename PropertyType>
-    const ReflectPODPropertyInfo<PropertyType>* IReflectPODPropertyInfoAccessor::getPODPropertyInfo() const
+    const ReflectPropertyInfo<PropertyType>* IReflectPropertyInfoAccessor::getPODPropertyInfo() const
     {
-		return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
+		return static_cast<const ReflectPropertyInfo<PropertyType>*>(getPODPropertyInfoPtr());
     }
 
     template<typename PropertyType>
-    void ReflectPODPropertyInfo<PropertyType>::assignRangeInfo(
+    void ReflectPropertyInfo<PropertyType>::assignRangeInfo(
         const PropertyType& minValue,
         const PropertyType& maxValue,
         const PropertyType& step
@@ -26,7 +26,7 @@ namespace ke
     }
 
     template<typename PropertyType>
-    void ReflectPODPropertyInfo<PropertyType>::validateRange(PropertyType& value)
+    void ReflectPropertyInfo<PropertyType>::validateRange(PropertyType& value)
     {
         if (_rangeInfo.get() != nullptr)
         {

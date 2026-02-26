@@ -12,9 +12,9 @@ namespace ke
     };
 
 	template<typename PropertyType>
-    class ReflectPODPropertyInfo;
+    class ReflectPropertyInfo;
 
-    class IReflectPODPropertyInfoAccessor
+    class IReflectPropertyInfoAccessor
     {
     protected:
         virtual void*       getPODPropertyInfoPtr() = 0;
@@ -22,18 +22,18 @@ namespace ke
 
     public:
         template<typename PropertyType>
-        ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo();
+        ReflectPropertyInfo<PropertyType>* getPODPropertyInfo();
 
         template<typename PropertyType>
-        const ReflectPODPropertyInfo<PropertyType>* getPODPropertyInfo() const;
+        const ReflectPropertyInfo<PropertyType>* getPODPropertyInfo() const;
     };
 
 	template<typename PropertyType>
-    class ReflectPODPropertyInfo
+    class ReflectPropertyInfo
     {
     public:
-        ReflectPODPropertyInfo() = default;
-        virtual ~ReflectPODPropertyInfo() = default;
+        ReflectPropertyInfo() = default;
+        virtual ~ReflectPropertyInfo() = default;
 
     public:
         inline void                 setDefaultValue(const PropertyType& defaultValue) { _defaultValue = defaultValue; }
@@ -50,4 +50,4 @@ namespace ke
         PTR(RangedPropertyInfo<PropertyType>)   _rangeInfo = nullptr;
     };
 }
-#include "ReflectPODPropertyInfo.hpp"
+#include "ReflectPropertyInfo.hpp"

@@ -67,7 +67,7 @@
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
 		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
 		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();								\
-		ReflectPODPropertyInfo<PropertyType>* reflectPODPropertyInfo = reflectPODProperty->getPODPropertyInfo<PropertyType>();	\
+		ReflectPropertyInfo<PropertyType>* reflectPODPropertyInfo = reflectPODProperty->getPODPropertyInfo<PropertyType>();	\
 		reflectPODPropertyInfo->setDefaultValue(DefaultValue);																	\
 		reflectPODPropertyInfo->assignRangeInfo(MinValue, MaxValue, Step);														\
 	}

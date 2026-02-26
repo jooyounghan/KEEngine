@@ -6,7 +6,7 @@
 namespace ke
 {
 	template<typename ObjectType, typename PropertyType>
-	class ReflectEnumProperty : public IReflectPODProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, PropertyType>
+	class ReflectEnumProperty : public IReflectPODProperty, public ReflectPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, PropertyType>
 	{
 	public:
 		ReflectEnumProperty(
@@ -18,8 +18,8 @@ namespace ke
 		~ReflectEnumProperty() override = default;
 
 	protected:
-		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
-		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this); }
+		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPropertyInfo<PropertyType>*>(this); }
+		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPropertyInfo<PropertyType>*>(this); }
 
 	public:
 		virtual void fromBianry(IReflectObject* object, const void* src) override;

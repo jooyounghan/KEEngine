@@ -1,7 +1,7 @@
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::ReflectObjectSeqProperty(
+	ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::ReflectObjectSequenceProperty(
 		const FlyweightStringA& name, 
 		Getter<ObjectType, ContainerType<PropertyType>> getter, 
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, 
@@ -13,21 +13,21 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	size_t ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject * object) const
+	size_t ke::ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject * object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
+	void ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.resize(newSize);
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* object)
+	IReflectObject* ke::ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* object)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		PropertyType& property = container[index];
@@ -35,7 +35,7 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	const IReflectObject* ke::ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* object) const
+	const IReflectObject* ke::ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, const IReflectObject* object) const
 	{
 		ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];

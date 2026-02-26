@@ -10,7 +10,7 @@
 #include "IReflectProperty.h"
 #include "IReflectSequenceProperty.h"
 #include "IReflectObjectProperty.h"
-#include "IReflectObjectSeqProperty.h"
+#include "IReflectObjectSequenceProperty.h"
 
 namespace ke
 {
@@ -103,7 +103,7 @@ namespace ke
 				}
 				case EReflectPropertyType::ReflectObjectContainer:
 				{
-					const IReflectObjectSeqProperty* objectSeqProperty = property->castTo<IReflectObjectSeqProperty>();
+					const IReflectObjectSequenceProperty* objectSeqProperty = property->castTo<IReflectObjectSequenceProperty>();
 					if (objectSeqProperty == nullptr) break;
 					const size_t count = objectSeqProperty->size(reflectObject);
 					for (size_t idx = 0; idx < count; ++idx)
@@ -196,7 +196,7 @@ namespace ke
 			}
 			case EReflectPropertyType::ReflectObjectContainer:
 			{
-				IReflectObjectSeqProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSeqProperty>();
+				IReflectObjectSequenceProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSequenceProperty>();
 				if (objectSeqProperty == nullptr) break;
 
 				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
