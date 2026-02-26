@@ -10,7 +10,7 @@
 #include "IReflectProperty.h"
 #include "IReflectSequenceProperty.h"
 #include "IReflectObjectProperty.h"
-#include "IReflectObjectSeqProperty.h"
+#include "IReflectObjectSequenceProperty.h"
 
 namespace ke
 {
@@ -101,12 +101,12 @@ namespace ke
 				}
 				case EReflectPropertyType::ReflectObjectContainer:
 				{
-					const IReflectObjectSeqProperty* objectSeqProperty = property->castTo<IReflectObjectSeqProperty>();
-					if (objectSeqProperty == nullptr) break;
-					const size_t count = objectSeqProperty->size(reflectObject);
+					const IReflectObjectSequenceProperty* objectSequenceProperty = property->castTo<IReflectObjectSequenceProperty>();
+					if (objectSequenceProperty == nullptr) break;
+					const size_t count = objectSequenceProperty->size(reflectObject);
 					for (size_t idx = 0; idx < count; ++idx)
 					{
-						serializeToXMLInner(xmlWriter, objectSeqProperty->getReflectObject(idx, reflectObject), depth + 1);
+						serializeToXMLInner(xmlWriter, objectSequenceProperty->getReflectObject(idx, reflectObject), depth + 1);
 					}
 					break;
 				}
@@ -153,14 +153,14 @@ namespace ke
 			}
 			case EReflectPropertyType::PODContainer:
 			{
-				IReflectSequenceProperty* reflectPODSeqProperty = reflectProperty->castTo<IReflectSequenceProperty>();
-				if (reflectPODSeqProperty == nullptr) break;
+				IReflectSequenceProperty* reflectPODSequenceProperty = reflectProperty->castTo<IReflectSequenceProperty>();
+				if (reflectPODSequenceProperty == nullptr) break;
 				const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
 				const size_t count = values.size();
-				reflectPODSeqProperty->resize(reflectObject, count);
+				reflectPODSequenceProperty->resize(reflectObject, count);
 				for (size_t idx = 0; idx < count; ++idx)
 				{
-					reflectPODSeqProperty->fromString(idx, reflectObject, values[idx].data(), values[idx].length());
+					reflectPODSequenceProperty->fromString(idx, reflectObject, values[idx].data(), values[idx].length());
 				}
 				break;
 			}
@@ -192,15 +192,15 @@ namespace ke
 			}
 			case EReflectPropertyType::ReflectObjectContainer:
 			{
-				IReflectObjectSeqProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSeqProperty>();
-				if (objectSeqProperty == nullptr) break;
+				IReflectObjectSequenceProperty* objectSequenceProperty = reflectProperty->castTo<IReflectObjectSequenceProperty>();
+				if (objectSequenceProperty == nullptr) break;
 
 				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
 				const size_t count = grandChildren.size();
-				objectSeqProperty->resize(reflectObject, count);
+				objectSequenceProperty->resize(reflectObject, count);
 				for (size_t idx = 0; idx < count; ++idx)
 				{
-					deserializeFromXMLInner(grandChildren[idx], objectSeqProperty->getReflectObject(idx, reflectObject));
+					deserializeFromXMLInner(grandChildren[idx], objectSequenceProperty->getReflectObject(idx, reflectObject));
 
 				}
 				break;

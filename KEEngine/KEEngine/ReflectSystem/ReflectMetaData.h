@@ -3,7 +3,7 @@
 #include "ReflectEnumProperty.h"
 #include "ReflectObjectProperty.h"
 #include "ReflectSequenceProperty.h"
-#include "ReflectObjectSeqProperty.h"
+#include "ReflectObjectSequenceProperty.h"
 
 namespace ke
 {
@@ -47,7 +47,7 @@ namespace ke
 		);
 
 		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-		void addReflectObjectSeqProperty(
+		void addReflectObjectSequenceProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
