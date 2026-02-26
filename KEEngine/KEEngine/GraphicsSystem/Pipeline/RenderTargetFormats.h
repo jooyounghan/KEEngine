@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectObject.h"
+#include "D3D12Enums.h"
 
 namespace ke
 {
@@ -10,13 +11,13 @@ namespace ke
 
 	public:
 		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _numRenderTargets, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat0, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat1, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat2, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat3, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat4, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat5, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat6, 0);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _rtvFormat7, 0);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat0);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat1);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat2);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat3);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat4);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat5);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat6);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _rtvFormat7);
 	};
 }

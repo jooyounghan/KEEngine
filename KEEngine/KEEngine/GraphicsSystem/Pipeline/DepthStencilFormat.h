@@ -1,5 +1,6 @@
 #pragma once
 #include "ReflectObject.h"
+#include "D3D12Enums.h"
 
 namespace ke
 {
@@ -9,6 +10,6 @@ namespace ke
 		REFLECT_OBJECT_CONSTRUCTOR(DepthStencilFormat);
 
 	public:
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _dsvFormat, 0);
+		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _dsvFormat);
 	};
 }

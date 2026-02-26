@@ -161,6 +161,7 @@
     <ClInclude Include="MaterialManager.h" />
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Pipeline\BlendState.h" />
+    <ClInclude Include="Pipeline\D3D12Enums.h" />
     <ClInclude Include="Pipeline\DepthState.h" />
     <ClInclude Include="Pipeline\DepthStencilFormat.h" />
     <ClInclude Include="Pipeline\InputLayoutElement.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="GPUResource.cpp" />
     <ClCompile Include="MaterialManager.cpp" />
     <ClCompile Include="Pipeline\BlendState.cpp" />
+    <ClCompile Include="Pipeline\D3D12Enums.cpp" />
     <ClCompile Include="Pipeline\DepthState.cpp" />
     <ClCompile Include="Pipeline\DepthStencilFormat.cpp" />
     <ClCompile Include="Pipeline\InputLayoutElement.cpp" />

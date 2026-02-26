@@ -2,7 +2,7 @@
 #include "ReflectPODProperty.h"
 #include "ReflectEnumProperty.h"
 #include "ReflectObjectProperty.h"
-#include "ReflectPODSeqProperty.h"
+#include "ReflectSequenceProperty.h"
 #include "ReflectObjectSeqProperty.h"
 
 namespace ke
@@ -39,7 +39,7 @@ namespace ke
 		);
 
 		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-		void addReflectPODSeqProperty(
+		void addSequenceProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
 			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter

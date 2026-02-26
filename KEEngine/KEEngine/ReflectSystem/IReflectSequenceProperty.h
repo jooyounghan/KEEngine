@@ -6,18 +6,18 @@ namespace ke
 {
 	class IBuffer;
 
-	class IReflectPODSeqProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
+	class IReflectSequenceProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
 	{
 	public:
-		IReflectPODSeqProperty(const FlyweightStringA& name);
-		~IReflectPODSeqProperty() override = default;
+		IReflectSequenceProperty(const FlyweightStringA& name);
+		~IReflectSequenceProperty() override = default;
 
 	public:
 		inline virtual EReflectPropertyType getType() const override final { return EReflectPropertyType::PODContainer; }
 
 	protected:
-		inline virtual void*		getInterface() override final { return static_cast<IReflectPODSeqProperty*>(this); }
-		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectPODSeqProperty*>(this); }
+		inline virtual void*		getInterface() override final { return static_cast<IReflectSequenceProperty*>(this); }
+		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectSequenceProperty*>(this); }
 
 	public:
 		virtual void fromBianry(const size_t index, IReflectObject* object, const void* src) = 0;
@@ -27,9 +27,9 @@ namespace ke
 	};
 
 	template<>
-	struct ReflectCastHelper<IReflectPODSeqProperty>
+	struct ReflectCastHelper<IReflectSequenceProperty>
 	{
-		static IReflectPODSeqProperty*		cast(IReflectProperty* prop);
-		static const IReflectPODSeqProperty*	cast(const IReflectProperty* prop);
+		static IReflectSequenceProperty*		cast(IReflectProperty* prop);
+		static const IReflectSequenceProperty*	cast(const IReflectProperty* prop);
 	};
 }
