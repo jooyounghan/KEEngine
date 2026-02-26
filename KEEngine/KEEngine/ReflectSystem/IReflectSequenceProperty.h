@@ -1,12 +1,12 @@
 #pragma once
 #include "IReflectContainerProperty.h"
-#include "ReflectPODPropertyInfo.h"
+#include "ReflectPropertyInfo.h"
 
 namespace ke
 {
 	class IBuffer;
 
-	class IReflectSequenceProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
+	class IReflectSequenceProperty : public IReflectContainerProperty, public IReflectPropertyInfoAccessor
 	{
 	public:
 		IReflectSequenceProperty(const FlyweightStringA& name);
@@ -18,6 +18,12 @@ namespace ke
 	protected:
 		inline virtual void*		getInterface() override final { return static_cast<IReflectSequenceProperty*>(this); }
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectSequenceProperty*>(this); }
+
+	public:
+		virtual void fromBianry(IReflectObject* object, const void* src) override {}
+		virtual void toBinary(const IReflectObject* object, IBuffer* outDst) const override {}
+		virtual void fromString(IReflectObject* object, const char* src, size_t strLen) override {}
+		virtual void toString(const IReflectObject* object, IBuffer* outStringBuffer) const override {}
 
 	public:
 		virtual void fromBianry(const size_t index, IReflectObject* object, const void* src) = 0;

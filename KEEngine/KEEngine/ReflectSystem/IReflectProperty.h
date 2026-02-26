@@ -19,6 +19,9 @@ namespace ke
 		Count
 	};
 
+	class IBuffer;
+	class IReflectObject;
+	class IReflectPropertyInfoAccessor;
 	class IReflectProperty;
 
 	template<typename T>
@@ -47,6 +50,16 @@ namespace ke
 		const FlyweightStringA& getName() const { return _name; }
 		const EReflectUIOption	getUIOption() const { return _uiOption; }
 		void					setUIOption(const EReflectUIOption& uiOption) { _uiOption = uiOption; }
+
+	public:
+		inline virtual IReflectPropertyInfoAccessor*		getPropertyInfoAccessor() { return nullptr; }
+		inline virtual const IReflectPropertyInfoAccessor*	getPropertyInfoAccessor() const { return nullptr; }
+
+	public:
+		virtual void fromBianry(IReflectObject* object, const void* src) = 0;
+		virtual void toBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
+		virtual void fromString(IReflectObject* object, const char* src, size_t strLen) = 0;
+		virtual void toString(const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
 
 	public:
 		template<typename T>

@@ -6,7 +6,7 @@ namespace ke
 		Getter<ObjectType, PropertyType> getter, 
 		ConstGetter<ObjectType, PropertyType> constGetter, 
 		Setter<ObjectType, PropertyType> setter
-	) : IReflectPODProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
+	) : IReflectProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
 	{
 	}
 

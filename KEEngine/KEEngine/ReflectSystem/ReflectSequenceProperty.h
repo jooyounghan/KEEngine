@@ -7,7 +7,7 @@
 namespace ke
 {
 	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	class ReflectSequenceProperty : public IReflectSequenceProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectSequenceProperty : public IReflectSequenceProperty, public ReflectPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
 		ReflectSequenceProperty(
@@ -18,8 +18,8 @@ namespace ke
 		);
 
 	protected:
-		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
-		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this); }
+		virtual void* getPropertyInfoPtr() override { return static_cast<ReflectPropertyInfo<PropertyType>*>(this); }
+		virtual const void* getPropertyInfoPtr() const override { return static_cast<const ReflectPropertyInfo<PropertyType>*>(this); }
 
 	public:
 		virtual size_t	size(const IReflectObject* parentReflectObject) const override;

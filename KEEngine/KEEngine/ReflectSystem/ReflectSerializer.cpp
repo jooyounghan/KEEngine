@@ -52,9 +52,7 @@ namespace ke
 			{
 			case EReflectPropertyType::POD:
 			{
-				const IReflectPODProperty* reflectPODProperty = property->castTo<IReflectPODProperty>();
-				if (reflectPODProperty == nullptr) break;
-				reflectPODProperty->toString(reflectObject, &propertyValueBuffer);
+				property->toString(reflectObject, &propertyValueBuffer);
 				builder.addAttribute(propertyName.c_str(), propertyName.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
 				propertyValueBuffer.reset();
 				break;
@@ -150,9 +148,7 @@ namespace ke
 			{
 			case EReflectPropertyType::POD:
 			{
-				IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();
-				if (reflectPODProperty == nullptr) break;
-				reflectPODProperty->fromString(reflectObject, value.data(), value.length());
+				reflectProperty->fromString(reflectObject, value.data(), value.length());
 				break;
 			}
 			case EReflectPropertyType::PODContainer:

@@ -8,7 +8,7 @@ namespace ke
 		Setter<ObjectType, ContainerType<PropertyType>> setter
 	)
 		: IReflectSequenceProperty(name),
-		ReflectPODPropertyInfo<PropertyType>(),
+		ReflectPropertyInfo<PropertyType>(),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
 		STATIC_ASSERT((ReflectContainerCompatible<ContainerType, PropertyType>), "ContainerType must be ReflectContainerCompatible");
