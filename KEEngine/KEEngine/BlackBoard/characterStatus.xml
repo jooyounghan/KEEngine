@@ -1,4 +1,4 @@
-<CharacterStatus _killPoint="5" _bountyPointRatio="0.75000">
-  <MoveStatus _speed="20" _slowRatio="0.20000" />
-  <AttackStatus _power="15" _lethality="0.35000" />
+<CharacterStatus _killPoint="5" _bountyPointRatio="1.5" _characterType="Warrior">
+  <MoveStatus _speed="14" _slowRatio="0.50000" />
+  <AttackStatus _power="130" _lethality="40.0" />
 </CharacterStatus>

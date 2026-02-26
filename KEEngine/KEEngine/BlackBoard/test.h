@@ -43,7 +43,7 @@ namespace ke
 		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(float, _bountyPointRatio, -1.f);
 		DECLARE_REFLECT_PROPERTY(MoveStatus, _moveStatus);
 		DECLARE_REFLECT_PROPERTY(AttackStatus, _attackStatus);
-		DECLARE_REFLECT_PROPERTY(ECharacterType, _characterType);
+		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(ECharacterType, _characterType, ECharacterType::Citizen);
 	};
 	
 }

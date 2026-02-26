@@ -158,6 +158,7 @@
     <ClInclude Include="GPUResource.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
+    <ClInclude Include="MaterialManager.h" />
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Pipeline\BlendState.h" />
     <ClInclude Include="Pipeline\DepthState.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DescriptorHeap.cpp" />
     <ClCompile Include="GPUResource.cpp" />
+    <ClCompile Include="MaterialManager.cpp" />
     <ClCompile Include="Pipeline\BlendState.cpp" />
     <ClCompile Include="Pipeline\DepthState.cpp" />
     <ClCompile Include="Pipeline\DepthStencilFormat.cpp" />

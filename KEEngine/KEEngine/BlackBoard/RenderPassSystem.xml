@@ -1,0 +1,44 @@
+<Root>
+	<!--MaterialManager는 MaterialSet를 읽으면서 Material Shader 코드의 Path와 Material의 상수버퍼 레이아웃을 정리하여 저장한다.-->
+	<!--이를 바탕으로 Material에 대한 프로토타입을 작성하고 이를 Create 요청 시 복사하여 반환해준다.-->
+	<MaterialSet _name="ParticleSimulationMaterialSet" _rootPermutation="USE_DEPTH_SORT">
+		<!--_name을 바탕으로 뒤에 .hlsl, .material을 붙여서 hlsl 파일과 매터리얼 파일에 접근한다.-->
+		<!--_permuation은 비트 단위로 관리하여 키를 만들 수 있게 한다.-->
+		<MaterialInfo _name="ParticleSimulationDefault" _permuations="USE_DEFRAGMENTATION"/>
+		<MaterialInfo _name="ParticleSimulationFire"/>
+		<MaterialInfo _name="ParticleSimulationRain"/>
+		<MaterialInfo _name="ParticleSimulationNoise"/>
+	</MaterialSet>
+	
+	<MaterialSet _name="ParticleRenderMaterialSet" _rootPermutation="USE_DEPTH_WRITE, USE_DEPTH_TEST">
+		<MaterialInfo _name="ParticleRenderDefault"/>
+		<MaterialInfo _name="ParticleRenderLaser"/>
+		<MaterialInfo _name="ParticleRenderGlare"/>
+	</MaterialSet>
+
+
+	<!--RenderPassManage는 RenderPass를 읽으며 RenderPassName + PipelineName + MaterialName + PemuationBitFlag로 해시를 만들어 요청시 하나의 패스를 제공할 수 있게 해준다.-->
+	<!--Pipeline마다 Material * 2 ^ (Permutaion) 수의 컴파일이 생긴다.-->
+	<ComputePass name="EffectSimulation" _masterShaderPath="EffectSimulation.hlsl" _target="6_6">
+		<ComputePipeline _name="MakeIndirectCommand" _entryPoint="MakeIndirectCS"/>
+		<ComputePipeline _name="ParticleSimulation" _entryPoint="ParticleSimulationCS" _materialSetName="ParticleSimulationMaterialSet"/>
+	</ComputePass>
+
+	<!--RenderPass의 masterShaderPath에는 VS와 PS가 모두 들어있어야한다.-->
+	<RenderPass name="EffectRendering" _masterShaderPath="EffectRendering.hlsl" _taget="6_6">
+		<RenderPipeline _name="ParticleRender" _entryPointVS="ParticleRenderVS" _entryPointPS="ParticleRenderPS" _materialSetName="ParticleRenderMaterialSet"/>
+	</RenderPass>
+
+	<MaterialSet _name="3DGS_ComputeSet" _rootPermutation="INFER_COVARIANCE">
+		<MaterialInfo _name="FastSplat" />
+		<MaterialInfo _name="AccurateSplat" _permuations="HIGH_PRECISION" />
+	</MaterialSet>
+
+	<ComputePass name="SplatProcessing" _masterShaderPath="3DGS_Process.hlsl" _target="6_6">
+		<ComputePipeline _name="Project" _entryPoint="CSProject" _materialSetName="3DGS_ComputeSet"/>
+	</ComputePass>
+
+	<RenderPass name="SplatFinal" _masterShaderPath="3DGS_Render.hlsl" _target="6_6">
+		<RenderPipeline _name="MainDraw" _entryPointVS="VSMain" _entryPointPS="PSMain" _materialSetName="3DGS_ComputeSet"/>
+	</RenderPass>
+</Root>

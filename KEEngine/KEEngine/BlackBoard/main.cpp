@@ -22,6 +22,11 @@ protected:
 
 int main()
 {
+	CharacterStatus characterStatus;
+	ReflectSerializer::deserializeFromXML("CharacterStatus.xml", &characterStatus);
+
+	ReflectSerializer::serializeToXML("CharacterStatus.xml", &characterStatus);
+
 	KEApp app(800, 600, L"BlackBoardAppClass", L"BlackBoardApp");
 	return app.run();
 }
