@@ -56,10 +56,10 @@ namespace ke
 		inline virtual const IReflectPropertyInfoAccessor*	getPropertyInfoAccessor() const { return nullptr; }
 
 	public:
-		virtual void fromBianry(IReflectObject* object, const void* src) = 0;
-		virtual void toBinary(const IReflectObject* object, IBuffer* outDst) const = 0;
-		virtual void fromString(IReflectObject* object, const char* src, size_t strLen) = 0;
-		virtual void toString(const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
+		virtual void fromBianry(IReflectObject* object, const void* src) {}
+		virtual void toBinary(const IReflectObject* object, IBuffer* outDst) const {}
+		virtual void fromString(IReflectObject* object, const char* src, size_t strLen) {}
+		virtual void toString(const IReflectObject* object, IBuffer* outStringBuffer) const {}
 
 	public:
 		template<typename T>
