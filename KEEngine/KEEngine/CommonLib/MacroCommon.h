@@ -225,3 +225,19 @@
 #define DEFAULTABLE(ClassName)	\
 	DEFAULT_COPYABLE(ClassName)	\
 	DEFAULT_MOVEABLE(ClassName)
+
+#define SINGLETON_CLASS(ClassName)                                             \
+private:                                                                       \
+    ClassName()                                                                \
+    {                                                                          \
+    }                                                                          \
+    ~ClassName()                                                               \
+    {                                                                          \
+    }                                                                          \
+    NONCOPYABLE(ClassName);                                                    \
+public:                                                                        \
+    static ClassName& getInstance()                                            \
+    {                                                                          \
+        static ClassName instance;                                             \
+        return instance;                                                       \
+    }

@@ -155,6 +155,7 @@
     <ClInclude Include="CommandQueue.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DescriptorHeap.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="GPUResource.h" />
     <ClInclude Include="GraphicsSystemPch.h" />
     <ClInclude Include="KEAppBase.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DescriptorHeap.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GPUResource.cpp" />
     <ClCompile Include="MaterialManager.cpp" />
     <ClCompile Include="PipelineStateObject.cpp" />

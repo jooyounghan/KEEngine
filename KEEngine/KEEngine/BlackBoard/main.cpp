@@ -23,13 +23,13 @@ protected:
 
 int main()
 {
-	BlendState blendState;
-	ReflectSerializer::deserializeFromXML("BlendState.xml", &blendState);
+	//BlendState blendState;
+	//ReflectSerializer::deserializeFromXML("BlendState.xml", &blendState);
 
-	CharacterStatus characterStatus;
-	ReflectSerializer::deserializeFromXML("CharacterStatus.xml", &characterStatus);
+	//CharacterStatus characterStatus;
+	//ReflectSerializer::deserializeFromXML("CharacterStatus.xml", &characterStatus);
 
-	ReflectSerializer::serializeToXML("CharacterStatus.xml", &characterStatus);
+	//ReflectSerializer::serializeToXML("CharacterStatus.xml", &characterStatus);
 
 	KEApp app(800, 600, L"BlackBoardAppClass", L"BlackBoardApp");
 	return app.run();

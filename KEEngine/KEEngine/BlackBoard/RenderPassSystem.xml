@@ -17,8 +17,8 @@
 	</MaterialSet>
 
 	<PsoStatePreset _name="EffectRenderPsoStateSet">
-		<PsoState _name="Opaque" _states="UseDepthTest, UseDepthWrite, CullBack"/>
-		<PsoState _name="Transparent" _states="UseDepthTest, BlendAlpha, CullBack"/>
+		<PsoState _name="Opaque" _stateKey="UseDepthTest, UseDepthWrite, CullBack"/>
+		<PsoState _name="Transparent" _stateKey="UseDepthTest, BlendAlpha, CullBack"/>
 		<PsoState _name="PostProcess"/>
 	</PsoStatePreset>
 

@@ -3,13 +3,6 @@
 
 namespace ke
 {
-    struct HardwareAdapterInfo
-    {
-        Microsoft::WRL::ComPtr<IDXGIAdapter1>    _adapter;
-        DXGI_ADAPTER_DESC1                       _desc;
-		bool									 isDX12Supported;
-	};
-
     class KEAppBase
     {
     public:
@@ -26,15 +19,6 @@ namespace ke
     protected:
 		Timer   _timer;
 
-    protected:
-        Microsoft::WRL::ComPtr<ID3D12Device>    _device;
-        Microsoft::WRL::ComPtr<IDXGIFactory4>   _factory;
-        Microsoft::WRL::ComPtr<IDXGIAdapter1>   _hardwareAdapter;
-
-    public:
-        inline ID3D12Device* getDevice() const { return _device.Get(); }
-        inline IDXGIFactory* getFactory() const { return _factory.Get(); }
-
     public:
         int run();
 
@@ -46,11 +30,5 @@ namespace ke
   
     public:
         LRESULT WINAPI appProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-    protected:
-        void getHardwareAdapter(
-            IDXGIFactory1* pFactory,
-            std::vector<HardwareAdapterInfo>& outHardwareAdaptersInfo
-        );
     };
 }

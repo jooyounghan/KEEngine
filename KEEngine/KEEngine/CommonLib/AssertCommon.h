@@ -37,6 +37,11 @@
 #define KE_RETURN_DEV_ARGS(condition, format, ...)	__noop
 #endif // KE_DEV
 
+#ifdef KE_DEV
+#define KE_LOG_INFO(format, ...)		fprintf(stdout, "INFO: " format "\n", __VA_ARGS__)
+#else
+#define KE_LOG_INFO(format, ...)		__noop
+#endif // KE_DEV
 
 #if defined(__clang__)
 #define FUNC_NAME __PRETTY_FUNCTION__

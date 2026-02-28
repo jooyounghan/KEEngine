@@ -25,47 +25,47 @@
     <Filter Include="소스 파일\Resources">
       <UniqueIdentifier>{b3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Command">
-      <UniqueIdentifier>{d24c53f1-3783-4d9d-b914-b9e3f4cd770d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Command">
-      <UniqueIdentifier>{a6e44714-38d1-4974-87e2-76ebfa617d4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Material">
+    <Filter Include="소스 파일\Resources\Material">
       <UniqueIdentifier>{a78dbc3e-0c07-4262-a986-0be9dd6e654b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\Material">
+    <Filter Include="헤더 파일\Resources\Material">
       <UniqueIdentifier>{75590b0f-c2bf-4432-ba36-431ea20f87b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\RenderPass">
+    <Filter Include="헤더 파일\Resources\RenderPass">
       <UniqueIdentifier>{c5e66816-49e2-4a8d-ae3f-d9fac8d98e8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\RenderPass\Render">
+    <Filter Include="헤더 파일\Resources\RenderPass\Render">
       <UniqueIdentifier>{90a1c911-0f90-48ee-a852-dd80cbb40271}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\RenderPass\Render\PSO">
+    <Filter Include="헤더 파일\Resources\RenderPass\Render\PSO">
       <UniqueIdentifier>{4ce8c440-6950-41e7-91a0-05b8d3f598ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\RenderPass\Compute">
+    <Filter Include="헤더 파일\Resources\RenderPass\Render\PSO\Detail">
+      <UniqueIdentifier>{f36794a4-ba1a-4c43-a9b3-a51a8e751673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Resources\RenderPass\Compute">
       <UniqueIdentifier>{c7fa3326-e68d-486e-ad63-41f608a7c41c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\RenderPass">
+    <Filter Include="소스 파일\Resources\RenderPass">
       <UniqueIdentifier>{d6f77927-5af3-4b9e-bf4f-eabbd9e9f9f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\RenderPass\Render">
+    <Filter Include="소스 파일\Resources\RenderPass\Render">
       <UniqueIdentifier>{621364dc-53fd-4c9d-a617-2d56806842fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\RenderPass\Render\PSO">
+    <Filter Include="소스 파일\Resources\RenderPass\Render\PSO">
       <UniqueIdentifier>{be0ca2a1-1eb7-4072-a395-749bdb8c2342}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\RenderPass\Compute">
-      <UniqueIdentifier>{472bfa88-aeb6-47e2-a105-aa4e411f27ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\RenderPass\Render\PSO\Detail">
+    <Filter Include="소스 파일\Resources\RenderPass\Render\PSO\Detail">
       <UniqueIdentifier>{9dc97d49-41ed-4796-a434-e14a4f14480c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\RenderPass\Render\PSO\Detail">
-      <UniqueIdentifier>{f36794a4-ba1a-4c43-a9b3-a51a8e751673}</UniqueIdentifier>
+    <Filter Include="소스 파일\Resources\RenderPass\Compute">
+      <UniqueIdentifier>{472bfa88-aeb6-47e2-a105-aa4e411f27ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\App\Command">
+      <UniqueIdentifier>{a6e44714-38d1-4974-87e2-76ebfa617d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\App\Command">
+      <UniqueIdentifier>{d24c53f1-3783-4d9d-b914-b9e3f4cd770d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,58 +100,61 @@
       <Filter>헤더 파일\Resources</Filter>
     </ClInclude>
     <ClInclude Include="CommandContext.h">
-      <Filter>헤더 파일\Command</Filter>
+      <Filter>헤더 파일\App\Command</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueue.h">
-      <Filter>헤더 파일\Command</Filter>
+      <Filter>헤더 파일\App\Command</Filter>
     </ClInclude>
     <ClInclude Include="ShaderPermuationPipeline.h">
-      <Filter>소스 파일\RenderPass</Filter>
+      <Filter>소스 파일\Resources\RenderPass</Filter>
     </ClInclude>
     <ClInclude Include="PipelineManager.h">
-      <Filter>소스 파일\RenderPass</Filter>
+      <Filter>소스 파일\Resources\RenderPass</Filter>
     </ClInclude>
     <ClInclude Include="MaterialManager.h">
-      <Filter>헤더 파일\Material</Filter>
+      <Filter>헤더 파일\Resources\Material</Filter>
     </ClInclude>
     <ClInclude Include="D3D12Enums.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="BlendState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="DepthState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="DepthStencilFormat.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="InputLayoutElement.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="PrimitiveTopology.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="RasterizerState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetFormats.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="SampleDesc.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="SampleMask.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClInclude>
     <ClInclude Include="PipelineStatePreset.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO</Filter>
     </ClInclude>
     <ClInclude Include="PipelineStateObject.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO</Filter>
     </ClInclude>
     <ClInclude Include="StencilState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>헤더 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,52 +189,55 @@
       <Filter>소스 파일\Resources</Filter>
     </ClCompile>
     <ClCompile Include="CommandContext.cpp">
-      <Filter>소스 파일\Command</Filter>
+      <Filter>소스 파일\App\Command</Filter>
     </ClCompile>
     <ClCompile Include="CommandQueue.cpp">
-      <Filter>소스 파일\Command</Filter>
+      <Filter>소스 파일\App\Command</Filter>
     </ClCompile>
     <ClCompile Include="MaterialManager.cpp">
-      <Filter>소스 파일\Material</Filter>
+      <Filter>소스 파일\Resources\Material</Filter>
     </ClCompile>
     <ClCompile Include="D3D12Enums.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BlendState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="DepthState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="DepthStencilFormat.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="InputLayoutElement.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="PrimitiveTopology.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="RasterizerState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetFormats.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="SampleDesc.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="SampleMask.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="StencilState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO\Detail</Filter>
     </ClCompile>
     <ClCompile Include="PipelineStatePreset.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO</Filter>
     </ClCompile>
     <ClCompile Include="PipelineStateObject.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
+      <Filter>소스 파일\Resources\RenderPass\Render\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
