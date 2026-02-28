@@ -2,7 +2,7 @@
 #include "KEAppBase.h"
 #include "ReflectSerializer.h"
 #include "EnumUtil.h"
-#include "BlendState.h"
+#include "PipelineStateObject.h"
 #include "test.h"
 
 using namespace ke;
@@ -23,8 +23,9 @@ protected:
 
 int main()
 {
-	//BlendState blendState;
-	//ReflectSerializer::deserializeFromXML("BlendState.xml", &blendState);
+	PipelineStateObject pso;
+	ReflectSerializer::deserializeFromXML("PipelineStateObject.xml", &pso);
+	ReflectSerializer::serializeToXML("PipelineStateObject.xml", &pso);
 
 	//CharacterStatus characterStatus;
 	//ReflectSerializer::deserializeFromXML("CharacterStatus.xml", &characterStatus);

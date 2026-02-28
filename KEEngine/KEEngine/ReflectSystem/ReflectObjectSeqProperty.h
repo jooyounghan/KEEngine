@@ -4,7 +4,7 @@
 
 namespace ke
 {
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	class ReflectObjectSeqProperty : public IReflectObjectSeqProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
@@ -17,7 +17,7 @@ namespace ke
 
 	public:
 		virtual size_t	size(const IReflectObject* object) const override;
-		virtual void	resize(const IReflectObject* object, size_t newSize) override;
+		virtual void	resize(IReflectObject* object, size_t newSize) override;
 
 	public:
 		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* object) override;

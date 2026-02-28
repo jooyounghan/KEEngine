@@ -12,7 +12,7 @@ namespace ke
 	public:
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(FlyweightStringA, _semanticName, FlyweightStringA::_empty);
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _semanticIndex, 0);
-		KE_DECLARE_REFLECT_PROPERTY(EDxgiFormat, _format);
+		KE_DECLARE_REFLECT_PROPERTY(EDXGIFormat, _format);
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _inputSlot, 0);
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint32, _alignedByteOffset, 0);
 		KE_DECLARE_REFLECT_PROPERTY(EInputClassification, _inputSlotClass);

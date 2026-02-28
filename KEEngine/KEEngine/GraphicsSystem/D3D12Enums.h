@@ -90,7 +90,7 @@ namespace ke
 		Decr		= 8,
 	};
 
-	enum class EDxgiFormat : uint8
+	enum class EDXGIFormat : uint8
 	{
 		Unknown						= 0,
 		R32G32B32A32_Typeless		= 1,

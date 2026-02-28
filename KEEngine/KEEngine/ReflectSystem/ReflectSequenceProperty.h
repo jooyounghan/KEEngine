@@ -6,7 +6,7 @@
 
 namespace ke
 {
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	class ReflectSequenceProperty : public IReflectSequenceProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
@@ -23,7 +23,7 @@ namespace ke
 
 	public:
 		virtual size_t	size(const IReflectObject* parentReflectObject) const override;
-		virtual void	resize(const IReflectObject* object, size_t newSize) override;
+		virtual void	resize(IReflectObject* object, size_t newSize) override;
 
 	public:
 		virtual void	fromBianry(const size_t index, IReflectObject* object, const void* src) override;

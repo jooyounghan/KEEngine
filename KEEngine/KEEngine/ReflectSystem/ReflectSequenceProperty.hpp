@@ -1,6 +1,6 @@
 namespace ke
 {
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::ReflectSequenceProperty(
 		const FlyweightStringA& name,
 		Getter<ObjectType, ContainerType<PropertyType>> getter,
@@ -11,24 +11,24 @@ namespace ke
 		ReflectPODPropertyInfo<PropertyType>(),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
-		STATIC_ASSERT((ReflectContainerCompatible<ContainerType, PropertyType>), "ContainerType must be ReflectContainerCompatible");
+		STATIC_ASSERT((ReflectContainerCompatible<ContainerType<PropertyType>, PropertyType>), "ContainerType must be ReflectContainerCompatible");
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	size_t ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject* object) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
-	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::resize(const IReflectObject* object, size_t newSize)
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
+	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::resize(IReflectObject* object, size_t newSize)
 	{
-		const ContainerType<PropertyType>& container = this->get(object);
+		ContainerType<PropertyType>& container = this->get(object);
 		return container.resize(newSize);
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::fromBianry(const size_t index, IReflectObject* object, const void* src)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
@@ -43,7 +43,7 @@ namespace ke
 		}
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
@@ -59,7 +59,7 @@ namespace ke
 		}
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::fromString(const size_t index, IReflectObject* object, const char* src, size_t strLen)
 	{
 		ContainerType<PropertyType>& container = this->get(object);
@@ -78,7 +78,7 @@ namespace ke
 		}
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const
 	{
 		const ContainerType<PropertyType>& container = this->get(object);

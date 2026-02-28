@@ -38,7 +38,7 @@ namespace ke
 			, Setter<ObjectType, PropertyType> setter
 		);
 
-		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+		template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 		void addSequenceProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter
@@ -46,7 +46,7 @@ namespace ke
 			, Setter<ObjectType, ContainerType<PropertyType>> setter
 		);
 
-		template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+		template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 		void addReflectObjectSeqProperty(
 			const FlyweightStringA& name
 			, Getter<ObjectType, ContainerType<PropertyType>> getter

@@ -16,7 +16,7 @@ namespace ke
 	KE_BEGIN_BIND_REFLECT_PROPERTY(InputLayoutElement)
 		KE_BIND_REFLECT_POD_PROPERTY(InputLayoutElement, FlyweightStringA, _semanticName, EReflectUIOption::Editable, FlyweightStringA::_empty);
 		KE_BIND_REFLECET_POD_RANGED_PROPERTY(InputLayoutElement, uint32, _semanticIndex, EReflectUIOption::Editable, 0, 15, 1, 0);
-		KE_BIND_REFLECT_POD_PROPERTY(InputLayoutElement, EDxgiFormat, _format, EReflectUIOption::Editable, EDxgiFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(InputLayoutElement, EDXGIFormat, _format, EReflectUIOption::Editable, EDXGIFormat::Unknown);
 		KE_BIND_REFLECET_POD_RANGED_PROPERTY(InputLayoutElement, uint32, _inputSlot, EReflectUIOption::Editable, 0, 15, 1, 0);
 		KE_BIND_REFLECET_POD_RANGED_PROPERTY(InputLayoutElement, uint32, _alignedByteOffset, EReflectUIOption::Editable, 0, 256, 1, 0);
 		KE_BIND_REFLECT_POD_PROPERTY(InputLayoutElement, EInputClassification, _inputSlotClass, EReflectUIOption::Editable, EInputClassification::PerVertexData);

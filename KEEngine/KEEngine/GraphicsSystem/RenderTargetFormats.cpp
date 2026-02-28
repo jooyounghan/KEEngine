@@ -17,13 +17,13 @@ namespace ke
 
 	KE_BEGIN_BIND_REFLECT_PROPERTY(RenderTargetFormats)
 		KE_BIND_REFLECET_POD_RANGED_PROPERTY(RenderTargetFormats, uint8, _numRenderTargets, EReflectUIOption::Editable, 0, 8, 1, 0);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat0, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat1, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat2, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat3, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat4, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat5, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat6, EReflectUIOption::Editable, EDxgiFormat::Unknown);
-		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDxgiFormat, _rtvFormat7, EReflectUIOption::Editable, EDxgiFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat0, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat1, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat2, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat3, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat4, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat5, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat6, EReflectUIOption::Editable, EDXGIFormat::Unknown);
+		KE_BIND_REFLECT_POD_PROPERTY(RenderTargetFormats, EDXGIFormat, _rtvFormat7, EReflectUIOption::Editable, EDXGIFormat::Unknown);
 	KE_END_BIND_REFLECT_PROPERTY()
 }

@@ -64,7 +64,8 @@ namespace ke
 				const IReflectSequenceProperty* reflectPODContainerProperty = property->castTo<IReflectSequenceProperty>();
 				if (reflectPODContainerProperty == nullptr) break;
 				const size_t count = reflectPODContainerProperty->size(reflectObject);
-				reflectPODContainerProperty->toString(0, reflectObject, &propertyValueBuffer);
+
+				if (count > 0) reflectPODContainerProperty->toString(0, reflectObject, &propertyValueBuffer);
 				for (size_t idx = 1; idx < count; ++idx)
 				{
 					propertyValueBuffer.write(", ", 2);

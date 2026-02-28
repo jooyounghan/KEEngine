@@ -21,14 +21,14 @@ namespace ke
 		_orderedPropertyMap.emplace(name, property);
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectMetaData::addSequenceProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
 		IReflectProperty* property = _properties.push_back<ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);
 		_orderedPropertyMap.emplace(name, property);
 	}
 
-	template<typename ObjectType, template<typename> typename ContainerType, typename PropertyType>
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	void ReflectMetaData::addReflectObjectSeqProperty(const FlyweightStringA & name, Getter<ObjectType, ContainerType<PropertyType>> getter, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, Setter<ObjectType, ContainerType<PropertyType>> setter)
 	{
 		IReflectProperty* property = _properties.push_back<ReflectObjectSeqProperty<ObjectType, ContainerType, PropertyType>>(name, getter, constGetter, setter);

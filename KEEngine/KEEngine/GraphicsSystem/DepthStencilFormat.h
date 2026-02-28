@@ -10,6 +10,6 @@ namespace ke
 		KE_REFLECT_OBJECT_CONSTRUCTOR(DepthStencilFormat);
 
 	public:
-		KE_DECLARE_REFLECT_PROPERTY(EDxgiFormat, _dsvFormat);
+		KE_DECLARE_REFLECT_PROPERTY(EDXGIFormat, _dsvFormat);
 	};
 }

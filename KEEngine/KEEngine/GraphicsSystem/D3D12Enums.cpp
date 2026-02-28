@@ -43,7 +43,7 @@ namespace ke
 		Keep, Zero, Replace, IncrSat, DecrSat, Invert, Incr, Decr
 	);
 
-	KE_DEFINE_REFLECT_ENUM(EDxgiFormat,
+	KE_DEFINE_REFLECT_ENUM(EDXGIFormat,
 		Unknown,
 		R32G32B32A32_Typeless, R32G32B32A32_Float, R32G32B32A32_Uint, R32G32B32A32_Sint,
 		R32G32B32_Typeless, R32G32B32_Float, R32G32B32_Uint, R32G32B32_Sint,

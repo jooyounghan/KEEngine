@@ -1,0 +1,1 @@
+<PipelineStateObject _name="TestPipelineStateObject" _stateKey="CullBack|UseDepthTest|UseDepthWrite|BlendAlpha" _stencilReadMask="162" _stencilWriteMask="47" _renderTargetFormats="R8G8B8A8_Unorm, R8G8B8A8_Unorm_Srgb, R8G8B8A8_Uint" />
