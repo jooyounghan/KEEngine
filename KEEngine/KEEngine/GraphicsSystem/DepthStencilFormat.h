@@ -4,12 +4,12 @@
 
 namespace ke
 {
-	REFLECT_OBJECT_CLASS(DepthStencilFormat)
+	KE_REFLECT_OBJECT_CLASS(DepthStencilFormat)
 	{
 	public:
-		REFLECT_OBJECT_CONSTRUCTOR(DepthStencilFormat);
+		KE_REFLECT_OBJECT_CONSTRUCTOR(DepthStencilFormat);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(EDxgiFormat, _dsvFormat);
+		KE_DECLARE_REFLECT_PROPERTY(EDxgiFormat, _dsvFormat);
 	};
 }

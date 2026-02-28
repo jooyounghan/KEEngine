@@ -1,38 +1,22 @@
 #define KE_ENUM_PREF_VAL(EnumName, Val) EnumName::Val
 
-#define DEFINE_ENUM_FLAG_OPERATORS(EnumName)                                        \
-    inline EnumName operator|(EnumName lhs, EnumName rhs)                           \
-    {                                                                               \
-        using T = std::underlying_type_t<EnumName>;                                 \
-        return static_cast<EnumName>(static_cast<T>(lhs) | static_cast<T>(rhs));    \
-    }                                                                               \
-                                                                                    \
-    inline EnumName operator&(EnumName lhs, EnumName rhs)                           \
-    {                                                                               \
-        using T = std::underlying_type_t<EnumName>;                                 \
-        return static_cast<EnumName>(static_cast<T>(lhs) & static_cast<T>(rhs));    \
-    }                                                                               \
-                                                                                    \
-    inline EnumName& operator|=(EnumName& lhs, EnumName rhs)                        \
-    {                                                                               \
-        return lhs = lhs | rhs;                                                     \
-    }                                                                               \
-                                                                                    \
-    inline EnumName& operator&=(EnumName& lhs, EnumName rhs)                        \
-    {                                                                               \
-        return lhs = lhs & rhs;                                                     \
-    }
+#define KE_DECLARE_ENUM_FLAG_OPERATORS(EnumName)        \
+    EnumName operator|(EnumName lhs, EnumName rhs);     \
+    EnumName operator&(EnumName lhs, EnumName rhs);     \
+    EnumName& operator|=(EnumName& lhs, EnumName rhs);  \
+    EnumName& operator&=(EnumName& lhs, EnumName rhs);
 
-#define DECLARE_REFLECT_ENUM(EnumName)                                                                  \
+#define KE_DECLARE_REFLECT_ENUM(EnumName, Type)                                                         \
+enum class EnumName : Type;                                                                             \
 template<> const std::unordered_map<size_t, std::string>& EnumWrapper<EnumName>::getStringTable();      \
 template<> std::string EnumWrapper<EnumName>::toString(EnumName val);                                   \
 template<> std::optional<EnumName> EnumWrapper<EnumName>::fromString(const std::string_view& str);
 
-#define DECLARE_REFLECT_ENUM_FLAG(EnumName)     \
-DEFINE_ENUM_FLAG_OPERATORS(EBlendColorMask);    \
-DECLARE_REFLECT_ENUM(EnumName);
+#define KE_DECLARE_REFLECT_ENUM_FLAG(EnumName, Type)   \
+KE_DECLARE_REFLECT_ENUM(EnumName, Type);               \
+KE_DECLARE_ENUM_FLAG_OPERATORS(EnumName);
 
-#define DEFINE_REFLECT_ENUM(EnumName, ...)                                                                                                  \
+#define KE_DEFINE_REFLECT_ENUM(EnumName, ...)                                                                                                  \
     template<> const std::unordered_map<size_t, std::string>& EnumWrapper<EnumName>::getStringTable()                                       \
     {                                                                                                                                       \
         static const std::unordered_map<size_t, std::string> stringTable = [] {                                                             \
@@ -52,7 +36,7 @@ DECLARE_REFLECT_ENUM(EnumName);
         return stringTable.find(static_cast<size_t>(val)) != stringTable.end() ? stringTable.at(static_cast<size_t>(val)) : unknownString;  \
     }                                                                                                                                       \
                                                                                                                                             \
-    template<> std::optional<EnumName> EnumWrapper<EnumName>::fromString(const std::string_view& str)                                 \
+    template<> std::optional<EnumName> EnumWrapper<EnumName>::fromString(const std::string_view& str)                                       \
     {                                                                                                                                       \
         const std::unordered_map<size_t, std::string>& stringTable = getStringTable();                                                      \
         for (const auto& [key, value] : stringTable)                                                                                        \
@@ -65,7 +49,31 @@ DECLARE_REFLECT_ENUM(EnumName);
         return std::nullopt;                                                                                                                \
     };
 
-#define DEFINE_REFLECT_ENUM_FLAG(EnumName, ...)                                                                             \
+#define KE_DEFINE_ENUM_FLAG_OPERATORS(EnumName)                                     \
+    EnumName operator|(EnumName lhs, EnumName rhs)                                  \
+    {                                                                               \
+        using T = std::underlying_type_t<EnumName>;                                 \
+        return static_cast<EnumName>(static_cast<T>(lhs) | static_cast<T>(rhs));    \
+    }                                                                               \
+                                                                                    \
+    EnumName operator&(EnumName lhs, EnumName rhs)                                  \
+    {                                                                               \
+        using T = std::underlying_type_t<EnumName>;                                 \
+        return static_cast<EnumName>(static_cast<T>(lhs) & static_cast<T>(rhs));    \
+    }                                                                               \
+                                                                                    \
+    EnumName& operator|=(EnumName& lhs, EnumName rhs)                               \
+    {                                                                               \
+        return lhs = lhs | rhs;                                                     \
+    }                                                                               \
+                                                                                    \
+    EnumName& operator&=(EnumName& lhs, EnumName rhs)                               \
+    {                                                                               \
+        return lhs = lhs & rhs;                                                     \
+    }
+
+#define KE_DEFINE_REFLECT_ENUM_FLAG(EnumName, ...)                                                                          \
+    KE_DEFINE_ENUM_FLAG_OPERATORS(EnumName);                                                                                \
     template<> const std::unordered_map<size_t, std::string>& EnumWrapper<EnumName>::getStringTable()                       \
     {                                                                                                                       \
         static const std::unordered_map<size_t, std::string> stringTable = [] {                                             \

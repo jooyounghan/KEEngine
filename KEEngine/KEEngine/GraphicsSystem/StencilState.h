@@ -4,22 +4,22 @@
 
 namespace ke
 {
-	REFLECT_OBJECT_CLASS(StencilState)
+	KE_REFLECT_OBJECT_CLASS(StencilState)
 	{
 	public:
-		REFLECT_OBJECT_CONSTRUCTOR(StencilState);
+		KE_REFLECT_OBJECT_CONSTRUCTOR(StencilState);
 
 	public:
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _stencilEnable, false);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, 0xff);
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, 0xff);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilFailOp);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilDepthFailOp);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilPassOp);
-		DECLARE_REFLECT_PROPERTY(EComparisonFunc, _frontFaceStencilFunc);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilFailOp);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilDepthFailOp);
-		DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilPassOp);
-		DECLARE_REFLECT_PROPERTY(EComparisonFunc, _backFaceStencilFunc);
+		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _stencilEnable, false);
+		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, 0xff);
+		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, 0xff);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilFailOp);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilDepthFailOp);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _frontFaceStencilPassOp);
+		KE_DECLARE_REFLECT_PROPERTY(EComparisonFunc, _frontFaceStencilFunc);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilFailOp);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilDepthFailOp);
+		KE_DECLARE_REFLECT_PROPERTY(EStencilOp, _backFaceStencilPassOp);
+		KE_DECLARE_REFLECT_PROPERTY(EComparisonFunc, _backFaceStencilFunc);
 	};
 }

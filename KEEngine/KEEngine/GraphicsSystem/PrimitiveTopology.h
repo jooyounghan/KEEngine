@@ -4,12 +4,12 @@
 
 namespace ke
 {
-	REFLECT_OBJECT_CLASS(PrimitiveTopology)
+	KE_REFLECT_OBJECT_CLASS(PrimitiveTopology)
 	{
 	public:
-		REFLECT_OBJECT_CONSTRUCTOR(PrimitiveTopology);
+		KE_REFLECT_OBJECT_CONSTRUCTOR(PrimitiveTopology);
 
 	public:
-		DECLARE_REFLECT_PROPERTY(EPrimitiveTopologyType, _primitiveTopologyType);
+		KE_DECLARE_REFLECT_PROPERTY(EPrimitiveTopologyType, _primitiveTopologyType);
 	};
 }

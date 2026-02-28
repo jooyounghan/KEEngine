@@ -5,6 +5,7 @@
 namespace ke
 {
 #pragma region BlendState
+	KE_DECLARE_REFLECT_ENUM(EBlend, uint8);
 	enum class EBlend : uint8
 	{
 		Zero			= 1,
@@ -18,8 +19,8 @@ namespace ke
 		DestColor		= 9,
 		InvDestColor	= 10,
 	};
-	DECLARE_REFLECT_ENUM(EBlend);
 
+	KE_DECLARE_REFLECT_ENUM(EBlendOp, uint8);
 	enum class EBlendOp : uint8
 	{
 		Add				= 1,
@@ -28,16 +29,15 @@ namespace ke
 		Min				= 4,
 		Max				= 5,
 	};
-	DECLARE_REFLECT_ENUM(EBlendOp);
 
-	enum class EBlendColorMask
+	KE_DECLARE_REFLECT_ENUM_FLAG(EBlendColorMask, uint8);
+	enum class EBlendColorMask : uint8
 	{
 		Red				= 1 << 0,
 		Green			= 1 << 1,
 		Blue			= 1 << 2,
 		Alpha			= 1 << 3
 	};
-	DECLARE_REFLECT_ENUM_FLAG(EBlendColorMask);
 #pragma endregion
 
 

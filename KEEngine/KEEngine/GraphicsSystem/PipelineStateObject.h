@@ -1,4 +1,7 @@
 #pragma once
+#include "ReflectObject.h"
+#include "EnumUtil.h"
+
 namespace ke
 {
 	enum class EPipelineStateKey
@@ -10,10 +13,10 @@ namespace ke
 		CullBack,
 	};
 
-
-	class PipelineStateObject
+	KE_REFLECT_OBJECT_CLASS(PipelineStateObject)
 	{
-	
+	public:
+		KE_REFLECT_OBJECT_CONSTRUCTOR(PipelineStateObject);
 	};
 }
 

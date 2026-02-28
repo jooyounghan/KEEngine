@@ -4,14 +4,14 @@
 
 namespace ke
 {
-	REFLECT_OBJECT_CLASS(DepthState)
+	KE_REFLECT_OBJECT_CLASS(DepthState)
 	{
 	public:
-		REFLECT_OBJECT_CONSTRUCTOR(DepthState);
+		KE_REFLECT_OBJECT_CONSTRUCTOR(DepthState);
 
 	public:
-		DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _depthEnable, true);
-		DECLARE_REFLECT_PROPERTY(EDepthWriteMask, _depthWriteMask);
-		DECLARE_REFLECT_PROPERTY(EComparisonFunc, _depthFunc);
+		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(bool, _depthEnable, true);
+		KE_DECLARE_REFLECT_PROPERTY(EDepthWriteMask, _depthWriteMask);
+		KE_DECLARE_REFLECT_PROPERTY(EComparisonFunc, _depthFunc);
 	};
 }

@@ -150,6 +150,9 @@
     <ClInclude Include="PipelineStateObject.h">
       <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
     </ClInclude>
+    <ClInclude Include="StencilState.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsSystemPch.cpp">
