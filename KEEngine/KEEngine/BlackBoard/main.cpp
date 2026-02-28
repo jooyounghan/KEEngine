@@ -2,6 +2,7 @@
 #include "KEAppBase.h"
 #include "ReflectSerializer.h"
 #include "EnumUtil.h"
+#include "BlendState.h"
 #include "test.h"
 
 using namespace ke;
@@ -22,6 +23,9 @@ protected:
 
 int main()
 {
+	BlendState blendState;
+	ReflectSerializer::deserializeFromXML("BlendState.xml", &blendState);
+
 	CharacterStatus characterStatus;
 	ReflectSerializer::deserializeFromXML("CharacterStatus.xml", &characterStatus);
 

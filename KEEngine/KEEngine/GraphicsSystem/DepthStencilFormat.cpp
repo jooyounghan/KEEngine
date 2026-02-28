@@ -8,6 +8,6 @@ namespace ke
 	END_DEFINE_REFLECT_PROPERTY()
 
 	BEGIN_BIND_REFLECT_PROPERTY(DepthStencilFormat)
-		BIND_REFLECET_POD_PROPERTY(DepthStencilFormat, EDxgiFormat, _dsvFormat, EReflectUIOption::Editable, EDxgiFormat::Unknown);
+		BIND_REFLECT_POD_PROPERTY(DepthStencilFormat, EDxgiFormat, _dsvFormat, EReflectUIOption::Editable, EDxgiFormat::Unknown);
 	END_BIND_REFLECT_PROPERTY()
 }

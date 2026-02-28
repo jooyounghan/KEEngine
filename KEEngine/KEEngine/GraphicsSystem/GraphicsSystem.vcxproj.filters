@@ -61,6 +61,12 @@
     <Filter Include="소스 파일\RenderPass\Compute">
       <UniqueIdentifier>{472bfa88-aeb6-47e2-a105-aa4e411f27ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\RenderPass\Render\PSO\Detail">
+      <UniqueIdentifier>{9dc97d49-41ed-4796-a434-e14a4f14480c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\RenderPass\Render\PSO\Detail">
+      <UniqueIdentifier>{f36794a4-ba1a-4c43-a9b3-a51a8e751673}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsSystemPch.h">
@@ -105,41 +111,44 @@
     <ClInclude Include="PipelineManager.h">
       <Filter>소스 파일\RenderPass</Filter>
     </ClInclude>
-    <ClInclude Include="Pipeline\BlendState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\DepthState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\D3D12Enums.h">
-      <Filter>헤더 파일\Pipeline\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\RasterizerState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\StencilState.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\DepthStencilFormat.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\InputLayoutElement.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\PrimitiveTopology.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\RenderTargetFormats.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\SampleDesc.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline\SampleMask.h">
-      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
-    </ClInclude>
     <ClInclude Include="MaterialManager.h">
       <Filter>헤더 파일\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D12Enums.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthState.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencilFormat.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayoutElement.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitiveTopology.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetFormats.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleDesc.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleMask.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineStatePreset.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineStateObject.h">
+      <Filter>헤더 파일\RenderPass\Render\PSO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,41 +188,47 @@
     <ClCompile Include="CommandQueue.cpp">
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Pipeline\BlendState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\D3D12Enums.cpp">
-      <Filter>소스 파일\Pipeline\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\DepthState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\DepthStencilFormat.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\InputLayoutElement.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\PrimitiveTopology.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\RasterizerState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\RenderTargetFormats.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\SampleDesc.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\SampleMask.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipeline\StencilState.cpp">
-      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialManager.cpp">
       <Filter>소스 파일\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D12Enums.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthState.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilFormat.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayoutElement.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitiveTopology.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetFormats.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleDesc.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleMask.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="StencilState.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO\Detail</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineStatePreset.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineStateObject.cpp">
+      <Filter>소스 파일\RenderPass\Render\PSO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

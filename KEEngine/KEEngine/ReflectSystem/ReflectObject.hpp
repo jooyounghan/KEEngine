@@ -54,13 +54,15 @@
 		reflectProperty->setUIOption(UiOption);																					\
 	}
 
-#define BIND_REFLECET_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)									\
+#define BIND_REFLECT_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)									\
 	{																															\
 		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
 		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
 		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();								\
 		reflectPODProperty->getPODPropertyInfo<PropertyType>()->setDefaultValue(DefaultValue);									\
 	}
+
+#define BIND_REFLECT_ENUM_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue) BIND_REFLECT_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)
 
 #define BIND_REFLECET_POD_RANGED_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue, MaxValue, MinValue, Step)	\
 	{																															\
@@ -71,6 +73,7 @@
 		reflectPODPropertyInfo->setDefaultValue(DefaultValue);																	\
 		reflectPODPropertyInfo->assignRangeInfo(MinValue, MaxValue, Step);														\
 	}
+
 #define END_BIND_REFLECT_PROPERTY() };
 
 #pragma endregion

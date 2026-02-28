@@ -18,16 +18,16 @@ namespace ke
 	END_DEFINE_REFLECT_PROPERTY()
 
 	BEGIN_BIND_REFLECT_PROPERTY(StencilState)
-		BIND_REFLECET_POD_PROPERTY(StencilState, bool, _stencilEnable, EReflectUIOption::Editable, false);
+		BIND_REFLECT_POD_PROPERTY(StencilState, bool, _stencilEnable, EReflectUIOption::Editable, false);
 		BIND_REFLECET_POD_RANGED_PROPERTY(StencilState, uint8, _stencilReadMask, EReflectUIOption::Editable, 0xff, 0xff, 0, 1);
 		BIND_REFLECET_POD_RANGED_PROPERTY(StencilState, uint8, _stencilWriteMask, EReflectUIOption::Editable, 0xff, 0xff, 0, 1);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilDepthFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilPassOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EComparisonFunc, _frontFaceStencilFunc, EReflectUIOption::Editable, EComparisonFunc::Always);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilDepthFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilPassOp, EReflectUIOption::Editable, EStencilOp::Keep);
-		BIND_REFLECET_POD_PROPERTY(StencilState, EComparisonFunc, _backFaceStencilFunc, EReflectUIOption::Editable, EComparisonFunc::Always);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilDepthFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _frontFaceStencilPassOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EComparisonFunc, _frontFaceStencilFunc, EReflectUIOption::Editable, EComparisonFunc::Always);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilDepthFailOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EStencilOp, _backFaceStencilPassOp, EReflectUIOption::Editable, EStencilOp::Keep);
+		BIND_REFLECT_POD_PROPERTY(StencilState, EComparisonFunc, _backFaceStencilFunc, EReflectUIOption::Editable, EComparisonFunc::Always);
 	END_BIND_REFLECT_PROPERTY()
 }

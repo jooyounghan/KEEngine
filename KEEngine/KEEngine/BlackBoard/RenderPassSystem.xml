@@ -10,12 +10,17 @@
 		<MaterialInfo _name="ParticleSimulationNoise"/>
 	</MaterialSet>
 	
-	<MaterialSet _name="ParticleRenderMaterialSet" _rootPermutation="USE_DEPTH_WRITE, USE_DEPTH_TEST">
+	<MaterialSet _name="ParticleRenderMaterialSet" _rootPermutation="USE_LIGHTING, USE_SOFT_PARTICLE">
 		<MaterialInfo _name="ParticleRenderDefault"/>
 		<MaterialInfo _name="ParticleRenderLaser"/>
 		<MaterialInfo _name="ParticleRenderGlare"/>
 	</MaterialSet>
 
+	<PsoStatePreset _name="EffectRenderPsoStateSet">
+		<PsoState _name="Opaque" _states="UseDepthTest, UseDepthWrite, CullBack"/>
+		<PsoState _name="Transparent" _states="UseDepthTest, BlendAlpha, CullBack"/>
+		<PsoState _name="PostProcess"/>
+	</PsoStatePreset>
 
 	<!--RenderPassManage는 RenderPass를 읽으며 RenderPassName + PipelineName + MaterialName + PemuationBitFlag로 해시를 만들어 요청시 하나의 패스를 제공할 수 있게 해준다.-->
 	<!--Pipeline마다 Material * 2 ^ (Permutaion) 수의 컴파일이 생긴다.-->
@@ -25,20 +30,7 @@
 	</ComputePass>
 
 	<!--RenderPass의 masterShaderPath에는 VS와 PS가 모두 들어있어야한다.-->
-	<RenderPass name="EffectRendering" _masterShaderPath="EffectRendering.hlsl" _taget="6_6">
-		<RenderPipeline _name="ParticleRender" _entryPointVS="ParticleRenderVS" _entryPointPS="ParticleRenderPS" _materialSetName="ParticleRenderMaterialSet"/>
-	</RenderPass>
-
-	<MaterialSet _name="3DGS_ComputeSet" _rootPermutation="INFER_COVARIANCE">
-		<MaterialInfo _name="FastSplat" />
-		<MaterialInfo _name="AccurateSplat" _permuations="HIGH_PRECISION" />
-	</MaterialSet>
-
-	<ComputePass name="SplatProcessing" _masterShaderPath="3DGS_Process.hlsl" _target="6_6">
-		<ComputePipeline _name="Project" _entryPoint="CSProject" _materialSetName="3DGS_ComputeSet"/>
-	</ComputePass>
-
-	<RenderPass name="SplatFinal" _masterShaderPath="3DGS_Render.hlsl" _target="6_6">
-		<RenderPipeline _name="MainDraw" _entryPointVS="VSMain" _entryPointPS="PSMain" _materialSetName="3DGS_ComputeSet"/>
+	<RenderPass name="EffectRendering" _masterShaderPath="EffectRendering.hlsl" _taget="6_6" _psoStateSet="EffectRenderPsoStateSet">
+		<RenderPipeline _name="ParticleRender" _entryPointVS="EffectRenderingVS" _entryPointPS="EffectRenderingPS" _materialSetName="ParticleRenderMaterialSet"/>
 	</RenderPass>
 </Root>

@@ -8,6 +8,6 @@ namespace ke
 	END_DEFINE_REFLECT_PROPERTY()
 
 	BEGIN_BIND_REFLECT_PROPERTY(PrimitiveTopology)
-		BIND_REFLECET_POD_PROPERTY(PrimitiveTopology, EPrimitiveTopologyType, _primitiveTopologyType, EReflectUIOption::Editable, EPrimitiveTopologyType::Triangle);
+		BIND_REFLECT_POD_PROPERTY(PrimitiveTopology, EPrimitiveTopologyType, _primitiveTopologyType, EReflectUIOption::Editable, EPrimitiveTopologyType::Triangle);
 	END_BIND_REFLECT_PROPERTY()
 }

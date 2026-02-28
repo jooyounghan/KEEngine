@@ -1,51 +1,49 @@
 #include "GraphicsSystemPch.h"
 #include "D3D12Enums.h"
-#include "EnumUtil.h"
 
 namespace ke
 {
-	DEFINE_ENUM_DESCRIPTOR(EBlend,
+	DEFINE_REFLECT_ENUM(EBlend,
 		Zero, One,
 		SrcColor, InvSrcColor,
 		SrcAlpha, InvSrcAlpha,
 		DestAlpha, InvDestAlpha,
-		DestColor, InvDestColor,
-		SrcAlphaSat,
-		BlendFactor, InvBlendFactor,
-		Src1Color, InvSrc1Color,
-		Src1Alpha, InvSrc1Alpha,
-		AlphaFactor, InvAlphaFactor
+		DestColor, InvDestColor
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EBlendOp,
+	DEFINE_REFLECT_ENUM(EBlendOp,
 		Add, Subtract, RevSubtract, Min, Max
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EDepthWriteMask,
+	DEFINE_REFLECT_ENUM_FLAG(EBlendColorMask,
+		Red, Green, Blue, Alpha
+	);
+
+	DEFINE_REFLECT_ENUM(EDepthWriteMask,
 		Zero, All
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EComparisonFunc,
+	DEFINE_REFLECT_ENUM(EComparisonFunc,
 		Never, Less, Equal, LessEqual, Greater, NotEqual, GreaterEqual, Always
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EFillMode,
+	DEFINE_REFLECT_ENUM(EFillMode,
 		Wireframe, Solid
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(ECullMode,
+	DEFINE_REFLECT_ENUM(ECullMode,
 		None, Front, Back
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EConservativeRasterizationMode,
+	DEFINE_REFLECT_ENUM(EConservativeRasterizationMode,
 		Off, On
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EStencilOp,
+	DEFINE_REFLECT_ENUM(EStencilOp,
 		Keep, Zero, Replace, IncrSat, DecrSat, Invert, Incr, Decr
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EDxgiFormat,
+	DEFINE_REFLECT_ENUM(EDxgiFormat,
 		Unknown,
 		R32G32B32A32_Typeless, R32G32B32A32_Float, R32G32B32A32_Uint, R32G32B32A32_Sint,
 		R32G32B32_Typeless, R32G32B32_Float, R32G32B32_Uint, R32G32B32_Sint,
@@ -62,11 +60,11 @@ namespace ke
 		B8G8R8A8_Unorm, B8G8R8X8_Unorm, B8G8R8A8_Typeless, B8G8R8A8_Unorm_Srgb
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EInputClassification,
+	DEFINE_REFLECT_ENUM(EInputClassification,
 		PerVertexData, PerInstanceData
 	);
 
-	DEFINE_ENUM_DESCRIPTOR(EPrimitiveTopologyType,
+	DEFINE_REFLECT_ENUM(EPrimitiveTopologyType,
 		Undefined, Point, Line, Triangle, Patch
 	);
 }

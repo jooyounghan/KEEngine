@@ -7,8 +7,8 @@ namespace ke
 	{
 	public:
 		static const std::unordered_map<size_t, std::string>& getStringTable();
-		static const std::string& toString(T val);
-		static const std::optional<T> fromString(const std::string_view& str);
+		static std::string toString(T val);
+		static std::optional<T> fromString(const std::string_view& str);
 	};
 }
 #include "EnumUtil.hpp"

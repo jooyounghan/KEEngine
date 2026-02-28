@@ -2,7 +2,7 @@
 #include "test.h"
 namespace ke
 {
-	DEFINE_ENUM_DESCRIPTOR(ECharacterType, Citizen, Warrior, Mage, Archer, Count);
+	DEFINE_REFLECT_ENUM(ECharacterType, Citizen, Warrior, Mage, Archer, Count);
 
 	BEGIN_DEFINE_REFLECT_PROPERTY(MoveStatus)
 		DEFINE_REFLECT_POD_PROPERTY(MoveStatus, _speed)
@@ -38,7 +38,7 @@ namespace ke
 		BIND_REFLECET_POD_RANGED_PROPERTY(CharacterStatus, float, _bountyPointRatio, EReflectUIOption::Editable, -1.f, 0.0f, 1.0f, 0.01f);
 		BIND_REFLECET_PROPERTY(CharacterStatus, MoveStatus, _moveStatus, EReflectUIOption::Editable);
 		BIND_REFLECET_PROPERTY(CharacterStatus, AttackStatus, _attackStatus, EReflectUIOption::Editable);
-		BIND_REFLECET_POD_PROPERTY(CharacterStatus, ECharacterType, _characterType, EReflectUIOption::Editable, ECharacterType::Citizen);
+		BIND_REFLECT_POD_PROPERTY(CharacterStatus, ECharacterType, _characterType, EReflectUIOption::Editable, ECharacterType::Citizen);
 	END_BIND_REFLECT_PROPERTY()
 
 }

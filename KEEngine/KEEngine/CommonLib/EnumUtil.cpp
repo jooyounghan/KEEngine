@@ -8,4 +8,15 @@ namespace ke
 	{
 		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(EmumWrapper);
 	}
+	template<typename T>
+	std::string EnumWrapper<T>::toString(T val)
+	{
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(EmumWrapper);
+	}
+
+	template<typename T>
+	std::optional<T> EnumWrapper<T>::fromString(const std::string_view& str)
+	{
+		STATIC_ASSERT_FUNCTION_NOT_SUPPORTED(EmumWrapper);
+	}
 }

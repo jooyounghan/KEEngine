@@ -1,8 +1,10 @@
 #pragma once
 #include "TypeCommon.h"
+#include "EnumUtil.h"
 
 namespace ke
 {
+#pragma region BlendState
 	enum class EBlend : uint8
 	{
 		Zero			= 1,
@@ -15,16 +17,8 @@ namespace ke
 		InvDestAlpha	= 8,
 		DestColor		= 9,
 		InvDestColor	= 10,
-		SrcAlphaSat		= 11,
-		BlendFactor		= 14,
-		InvBlendFactor	= 15,
-		Src1Color		= 16,
-		InvSrc1Color	= 17,
-		Src1Alpha		= 18,
-		InvSrc1Alpha	= 19,
-		AlphaFactor		= 20,
-		InvAlphaFactor	= 21,
 	};
+	DECLARE_REFLECT_ENUM(EBlend);
 
 	enum class EBlendOp : uint8
 	{
@@ -34,6 +28,18 @@ namespace ke
 		Min				= 4,
 		Max				= 5,
 	};
+	DECLARE_REFLECT_ENUM(EBlendOp);
+
+	enum class EBlendColorMask
+	{
+		Red				= 1 << 0,
+		Green			= 1 << 1,
+		Blue			= 1 << 2,
+		Alpha			= 1 << 3
+	};
+	DECLARE_REFLECT_ENUM_FLAG(EBlendColorMask);
+#pragma endregion
+
 
 	enum class EDepthWriteMask : uint8
 	{
