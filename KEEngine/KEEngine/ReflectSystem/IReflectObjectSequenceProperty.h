@@ -20,6 +20,7 @@ namespace ke
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectObjectSequenceProperty*>(this); }
 
 	public:
+		virtual IReflectObject*			pushBack(IReflectObject* parentReflectObject) = 0;
 		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* parentReflectObject) = 0;
 		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const = 0;
 	};

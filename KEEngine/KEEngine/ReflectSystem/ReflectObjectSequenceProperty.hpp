@@ -27,6 +27,14 @@ namespace ke
 	}
 
 	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
+	IReflectObject* ke::ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::pushBack(IReflectObject* parentReflectObject)
+	{
+		ContainerType<PropertyType>& container = this->get(parentReflectObject);
+		PropertyType& newElement = container.emplace_back();
+		return static_cast<IReflectObject*>(&newElement);
+	}
+
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
 	IReflectObject* ke::ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::getReflectObject(const size_t index, IReflectObject* object)
 	{
 		ContainerType<PropertyType>& container = this->get(object);

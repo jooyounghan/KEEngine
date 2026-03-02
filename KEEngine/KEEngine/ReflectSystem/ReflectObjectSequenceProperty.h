@@ -20,6 +20,7 @@ namespace ke
 		virtual void	resize(IReflectObject* object, size_t newSize) override;
 
 	public:
+		virtual IReflectObject*			pushBack(IReflectObject* object) override;
 		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* object) override;
 		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* object) const override;
 	};

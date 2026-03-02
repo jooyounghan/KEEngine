@@ -202,12 +202,9 @@ namespace ke
 				if (objectSeqProperty == nullptr) break;
 
 				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
-				const size_t count = grandChildren.size();
-				objectSeqProperty->resize(reflectObject, count);
-				for (size_t idx = 0; idx < count; ++idx)
+				for (const XmlNode& grandChild : grandChildren)
 				{
-					deserializeFromXMLInner(grandChildren[idx], objectSeqProperty->getReflectObject(idx, reflectObject));
-
+					deserializeFromXMLInner(grandChild, objectSeqProperty->pushBack(reflectObject));
 				}
 				break;
 			}
