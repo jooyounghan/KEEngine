@@ -4,7 +4,7 @@
 namespace ke
 {
 	IReflectObjectSequenceProperty::IReflectObjectSequenceProperty(const FlyweightStringA& name)
-		: IReflectSequenceContainerProperty(name)
+		: IReflectContainerProperty(name)
 	{
 
 	}

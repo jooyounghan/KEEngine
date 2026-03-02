@@ -6,7 +6,7 @@ namespace ke
 	class IBuffer;
 	class IReflectObject;
 
-	class IReflectObjectSequenceProperty : public IReflectSequenceContainerProperty
+	class IReflectObjectSequenceProperty : public IReflectContainerProperty
 	{
 	public:
 		IReflectObjectSequenceProperty(const FlyweightStringA& name);
@@ -22,6 +22,9 @@ namespace ke
 	public:
 		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* parentReflectObject) = 0;
 		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* parentReflectObject) const = 0;
+
+	public:
+		virtual void empalceDefaultReflectObject(const IReflectObject* parentReflectObject) = 0;
 	};
 
 	template<>

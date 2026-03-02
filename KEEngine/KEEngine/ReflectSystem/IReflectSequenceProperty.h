@@ -6,7 +6,7 @@ namespace ke
 {
 	class IBuffer;
 
-	class IReflectSequenceProperty : public IReflectSequenceContainerProperty, public IReflectPODPropertyInfoAccessor
+	class IReflectSequenceProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
 	{
 	public:
 		IReflectSequenceProperty(const FlyweightStringA& name);
@@ -20,10 +20,12 @@ namespace ke
 		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectSequenceProperty*>(this); }
 
 	public:
-		virtual void fromBianry(const size_t index, IReflectObject* object, const void* src) = 0;
 		virtual void toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const = 0;
-		virtual void fromString(const size_t index, IReflectObject* object, const char* src, size_t strLen) = 0;
 		virtual void toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const = 0;
+
+	public:
+		virtual void addFromBinary(IReflectObject* object, const void* src) = 0;
+		virtual void addFromString(IReflectObject* object, const char* src, size_t strLen) = 0;
 	};
 
 	template<>

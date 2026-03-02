@@ -162,10 +162,9 @@ namespace ke
 				if (reflectPODSeqProperty == nullptr) break;
 				const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
 				const size_t count = values.size();
-				reflectPODSeqProperty->resize(reflectObject, count);
 				for (size_t idx = 0; idx < count; ++idx)
 				{
-					reflectPODSeqProperty->fromString(idx, reflectObject, values[idx].data(), values[idx].length());
+					reflectPODSeqProperty->addFromString(reflectObject, values[idx].data(), values[idx].length());
 				}
 				break;
 			}
@@ -203,9 +202,9 @@ namespace ke
 
 				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
 				const size_t count = grandChildren.size();
-				objectSeqProperty->resize(reflectObject, count);
 				for (size_t idx = 0; idx < count; ++idx)
 				{
+					objectSeqProperty->empalceDefaultReflectObject(reflectObject);
 					deserializeFromXMLInner(grandChildren[idx], objectSeqProperty->getReflectObject(idx, reflectObject));
 
 				}

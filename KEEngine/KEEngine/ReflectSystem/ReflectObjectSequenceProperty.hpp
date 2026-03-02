@@ -9,7 +9,7 @@ namespace ke
 	)
 	{
 		STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
-		STATIC_ASSERT((ReflectContainerCompatible<ContainerType<PropertyType>, PropertyType>), "ContainerType must be ReflectContainerCompatible");
+		STATIC_ASSERT((ReflectSequenceContainerCompatible<ContainerType<PropertyType>, PropertyType>), "ContainerType must be ReflectSequenceContainerCompatible");
 	}
 
 	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
@@ -17,13 +17,6 @@ namespace ke
 	{
 		const ContainerType<PropertyType>& container = this->get(object);
 		return container.size();
-	}
-
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	void ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::resize(IReflectObject* object, size_t newSize)
-	{
-		ContainerType<PropertyType>& container = this->get(object);
-		return container.resize(newSize);
 	}
 
 	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
@@ -40,5 +33,12 @@ namespace ke
 		ContainerType<PropertyType>& container = this->get(object);
 		const PropertyType& property = container[index];
 		return static_cast<const IReflectObject*>(&property);
+	}
+
+	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
+	void ReflectObjectSequenceProperty<ObjectType, ContainerType, PropertyType>::empalceDefaultReflectObject(const IReflectObject* object)
+	{
+		ContainerType<PropertyType>& container = this->get(object);
+		container.emplace_back();
 	}
 }

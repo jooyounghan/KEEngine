@@ -73,6 +73,9 @@
     <Filter Include="헤더 파일\Hpp\Reflection\ReflectObject">
       <UniqueIdentifier>{c4c3e926-441f-41a8-8ccb-8c0c28d9a221}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Header\Reflection\Container\Concrete">
+      <UniqueIdentifier>{738886f8-2898-43f4-bdb3-d84654b9d941}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReflectSystemPch.h">
@@ -132,12 +135,6 @@
     <ClInclude Include="ReflectPODProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\POD</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectSequenceProperty.h">
-      <Filter>헤더 파일\Header\Reflection\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectObjectSequenceProperty.h">
-      <Filter>헤더 파일\Header\Reflection\Container</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectObjectSequenceProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
@@ -161,6 +158,27 @@
     </ClInclude>
     <ClInclude Include="ReflectObject.h">
       <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObjectSequenceProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectSequenceProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectKeyValueProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectObjectKeyValueProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectKeyValueProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectKeyValueProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="IReflectContainerProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +220,12 @@
     </ClCompile>
     <ClCompile Include="ReflectPODPropertyInfo.cpp">
       <Filter>소스 파일\Reflection\POD</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectKeyValueProperty.cpp">
+      <Filter>소스 파일\Reflection\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="IReflectObjectKeyValueProperty.cpp">
+      <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,8 +1,6 @@
 #pragma once
 #include "IReflectSequenceProperty.h"
 #include "ReflectPropertyAccessor.h"
-#include "ReflectParser.h"
-#include "EnumUtil.h"
 
 namespace ke
 {
@@ -23,13 +21,14 @@ namespace ke
 
 	public:
 		virtual size_t	size(const IReflectObject* parentReflectObject) const override;
-		virtual void	resize(IReflectObject* object, size_t newSize) override;
 
 	public:
-		virtual void	fromBianry(const size_t index, IReflectObject* object, const void* src) override;
 		virtual void	toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const override;
-		virtual void	fromString(const size_t index, IReflectObject* object, const char* src, size_t strLen) override;
 		virtual void	toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const override;
+
+	public:
+		virtual void	addFromBinary(IReflectObject* object, const void* src) override;
+		virtual void	addFromString(IReflectObject* object, const char* src, size_t strLen) override;
 	};
 }
 #include "ReflectSequenceProperty.hpp"
