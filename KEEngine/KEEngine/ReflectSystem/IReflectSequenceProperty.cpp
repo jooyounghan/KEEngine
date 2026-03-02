@@ -4,14 +4,14 @@
 namespace ke
 {
 	IReflectSequenceProperty::IReflectSequenceProperty(const FlyweightStringA& name)
-		: IReflectContainerProperty(name)
+		: IReflectSequenceContainerProperty(name)
 	{
 	
 	}
 
     IReflectSequenceProperty* ReflectCastHelper<IReflectSequenceProperty>::cast(IReflectProperty* prop)
     {
-        if (prop && prop->getType() == EReflectPropertyType::PODContainer)
+        if (prop && prop->getType() == EReflectPropertyType::PODSequenceContainer)
         {
             return static_cast<IReflectSequenceProperty*>(prop->getInterface());
         }
@@ -20,7 +20,7 @@ namespace ke
 
     const IReflectSequenceProperty* ReflectCastHelper<IReflectSequenceProperty>::cast(const IReflectProperty* prop)
     {
-        if (prop && prop->getType() == EReflectPropertyType::PODContainer)
+        if (prop && prop->getType() == EReflectPropertyType::PODSequenceContainer)
         {
             return static_cast<const IReflectSequenceProperty*>(prop->getInterface());
         }

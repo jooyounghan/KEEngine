@@ -15,6 +15,10 @@ namespace ke
 		UseStencilTest = 1 << 4,
 		BlendAlpha = 1 << 5,
 
+		USE_POINT_TOPOLOGY = 1 << 6,
+		USE_LINE_TOPOLOGY = 1 << 7,
+		USE_TRIANGLE_TOPOLOGY = 1 << 8,
+
 	};
 
 	KE_REFLECT_OBJECT_CLASS(PipelineStateObject)
@@ -28,6 +32,7 @@ namespace ke
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, D3D12_DEFAULT_STENCIL_READ_MASK);
 		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, D3D12_DEFAULT_STENCIL_WRITE_MASK);
 		KE_DECLARE_REFLECT_PROPERTY(std::vector<EDXGIFormat>, _renderTargetFormats);
+		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(EDXGIFormat, _depthStencilFormat, EDXGIFormat::D24_Unorm_S8_Uint);
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> _pipelineStateObject;

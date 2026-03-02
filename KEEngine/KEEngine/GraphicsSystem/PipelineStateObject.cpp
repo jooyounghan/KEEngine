@@ -16,6 +16,7 @@ namespace ke
 		KE_DEFINE_REFLECT_POD_PROPERTY(PipelineStateObject, _stencilReadMask);
 		KE_DEFINE_REFLECT_POD_PROPERTY(PipelineStateObject, _stencilWriteMask);
 		KE_DEFINE_REFLECT_SEQ_PROPERTY(PipelineStateObject, _renderTargetFormats);
+		KE_DEFINE_REFLECT_ENUM_PROPERTY(PipelineStateObject, _depthStencilFormat);
 	KE_END_DEFINE_REFLECT_PROPERTY()
 
 	KE_BEGIN_BIND_REFLECT_PROPERTY(PipelineStateObject)
@@ -23,7 +24,8 @@ namespace ke
 		KE_BIND_REFLECT_ENUM_PROPERTY(PipelineStateObject, EPipelineStateKey, _stateKey, EReflectUIOption::Editable, EPipelineStateKey::UseDepthTest | EPipelineStateKey::UseDepthWrite | EPipelineStateKey::CullBack);
 		KE_BIND_REFLECT_POD_PROPERTY(PipelineStateObject, uint8, _stencilReadMask, EReflectUIOption::Editable, D3D12_DEFAULT_STENCIL_READ_MASK);
 		KE_BIND_REFLECT_POD_PROPERTY(PipelineStateObject, uint8, _stencilWriteMask, EReflectUIOption::Editable, D3D12_DEFAULT_STENCIL_WRITE_MASK);
-		KE_BIND_REFLECET_PROPERTY(PipelineStateObject, std::vector<DXGI_FORMAT>, _renderTargetFormats, EReflectUIOption::Editable);
+		KE_BIND_REFLECET_PROPERTY(PipelineStateObject, std::vector<EDXGIFormat>, _renderTargetFormats, EReflectUIOption::Editable);
+		KE_BIND_REFLECT_ENUM_PROPERTY(PipelineStateObject, EDXGIFormat, _depthStencilFormat, EReflectUIOption::Editable, EDXGIFormat::D24_Unorm_S8_Uint);
 	KE_END_BIND_REFLECT_PROPERTY()
 
 
@@ -92,6 +94,25 @@ namespace ke
 				D3D12_COMPARISON_FUNC::D3D12_COMPARISON_FUNC_ALWAYS,																		// StencilFunc
 			}
 		};
+
+		// InputLayout
+		psoDesc.InputLayout = { nullptr, 0 };
+
+		// PrimitiveTopologyType
+		psoDesc.PrimitiveTopologyType = 
+			EnumUtil::isEnumFlagOn(_stateKey, EPipelineStateKey::USE_POINT_TOPOLOGY) ? D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT
+			: EnumUtil::isEnumFlagOn(_stateKey, EPipelineStateKey::USE_LINE_TOPOLOGY) ? D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE
+			: EnumUtil::isEnumFlagOn(_stateKey, EPipelineStateKey::USE_TRIANGLE_TOPOLOGY) ? D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE
+			: D3D12_PRIMITIVE_TOPOLOGY_TYPE::D3D12_PRIMITIVE_TOPOLOGY_TYPE_UNDEFINED;
+
+		// RenderTargets
+		psoDesc.NumRenderTargets = static_cast<UINT>(_renderTargetFormats.size());
+		memcpy(&psoDesc.RTVFormats, _renderTargetFormats.data(), psoDesc.NumRenderTargets);
+		psoDesc.DSVFormat = static_cast<DXGI_FORMAT>(static_cast<uint32>(_depthStencilFormat));
+
+		// SampleDesc - No MSAA
+		psoDesc.SampleDesc.Count = 1;
+		psoDesc.SampleDesc.Quality = 0;
 
 		DeviceManager::getInstance().getDevice()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&_pipelineStateObject));
 	}

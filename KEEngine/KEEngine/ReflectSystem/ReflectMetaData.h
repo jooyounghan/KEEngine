@@ -3,7 +3,7 @@
 #include "ReflectEnumProperty.h"
 #include "ReflectObjectProperty.h"
 #include "ReflectSequenceProperty.h"
-#include "ReflectObjectSeqProperty.h"
+#include "ReflectObjectSequenceProperty.h"
 
 namespace ke
 {

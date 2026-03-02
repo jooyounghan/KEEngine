@@ -120,7 +120,7 @@
     <ClInclude Include="IReflectSequenceProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectObjectSeqProperty.h">
+    <ClInclude Include="IReflectObjectSequenceProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
     <ClInclude Include="ReflectObjectProperty.hpp">
@@ -135,10 +135,10 @@
     <ClInclude Include="ReflectSequenceProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectObjectSeqProperty.h">
+    <ClInclude Include="ReflectObjectSequenceProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectObjectSeqProperty.hpp">
+    <ClInclude Include="ReflectObjectSequenceProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
     <ClInclude Include="ReflectSequenceProperty.hpp">
@@ -194,7 +194,7 @@
     <ClCompile Include="IReflectSequenceProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
-    <ClCompile Include="IReflectObjectSeqProperty.cpp">
+    <ClCompile Include="IReflectObjectSequenceProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
     <ClCompile Include="IReflectContainerProperty.cpp">

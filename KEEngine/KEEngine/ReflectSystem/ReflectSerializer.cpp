@@ -10,7 +10,7 @@
 #include "IReflectProperty.h"
 #include "IReflectSequenceProperty.h"
 #include "IReflectObjectProperty.h"
-#include "IReflectObjectSeqProperty.h"
+#include "IReflectObjectSequenceProperty.h"
 
 namespace ke
 {
@@ -59,7 +59,7 @@ namespace ke
 				propertyValueBuffer.reset();
 				break;
 			}
-			case EReflectPropertyType::PODContainer:
+			case EReflectPropertyType::PODSequenceContainer:
 			{
 				const IReflectSequenceProperty* reflectPODContainerProperty = property->castTo<IReflectSequenceProperty>();
 				if (reflectPODContainerProperty == nullptr) break;
@@ -76,7 +76,7 @@ namespace ke
 				break;
 			}
 			case EReflectPropertyType::ReflectObject:
-			case EReflectPropertyType::ReflectObjectContainer:
+			case EReflectPropertyType::ReflectObjectSeqeunceContainer:
 			{
 				complexProperties.push_back(property);
 				break;
@@ -102,9 +102,9 @@ namespace ke
 					serializeToXMLInner(xmlWriter, objectProperty->getReflectObject(reflectObject), depth + 1);
 					break;
 				}
-				case EReflectPropertyType::ReflectObjectContainer:
+				case EReflectPropertyType::ReflectObjectSeqeunceContainer:
 				{
-					const IReflectObjectSeqProperty* objectSeqProperty = property->castTo<IReflectObjectSeqProperty>();
+					const IReflectObjectSequenceProperty* objectSeqProperty = property->castTo<IReflectObjectSequenceProperty>();
 					if (objectSeqProperty == nullptr) break;
 					const size_t count = objectSeqProperty->size(reflectObject);
 					for (size_t idx = 0; idx < count; ++idx)
@@ -114,7 +114,7 @@ namespace ke
 					break;
 				}
 				case EReflectPropertyType::POD:
-				case EReflectPropertyType::PODContainer:
+				case EReflectPropertyType::PODSequenceContainer:
 				default:
 					break;
 				}
@@ -156,7 +156,7 @@ namespace ke
 				reflectPODProperty->fromString(reflectObject, value.data(), value.length());
 				break;
 			}
-			case EReflectPropertyType::PODContainer:
+			case EReflectPropertyType::PODSequenceContainer:
 			{
 				IReflectSequenceProperty* reflectPODSeqProperty = reflectProperty->castTo<IReflectSequenceProperty>();
 				if (reflectPODSeqProperty == nullptr) break;
@@ -169,8 +169,9 @@ namespace ke
 				}
 				break;
 			}
+
 			case EReflectPropertyType::ReflectObject:
-			case EReflectPropertyType::ReflectObjectContainer:
+			case EReflectPropertyType::ReflectObjectSeqeunceContainer:
 			default:
 				break;
 			}
@@ -195,9 +196,9 @@ namespace ke
 				deserializeFromXMLInner(childNode, objectProperty->getReflectObject(reflectObject));
 				break;
 			}
-			case EReflectPropertyType::ReflectObjectContainer:
+			case EReflectPropertyType::ReflectObjectSeqeunceContainer:
 			{
-				IReflectObjectSeqProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSeqProperty>();
+				IReflectObjectSequenceProperty* objectSeqProperty = reflectProperty->castTo<IReflectObjectSequenceProperty>();
 				if (objectSeqProperty == nullptr) break;
 
 				const std::vector<XmlNode>& grandChildren = childNode.getChildNodes();
@@ -211,7 +212,7 @@ namespace ke
 				break;
 			}
 			case EReflectPropertyType::POD:
-			case EReflectPropertyType::PODContainer:
+			case EReflectPropertyType::PODSequenceContainer:
 			default:
 				break;
 			}

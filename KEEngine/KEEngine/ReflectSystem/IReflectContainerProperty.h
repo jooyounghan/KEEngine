@@ -14,14 +14,15 @@ namespace ke
 		{ cc[index] } -> std::convertible_to<const T&>;
 	};
 
-	class IReflectContainerProperty : public IReflectProperty
+	class IReflectSequenceContainerProperty : public IReflectProperty
 	{
 	public:
-		IReflectContainerProperty(const FlyweightStringA& name);
-		~IReflectContainerProperty() override = default;
+		IReflectSequenceContainerProperty(const FlyweightStringA& name);
+		~IReflectSequenceContainerProperty() override = default;
 
 	public:
 		virtual size_t	size(const IReflectObject* object) const = 0;
 		virtual void	resize(IReflectObject* object, size_t newSize) = 0;
 	};
+
 }

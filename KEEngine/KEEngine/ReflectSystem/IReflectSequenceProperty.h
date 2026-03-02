@@ -6,14 +6,14 @@ namespace ke
 {
 	class IBuffer;
 
-	class IReflectSequenceProperty : public IReflectContainerProperty, public IReflectPODPropertyInfoAccessor
+	class IReflectSequenceProperty : public IReflectSequenceContainerProperty, public IReflectPODPropertyInfoAccessor
 	{
 	public:
 		IReflectSequenceProperty(const FlyweightStringA& name);
 		~IReflectSequenceProperty() override = default;
 
 	public:
-		inline virtual EReflectPropertyType getType() const override final { return EReflectPropertyType::PODContainer; }
+		inline virtual EReflectPropertyType getType() const override final { return EReflectPropertyType::PODSequenceContainer; }
 
 	protected:
 		inline virtual void*		getInterface() override final { return static_cast<IReflectSequenceProperty*>(this); }

@@ -14,8 +14,10 @@ namespace ke
 	{
 		POD,
 		ReflectObject,
-		PODContainer,
-		ReflectObjectContainer,
+		PODSequenceContainer,
+		ReflectObjectSeqeunceContainer,
+		PODKeyValueContainer,
+		ReflectObjectKeyValueContainer,
 		Count
 	};
 
