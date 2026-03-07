@@ -147,8 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ReflectContainerConcept.h" />
-    <ClInclude Include="IReflectKeyValueProperty.h" />
-    <ClInclude Include="IReflectObjectKeyValueProperty.h" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="IReflectObjectProperty.h" />
     <ClInclude Include="IReflectProperty.h" />
@@ -158,6 +156,8 @@
     <ClInclude Include="ReflectMetaData.hpp" />
     <ClInclude Include="ReflectObject.h" />
     <ClInclude Include="ReflectObject.hpp" />
+    <ClInclude Include="ReflectObjectKeyValueProperty.h" />
+    <ClInclude Include="ReflectObjectKeyValueProperty.hpp" />
     <ClInclude Include="ReflectObjectSequenceProperty.h" />
     <ClInclude Include="ReflectObjectSequenceProperty.hpp" />
     <ClInclude Include="ReflectObjectProperty.h" />
@@ -174,8 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectContainerConcept.cpp" />
-    <ClCompile Include="IReflectKeyValueProperty.cpp" />
-    <ClCompile Include="IReflectObjectKeyValueProperty.cpp" />
+    <ClCompile Include="ReflectKeyValueProperty.cpp" />
+    <ClCompile Include="ReflectObjectKeyValueProperty.cpp" />
     <ClCompile Include="ReflectObjectSequenceProperty.cpp" />
     <ClCompile Include="IReflectObjectProperty.cpp" />
     <ClCompile Include="ReflectProperty.cpp" />

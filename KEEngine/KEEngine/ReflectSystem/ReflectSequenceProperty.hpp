@@ -12,8 +12,7 @@ namespace ke
 		Getter<ObjectType, ContainerType<PropertyType>> getter,
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter,
 		Setter<ObjectType, ContainerType<PropertyType>> setter
-	)
-		: IReflectProperty(name),
+	)	: IReflectProperty(name),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
 		STATIC_ASSERT((ReflectSequenceContainerCompatible<ContainerType<PropertyType>, PropertyType>), "ContainerType must be ReflectSequenceContainerCompatible");
@@ -32,11 +31,11 @@ namespace ke
 		const size_t count = containerProperty.size();
 
 		StaticBuffer<BUFFER_BYTES_1KB> propertyValueBuffer;
-		if (count > 0) ReflectParser::toString(propertyValueBuffer, &containerProperty[0]);
+		if (count > 0) ReflectParser::toString(&propertyValueBuffer, &containerProperty[0]);
 		for (size_t idx = 1; idx < count; ++idx)
 		{
 			propertyValueBuffer.write(", ", 2);
-			ReflectParser::toString(propertyValueBuffer, &containerProperty[idx])
+			ReflectParser::toString(&propertyValueBuffer, &containerProperty[idx])
 		}
 		xmlBuilder->addAttribute(_name.c_str(), _name.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
 	}
@@ -58,8 +57,8 @@ namespace ke
 			return;
 		}
 
-		const std::string_view value = xmlAttribute->getValue();
-		const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
+		const std::string_view valueString = xmlAttribute->getValue();
+		const std::vector<std::string_view> values = StrUtil::split(valueString.data(), valueString.length(), ", ", 2);
 
 		ContainerType<PropertyType>& containerProperty = this->get(obj);
 

@@ -117,12 +117,6 @@
     <ClInclude Include="ReflectObject.h">
       <Filter>헤더 파일\Header\Reflection\ReflectObject</Filter>
     </ClInclude>
-    <ClInclude Include="IReflectKeyValueProperty.h">
-      <Filter>헤더 파일\Header\Reflection\Container</Filter>
-    </ClInclude>
-    <ClInclude Include="IReflectObjectKeyValueProperty.h">
-      <Filter>헤더 파일\Header\Reflection\Container</Filter>
-    </ClInclude>
     <ClInclude Include="ReflectKeyValueProperty.hpp">
       <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
@@ -140,6 +134,12 @@
     </ClInclude>
     <ClInclude Include="ReflectSequenceProperty.h">
       <Filter>헤더 파일\Header\Reflection\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObjectKeyValueProperty.h">
+      <Filter>헤더 파일\Header\Reflection\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectObjectKeyValueProperty.hpp">
+      <Filter>헤더 파일\Hpp\Reflection\Container</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +167,10 @@
     <ClCompile Include="ReflectContainerConcept.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
-    <ClCompile Include="IReflectKeyValueProperty.cpp">
+    <ClCompile Include="ReflectKeyValueProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
-    <ClCompile Include="IReflectObjectKeyValueProperty.cpp">
+    <ClCompile Include="ReflectObjectKeyValueProperty.cpp">
       <Filter>소스 파일\Reflection\Container</Filter>
     </ClCompile>
     <ClCompile Include="ReflectProperty.cpp">

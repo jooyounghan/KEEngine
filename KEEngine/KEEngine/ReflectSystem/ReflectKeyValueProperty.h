@@ -1,12 +1,13 @@
 #pragma once
-#include "IReflectKeyValueProperty.h"
+#include "IReflectProperty.h"
 #include "ReflectPropertyAccessor.h"
-#include "StrUtil.h"
+#include "ReflectContainerConcept.h"
+#include "ReflectParser.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename...> typename ContainerType, typename KeyType, typename ValueType>
-	class ReflectKeyValueProperty : public IReflectKeyValueProperty, public ReflectPODPropertyInfo<ValueType>, public ReflectPropertyAccessor<ObjectType, ContainerType<KeyType, ValueType>>
+	class ReflectKeyValueProperty : public IReflectProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<KeyType, ValueType>>
 	{
 	public:
 		ReflectKeyValueProperty(
@@ -16,20 +17,21 @@ namespace ke
 			, Setter<ObjectType, ContainerType<KeyType, ValueType>> setter
 		);
 
+	public:
+		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const override final;
+		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) override final;
+
+	public:
+		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const override final;
+		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) override final;
+
 	protected:
-		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<ValueType>*>(this); }
-		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<ValueType>*>(this); }
+		inline virtual bool isComplexProperty() const final { return true; }
+		inline virtual bool isReflectObject() const final { return false; }
+		inline virtual bool	isDefault(const IReflectObject* obj) const final { return this->get(obj) == _defaultValue; };
 
-	public:
-		virtual size_t	size(const IReflectObject* parentReflectObject) const override;
-
-	public:
-		virtual void toBinary(const void* key, const IReflectObject* object, IBuffer* outDst) const override;
-		virtual void toString(const void* key, const IReflectObject* object, IBuffer* outStringBuffer) const override;
-
-	public:
-		virtual void addFromBinary(IReflectObject* object, const void* src) override;
-		virtual void addFromString(IReflectObject* object, const char* src, size_t strLen) override;
+	protected:
+		ContainerType<KeyType, ValueType> _defaultValue;
 	};
 }
 #include "ReflectKeyValueProperty.hpp"
