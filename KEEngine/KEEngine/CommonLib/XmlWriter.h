@@ -9,7 +9,7 @@ namespace ke
     class XmlBuilder
     {
     public:
-        XmlBuilder(const char* name, size_t len, XmlWriter* writer, int depth);
+        XmlBuilder(const char* name, size_t len, XmlWriter* writer, bool addDepth);
         ~XmlBuilder();
 
     public:
@@ -20,8 +20,10 @@ namespace ke
     private:
         const char* _name;
         size_t      _nameLen;
-        XmlWriter* _writer;
-        int         _depth;
+        XmlWriter*  _writer;
+
+    private:
+        uint32      _depthCached = 0;
         bool        _headerClosed = false;
         bool        _tagClosed = false;
     };
@@ -35,11 +37,21 @@ namespace ke
     public:
         void writeBuffer(const char* data, size_t count);
         void flushBuffer();
+
+    public:
         void writeIndent(int level);
         void writeToFile();
 
+    public:
+        inline uint32 increaseDepth() { return ++_depth; }
+        inline uint32 decreaseDepth() { return --_depth; }
+        inline uint32 getDepth() const { return _depth; }
+
     private:
-        WriteOnlyFile  _file;
-        DynamicBuffer  _buffer;
+        WriteOnlyFile   _file;
+        DynamicBuffer   _buffer;
+
+    private:
+        uint32          _depth = 0;
     };
 }

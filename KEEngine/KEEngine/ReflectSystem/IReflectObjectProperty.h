@@ -11,21 +11,22 @@ namespace ke
 		~IReflectObjectProperty() override = default;
 
 	public:
-		inline virtual EReflectPropertyType getType() const override final { return EReflectPropertyType::ReflectObject; }
-
-	protected:
-		inline virtual void*		getInterface() override final { return static_cast<IReflectObjectProperty*>(this); }
-		inline virtual const void*	getInterface() const override final { return static_cast<const IReflectObjectProperty*>(this); }
+		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const override final;
+		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) override final;
 
 	public:
-		virtual IReflectObject*			getReflectObject(IReflectObject* parentReflectObject) = 0;
-		virtual const IReflectObject*	getReflectObject(const IReflectObject* parentReflectObject) const = 0;
-	};
+		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const override final;
+		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) override final;
 
-    template<>
-    struct ReflectCastHelper<IReflectObjectProperty>
-    {
-        static IReflectObjectProperty*			cast(IReflectProperty* prop);
-        static const IReflectObjectProperty*	cast(const IReflectProperty* prop);
-    };
+
+	public:
+		inline virtual bool isComplexProperty() const final { return true; }
+		inline virtual bool isReflectObject() const final { return true; }
+		virtual bool		isDefault(const IReflectObject* obj) const final;
+
+
+	public:
+		virtual IReflectObject*			getReflectObject(IReflectObject* obj) = 0;
+		virtual const IReflectObject*	getReflectObject(const IReflectObject* obj) const = 0;
+	};
 }

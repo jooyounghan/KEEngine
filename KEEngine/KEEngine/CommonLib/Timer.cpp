@@ -18,7 +18,7 @@ namespace ke
     {
         if (!_isWorking)
         {
-			KE_ASSERT_DEV(false, "Timer is not running.");
+			KE_ASSERT(false, "Timer is not running.");
             return 0.f;
         }
         return getElapsedTime(_prevTime);

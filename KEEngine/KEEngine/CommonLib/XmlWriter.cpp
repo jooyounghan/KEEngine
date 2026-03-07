@@ -18,10 +18,10 @@ namespace ke
 		return block.data();
 	}
 
-    XmlBuilder::XmlBuilder(const char* name, size_t len, XmlWriter* writer, int depth)
-        : _name(name), _nameLen(len), _writer(writer), _depth(depth)
+    XmlBuilder::XmlBuilder(const char* name, size_t len, XmlWriter* writer, bool addDepth)
+        : _name(name), _nameLen(len), _writer(writer), _depthCached(addDepth ? writer->increaseDepth() : writer->getDepth())
     {
-        _writer->writeIndent(_depth);
+        _writer->writeIndent(_depthCached);
         _writer->writeBuffer("<", 1);
         _writer->writeBuffer(_name, _nameLen);
     }
@@ -29,6 +29,7 @@ namespace ke
     XmlBuilder::~XmlBuilder()
     {
         closeTag();
+        _writer->decreaseDepth();
     }
 
     void XmlBuilder::addAttribute(const char* name, size_t nLen, const char* value, size_t vLen)
@@ -59,7 +60,7 @@ namespace ke
         }
         else
         {
-            _writer->writeIndent(_depth);
+            _writer->writeIndent(_depthCached);
             _writer->writeBuffer("</", 2);
             _writer->writeBuffer(_name, _nameLen);
             _writer->writeBuffer(">\n", 2);

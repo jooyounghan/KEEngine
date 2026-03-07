@@ -1,5 +1,4 @@
 #pragma once
-#include "FlyweightString.h"
 
 namespace ke
 {
@@ -10,55 +9,34 @@ namespace ke
 		Editable = 1 << 1
 	};
 
-	enum class EReflectPropertyType : uint8
-	{
-		POD,
-		ReflectObject,
-		PODSequenceContainer,
-		ReflectObjectSeqeunceContainer,
-		PODKeyValueContainer,
-		ReflectObjectKeyValueContainer,
-		Count
-	};
-
-	class IReflectProperty;
-
-	template<typename T>
-	struct ReflectCastHelper
-	{
-		static T* cast(IReflectProperty* prop);
-		static const T* cast(const IReflectProperty* prop);
-	};
-
+	class IReflectObject;
 	class IReflectProperty
 	{
 	public:
 		IReflectProperty(const FlyweightStringA& name);
 		virtual ~IReflectProperty() = default;
 
-		template<typename T> friend struct ReflectCastHelper;
+	public:
+		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const = 0;
+		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) = 0;
+	
+	public:
+		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const = 0;
+		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) = 0;
 
 	public:
-		virtual EReflectPropertyType getType() const = 0;
-
-	protected:
-		inline virtual void* getInterface() { return nullptr; }
-		inline virtual const void* getInterface() const { return nullptr; }
+		inline virtual bool isComplexProperty() const = 0;
+		inline virtual bool isReflectObject() const = 0;
+		inline virtual bool isDefault(const IReflectObject* obj) const = 0;
 
 	public:
 		const FlyweightStringA& getName() const { return _name; }
 		const EReflectUIOption	getUIOption() const { return _uiOption; }
 		void					setUIOption(const EReflectUIOption& uiOption) { _uiOption = uiOption; }
 
-	public:
-		template<typename T>
-		T* castTo();
-		template<typename T>
-		const T* castTo() const;
-
 	protected:
-		FlyweightStringA _name;
-		EReflectUIOption _uiOption = EReflectUIOption::None;
+		FlyweightStringA	_name;
+		EReflectUIOption	_uiOption = EReflectUIOption::None;
+		bool				_isModified = false;
 	};
 }
-#include "IReflectProperty.hpp"
