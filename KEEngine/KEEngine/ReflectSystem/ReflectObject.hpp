@@ -1,5 +1,5 @@
 #pragma region Declare ReflectProperty Macros
-#define KE_DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable)						\
+#define KE_DECLARE_REFLECT_PROPERTY_METHODS(Type, Variable)						\
 	inline static const ke::FlyweightStringA& getName##Variable()				\
 	{																			\
 		static ke::FlyweightStringA name = ke::FlyweightStringA(#Variable);		\
@@ -11,11 +11,11 @@
 
 #define KE_DECLARE_REFLECT_PROPERTY(Type, Variable)		\
 	Type Variable;										\
-	KE_DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable);
+	KE_DECLARE_REFLECT_PROPERTY_METHODS(Type, Variable);
 
 #define KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(Type, Variable, DefaultValue)	\
 	Type Variable = DefaultValue;												\
-	KE_DECLAR_REFLECT_PROPERTY_METHODS(Type, Variable);
+	KE_DECLARE_REFLECT_PROPERTY_METHODS(Type, Variable);
 #pragma endregion
 
 #pragma region Define ReflectProperty Macros
@@ -27,55 +27,32 @@
 	template<> void ke::ReflectObject<ObjectType>::initializeMetaData() {							\
 		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
 
-#define KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)	\
-	ObjectType::getName##Variable()									\
-	, &ObjectType::get##Variable									\
-	, &ObjectType::getConst##Variable								\
-	, &ObjectType::set##Variable
+#define KE_PROPERTY_NAME(ObjectType, Variable) ObjectType::getName##Variable()
 
-#define KE_DEFINE_REFLECT_POD_PROPERTY(ObjectType, Variable) { reflectMetaData.addPODProperty(KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
-#define KE_DEFINE_REFLECT_ENUM_PROPERTY(ObjectType, Variable) { reflectMetaData.addEnumProperty(KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
-#define KE_DEFINE_REFLECT_OBJECT_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectProperty(KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
-#define KE_DEFINE_REFLECT_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addSequenceProperty(KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
-#define KE_DEFINE_REFLECT_OBEJCT_SEQ_PROPERTY(ObjectType, Variable) { reflectMetaData.addReflectObjectSeqProperty(KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+#define KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)	\
+	&ObjectType::get##Variable,										\
+	&ObjectType::getConst##Variable,								\
+	&ObjectType::set##Variable
+
+#define KE_DEFINE_REFLECT_PROPERTY(ObjectType, Variable, Uioption) \
+{ reflectMetaData.addReflectProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+
+#define KE_DEFINE_REFLECT_PROPERTY_WITH_DEFAULT(ObjectType, Variable, Uioption, DefaultValue) \
+{ reflectMetaData.addReflectProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable), DefaultValue); }
+
+#define KE_DEFINE_REFLECT_OBJECT_PROPERTY(ObjectType, Variable, Uioption) \
+{ reflectMetaData.addReflectObjectProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+
+#define KE_DEFINE_REFLECT_SEQUENCE_PROPERTY(ObjectType, Variable, Uioption) \
+{ reflectMetaData.addReflectSequenceProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
+
+#define KE_DEFINE_REFLECT_SEQUENCE_PROPERTY_WITH_DEFAULT(ObjectType, Variable, Uioption, DefaultValue) \
+{ reflectMetaData.addReflectSequenceProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable), DefaultValue); }
+
+#define KE_DEFINE_REFLECT_OBEJCT_SEQUENCE_PROPERTY(ObjectType, Variable, Uioption) \
+{ reflectMetaData.addReflectObjectSequenceProperty(KE_PROPERTY_NAME(ObjectType, Variable), Uioption, KE_DEFINE_REFLECT_PROPERTY_PARAMETER(ObjectType, Variable)); }
 
 #define KE_END_DEFINE_REFLECT_PROPERTY()	};
-#pragma endregion
-
-#pragma region Bind ReflectProperty Macros
-#define KE_BEGIN_BIND_REFLECT_PROPERTY(ObjectType)												\
-	template<> void ke::ReflectObject<ObjectType>::bindMetaData() {								\
-		ke::ReflectMetaData& reflectMetaData = ke::ReflectObject<ObjectType>::_reflectMetaData;
-
-#define KE_BIND_REFLECET_PROPERTY(ObjectType, PropertyType, Variable, UiOption)													\
-	{																															\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
-		reflectProperty->setUIOption(UiOption);																					\
-	}
-
-#define KE_BIND_REFLECT_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)								\
-	{																															\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());					\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());	\
-		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();								\
-		reflectPODProperty->getPODPropertyInfo<PropertyType>()->setDefaultValue(DefaultValue);									\
-	}
-
-#define KE_BIND_REFLECT_ENUM_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue) KE_BIND_REFLECT_POD_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue)
-
-#define KE_BIND_REFLECET_POD_RANGED_PROPERTY(ObjectType, PropertyType, Variable, UiOption, DefaultValue, MaxValue, MinValue, Step)	\
-	{																																\
-		IReflectProperty* reflectProperty = reflectMetaData.getPropertyByName(ObjectType::getName##Variable());						\
-		KE_ASSERT_ARGS(reflectProperty != nullptr, "Reflect Property not found: %s", ObjectType::getName##Variable().c_str());		\
-		IReflectPODProperty* reflectPODProperty = reflectProperty->castTo<IReflectPODProperty>();									\
-		ReflectPODPropertyInfo<PropertyType>* reflectPODPropertyInfo = reflectPODProperty->getPODPropertyInfo<PropertyType>();		\
-		reflectPODPropertyInfo->setDefaultValue(DefaultValue);																		\
-		reflectPODPropertyInfo->assignRangeInfo(MinValue, MaxValue, Step);															\
-	}
-
-#define KE_END_BIND_REFLECT_PROPERTY() };
-
 #pragma endregion
 
 #pragma region ReflectObject Macros

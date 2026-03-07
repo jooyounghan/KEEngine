@@ -10,10 +10,8 @@ namespace ke
 	{
     public:
         ReflectProperty(
-            const FlyweightStringA& name
-            , Getter<ObjectType, PropertyType> getter
-            , ConstGetter<ObjectType, PropertyType> constGetter
-            , Setter<ObjectType, PropertyType> setter
+            const FlyweightStringA& name,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
         );
         ~ReflectProperty() override = default;
 
@@ -30,6 +28,10 @@ namespace ke
 		inline virtual bool isComplexProperty() const final { return false; }
 		inline virtual bool isReflectObject() const final { return false; }
 		inline virtual bool isDefault(const IReflectObject* obj) const final { return this->get(obj) == _defaultValue; }
+
+	public:
+		inline void					setDefaultValue(const PropertyType& defaultValue) { _defaultValue = defaultValue; }
+		inline const PropertyType&	getDefaultValue() const { return _defaultValue; }
 
 	protected:
 		PropertyType _defaultValue;

@@ -9,12 +9,12 @@ namespace ke
 	template<typename ObjectType, template<typename...> typename ContainerType, typename KeyType, typename ValueType>
 	class ReflectKeyValueProperty : public IReflectProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<KeyType, ValueType>>
 	{
+		using Container = ContainerType<KeyType, ValueType>;
+
 	public:
 		ReflectKeyValueProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<KeyType, ValueType>> getter
-			, ConstGetter<ObjectType, ContainerType<KeyType, ValueType>> constGetter
-			, Setter<ObjectType, ContainerType<KeyType, ValueType>> setter
+			const FlyweightStringA& name,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, Container)
 		);
 
 	public:
@@ -31,7 +31,7 @@ namespace ke
 		inline virtual bool	isDefault(const IReflectObject* obj) const final { return this->get(obj) == _defaultValue; };
 
 	protected:
-		ContainerType<KeyType, ValueType> _defaultValue;
+		Container _defaultValue;
 	};
 }
 #include "ReflectKeyValueProperty.hpp"

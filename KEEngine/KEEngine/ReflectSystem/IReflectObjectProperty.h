@@ -11,6 +11,9 @@ namespace ke
 		~IReflectObjectProperty() override = default;
 
 	public:
+		static std::string convertToReflectName(const std::string_view& str);
+
+	public:
 		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const override final;
 		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) override final;
 

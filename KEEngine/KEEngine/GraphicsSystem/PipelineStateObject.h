@@ -1,8 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "ReflectObject.h"
 #include "EnumUtil.h"
 #include "D3D12Enums.h"
-
 namespace ke
 {
 	KE_DECLARE_REFLECT_ENUM_FLAG(EPipelineStateKey, uint32)
@@ -27,12 +26,12 @@ namespace ke
 		KE_REFLECT_OBJECT_CONSTRUCTOR(PipelineStateObject);
 
 	protected:
-		KE_DECLARE_REFLECT_PROPERTY(FlyweightStringA, _name);
-		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(EPipelineStateKey, _stateKey, EPipelineStateKey::UseDepthTest | EPipelineStateKey::UseDepthWrite | EPipelineStateKey::CullBack);
-		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, D3D12_DEFAULT_STENCIL_READ_MASK);
-		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, D3D12_DEFAULT_STENCIL_WRITE_MASK);
-		KE_DECLARE_REFLECT_PROPERTY(std::vector<EDXGIFormat>, _renderTargetFormats);
-		KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(EDXGIFormat, _depthStencilFormat, EDXGIFormat::D24_Unorm_S8_Uint);
+        KE_DECLARE_REFLECT_PROPERTY(FlyweightStringA, _name);
+        KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(EPipelineStateKey, _stateKey, EPipelineStateKey::UseDepthTest | EPipelineStateKey::UseDepthWrite | EPipelineStateKey::CullBack);
+        KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilReadMask, D3D12_DEFAULT_STENCIL_READ_MASK);
+        KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(uint8, _stencilWriteMask, D3D12_DEFAULT_STENCIL_WRITE_MASK);
+        KE_DECLARE_REFLECT_PROPERTY(std::vector<EDXGIFormat>, _renderTargetFormats);
+        KE_DECLARE_REFLECT_PROPERTY_WITH_DEFAULT(EDXGIFormat, _depthStencilFormat, EDXGIFormat::D24_Unorm_S8_Uint);
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> _pipelineStateObject;

@@ -3,9 +3,7 @@ namespace ke
     template<typename ObjectType, typename PropertyType>
     ReflectProperty<ObjectType, PropertyType>::ReflectProperty(
         const FlyweightStringA& name,
-        Getter<ObjectType, PropertyType> getter,
-        ConstGetter<ObjectType, PropertyType> constGetter,
-        Setter<ObjectType, PropertyType> setter
+        REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
 	) : IReflectProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
     {
     }

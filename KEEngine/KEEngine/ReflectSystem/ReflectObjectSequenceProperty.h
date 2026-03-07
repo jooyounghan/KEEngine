@@ -10,10 +10,8 @@ namespace ke
 	{
 	public:
 		ReflectObjectSequenceProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<PropertyType>> getter
-			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
-			, Setter<ObjectType, ContainerType<PropertyType>> setter
+			const FlyweightStringA& name,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 		);
 
 	public:

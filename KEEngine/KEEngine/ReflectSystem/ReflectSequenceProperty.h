@@ -11,10 +11,8 @@ namespace ke
 	{
 	public:
 		ReflectSequenceProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<PropertyType>> getter
-			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
-			, Setter<ObjectType, ContainerType<PropertyType>> setter
+			const FlyweightStringA& name,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 		);
 
 	public:
@@ -29,6 +27,10 @@ namespace ke
 		inline virtual bool isComplexProperty() const final { return true; }
 		inline virtual bool isReflectObject() const final { return false; }
 		inline virtual bool	isDefault(const IReflectObject* obj) const final { return this->get(obj) == _defaultValue; };
+
+	public:
+		void								setDefaultValue(ContainerType<PropertyType>&& defaultValue) { _defaultValue = std::move(_defaultValue); }
+		const ContainerType<PropertyType>&	getDefaultValue() const { return _defaultValue; }
 
 	protected:
 		ContainerType<PropertyType> _defaultValue;

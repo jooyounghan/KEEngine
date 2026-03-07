@@ -23,7 +23,7 @@ namespace ke
 		}
 	}
 
-	static std::string convertToReflectName(const std::string_view& str) 
+	std::string IReflectObjectProperty::convertToReflectName(const std::string_view& str)
 	{
 		std::string reflectName;
 		reflectName.reserve(str.length() + 1);

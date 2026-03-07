@@ -2,12 +2,10 @@ namespace ke
 {
     template<typename ObjectType, typename PropertyType>
     ReflectObjectProperty<ObjectType, PropertyType>::ReflectObjectProperty(
-        const FlyweightStringA& name, 
-        Getter<ObjectType, PropertyType> getter, 
-        ConstGetter<ObjectType, PropertyType> constGetter, 
-        Setter<ObjectType, PropertyType> setter
+        const FlyweightStringA& name,
+        REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
     )
-		: IReflectObjectProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
+        : IReflectObjectProperty(name), ReflectPropertyAccessor<ObjectType, PropertyType>(getter, constGetter, setter)
     {
         STATIC_ASSERT_IS_BASE_OF(IReflectObject, PropertyType);
     }

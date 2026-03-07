@@ -9,13 +9,11 @@ namespace ke
 	REFLECT_KEY_VALUE_TEMPLATE
 		REFLECT_KEY_VALUE_CLASS::ReflectKeyValueProperty(
 		const FlyweightStringA& name,
-		Getter<ObjectType, ContainerType<KeyType, ValueType>> getter,
-		ConstGetter<ObjectType, ContainerType<KeyType, ValueType>> constGetter,
-		Setter<ObjectType, ContainerType<KeyType, ValueType>> setter
+		REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, Container)
 	) : IReflectProperty(name),
-		ReflectPropertyAccessor<ObjectType, ContainerType<KeyType, ValueType>>(getter, constGetter, setter)
+		ReflectPropertyAccessor<ObjectType, Container>(getter, constGetter, setter)
 	{
-		STATIC_ASSERT((ReflectKeyValueContainerCompatible<ContainerType<KeyType, ValueType>, KeyType, ValueType>), "ContainerType must be ReflectKeyValueContainerCompatible");
+		STATIC_ASSERT((ReflectKeyValueContainerCompatible<Container, KeyType, ValueType>), "ContainerType must be ReflectKeyValueContainerCompatible");
 	}
 
 	template <typename Container>
@@ -35,11 +33,11 @@ namespace ke
 			return;
 		}
 
-		const ContainerType<KeyType, ValueType>& containerProperty = this->get(obj);
+		const Container& containerProperty = this->get(obj);
 
 		StaticBuffer<BUFFER_BYTES_1KB> propertyValueBuffer;
 
-		ContainerType<KeyType, ValueType>::const_iterator iter = containerProperty.begin();
+		typename Container::const_iterator iter = containerProperty.begin();
 		serializeToXmlKeyValueElement(&propertyValueBuffer, iter);
 		++iter;
 
@@ -72,7 +70,7 @@ namespace ke
 		const std::string_view valueString = xmlAttribute->getValue();
 		const std::vector<std::string_view> values = StrUtil::split(valueString.data(), valueString.length(), ", ", 2);
 
-		ContainerType<KeyType, ValueType>& containerProperty = this->get(obj);
+		Container& containerProperty = this->get(obj);
 
 		const size_t count = values.size();
 		for (size_t idx = 0; idx < count; ++idx)

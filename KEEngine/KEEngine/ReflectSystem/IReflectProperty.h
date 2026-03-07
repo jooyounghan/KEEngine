@@ -32,7 +32,7 @@ namespace ke
 	public:
 		const FlyweightStringA& getName() const { return _name; }
 		const EReflectUIOption	getUIOption() const { return _uiOption; }
-		void					setUIOption(const EReflectUIOption& uiOption) { _uiOption = uiOption; }
+		void					setUIOption(EReflectUIOption uiOption) { _uiOption = uiOption; }
 
 	protected:
 		FlyweightStringA	_name;

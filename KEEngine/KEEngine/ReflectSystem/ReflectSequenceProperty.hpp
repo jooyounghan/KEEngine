@@ -9,9 +9,7 @@ namespace ke
 	REFLECT_SEQUENCE_TEMPLATE
 	REFLECT_SEQUENCE_CLASS::ReflectSequenceProperty(
 		const FlyweightStringA& name,
-		Getter<ObjectType, ContainerType<PropertyType>> getter,
-		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter,
-		Setter<ObjectType, ContainerType<PropertyType>> setter
+		REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 	)	: IReflectProperty(name),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
@@ -35,7 +33,7 @@ namespace ke
 		for (size_t idx = 1; idx < count; ++idx)
 		{
 			propertyValueBuffer.write(", ", 2);
-			ReflectParser::toString(&propertyValueBuffer, &containerProperty[idx])
+			ReflectParser::toString(&propertyValueBuffer, &containerProperty[idx]);
 		}
 		xmlBuilder->addAttribute(_name.c_str(), _name.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
 	}

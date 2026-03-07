@@ -20,7 +20,7 @@ namespace ke
 
 		if constexpr (std::is_enum_v<PropertyType>)
 		{
-			std::optional<T> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
+			std::optional<PropertyType> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
 			if (optVal.has_value())
 			{
 				*property = optVal.value();
@@ -43,7 +43,7 @@ namespace ke
 
 		if constexpr (std::is_enum_v<PropertyType>)
 		{
-			const std::string& enumString = EnumWrapper<T>::toString(*property);
+			const std::string& enumString = EnumWrapper<PropertyType>::toString(*property);
 			dstBuffer->write(enumString.c_str(), enumString.length());
 		}
 		else

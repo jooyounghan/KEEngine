@@ -9,9 +9,7 @@ namespace ke
 	REFLECT_OBJECT_SEQUENCE_TEMPLATE
 		REFLECT_OBJECT_SEQUENCE_CLASS::ReflectObjectSequenceProperty(
 		const FlyweightStringA& name, 
-		Getter<ObjectType, ContainerType<PropertyType>> getter, 
-		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter, 
-		Setter<ObjectType, ContainerType<PropertyType>> setter
+		REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 	) : IReflectProperty(name),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
@@ -79,7 +77,7 @@ namespace ke
 			const std::vector<XmlNode>& grandChildren = childNode->getChildNodes();
 			for (const XmlNode& grandChildNode : grandChildren)
 			{
-				const FlyweightStringA propertyName(convertToReflectName(grandChildNode.getName()));
+				const FlyweightStringA propertyName(IReflectObjectProperty::convertToReflectName(grandChildNode.getName()));
 				IReflectProperty* reflectProperty = reflectMetaData->getPropertyByName(propertyName);
 				if (reflectProperty == nullptr)
 				{

@@ -1,9 +1,10 @@
 #pragma once
-#include "ReflectPODProperty.h"
-#include "ReflectEnumProperty.h"
+#include "ReflectProperty.h"
 #include "ReflectObjectProperty.h"
 #include "ReflectSequenceProperty.h"
 #include "ReflectObjectSequenceProperty.h"
+#include "ReflectKeyValueProperty.h"
+#include "ReflectObjectKeyValueProperty.h"
 
 namespace ke
 {
@@ -15,54 +16,58 @@ namespace ke
 
 	public:
 		template<typename ObjectType, typename PropertyType>
-		void addPODProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, PropertyType> getter
-			, ConstGetter<ObjectType, PropertyType> constGetter
-			, Setter<ObjectType, PropertyType> setter
+		void addReflectProperty(
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
 		);
 
 		template<typename ObjectType, typename PropertyType>
-		void addEnumProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, PropertyType> getter
-			, ConstGetter<ObjectType, PropertyType> constGetter
-			, Setter<ObjectType, PropertyType> setter
+		void addReflectProperty(
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType),
+			const PropertyType& defaultValue
 		);
 
 		template<typename ObjectType, typename PropertyType>
 		void addReflectObjectProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, PropertyType> getter
-			, ConstGetter<ObjectType, PropertyType> constGetter
-			, Setter<ObjectType, PropertyType> setter
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
 		);
 
 		template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-		void addSequenceProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<PropertyType>> getter
-			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
-			, Setter<ObjectType, ContainerType<PropertyType>> setter
+		void addReflectSequenceProperty(
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 		);
 
 		template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-		void addReflectObjectSeqProperty(
-			const FlyweightStringA& name
-			, Getter<ObjectType, ContainerType<PropertyType>> getter
-			, ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter
-			, Setter<ObjectType, ContainerType<PropertyType>> setter
+		void addReflectSequenceProperty(
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>),
+			ContainerType<PropertyType>&& defaultValue
+		);
+
+		template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
+		void addReflectObjectSequenceProperty(
+			const FlyweightStringA& name,
+			EReflectUIOption uiOption,
+			REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ContainerType<PropertyType>)
 		);
 
 	public:
-		IReflectProperty* getPropertyByName(const FlyweightStringA& name) const;
-		inline const FlyweightStringA& getOwnerObjectName() const { return _ownerObjectName; }
+		IReflectProperty*							getPropertyByName(const FlyweightStringA& name) const;
+		inline const FlyweightStringA&				getOwnerObjectName() const { return _ownerObjectName; }
 		inline const OwnerVector<IReflectProperty>& getAllProperties() const { return _properties; }
 
 	private:
-		OwnerVector<IReflectProperty> _properties;
-		std::map<FlyweightStringA, IReflectProperty*> _orderedPropertyMap;
-		FlyweightStringA _ownerObjectName;
+		OwnerVector<IReflectProperty>					_properties;
+		std::map<FlyweightStringA, IReflectProperty*>	_orderedPropertyMap;
+		FlyweightStringA								_ownerObjectName;
 	};
 }
 #include "ReflectMetaData.hpp"

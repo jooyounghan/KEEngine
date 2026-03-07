@@ -1,4 +1,10 @@
 #pragma once
+
+#define REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, ...)        \
+Getter<ObjectType, __VA_ARGS__> getter,                             \
+ConstGetter<ObjectType, __VA_ARGS__> constGetter,                   \
+Setter<ObjectType, __VA_ARGS__> setter
+
 namespace ke
 {
     template <typename ObjectType, typename PropertyType>
@@ -12,11 +18,8 @@ namespace ke
 	class ReflectPropertyAccessor
 	{
     public:
-        ReflectPropertyAccessor(
-            Getter<ObjectType, PropertyType> getter,
-            ConstGetter<ObjectType, PropertyType> constGetter,
-            Setter<ObjectType, PropertyType> setter
-        ) : _getter(getter)
+        ReflectPropertyAccessor(REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType))
+            : _getter(getter)
             , _constGetter(constGetter)
             , _setter(setter)
         {

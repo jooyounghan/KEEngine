@@ -9,10 +9,8 @@ namespace ke
 	{
 	public:
         ReflectObjectProperty(
-            const FlyweightStringA& name
-            , Getter<ObjectType, PropertyType> getter
-            , ConstGetter<ObjectType, PropertyType> constGetter
-            , Setter<ObjectType, PropertyType> setter
+            const FlyweightStringA& name,
+            REFLECT_PROPERTY_ACCESSOR_ARGUMENTS(ObjectType, PropertyType)
         );
         ~ReflectObjectProperty() override = default;
 
