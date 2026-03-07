@@ -1,11 +1,11 @@
 #pragma once
-#include "IReflectObjectSequenceProperty.h"
+#include "IReflectObjectProperty.h"
 #include "ReflectPropertyAccessor.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	class ReflectObjectSequenceProperty : public IReflectObjectSequenceProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectObjectSequenceProperty : public IReflectProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
 		ReflectObjectSequenceProperty(
@@ -16,14 +16,17 @@ namespace ke
 		);
 
 	public:
-		virtual size_t	size(const IReflectObject* object) const override;
+		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const override final;
+		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) override final;
 
 	public:
-		virtual IReflectObject*			getReflectObject(const size_t index, IReflectObject* parentReflobjectectObject) override;
-		virtual const IReflectObject*	getReflectObject(const size_t index, const IReflectObject* parentReflobjectectObject) const override;
+		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const override final;
+		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) override final;
 
-	public:
-		virtual void empalceDefaultReflectObject(const IReflectObject* parentReflectObject) override;
+	protected:
+		inline virtual bool isComplexProperty() const final { return true; }
+		inline virtual bool isReflectObject() const final { return true; }
+		inline virtual bool	isDefault(const IReflectObject* obj) const final;
 	};
 }
 #include "ReflectObjectSequenceProperty.hpp"

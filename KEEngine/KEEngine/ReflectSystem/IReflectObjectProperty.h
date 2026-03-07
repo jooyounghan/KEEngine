@@ -18,12 +18,10 @@ namespace ke
 		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const override final;
 		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) override final;
 
-
 	public:
 		inline virtual bool isComplexProperty() const final { return true; }
 		inline virtual bool isReflectObject() const final { return true; }
 		virtual bool		isDefault(const IReflectObject* obj) const final;
-
 
 	public:
 		virtual IReflectObject*			getReflectObject(IReflectObject* obj) = 0;

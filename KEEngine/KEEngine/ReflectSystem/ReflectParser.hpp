@@ -1,3 +1,4 @@
+#include "ReflectParser.h"
 #pragma once
 
 #define DECLARE_PARSE_SPECIALIZATION(Type)																\
@@ -8,6 +9,49 @@ template<> void ReflectParser::parseToBinary(IBuffer* outStringBuffer, const Typ
 
 namespace ke
 {
+	template<typename PropertyType>
+	void ReflectParser::fromString(const char* src, size_t strlen, PropertyType* property)
+	{
+		if (property == nullptr)
+		{
+			KE_ASSERT_DEV(false, "인자로 들어오는 property가 nullptr입니다.");
+			return;
+		}
+
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			std::optional<T> optVal = EnumWrapper<PropertyType>::fromString(std::string_view(src, strlen));
+			if (optVal.has_value())
+			{
+				*property = optVal.value();
+			}
+		}
+		else
+		{
+			ReflectParser::parseFromString(src, strlen, property);
+		}
+	}
+
+	template<typename PropertyType>
+	void ReflectParser::toString(IBuffer* dstBuffer, const PropertyType* property)
+	{
+		if (property == nullptr)
+		{
+			KE_ASSERT_DEV(false, "인자로 들어오는 property가 nullptr입니다.");
+			return;
+		}
+
+		if constexpr (std::is_enum_v<PropertyType>)
+		{
+			const std::string& enumString = EnumWrapper<T>::toString(*property);
+			dstBuffer->write(enumString.c_str(), enumString.length());
+		}
+		else
+		{
+			ReflectParser::parseToString(dstBuffer, &property);
+		}
+	}
+
 	template<typename PropertyType>
 	void ReflectParser::parseFromString(const char* src, size_t strlen, PropertyType* outPropertyTypes)
 	{

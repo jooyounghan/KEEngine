@@ -146,19 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IReflectContainerProperty.h" />
-    <ClInclude Include="IReflectContainerProperty.hpp" />
+    <ClInclude Include="ReflectContainerConcept.h" />
     <ClInclude Include="IReflectKeyValueProperty.h" />
     <ClInclude Include="IReflectObjectKeyValueProperty.h" />
-    <ClInclude Include="IReflectObjectSequenceProperty.h" />
-    <ClInclude Include="IReflectSequenceProperty.h" />
     <ClInclude Include="IReflectObject.h" />
     <ClInclude Include="IReflectObjectProperty.h" />
-    <ClInclude Include="IReflectPODProperty.h" />
     <ClInclude Include="IReflectProperty.h" />
-    <ClInclude Include="IReflectProperty.hpp" />
-    <ClInclude Include="ReflectEnumProperty.h" />
-    <ClInclude Include="ReflectEnumProperty.hpp" />
     <ClInclude Include="ReflectKeyValueProperty.h" />
     <ClInclude Include="ReflectKeyValueProperty.hpp" />
     <ClInclude Include="ReflectMetaData.h" />
@@ -171,10 +164,8 @@
     <ClInclude Include="ReflectObjectProperty.hpp" />
     <ClInclude Include="ReflectSequenceProperty.h" />
     <ClInclude Include="ReflectSequenceProperty.hpp" />
-    <ClInclude Include="ReflectPODProperty.h" />
-    <ClInclude Include="ReflectPODProperty.hpp" />
-    <ClInclude Include="ReflectPODPropertyInfo.h" />
-    <ClInclude Include="ReflectPODPropertyInfo.hpp" />
+    <ClInclude Include="ReflectProperty.h" />
+    <ClInclude Include="ReflectProperty.hpp" />
     <ClInclude Include="ReflectPropertyAccessor.h" />
     <ClInclude Include="ReflectSerializer.h" />
     <ClInclude Include="ReflectSystemPch.h" />
@@ -182,19 +173,17 @@
     <ClInclude Include="ReflectParser.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IReflectContainerProperty.cpp" />
+    <ClCompile Include="ReflectContainerConcept.cpp" />
     <ClCompile Include="IReflectKeyValueProperty.cpp" />
     <ClCompile Include="IReflectObjectKeyValueProperty.cpp" />
-    <ClCompile Include="IReflectObjectSequenceProperty.cpp" />
-    <ClCompile Include="IReflectSequenceProperty.cpp" />
+    <ClCompile Include="ReflectObjectSequenceProperty.cpp" />
     <ClCompile Include="IReflectObjectProperty.cpp" />
-    <ClCompile Include="IReflectPODProperty.cpp" />
-    <ClCompile Include="ReflectPODProperty.cpp" />
+    <ClCompile Include="ReflectProperty.cpp" />
     <ClCompile Include="ReflectMetaData.cpp" />
     <ClCompile Include="ReflectObject.cpp" />
     <ClCompile Include="ReflectParser.cpp" />
     <ClCompile Include="IReflectProperty.cpp" />
-    <ClCompile Include="ReflectPODPropertyInfo.cpp" />
+    <ClCompile Include="ReflectSequenceProperty.cpp" />
     <ClCompile Include="ReflectSerializer.cpp" />
     <ClCompile Include="ReflectSystemPch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -1,59 +1,85 @@
+#define REFLECT_SEQUENCE_TEMPLATE \
+    template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
+
+#define REFLECT_SEQUENCE_CLASS \
+    ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>
+
 namespace ke
 {
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::ReflectSequenceProperty(
+	REFLECT_SEQUENCE_TEMPLATE
+	REFLECT_SEQUENCE_CLASS::ReflectSequenceProperty(
 		const FlyweightStringA& name,
 		Getter<ObjectType, ContainerType<PropertyType>> getter,
 		ConstGetter<ObjectType, ContainerType<PropertyType>> constGetter,
 		Setter<ObjectType, ContainerType<PropertyType>> setter
 	)
-		: IReflectSequenceProperty(name),
-		ReflectPODPropertyInfo<PropertyType>(),
+		: IReflectProperty(name),
 		ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>(getter, constGetter, setter)
 	{
 		STATIC_ASSERT((ReflectSequenceContainerCompatible<ContainerType<PropertyType>, PropertyType>), "ContainerType must be ReflectSequenceContainerCompatible");
 	}
 
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	size_t ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::size(const IReflectObject* object) const
+	REFLECT_SEQUENCE_TEMPLATE
+	void REFLECT_SEQUENCE_CLASS::serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const
 	{
-		const ContainerType<PropertyType>& container = this->get(object);
-		return container.size();
+		if (xmlBuilder == nullptr)
+		{
+			KE_ASSERT_DEV(false, "ReflectSeqeunceProperty need XmlBuilder For Serializing");
+			return;
+		}
+
+		const ContainerType<PropertyType>& containerProperty = this->get(obj);
+		const size_t count = containerProperty.size();
+
+		StaticBuffer<BUFFER_BYTES_1KB> propertyValueBuffer;
+		if (count > 0) ReflectParser::toString(propertyValueBuffer, &containerProperty[0]);
+		for (size_t idx = 1; idx < count; ++idx)
+		{
+			propertyValueBuffer.write(", ", 2);
+			ReflectParser::toString(propertyValueBuffer, &containerProperty[idx])
+		}
+		xmlBuilder->addAttribute(_name.c_str(), _name.length(), propertyValueBuffer.getConstBuffer(), propertyValueBuffer.getCursorPos());
 	}
 
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const
+	REFLECT_SEQUENCE_TEMPLATE
+	void REFLECT_SEQUENCE_CLASS::deserializeFromXML(const XmlNode * xmlNode, const XmlAttribute * xmlAttribute, IReflectObject * obj)
 	{
-		const ContainerType<PropertyType>& container = this->get(object);
-		const PropertyType& property = container[index];
-		ReflectContainerParser::parseToBinary(outDst, property);
+		if (xmlAttribute == nullptr)
+		{
+			KE_ASSERT_DEV(false, "ReflectSeqeunceProperty need XmlAttribute For Deserializing");
+			return;
+		}
+
+		const std::string_view name = xmlAttribute->getName();
+
+		if (_name != name)
+		{
+			KE_ASSERT_DEV(false, "ReflectProperty name mismatched with attribute");
+			return;
+		}
+
+		const std::string_view value = xmlAttribute->getValue();
+		const std::vector<std::string_view> values = StrUtil::split(value.data(), value.length(), ", ", 2);
+
+		ContainerType<PropertyType>& containerProperty = this->get(obj);
+
+		const size_t count = values.size();
+		for (size_t idx = 0; idx < count; ++idx)
+		{
+			const std::string_view& value = values[idx];
+			PropertyType& property = containerProperty.emplace_back();
+			ReflectParser::fromString(value.data(), value.length(), &property);
+		}
 	}
 
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const
-	{
-		const ContainerType<PropertyType>& container = this->get(object);
-		const PropertyType& property = container[index];
-		ReflectContainerParser::parseToString(outStringBuffer, property);
-	}
+	REFLECT_SEQUENCE_TEMPLATE
+	void REFLECT_SEQUENCE_CLASS::serializeToBinary(IBuffer * dstBuffer, const IReflectObject * obj) const
+	{}
 
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::addFromBinary(IReflectObject* object, const void* src)
-	{
-		PropertyType property;
-		ReflectContainerParser::parseFromBinary(src, property);
-
-		ContainerType<PropertyType>& container = this->get(object);
-		container.push_back(property);
-	}
-
-	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	void ReflectSequenceProperty<ObjectType, ContainerType, PropertyType>::addFromString(IReflectObject* object, const char* src, size_t strLen)
-	{
-		PropertyType property;
-		ReflectContainerParser::parseFromString(src, strLen, property);
-
-		ContainerType<PropertyType>& container = this->get(object);
-		container.push_back(property);
-	}
+	REFLECT_SEQUENCE_TEMPLATE
+	void REFLECT_SEQUENCE_CLASS::deserializeFromBinary(const IBuffer * srcBuffer, const IReflectObject * obj)
+	{}
 }
+
+#undef REFLECT_SEQUENCE_TEMPLATE
+#undef REFLECT_SEQUENCE_CLASS

@@ -1,5 +1,6 @@
 #pragma once
 #include "IReflectObjectProperty.h"
+#include "ReflectPropertyAccessor.h"
 
 namespace ke
 {

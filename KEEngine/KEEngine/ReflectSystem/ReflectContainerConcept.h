@@ -1,14 +1,10 @@
 #pragma once
-#include "IReflectProperty.h"
-#include "ReflectParser.h"
-#include "EnumUtil.h"
-
 namespace ke
 {
 	class IReflectObject;
 
 	template <typename Container, typename T>
-	concept ReflectSequenceContainerCompatible = requires(Container c, const Container cc, std::size_t index, T& val, const T& cval)
+	concept ReflectSequenceContainerCompatible = std::ranges::range<Container> && requires(Container c, const Container cc, std::size_t index, T& val, const T& cval)
 	{
 		{ c.size() } -> std::convertible_to<std::size_t>;
 
@@ -36,30 +32,4 @@ namespace ke
 
 		{ c.emplace(key, value) } -> std::convertible_to<std::pair<typename Container::iterator, bool>>;
 	};
-
-	class IReflectContainerProperty : public IReflectProperty
-	{
-	public:
-		IReflectContainerProperty(const FlyweightStringA& name);
-		~IReflectContainerProperty() override = default;
-
-	public:
-		virtual size_t	size(const IReflectObject* object) const = 0;
-	};
-
-	namespace ReflectContainerParser
-	{
-		template<typename T>
-		static void parseToBinary(IBuffer* outBuffer, const T& value);
-
-		template<typename T>
-		static void parseToString(IBuffer* outBuffer, const T& value);
-
-		template<typename T>
-		static Offset parseFromBinary(const void* src, T& value);
-
-		template<typename T>
-		static void parseFromString(const char* src, size_t strLen, T& value);
-	}
 }
-#include "IReflectContainerProperty.hpp"

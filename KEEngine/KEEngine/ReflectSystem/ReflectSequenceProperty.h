@@ -1,11 +1,12 @@
 #pragma once
-#include "IReflectSequenceProperty.h"
+#include "IReflectProperty.h"
 #include "ReflectPropertyAccessor.h"
+#include "ReflectParser.h"
 
 namespace ke
 {
 	template<typename ObjectType, template<typename...> typename ContainerType, typename PropertyType>
-	class ReflectSequenceProperty : public IReflectSequenceProperty, public ReflectPODPropertyInfo<PropertyType>, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
+	class ReflectSequenceProperty : public IReflectProperty, public ReflectPropertyAccessor<ObjectType, ContainerType<PropertyType>>
 	{
 	public:
 		ReflectSequenceProperty(
@@ -15,20 +16,21 @@ namespace ke
 			, Setter<ObjectType, ContainerType<PropertyType>> setter
 		);
 
+	public:
+		virtual void serailizeToXml(XmlWriter* xmlWriter, XmlBuilder* xmlBuilder, const IReflectObject* obj) const override final;
+		virtual void deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute* xmlAttribute, IReflectObject* obj) override final;
+
+	public:
+		virtual void serializeToBinary(IBuffer* dstBuffer, const IReflectObject* obj) const override final;
+		virtual void deserializeFromBinary(const IBuffer* srcBuffer, const IReflectObject* obj) override final;
+
 	protected:
-		virtual void* getPODPropertyInfoPtr() override { return static_cast<ReflectPODPropertyInfo<PropertyType>*>(this); }
-		virtual const void* getPODPropertyInfoPtr() const override { return static_cast<const ReflectPODPropertyInfo<PropertyType>*>(this); }
+		inline virtual bool isComplexProperty() const final { return true; }
+		inline virtual bool isReflectObject() const final { return false; }
+		inline virtual bool	isDefault(const IReflectObject* obj) const final { return this->get(obj) == _defaultValue; };
 
-	public:
-		virtual size_t	size(const IReflectObject* parentReflectObject) const override;
-
-	public:
-		virtual void	toBinary(const size_t index, const IReflectObject* object, IBuffer* outDst) const override;
-		virtual void	toString(const size_t index, const IReflectObject* object, IBuffer* outStringBuffer) const override;
-
-	public:
-		virtual void	addFromBinary(IReflectObject* object, const void* src) override;
-		virtual void	addFromString(IReflectObject* object, const char* src, size_t strLen) override;
+	protected:
+		ContainerType<PropertyType> _defaultValue;
 	};
 }
 #include "ReflectSequenceProperty.hpp"

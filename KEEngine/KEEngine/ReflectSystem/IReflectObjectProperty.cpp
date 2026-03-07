@@ -35,6 +35,13 @@ namespace ke
 
 	void IReflectObjectProperty::deserializeFromXML(const XmlNode* xmlNode, const XmlAttribute * xmlAttribute, IReflectObject * obj)
 	{
+		const std::string_view name = xmlNode->getName();
+		if (_name != name)
+		{
+			KE_ASSERT_DEV(false, "IReflectObjectProperty name mismatched with Node");
+			return;
+		}
+
 		IReflectObject* reflectObject = getReflectObject(obj);
 		const ReflectMetaData* reflectMetaData = reflectObject->getMetaData();
 
